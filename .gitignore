@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+
+# Local-only tooling. The Strava matcher talks to an authenticated API with
+# credentials from the environment; it has no business in a public repo.
+strava_match.py
+.strava*
+local-tools/
