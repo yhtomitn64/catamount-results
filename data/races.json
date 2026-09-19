@@ -765,7 +765,7 @@
     "date": "2023-07-05",
     "year": 2023,
     "discipline": "MTB",
-    "course": "Black on Red",
+    "course": "Red on Black",
     "finishers": 43,
     "sport": "Cycling - mtn cross-country"
   },
@@ -776,7 +776,7 @@
     "date": "2023-07-06",
     "year": 2023,
     "discipline": "TR",
-    "course": "Black on Red",
+    "course": "Red on Black",
     "finishers": 52,
     "sport": "Running - trail"
   },
@@ -941,7 +941,7 @@
     "date": "2023-09-06",
     "year": 2023,
     "discipline": "MTB",
-    "course": "Bw",
+    "course": "Black on White",
     "finishers": 52,
     "sport": "Cycling - mtn cross-country"
   },
@@ -952,7 +952,7 @@
     "date": "2023-09-12",
     "year": 2023,
     "discipline": "TR",
-    "course": "Y/g",
+    "course": "Yellow on Green",
     "finishers": 74,
     "sport": "Running - trail"
   },
@@ -1478,7 +1478,7 @@
     "date": "2025-06-04",
     "year": 2025,
     "discipline": "MTB",
-    "course": "Black In White",
+    "course": "Black on White",
     "finishers": 47,
     "sport": "Cycling - mtn cross-country"
   },

@@ -114,9 +114,23 @@ def parse_title(title: str) -> dict:
     return out
 
 
+# Titles are typed by hand on race night. These are the same three courses
+# ("Red on Black", "Black on White", "Yellow on Green") under slips and
+# abbreviations, confirmed by hand. Anything not listed is left as typed.
+COURSE_ALIASES = {
+    "black on red": "Red on Black",
+    "black in white": "Black on White",
+    "bw": "Black on White",
+    "y/g": "Yellow on Green",
+}
+
+
 def normalize_course(raw: str) -> str:
     """'YELLOW ON  green' and 'Yellow on Green' are the same course."""
     words = re.sub(r"\s+", " ", raw).strip().split(" ")
+    alias = COURSE_ALIASES.get(" ".join(words).lower())
+    if alias:
+        return alias
     out = []
     for w in words:
         out.append(w.lower() if w.lower() in {"on", "the", "and", "of"} else w.capitalize())
