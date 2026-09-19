@@ -268,7 +268,9 @@ def parse_results(html: str, raceid: int) -> list[dict]:
                 "category": row.get("category") or None,
                 "gender": row.get("gender") or None,
                 "team": row.get("team") or None,
-                "city": row.get("city") or None,
+                # Hometown is deliberately NOT carried through. Webscorer shows
+                # it, but nothing here uses it, and publishing where a named
+                # amateur lives is exposure this project has no need for.
                 "laps": row.get("laps") or None,
                 "time": row.get("time") or None,
                 "seconds": parse_time(row.get("time", "")),
@@ -304,10 +306,147 @@ def fetch_results(races: list[dict], refresh: bool = False) -> list[dict]:
 
 
 # --------------------------------------------------------------------------
+# weather
+# --------------------------------------------------------------------------
+
+# Catamount Outdoor Family Center, Williston VT. Races roll off at 6pm.
+VENUE_LAT, VENUE_LON = 44.4419, -73.1093
+VENUE_TZ = "America/New_York"
+RACE_HOUR = 18
+
+ARCHIVE = "https://archive-api.open-meteo.com/v1/archive"
+HOURLY = ["temperature_2m", "apparent_temperature", "relative_humidity_2m",
+          "precipitation", "cloud_cover", "wind_speed_10m", "wind_gusts_10m", "weather_code"]
+
+# WMO 4677 weather codes, collapsed to what a racer would actually say.
+WMO = {
+    0: "Clear", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    45: "Fog", 48: "Freezing fog",
+    51: "Light drizzle", 53: "Drizzle", 55: "Heavy drizzle",
+    56: "Freezing drizzle", 57: "Freezing drizzle",
+    61: "Light rain", 63: "Rain", 65: "Heavy rain",
+    66: "Freezing rain", 67: "Freezing rain",
+    71: "Light snow", 73: "Snow", 75: "Heavy snow", 77: "Snow grains",
+    80: "Light showers", 81: "Showers", 82: "Heavy showers",
+    85: "Snow showers", 86: "Snow showers",
+    95: "Thunderstorm", 96: "Thunderstorm, hail", 99: "Thunderstorm, hail",
+}
+
+
+def sky_from_cloud(pct):
+    """Cloud cover percentage -> the word someone would use standing there."""
+    if pct is None:
+        return None
+    if pct < 15:
+        return "Sunny"
+    if pct < 40:
+        return "Mostly sunny"
+    if pct < 70:
+        return "Partly cloudy"
+    if pct < 90:
+        return "Mostly cloudy"
+    return "Overcast"
+
+
+def fetch_json(url: str, params: dict, cache_key: str, refresh: bool = False):
+    global _last_request
+    path = CACHE / f"{cache_key}.json"
+    if path.exists() and not refresh:
+        return json.loads(path.read_text())
+
+    wait = DELAY - (time.time() - _last_request)
+    if wait > 0:
+        time.sleep(wait)
+    resp = _session.get(url, params=params, timeout=60)
+    _last_request = time.time()
+    resp.raise_for_status()
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(resp.text, encoding="utf-8")
+    return resp.json()
+
+
+def fetch_weather(races: list[dict], refresh: bool = False) -> dict:
+    """Conditions at the start line for every race date.
+
+    Open-Meteo's archive is free and needs no API key, so nothing secret ever
+    has to live in this repo. One request per season covers that season.
+    """
+    dates = sorted({r["date"] for r in races if r.get("date")})
+    if not dates:
+        return {}
+
+    by_year: dict[int, list[str]] = {}
+    for d in dates:
+        by_year.setdefault(int(d[:4]), []).append(d)
+
+    out: dict[str, dict] = {}
+    for year in sorted(by_year):
+        days = by_year[year]
+        params = {
+            "latitude": VENUE_LAT, "longitude": VENUE_LON,
+            "start_date": days[0], "end_date": days[-1],
+            "hourly": ",".join(HOURLY), "timezone": VENUE_TZ,
+            "temperature_unit": "fahrenheit", "wind_speed_unit": "mph",
+            "precipitation_unit": "inch",
+        }
+        try:
+            blob = fetch_json(ARCHIVE, params, f"weather-{year}", refresh=refresh)
+        except requests.RequestException as exc:
+            print(f"  {year}: {exc}", file=sys.stderr)
+            continue
+
+        hourly = blob.get("hourly") or {}
+        stamps = hourly.get("time") or []
+        index = {t: i for i, t in enumerate(stamps)}
+
+        hit = 0
+        for day in days:
+            i = index.get(f"{day}T{RACE_HOUR:02d}:00")
+            if i is None:
+                continue
+
+            def at(key):
+                col = hourly.get(key) or []
+                return col[i] if i < len(col) else None
+
+            # Rain in the three hours before the gun is what makes the dirt slick.
+            recent = 0.0
+            for back in range(0, 4):
+                j = i - back
+                col = hourly.get("precipitation") or []
+                if 0 <= j < len(col) and col[j] is not None:
+                    recent += col[j]
+
+            code = at("weather_code")
+            cloud = at("cloud_cover")
+            out[day] = {
+                "temp": at("temperature_2m"),
+                "feels": at("apparent_temperature"),
+                "humidity": at("relative_humidity_2m"),
+                "precip": at("precipitation"),
+                "precip_3h": round(recent, 3),
+                "cloud": cloud,
+                "wind": at("wind_speed_10m"),
+                "gust": at("wind_gusts_10m"),
+                "code": code,
+                "sky": sky_from_cloud(cloud),
+                "summary": WMO.get(int(code), None) if code is not None else None,
+            }
+            hit += 1
+        print(f"  {year}: {hit}/{len(days)} race dates matched")
+
+    missing = [d for d in dates if d not in out]
+    if missing:
+        print(f"\n{len(missing)} date(s) without weather: {missing[:8]}", file=sys.stderr)
+    return out
+
+
+# --------------------------------------------------------------------------
 # build
 # --------------------------------------------------------------------------
 
-def build(races: list[dict], results: list[dict]) -> dict:
+def build(races: list[dict], results: list[dict], weather: dict | None = None) -> dict:
     """Bundle races + results, dropping races we never got rows for."""
     by_race: dict[int, int] = {}
     for r in results:
@@ -316,6 +455,8 @@ def build(races: list[dict], results: list[dict]) -> dict:
     keep = [r for r in races if by_race.get(r["raceid"])]
     for r in keep:
         r["finishers"] = by_race[r["raceid"]]
+        if weather and r.get("date") in weather:
+            r["weather"] = weather[r["date"]]
     keep.sort(key=lambda r: (r.get("date") or "", r["raceid"]))
 
     names: dict[str, str] = {}
@@ -325,12 +466,18 @@ def build(races: list[dict], results: list[dict]) -> dict:
         if len(r["name"]) > len(names.get(r["racer"], "")):
             names[r["racer"]] = r["name"]
 
+    strava = {}
+    path = DATA / "strava.json"
+    if path.exists():
+        strava = (json.loads(path.read_text()) or {}).get("athletes") or {}
+
     return {
         "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "source": ORGANIZER,
         "races": keep,
         "results": results,
         "racers": names,
+        "strava": strava,
     }
 
 
@@ -361,7 +508,7 @@ def save(name: str, obj) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("phase", choices=["discover", "fetch", "build", "all"])
+    ap.add_argument("phase", choices=["discover", "fetch", "weather", "build", "all"])
     ap.add_argument("--refresh", action="store_true", help="ignore the cache and re-download")
     ap.add_argument("--ids", nargs="*", type=int, default=[], help="extra race ids to include")
     args = ap.parse_args()
@@ -380,8 +527,17 @@ def main() -> None:
         save("results.json", results)
         print(f"Wrote data/results.json: {len(results)} rows.\n")
 
+    if args.phase in ("weather", "all"):
+        races = load("races.json")
+        print("Fetching weather...")
+        save("weather.json", fetch_weather(races, refresh=args.refresh))
+        print("Wrote data/weather.json.\n")
+
     if args.phase in ("build", "all"):
-        write_bundle(build(load("races.json"), load("results.json")))
+        weather = {}
+        if (DATA / "weather.json").exists():
+            weather = json.loads((DATA / "weather.json").read_text())
+        write_bundle(build(load("races.json"), load("results.json"), weather))
 
 
 if __name__ == "__main__":

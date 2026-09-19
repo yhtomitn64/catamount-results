@@ -101,15 +101,43 @@ def main() -> None:
                 mins, rest = divmod(secs, 60)
                 results.append({
                     "raceid": raceid, "place": place, "name": r["name"], "racer": r["racer"],
-                    "category": r["category"], "gender": None, "team": None, "city": None,
+                    "category": r["category"], "gender": None, "team": None,
                     "laps": "3", "time": f"{int(mins)}:{rest:04.1f}", "seconds": round(secs, 1),
                 })
+
+    # Plausible Vermont summer evenings, so the weather views have something
+    # to render before the real Open-Meteo pull runs.
+    weather = {}
+    for race in races:
+        month = int(race["date"][5:7])
+        base = {5: 64, 6: 72, 7: 78, 8: 76}.get(month, 70)
+        temp = round(random.gauss(base, 7), 1)
+        cloud = round(min(100, max(0, random.gauss(45, 30))))
+        wet = random.random() < 0.18
+        precip = round(abs(random.gauss(0.05, 0.05)), 3) if wet else 0.0
+        code = 61 if wet and precip > 0.04 else (95 if wet else None)
+        if code is None:
+            code = 0 if cloud < 15 else 1 if cloud < 40 else 2 if cloud < 70 else 3
+        weather[race["date"]] = {
+            "temp": temp,
+            "feels": round(temp + random.gauss(0, 3), 1),
+            "humidity": round(min(100, max(25, random.gauss(62, 15)))),
+            "precip": precip,
+            "precip_3h": round(precip * random.uniform(1, 3), 3),
+            "cloud": cloud,
+            "wind": round(abs(random.gauss(6, 3)), 1),
+            "gust": round(abs(random.gauss(13, 5)), 1),
+            "code": code,
+            "sky": scrape.sky_from_cloud(cloud),
+            "summary": scrape.WMO.get(code),
+        }
 
     out = pathlib.Path(__file__).resolve().parent.parent / "data"
     out.mkdir(exist_ok=True)
     (out / "races.json").write_text(json.dumps(races, indent=2))
     (out / "results.json").write_text(json.dumps(results, indent=2))
-    bundle = scrape.build(races, results)
+    (out / "weather.json").write_text(json.dumps(weather, indent=2))
+    bundle = scrape.build(races, results, weather)
     bundle["sample"] = True
     scrape.write_bundle(bundle)
 

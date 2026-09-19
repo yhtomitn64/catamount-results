@@ -28,6 +28,11 @@ change in that chart usually means the loop was re-cut, not that the field chang
 **Seasons** — standings for any year, sortable by starts, wins, podiums or median
 finish.
 
+**Weather** — conditions at the 6pm gun for every race: temperature, what it felt
+like, sky, wind and gusts, humidity, and rain in the three hours beforehand (which
+is what actually decides whether the dirt is slick). Each racer's profile breaks
+their finishes down by temperature band, wet vs dry, and sun vs cloud.
+
 ## Running it
 
 The page is a single static HTML file that reads a generated data bundle. Nothing
@@ -38,9 +43,10 @@ pip install -r requirements.txt
 
 python scrape.py discover   # find every Catamount race        -> data/races.json
 python scrape.py fetch      # pull each race's results         -> data/results.json
+python scrape.py weather    # conditions at each race's 6pm    -> data/weather.json
 python scrape.py build      # bundle for the page              -> data/catamount.{json,js}
 
-python scrape.py all        # or just do all three
+python scrape.py all        # or just do all four
 ```
 
 Then open `index.html`. It works straight off disk — the data is loaded as
@@ -61,6 +67,50 @@ courses, the page uses one of two normalisations instead:
   winner had an off night.
 
 Both are shown because neither is right on its own.
+
+## Weather
+
+Conditions come from the [Open-Meteo historical archive](https://open-meteo.com/),
+sampled at the venue (44.4419, -73.1093) at 18:00 local for each race date.
+
+Open-Meteo needs **no API key**, which is deliberate: this repository is public and
+there is no credential for it to leak. Nothing here reads an environment variable or
+expects a secret, and nothing should ever be added that does — if a future data
+source needs a key, put it in GitHub Actions secrets and read it there, never in a
+committed file.
+
+```sh
+python scrape.py weather    # -> data/weather.json, merged into the bundle by `build`
+```
+
+## Strava links
+
+`data/strava.json` maps a racer to their Strava profile. It is **hand-curated and
+opt-in**, and ships empty:
+
+```json
+{ "athletes": { "some-racer-slug": "https://www.strava.com/athletes/1234567" } }
+```
+
+### What is and isn't published
+
+Per racer, the data carries only what a results board already shows: name, category,
+team, placing, time and lap count. Hometown is **deliberately dropped** even though
+Webscorer displays it — nothing in the interface uses it, and publishing where a
+named amateur lives is exposure this project has no reason to create.
+
+Nothing in this repo tries to figure out which Strava account belongs to which
+racer. That restraint is deliberate. These are real names of local amateur
+athletes, on a public page; automatically matching them to personal training
+accounts would turn a results archive into a people-search tool, and a wrong match
+would attribute a stranger's training data to someone who never agreed to any of
+it. So: add a person here only when their profile is public *and* they're happy to
+be linked.
+
+For everyone without an entry, the page shows a "Search Strava" link that just runs
+their name through Strava's own search — it claims nothing about who they are. To
+remove even that, set `SHOW_STRAVA_SEARCH = false` near the top of the script block
+in `index.html`.
 
 ## How the scraping works
 
@@ -92,6 +142,7 @@ page says so in a banner. Running `scrape.py` overwrites everything it produced.
 index.html                    the interface — one self-contained file
 scrape.py                     discover / fetch / build
 tools/make_sample_data.py     invented stand-in data
+data/strava.json              hand-curated, opt-in profile links
 data/                         generated; committed so the page works on Pages
-cache/                        raw HTML, gitignored
+cache/                        raw HTML and weather JSON, gitignored
 ```
