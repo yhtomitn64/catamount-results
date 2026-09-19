@@ -119,8 +119,10 @@ def main() -> None:
                     mins, rest = divmod(secs, 60)
                     results.append({
                         "raceid": raceid, "place": place, "name": r["name"], "racer": r["racer"],
-                        "category": r["category"], "gender": None, "team": None,
-                        "laps": str(laps),
+                        "category": r["category"], "team": None,
+                        # Same shape the real scraper emits: `distance` is the
+                        # start-line group the UI keys on, `laps` its numeric form.
+                        "distance": f"{laps} Lap", "laps": laps,
                         "time": f"{int(mins)}:{rest:04.1f}", "seconds": round(secs, 1),
                     })
 

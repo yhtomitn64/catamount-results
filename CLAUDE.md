@@ -17,12 +17,17 @@ data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer
 - **No secrets, no env-var reads.** Open-Meteo needs no API key on purpose. If a
   future source needs a key, it goes in GitHub Actions secrets, never in a file.
 - **Real names of amateur athletes are published here.** Publish only what a results
-  board already shows (name, category, team, placing, time, distance group, laps). Bib and gender
-  are read for de-duplication and then dropped. Hometown is
-  deliberately dropped. Do not add anything that links racers to personal accounts
+  board already shows, and only what the UI needs: name, placing, time, distance
+  group, laps. Nothing that identifies a person beyond the race they did: hometown,
+  age, age category, team, bib and gender are all dropped (bib and gender are read
+  only to de-duplicate). Placeholder names ("COFC 3", "Please email for results")
+  are skipped. Do not add anything that links racers to personal accounts
   (Strava, social) or infers identity — that idea was considered and dropped.
-- **Do not deploy sample data.** `data/` currently holds invented stand-in data
-  (banner on the page says so). Replace it with a real scrape before this goes live.
+  Merging one person's spelled variants ("Tim" / "Timothy") is done only through the
+  hand-kept `aliases.json`, never by guessing.
+- **Do not deploy sample data.** `data/` holds a real scrape. `python
+  tools/make_sample_data.py` overwrites it with invented data (the page shows a
+  banner) — restore with `git checkout -- data` and never commit that.
 
 ## The two facts the whole design rests on
 
@@ -36,7 +41,7 @@ data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer
    actually completed). If real data ever loses these, everything silently
    collapses into one group and reintroduces the bug, so check they are populated
    after any scrape. (Tim usually rides 4 laps, sometimes 3.)
-2. **A course name is not a fixed course.** Red on Black in 2019 and 2025 cover
+2. **A course name is not a fixed course.** Red on Black in an early season and a recent one cover
    roughly the same terrain but the loop is re-cut. Times compare confidently
    within a season and only loosely across years; use finish percentile across
    years.

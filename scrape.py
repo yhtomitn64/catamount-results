@@ -285,6 +285,13 @@ def score_table(table) -> int:
 
 GROUP_SUFFIX = " - Overall"
 
+# Timing-day stand-ins entered in the name field ("COFC 3", "Please email for
+# results", "Unknown racer", the sponsor "SkiRack 1") are not people.
+PLACEHOLDER_RE = re.compile(
+    r"e-?mail|unknown|\btbd\b|\(missing\)|need name|no bib|^cofc\b|^skirack\b|please|pleasse|plz", re.I)
+# A real name with a bib note stuck on it: "Oliver (bib 243) Tremble".
+BIB_NOTE_RE = re.compile(r"\(\s*bib\s*\d+\s*\)", re.I)
+
 
 def distance_label(raw: str) -> str:
     """'3 Lap' -> '3 Lap', '5k' -> '5K', 'Half' -> 'Half'. '' means one undivided field."""
@@ -404,8 +411,8 @@ def read_table(table, raceid: int, distance: str, group_laps: int | None = None,
             if key in row and row[key]:
                 continue
             row[key] = value
-        name = row.get("name", "").strip()
-        if not name:
+        name = " ".join(BIB_NOTE_RE.sub(" ", row.get("name", "")).split())
+        if not name or PLACEHOLDER_RE.search(name):
             continue
 
         place_raw = re.sub(r"[^\d]", "", row.get("place", ""))
@@ -482,9 +489,13 @@ def parse_results(html: str, raceid: int) -> list[dict]:
                 if key not in seen:
                     seen.add(key)
                     rows.append(r)
+    # Published rows carry a name, a placing, a time and the race group, and
+    # nothing else that identifies a person. Bib and gender exist only to
+    # de-duplicate; category (an age band, "14 and Under") and team are
+    # dropped as well: nothing here uses them.
     for r in rows:
-        r.pop("bib", None)
-        r.pop("gender", None)
+        for field in ("bib", "gender", "category", "team"):
+            r.pop(field, None)
     return rows
 
 
@@ -673,8 +684,24 @@ def fetch_weather(races: list[dict], refresh: bool = False) -> dict:
 # build
 # --------------------------------------------------------------------------
 
+def load_aliases() -> dict:
+    """Hand-kept merges of one person's spelled names: {"tim-burgher": "timothy-burgher"}.
+
+    Identity here is the spelled name, so a nickname or a typo makes a second
+    racer. Merging is deliberately explicit (aliases.json), never inferred.
+    """
+    path = ROOT / "aliases.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8")).get("aliases", {})
+
+
 def build(races: list[dict], results: list[dict], weather: dict | None = None) -> dict:
     """Bundle races + results, dropping races we never got rows for."""
+    aliases = load_aliases()
+    for r in results:
+        r["racer"] = aliases.get(r["racer"], r["racer"])
+
     by_race: dict[int, int] = {}
     for r in results:
         by_race[r["raceid"]] = by_race.get(r["raceid"], 0) + 1
@@ -692,6 +719,8 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
         # aggressively than merging, but keeps display stable.
         if len(r["name"]) > len(names.get(r["racer"], "")):
             names[r["racer"]] = r["name"]
+    for r in results:
+        r["name"] = names[r["racer"]]
 
     return {
         "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
