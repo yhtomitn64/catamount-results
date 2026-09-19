@@ -305,6 +305,8 @@ PLACEHOLDER_RE = re.compile(
     r"e-?mail|unknown|\btbd\b|\(missing\)|need name|no bib|^cofc\b|^skirack\b|please|pleasse|plz", re.I)
 # A real name with a bib note stuck on it: "Oliver (bib 243) Tremble".
 BIB_NOTE_RE = re.compile(r"\(\s*bib\s*\d+\s*\)", re.I)
+# A quoted nickname typed into the name: 'Detlef ""Hellmut"" Hagge'.
+QUOTED_NICKNAME_RE = re.compile(r'"+[^"]*"+')
 
 
 def distance_label(raw: str) -> str:
@@ -425,9 +427,13 @@ def read_table(table, raceid: int, distance: str, group_laps: int | None = None,
             if key in row and row[key]:
                 continue
             row[key] = value
-        name = " ".join(BIB_NOTE_RE.sub(" ", row.get("name", "")).split())
+        name = " ".join(QUOTED_NICKNAME_RE.sub(" ", BIB_NOTE_RE.sub(" ", row.get("name", ""))).split())
         if not name or PLACEHOLDER_RE.search(name):
             continue
+        if name.isupper():
+            name = name.title()  # "DAVID SCHMIDT"
+        # "kimberly Tillotson", "billy d Dysart": capitalise a lowercase token start.
+        name = " ".join(t[0].upper() + t[1:] if t[0].islower() else t for t in name.split())
 
         place_raw = re.sub(r"[^\d]", "", row.get("place", ""))
         laps = group_laps if group_laps is not None else laps_from_distance(distance)
@@ -727,12 +733,13 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
             r["weather"] = weather[r["date"]]
     keep.sort(key=lambda r: (r.get("date") or "", r["raceid"]))
 
-    names: dict[str, str] = {}
+    # Show each person under the spelling used most often (ties: the longer one),
+    # so a merged "Russ Cooke" is not displayed as a one-off "Russell T Cooke".
+    spellings: dict[str, dict[str, int]] = {}
     for r in results:
-        # Prefer the longest spelling seen; handles "Tim" vs "Timothy" less
-        # aggressively than merging, but keeps display stable.
-        if len(r["name"]) > len(names.get(r["racer"], "")):
-            names[r["racer"]] = r["name"]
+        tally = spellings.setdefault(r["racer"], {})
+        tally[r["name"]] = tally.get(r["name"], 0) + 1
+    names = {k: max(t, key=lambda n: (t[n], len(n))) for k, t in spellings.items()}
     for r in results:
         r["name"] = names[r["racer"]]
 

@@ -89,6 +89,14 @@ input:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px}
 button.ghost{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}
 button.ghost:hover{border-color:var(--accent)}
 
+.filter{display:inline-flex;margin-top:16px;border:1px solid var(--line);border-radius:999px;
+  background:var(--panel);overflow:hidden;max-width:100%}
+.filter button{border:0;background:transparent;color:var(--ink-2);font-size:13px;padding:6px 15px;
+  cursor:pointer;white-space:nowrap}
+.filter button + button{border-left:1px solid var(--line)}
+.filter button:hover{background:var(--panel-2)}
+.filter button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 1px rgba(128,128,128,.45) inset}
@@ -181,6 +189,32 @@ function grpLabel(g) {
   return x ? d + " · " + x : d;
 }
 function distLabel(d) { return d || "All finishers"; }
+
+// Event-type filter, shared by every page that mixes sports. It is remembered
+// per browser, but nothing depends on it: the page renders fine without storage.
+var FILTERS = [
+  { id: "all", label: "All" }, { id: "MTB", label: "MTB" },
+  { id: "CX", label: "Cyclocross" }, { id: "TR", label: "Run" }
+];
+var discFilter = "all";
+try {
+  var savedFilter = window.localStorage && window.localStorage.getItem("catamount-filter");
+  if (FILTERS.some(function (f) { return f.id === savedFilter; })) discFilter = savedFilter;
+} catch (e) { /* private window or blocked storage: start on All */ }
+function passRace(race) { return discFilter === "all" || race.discipline === discFilter; }
+function passRow(r) { return passRace(raceById[r.raceid] || {}); }
+function rowsOf(k) { return (resultsByRacer[k] || []).filter(passRow); }
+function filterName() {
+  var f = FILTERS.filter(function (x) { return x.id === discFilter; })[0];
+  return f && f.id !== "all" ? f.label : "";
+}
+function filterBar() {
+  return '<div class="filter" role="group" aria-label="Event type">' + FILTERS.map(function (f) {
+    var on = f.id === discFilter;
+    return '<button type="button" data-filter="' + f.id + '" class="' + (on ? "on" : "") +
+           '" aria-pressed="' + on + '">' + esc(f.label) + "</button>";
+  }).join("") + "</div>";
+}
 
 RESULTS.forEach(function (r) {
   if (!raceById[r.raceid]) return;
@@ -403,6 +437,13 @@ function lineChart(series, opts) {
   var y1 = opts.y1 != null ? opts.y1 : Math.max.apply(null, ys);
   if (y1 === y0) { y1 = y0 + 1; }
   if (!fixed) { var padY = (y1 - y0) * 0.08; y0 -= padY; y1 += padY; }
+  // Time charts always span every season on record, so the axis is the same on
+  // every page and a racer who sat a year out shows the gap instead of
+  // silently shrinking the chart to the years they raced.
+  if (opts.xTicks && opts.xTicks.length && YEAR_LIST.length) {
+    x0 = Math.min(x0, Date.parse(YEAR_LIST[YEAR_LIST.length - 1] + "-01-01"));
+    x1 = Math.max(x1, Date.parse((YEAR_LIST[0] + 1) + "-01-01"));
+  }
   if (x1 === x0) { x0 -= 1; x1 += 1; }
 
   var X = function (v) { return P.l + (v - x0) / (x1 - x0) * (W - P.l - P.r); };
@@ -469,8 +510,8 @@ function yearTicks() {
 function meetings(a, b) {
   // Keyed by division, not race night: sharing a start line while racing
   // different distances is not a head to head.
-  var mine = resultsByRacer[a] || [], theirs = {}, out = [];
-  (resultsByRacer[b] || []).forEach(function (r) { theirs[r.div] = r; });
+  var mine = rowsOf(a), theirs = {}, out = [];
+  rowsOf(b).forEach(function (r) { theirs[r.div] = r; });
   mine.forEach(function (r) {
     var o = theirs[r.div];
     if (o && r.dplace && o.dplace) out.push({ race: raceById[r.raceid], grp: r.grp, a: r, b: o });
@@ -487,7 +528,7 @@ function record(a, b) {
 
 // Everyone a racer has lined up against, ranked by how often.
 function rivals(key) {
-  var mine = resultsByRacer[key] || [], tally = {};
+  var mine = rowsOf(key), tally = {};
   mine.forEach(function (r) {
     (resultsByDiv[r.div] || []).forEach(function (o) {
       if (o.racer === key || !o.dplace || !r.dplace) return;
@@ -516,9 +557,15 @@ views.racer = function (key) {
   var rows = resultsByRacer[key];
   if (!rows) return '<div class="card"><h2>Not found</h2><p class="hint">No results for that racer.</p></div>' + pickRacer();
 
-  rows = rows.slice().sort(function (a, b) {
+  var multiSport = new Set(rows.map(function (r) { return raceById[r.raceid].discipline || "?"; })).size > 1;
+  rows = rows.filter(passRow).sort(function (a, b) {
     return (raceById[b.raceid].date || "").localeCompare(raceById[a.raceid].date || "");
   });
+  var bar = multiSport || discFilter !== "all" ? filterBar() : "";
+  if (!rows.length) {
+    return bar + '<div class="card"><h2>' + esc(nameOf(key)) + '</h2><p class="hint">No ' +
+           esc(filterName()) + " results for this racer.</p></div>";
+  }
 
   var wins = rows.filter(function (r) { return r.dplace === 1; }).length;
   var podiums = rows.filter(function (r) { return r.dplace && r.dplace <= 3; }).length;
@@ -527,7 +574,7 @@ views.racer = function (key) {
   var yrs = rows.map(function (r) { return raceById[r.raceid].year; }).filter(Boolean);
   var span = yrs.length ? Math.min.apply(null, yrs) + "–" + Math.max.apply(null, yrs) : "—";
 
-  var h = '<div class="card">';
+  var h = bar + '<div class="card">';
   h += '<p class="big-name">' + esc(nameOf(key)) + "</p>";
   var perDisc = {};
   rows.forEach(function (r) { var d = raceById[r.raceid].discipline || "?"; perDisc[d] = (perDisc[d] || 0) + 1; });
@@ -559,9 +606,12 @@ views.racer = function (key) {
   }
 
   // How they finish, over time.
+  var NO_COURSE = "Course not listed";
   var byCourse = {};
   rows.forEach(function (r) {
-    var c = raceById[r.raceid].course; if (!c || r.pct == null) return;
+    // Race titles only name a course from 2023, and cross never does. Percentile
+    // does not depend on the course, so those races still count.
+    var c = raceById[r.raceid].course || NO_COURSE; if (r.pct == null) return;
     (byCourse[c] = byCourse[c] || []).push({
       x: Date.parse(raceById[r.raceid].date), y: r.pct * 100,
       title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + grpLabel(r.grp) + " · " + r.dplace + "/" + r.field
@@ -571,7 +621,7 @@ views.racer = function (key) {
     return { label: c, color: courseColor(c), points: byCourse[c] };
   });
   h += '<div class="card"><h2>Where they finish</h2>' +
-       '<p class="hint">Percentile in the field — 100% is the win, 0% is last. Coloured by course.</p>' +
+       '<p class="hint">Percentile in the field — 100% is the win, 0% is last. Coloured by course; grey where the race title names none.</p>' +
        lineChart(series, { scatter: true, y0: 0, y1: 100, xTicks: yearTicks(),
                            fmtY: function (v) { return Math.round(v) + "%"; }, label: "Finish percentile over time" }) +
        legend(series) + "</div>";
@@ -749,30 +799,33 @@ function allRoundersCard() {
 }
 
 function pickRacer() {
+  var keys = RACER_KEYS.filter(function (k) { return rowsOf(k).length; })
+    .sort(function (a, b) { return rowsOf(b).length - rowsOf(a).length; });
+  function pcts(k) { return rowsOf(k).map(function (r) { return r.pct; }).filter(function (v) { return v != null; }); }
+  function wins(k) { return rowsOf(k).filter(function (r) { return r.dplace === 1; }).length; }
+  function seasons(k) { return new Set(rowsOf(k).map(function (r) { return raceById[r.raceid].year; })).size; }
   return '<div class="card"><h2>Find a racer</h2>' +
     '<p class="hint">' + RACER_KEYS.length + " people have results here. Start typing a name.</p>" +
     '<input type="search" id="racer-search" placeholder="e.g. Super Person" autocomplete="off">' +
     '<div id="racer-hits"></div></div>' +
     allRoundersCard() +
-    '<div class="card"><h2>Most starts, all time</h2>' +
+    filterBar() +
+    '<div class="card"><h2>Most starts' + (filterName() ? ", " + esc(filterName()) : ", all time") + "</h2>" +
     table([
       { label: "Racer", get: function (k) { return nameOf(k); }, cell: function (k) { return "<td>" + racerLink(k) + "</td>"; } },
-      { label: "Starts", cls: "num", get: function (k) { return resultsByRacer[k].length; }, defaultDir: -1,
-        cell: function (k) { return '<td class="num">' + resultsByRacer[k].length + "</td>"; } },
-      { label: "Wins", cls: "num", get: function (k) { return resultsByRacer[k].filter(function (r) { return r.dplace === 1; }).length; }, defaultDir: -1,
-        cell: function (k) { return '<td class="num">' + resultsByRacer[k].filter(function (r) { return r.dplace === 1; }).length + "</td>"; } },
-      { label: "Median finish", cls: "num",
-        get: function (k) { return median(resultsByRacer[k].map(function (r) { return r.pct; }).filter(function (v) { return v != null; })); },
-        defaultDir: -1,
-        cell: function (k) { return '<td class="num">' + fmtPct(median(resultsByRacer[k].map(function (r) { return r.pct; }).filter(function (v) { return v != null; }))) + "</td>"; } },
-      { label: "Seasons", cls: "num",
-        get: function (k) { return new Set(resultsByRacer[k].map(function (r) { return raceById[r.raceid].year; })).size; }, defaultDir: -1,
-        cell: function (k) { return '<td class="num">' + new Set(resultsByRacer[k].map(function (r) { return raceById[r.raceid].year; })).size + "</td>"; } }
-    ], RACER_KEYS, { sort: 1, dir: -1, limit: 100 }) + "</div>";
+      { label: "Starts", cls: "num", get: function (k) { return rowsOf(k).length; }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + rowsOf(k).length + "</td>"; } },
+      { label: "Wins", cls: "num", get: wins, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + wins(k) + "</td>"; } },
+      { label: "Median finish", cls: "num", get: function (k) { return median(pcts(k)); }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + fmtPct(median(pcts(k))) + "</td>"; } },
+      { label: "Seasons", cls: "num", get: seasons, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + seasons(k) + "</td>"; } }
+    ], keys, { sort: 1, dir: -1, limit: 100 }) + "</div>";
 }
 
 views.h2h = function (a, b) {
-  var h = '<div class="card"><h2>Head to head</h2>' +
+  var h = filterBar() + '<div class="card"><h2>Head to head</h2>' +
     '<p class="hint">Pick two people. Only counts nights they both finished <em>and</em> ' +
     'raced the same distance — sharing a start line at different distances is not a race.</p>' +
     '<div class="row">' +
@@ -850,12 +903,12 @@ function racerSelect(id, val) {
 views.course = function (cslug) {
   if (!cslug) {
     var rows = COURSE_NAMES.map(function (c) {
-      var rs = courses[c];
+      var rs = courses[c].filter(passRace);
       var ys = rs.map(function (r) { return r.year; }).filter(Boolean);
       return { course: c, n: rs.length, years: new Set(ys).size,
                from: ys.length ? Math.min.apply(null, ys) : null, to: ys.length ? Math.max.apply(null, ys) : null };
-    });
-    return '<div class="card"><h2>Courses</h2>' +
+    }).filter(function (r) { return r.n; });
+    return filterBar() + '<div class="card"><h2>Courses</h2>' +
       '<p class="hint">The series rotates courses between seasons but repeats them within one, ' +
       "so a course page is where times actually compare.</p>" +
       table([
@@ -870,7 +923,11 @@ views.course = function (cslug) {
   var name = COURSE_NAMES.filter(function (c) { return slug(c) === cslug; })[0];
   if (!name) return '<div class="card"><h2>Unknown course</h2></div>' + views.course();
 
-  var rs = courses[name];
+  var rs = courses[name].filter(passRace);
+  if (!rs.length) {
+    return filterBar() + '<div class="card"><h2>' + esc(name) + '</h2><p class="hint">No ' +
+           esc(filterName()) + " races on this course.</p></div>";
+  }
   var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
   var all = RESULTS.filter(function (r) { return ids[r.raceid] && r.seconds; });
   var fastest = all.slice().sort(function (a, b) { return a.seconds - b.seconds; });
@@ -886,7 +943,7 @@ views.course = function (cslug) {
   var rank = {};
   fastest.forEach(function (r, i) { rank[r.raceid + "|" + r.racer] = i + 1; });
 
-  var h = '<div class="card"><p class="big-name">' +
+  var h = filterBar() + '<div class="card"><p class="big-name">' +
     '<span class="dot" style="display:inline-block;background:' + courseColor(name) + '"></span> ' + esc(name) + "</p>" +
     '<p class="hint">' + rs.length + " races · " +
     new Set(rs.map(function (r) { return r.year; })).size + " seasons</p>" +
@@ -1025,30 +1082,35 @@ views.race = function (id) {
   return h;
 };
 
+function seasonsCard() {
+  var rows = YEAR_LIST.map(function (y) {
+    var rs = (years[y] || []).filter(passRace);
+    var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
+    var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
+    return { year: y, races: rs.length, starts: res.length,
+             racers: new Set(res.map(function (r) { return r.racer; })).size,
+             courses: new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size };
+  }).filter(function (r) { return r.races; });
+  return '<div class="card"><h2>Seasons</h2>' +
+    table([
+      { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + r.year + "</a></td>"; } },
+      { label: "Races", cls: "num", get: function (r) { return r.races; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.races + "</td>"; } },
+      { label: "Courses", cls: "num", get: function (r) { return r.courses; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.courses + "</td>"; } },
+      { label: "Racers", cls: "num", get: function (r) { return r.racers; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.racers + "</td>"; } },
+      { label: "Starts", cls: "num", get: function (r) { return r.starts; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.starts + "</td>"; } }
+    ], rows, { sort: 0, dir: -1 }) + "</div>";
+}
+
 views.series = function (year) {
-  if (!year) {
-    var rows = YEAR_LIST.map(function (y) {
-      var rs = years[y];
-      var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
-      var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
-      return { year: y, races: rs.length, starts: res.length,
-               racers: new Set(res.map(function (r) { return r.racer; })).size,
-               courses: new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size };
-    });
-    return '<div class="card"><h2>Seasons</h2>' +
-      table([
-        { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
-          cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + r.year + "</a></td>"; } },
-        { label: "Races", cls: "num", get: function (r) { return r.races; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.races + "</td>"; } },
-        { label: "Courses", cls: "num", get: function (r) { return r.courses; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.courses + "</td>"; } },
-        { label: "Racers", cls: "num", get: function (r) { return r.racers; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.racers + "</td>"; } },
-        { label: "Starts", cls: "num", get: function (r) { return r.starts; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.starts + "</td>"; } }
-      ], rows, { sort: 0, dir: -1 }) + "</div>";
-  }
+  if (!year) return filterBar() + seasonsCard();
 
   year = +year;
-  var rs = years[year];
-  if (!rs) return '<div class="card"><h2>No races in ' + esc(year) + "</h2></div>" + views.series();
+  var rs = (years[year] || []).filter(passRace);
+  if (!rs.length) {
+    return filterBar() + '<div class="card"><h2>No ' + (filterName() ? esc(filterName()) + " " : "") +
+           "races in " + esc(year) + "</h2></div>" + seasonsCard();
+  }
 
   var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
   var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
@@ -1064,7 +1126,7 @@ views.series = function (year) {
     var t = by[k]; t.median = median(t.pcts); return t;
   });
 
-  var h = '<div class="card"><p class="big-name">' + year + " season</p>" +
+  var h = filterBar() + '<div class="card"><p class="big-name">' + year + " season</p>" +
     '<div class="stats">' + stat(rs.length, "Races") +
     stat(new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size, "Courses") +
     stat(standings.length, "Racers") + stat(res.length, "Starts") + "</div></div>";
@@ -1101,11 +1163,14 @@ views.series = function (year) {
 };
 
 views.races = function () {
-  return '<div class="card"><h2>All races</h2>' +
-    '<p class="hint">' + RACES.length + " races on record. Click a date for full results.</p>" +
+  var list = RACES.filter(passRace);
+  return filterBar() + '<div class="card"><h2>All races</h2>' +
+    '<p class="hint">' + list.length + " races" + (filterName() ? " (" + esc(filterName()) + ")" : " on record") + ". Click a date for full results.</p>" +
     table([
       { label: "Date", get: function (r) { return r.date; }, defaultDir: -1,
         cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(r.date) + "</a></td>"; } },
+      { label: "Event", get: function (r) { return r.discipline; },
+        cell: function (r) { return "<td>" + esc(DISC_NAMES[r.discipline] || r.discipline || "—") + "</td>"; } },
       { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
         cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + (r.year || "—") + "</a></td>"; } },
       { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
@@ -1118,7 +1183,7 @@ views.races = function () {
           var w = n == null ? null : (resultsByDiv[r.raceid + "|" + n] || [])[0];
           return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + (n ? n + ", " : "") +
                  fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
-    ], RACES.slice(), { sort: 0, dir: -1 }) + "</div>";
+    ], list, { sort: 0, dir: -1 }) + "</div>";
 };
 
 // ---------------------------------------------------------------------------
@@ -1133,7 +1198,7 @@ var TABS = [
   { id: "races", label: "All races" }
 ];
 
-function render() {
+function render(keepScroll) {
   var parts = (location.hash || "#/racer").replace(/^#\/?/, "").split("/").filter(Boolean);
   var tab = parts[0] || "racer";
   if (!views[tab]) tab = "racer";
@@ -1144,10 +1209,10 @@ function render() {
 
   TABLES = {};
   document.getElementById("view").innerHTML = views[tab].apply(null, parts.slice(1));
-  window.scrollTo(0, 0);
+  if (keepScroll !== true) window.scrollTo(0, 0);
 
   var search = document.getElementById("racer-search");
-  if (search) { search.focus(); search.oninput = function () { showHits(this.value); }; }
+  if (search) { if (keepScroll !== true) search.focus(); search.oninput = function () { showHits(this.value); }; }
 }
 
 function showHits(q) {
@@ -1169,7 +1234,15 @@ document.addEventListener("change", function (e) {
   location.hash = "#/h2h/" + a + "/" + b;
 });
 
-window.addEventListener("hashchange", render);
+document.addEventListener("click", function (e) {
+  var b = e.target && e.target.closest ? e.target.closest("button[data-filter]") : null;
+  if (!b) return;
+  discFilter = b.dataset.filter;
+  try { window.localStorage.setItem("catamount-filter", discFilter); } catch (err) { /* fine without storage */ }
+  render(true);
+});
+
+window.addEventListener("hashchange", function () { render(); });
 
 // ---------------------------------------------------------------------------
 // chrome

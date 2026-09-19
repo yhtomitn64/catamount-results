@@ -34,9 +34,10 @@ below is done.
    live landing page, so do it deliberately.
 2. **GitHub web setting:** Settings -> Emails -> "Block command line pushes that
    expose my email" is the one layer that covers every machine.
-3. **More name merges (optional).** About 120 spelled-variant pairs look like one
-   person (Chris/Christopher Hamlin, Jon/Jonathan/Johnathan Rodd, ...). Add the
-   ones you are sure of to `aliases.json`; skip pairs that raced the same night.
+3. **Name merges beyond the safe set (optional).** `aliases.json` holds 102
+   hand-kept merges (nicknames, spelling slips, middle names) that never share a race
+   night. About 11 more pairs were left for a human call, plus near-misses like
+   Karen/Karin Bove or Sam/Samantha Fox. Only add ones you are sure of.
 4. **Scheduled refresh.** `refresh.yml` is manual-only. Before enabling the
    schedule, add `actions/cache` for `cache/` or every run re-downloads all ~196
    pages.
