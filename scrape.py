@@ -23,7 +23,7 @@ import time
 import unicodedata
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 
 ROOT = pathlib.Path(__file__).resolve().parent
 CACHE = ROOT / "cache"
@@ -67,31 +67,46 @@ def fetch(url: str, cache_key: str, refresh: bool = False) -> str:
 # title parsing
 # --------------------------------------------------------------------------
 
-# "Catamount 6-21-23 MTB Race (Yellow on Green)"
-TITLE_RE = re.compile(
-    r"(?P<m>\d{1,2})[-/](?P<d>\d{1,2})[-/](?P<y>\d{2,4})"
-    r"(?:\s+(?P<disc>MTB|TR|XC|SS))?",
-    re.I,
-)
+# Titles come in three date shapes:
+#   "Catamount 6-21-23 MTB Race (Yellow on Green)"     m-d-yy
+#   "2021-07-13 Catamount trail running race"           ISO
+#   "Catamount Cyclocross Race 15-Sep-2021"             d-Mon-yyyy
+TITLE_RE = re.compile(r"(?P<m>\d{1,2})[-/](?P<d>\d{1,2})[-/](?P<y>\d{2,4})")
+ISO_RE = re.compile(r"(?P<y>\d{4})-(?P<m>\d{1,2})-(?P<d>\d{1,2})")
+DMY_RE = re.compile(r"(?P<d>\d{1,2})-(?P<mon>[A-Za-z]{3})[a-z]*-(?P<y>\d{4})")
+MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 COURSE_RE = re.compile(r"\(([^)]+)\)")
 
-DISCIPLINE_NAMES = {"MTB": "Mountain bike", "TR": "Trail run", "XC": "Cross country", "SS": "Single speed"}
+DISCIPLINE_NAMES = {"MTB": "Mountain bike", "TR": "Trail run", "CX": "Cyclocross", "XC": "Cross country", "SS": "Single speed"}
+
+
+def discipline_from_title(title: str) -> str | None:
+    t = title.lower()
+    if "cyclocross" in t or re.search(r"\bcx\b", t):
+        return "CX"
+    if "mtb" in t:
+        return "MTB"
+    if "trail" in t or re.search(r"\btr\b", t):
+        return "TR"
+    return None
 
 
 def parse_title(title: str) -> dict:
     """Pull date, discipline and course out of a Webscorer race title."""
-    out = {"date": None, "year": None, "discipline": None, "course": None}
+    out = {"date": None, "year": None, "discipline": discipline_from_title(title), "course": None}
 
-    m = TITLE_RE.search(title)
-    if m:
-        month, day, year = int(m["m"]), int(m["d"]), int(m["y"])
-        if year < 100:
-            year += 2000
-        if 1 <= month <= 12 and 1 <= day <= 31 and 1990 <= year <= 2100:
-            out["date"] = f"{year:04d}-{month:02d}-{day:02d}"
-            out["year"] = year
-        if m["disc"]:
-            out["discipline"] = m["disc"].upper()
+    y = mo = d = None
+    if m := ISO_RE.search(title):
+        y, mo, d = int(m["y"]), int(m["m"]), int(m["d"])
+    elif m := DMY_RE.search(title):
+        y, mo, d = int(m["y"]), MONTHS.get(m["mon"].lower()), int(m["d"])
+    elif m := TITLE_RE.search(title):
+        mo, d, y = int(m["m"]), int(m["d"]), int(m["y"])
+        if y < 100:
+            y += 2000
+    if y and mo and d and 1 <= mo <= 12 and 1 <= d <= 31 and 1990 <= y <= 2100:
+        out["date"] = f"{y:04d}-{mo:02d}-{d:02d}"
+        out["year"] = y
 
     c = COURSE_RE.search(title)
     if c:
@@ -129,10 +144,8 @@ def discover(refresh: bool = False, extra_ids: list[int] | None = None) -> list[
     """Find every Catamount race id Webscorer will show us."""
     found: dict[int, str] = {}
 
+    # One page lists every race. (?pg=N is not pagination; it returns the same page.)
     pages = [(ORGANIZER, "organizer")]
-    # Organizer listings paginate; walk until a page adds nothing new.
-    for n in range(2, 30):
-        pages.append((f"{ORGANIZER}?pg={n}", f"organizer-p{n}"))
 
     for url, key in pages:
         try:
@@ -192,7 +205,7 @@ HEADER_MAP = {
     "gender": "gender", "sex": "gender",
     "age": "age",
     "team": "team", "club": "team",
-    "time": "time", "finish": "time", "chip time": "time", "elapsed": "time",
+    "time": "time", "finish": "time", "finish time": "time", "chip time": "time", "elapsed": "time",
     "diff": "diff", "difference": "diff", "gap": "diff", "behind": "diff",
     "pace": "pace", "speed": "pace",
     "laps": "laps", "lap": "laps", "distance": "distance", "dist": "distance",
@@ -247,7 +260,19 @@ def lap_count(row: dict) -> int | None:
 def norm_header(text: str) -> str | None:
     t = re.sub(r"\s+", " ", text or "").strip().lower().rstrip(".")
     t = re.sub(r"\(.*?\)", "", t).strip()
-    return HEADER_MAP.get(t)
+    if t in HEADER_MAP:
+        return HEADER_MAP[t]
+    # Webscorer's headers carry menu text: "Difference % back % winning time ...",
+    # "Lap times Show all Hide all".
+    if t.startswith("name"):
+        return "name"  # older pages: "Name Affiliation"
+    if t.startswith("difference"):
+        return "diff"
+    if t.startswith("lap times"):
+        return "laptimes"
+    if t.startswith("finish time"):
+        return "time"
+    return None
 
 
 def score_table(table) -> int:
@@ -258,26 +283,123 @@ def score_table(table) -> int:
     return len(table.find_all("tr"))
 
 
-def parse_results(html: str, raceid: int) -> list[dict]:
-    soup = BeautifulSoup(html, "lxml")
-    tables = sorted(soup.find_all("table"), key=score_table, reverse=True)
-    if not tables or score_table(tables[0]) == 0:
-        return []
-    table = tables[0]
+GROUP_SUFFIX = " - Overall"
 
-    header_cells = table.find_all("th")
-    cols = [norm_header(th.get_text(" ", strip=True)) for th in header_cells]
 
+def distance_label(raw: str) -> str:
+    """'3 Lap' -> '3 Lap', '5k' -> '5K', 'Half' -> 'Half'. '' means one undivided field."""
+    t = re.sub(r"\s+", " ", raw or "").strip()
+    m = re.fullmatch(r"(\d+)\s*laps?", t, re.I)
+    if m:
+        return f"{int(m.group(1))} Lap"
+    m = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(k|km|m|mi)", t, re.I)
+    if m:
+        unit = "mi" if m.group(2).lower() == "mi" else m.group(2).upper()
+        return f"{m.group(1)}{unit}"
+    return t
+
+
+GENDER_WORDS = {"male": "M", "female": "F", "no gender": None}
+
+
+def split_group(raw: str) -> tuple[str, int | None, str | None]:
+    """A Webscorer group heading -> (distance, laps, gender).
+
+    Groups are named per distance, but some nights also split by sex or name a
+    kids' group oddly, so the label is cleaned into its parts:
+        "3 Lap Male" -> ("3 Lap", 3, "M")     "Cadet Lap" -> ("Cadet", None, None)
+        "Female"     -> ("", None, "F")       "6"         -> ("", 6, None)   (cross)
+    """
+    t = re.sub(r"\s+", " ", raw or "").strip()
+    gender = None
+    if t.lower() in GENDER_WORDS:
+        return "", None, GENDER_WORDS[t.lower()]
+    m = re.search(r"\s+(male|female|no gender)$", t, re.I)
+    if m:
+        gender = GENDER_WORDS[m.group(1).lower()]
+        t = t[: m.start()].strip()
+    if re.fullmatch(r"cadet(?: lap)?", t, re.I):
+        return "Cadet", None, gender
+    if t.isdigit():
+        return "", int(t), gender
+    label = distance_label(t)
+    return label, laps_from_distance(label), gender
+
+
+def laps_from_distance(label: str) -> int | None:
+    m = re.fullmatch(r"(\d+) Lap", label)
+    return int(m.group(1)) if m else None
+
+
+def cell_laps(td) -> int | None:
+    """Cyclocross: laps done = rows in the racer's lap-time list that have a time.
+
+    A lapped rider still gets a numbered row for the lap they did not finish,
+    with "- -" where the time would be, so counting numbered rows overcounts.
+    """
+    n = 0
+    for ul in td.select("ul.dataRow"):
+        num = ul.select_one("li.lap")
+        secs = ul.select_one("li.lap-time-rank")
+        if num and num.get_text(strip=True).isdigit() and secs and parse_time(secs.get_text(" ", strip=True).split(" ")[0]) is not None:
+            n += 1
+    return n or None
+
+
+def parse_meta(html: str) -> dict:
+    """The race-info box: how many racers Webscorer says there were."""
+    text = " ".join(BeautifulSoup(html, "lxml").get_text(" ", strip=True).split())
+    m = re.search(r"Racers:\s*(\d+)", text)
+    s = re.search(r"Sport:\s*(.+?)\s+Location:", text)
+    updated = None
+    u = re.search(r"Updated:\s*\w+,\s*(\w+)\s+(\d{1,2}),\s*(\d{4})", text)
+    if u and u.group(1)[:3].lower() in MONTHS:
+        updated = f"{int(u.group(3)):04d}-{MONTHS[u.group(1)[:3].lower()]:02d}-{int(u.group(2)):02d}"
+    return {"racers": int(m.group(1)) if m else None, "sport": s.group(1) if s else None, "updated": updated}
+
+
+def panel_heading(panel, table) -> str:
+    parts = []
+    for el in panel.descendants:
+        if el is table:
+            break
+        if isinstance(el, NavigableString) and el.strip():
+            parts.append(el.strip())
+    head = " ".join(" ".join(parts).split())
+    # Each panel's heading ends in a screen-reader caption, "Results Table".
+    return re.sub(r"\s*Results Table$", "", head)
+
+
+def read_table(table, raceid: int, distance: str, group_laps: int | None = None, group_gender: str | None = None) -> list[dict]:
+    cols = [norm_header(th.get_text(" ", strip=True)) for th in table.find_all("th", recursive=True)]
+    # Nested lap tables have their own <th>; only the outer header row counts.
+    outer = table.find("tr")
+    if outer is not None:
+        cols = [norm_header(th.get_text(" ", strip=True)) for th in outer.find_all("th", recursive=False)] or cols
     rows = []
     for tr in table.find_all("tr"):
-        cells = tr.find_all("td")
-        if not cells:
+        if tr.find_parent("table") is not table:
+            continue  # a row of a nested lap table
+        cells = tr.find_all("td", recursive=False)
+        if not cells or len(cells) < len([c for c in cols if c]):
             continue
         row: dict = {}
+        laps_cell = None
         for idx, td in enumerate(cells):
             key = cols[idx] if idx < len(cols) else None
             if not key:
                 continue
+            if key == "laptimes":
+                laps_cell = td
+                continue
+            if key == "name":
+                # Older pages put the affiliation in a span inside the name cell.
+                span = td.select_one("span.team-name")
+                if span is not None:
+                    affil = " ".join(span.get_text(" ", strip=True).split())
+                    span.extract()
+                    if affil and not row.get("team"):
+                        row["team"] = affil
             value = " ".join(td.get_text(" ", strip=True).split())
             if key in row and row[key]:
                 continue
@@ -287,19 +409,30 @@ def parse_results(html: str, raceid: int) -> list[dict]:
             continue
 
         place_raw = re.sub(r"[^\d]", "", row.get("place", ""))
+        laps = group_laps if group_laps is not None else laps_from_distance(distance)
+        if laps is None and laps_cell is not None:
+            laps = cell_laps(laps_cell)
         rows.append(
             {
                 "raceid": raceid,
                 "place": int(place_raw) if place_raw else None,
+                "bib": row.get("bib") or None,
                 "name": name,
                 "racer": racer_key(name),
                 "category": row.get("category") or None,
-                "gender": row.get("gender") or None,
+                "gender": {"M": "M", "F": "F"}.get((row.get("gender") or "").strip().upper()) or group_gender,
                 "team": row.get("team") or None,
-                "laps": lap_count(row),
-                # Hometown is deliberately NOT carried through. Webscorer shows
-                # it, but nothing here uses it, and publishing where a named
-                # amateur lives is exposure this project has no need for.
+                # Which start-line group they raced in ("3 Lap", "5K", "Half"),
+                # or "" when the whole field ran one event. This is the real
+                # unit of competition; laps is just the numeric form when the
+                # group is lap-based (or, for cross, the laps actually done).
+                "distance": distance,
+                "laps": laps,
+                # Hometown and age are deliberately NOT carried through.
+                # Webscorer shows them, but nothing here uses them, and
+                # publishing where a named amateur lives is exposure this
+                # project has no need for. Bib and gender are read for
+                # de-duplication only and stripped in parse_results.
                 "time": row.get("time") or None,
                 "seconds": parse_time(row.get("time", "")),
             }
@@ -307,29 +440,95 @@ def parse_results(html: str, raceid: int) -> list[dict]:
     return rows
 
 
+def parse_results(html: str, raceid: int) -> list[dict]:
+    """Rows from a /racealldetails page.
+
+    The page repeats every racer: once in an "<group> - Overall" table and again
+    in each category table. Only the Overall table per group is read, so each
+    racer appears once, tagged with the group (distance) they raced in.
+    """
+    soup = BeautifulSoup(html, "lxml")
+    panels = []
+    for panel in soup.select('div[id*="repRaceDetails_pnlRaceDetail"]'):
+        table = panel.find("table", id="RaceTable") or panel.find("table")
+        if table is not None:
+            panels.append((panel_heading(panel, table), table))
+
+    groups = {h[: -len(GROUP_SUFFIX)] for h, _ in panels if h.endswith(GROUP_SUFFIX)}
+    rows: list[dict] = []
+    seen: set = set()
+    if groups:
+        # Some nights list a combined "5k - Overall" and also "5k Female - Overall"
+        # and "5k Male - Overall". Read the combined table first, then drop
+        # anyone already seen in the same distance.
+        overall = []
+        for h, table in panels:
+            if h.endswith(GROUP_SUFFIX):
+                distance, glaps, ggender = split_group(h[: -len(GROUP_SUFFIX)])
+                overall.append((ggender is not None, distance, glaps, ggender, table))
+        for _, distance, glaps, ggender, table in sorted(overall, key=lambda o: o[0]):
+            for r in read_table(table, raceid, distance, glaps, ggender):
+                key = (r["distance"], r["laps"], r["bib"], r["name"])
+                if key not in seen:
+                    seen.add(key)
+                    rows.append(r)
+    else:
+        # One undivided field: take "Overall", or if a page has no such table,
+        # every table with duplicates dropped.
+        overall = [t for h, t in panels if h.lower() == "overall"]
+        for table in overall or [t for _, t in panels]:
+            for r in read_table(table, raceid, ""):
+                key = (r["bib"], r["name"])
+                if key not in seen:
+                    seen.add(key)
+                    rows.append(r)
+    for r in rows:
+        r.pop("bib", None)
+        r.pop("gender", None)
+    return rows
+
+
 def fetch_results(races: list[dict], refresh: bool = False) -> list[dict]:
     all_rows: list[dict] = []
     empty: list[int] = []
+    mismatch: list[str] = []
     for i, race in enumerate(races, 1):
         rid = race["raceid"]
+        if not race.get("discipline"):
+            # The organizer also hosts one-off events (e.g. a charity ride) that
+            # are not part of the MTB / trail run / cyclocross series.
+            print(f"  [{i}/{len(races)}] {rid}: skipped, not a series race: {race['title']!r}")
+            continue
         try:
-            html = fetch(f"{BASE}/race?raceid={rid}", f"race-{rid}", refresh=refresh)
+            html = fetch(f"{BASE}/racealldetails?raceid={rid}", f"raceall-{rid}", refresh=refresh)
         except requests.HTTPError as exc:
             print(f"  [{i}/{len(races)}] {rid}: {exc}", file=sys.stderr)
             continue
         rows = parse_results(html, rid)
+        meta = parse_meta(html)
         if not rows:
             empty.append(rid)
         race["finishers"] = len(rows)
+        race["sport"] = meta["sport"]
+        if not race.get("date") and meta["updated"]:
+            # A title with no year ("Catamount 9-6 Final MTB Race"): the results
+            # page is stamped the evening of the race.
+            race["date"], race["year"] = meta["updated"], int(meta["updated"][:4])
+        if meta["racers"] is not None and meta["racers"] != len(rows):
+            mismatch.append(f"{rid}: page says {meta['racers']}, parsed {len(rows)}")
         all_rows.extend(rows)
         print(f"  [{i}/{len(races)}] {rid} {race.get('date') or '?'} {race.get('course') or ''}: {len(rows)} finishers")
 
     if empty:
         print(
             f"\n{len(empty)} race page(s) yielded no rows: {empty[:10]}"
-            "\nInspect cache/race-<id>.html and adjust parse_results().",
+            "\nInspect cache/raceall-<id>.html and adjust parse_results().",
             file=sys.stderr,
         )
+    if mismatch:
+        print(f"\n{len(mismatch)} race(s) where parsed rows != the page's own racer count:", file=sys.stderr)
+        for m in mismatch[:15]:
+            print("  " + m, file=sys.stderr)
     return all_rows
 
 
