@@ -157,31 +157,61 @@ if (!D) {
 }
 
 var RACES = D.races, RESULTS = D.results;
-var raceById = {}, resultsByRace = {}, resultsByRacer = {}, courses = {}, years = {};
+var raceById = {}, resultsByRace = {}, resultsByRacer = {}, resultsByDiv = {},
+    courses = {}, years = {};
 
 RACES.forEach(function (r) { raceById[r.raceid] = r; resultsByRace[r.raceid] = []; });
 
+// A Wednesday is not one race. The series runs 1, 2, 3 and 4 lap distances off
+// the same start, so the real unit of competition is (race night, lap count).
+// Placings, percentiles, rivals and head to head are all computed inside that
+// unit - ranking a 4-lap rider against a 1-lap rider would be meaningless.
+function lapsOf(r) {
+  if (r.laps == null || r.laps === "") return null;
+  var m = String(r.laps).match(/\d+/);
+  return m ? +m[0] : null;
+}
+function divOf(r) { var n = lapsOf(r); return r.raceid + "|" + (n == null ? "?" : n); }
+
 RESULTS.forEach(function (r) {
   if (!raceById[r.raceid]) return;
+  r.lapCount = lapsOf(r);
+  r.div = divOf(r);
   (resultsByRace[r.raceid] = resultsByRace[r.raceid] || []).push(r);
   (resultsByRacer[r.racer] = resultsByRacer[r.racer] || []).push(r);
+  (resultsByDiv[r.div] = resultsByDiv[r.div] || []).push(r);
 });
 
-// Derived per-result fields: field size, percentile, gap to the winner, and
-// time as a ratio of the winning time. The ratio is what makes two different
-// courses comparable at all.
-Object.keys(resultsByRace).forEach(function (id) {
-  var rows = resultsByRace[id];
-  rows.sort(function (a, b) { return (a.place || 1e9) - (b.place || 1e9); });
-  var n = rows.length;
-  var win = null;
+// Derived fields, all within the lap group: divisional placing, field size,
+// percentile, gap to that group's winner, and time as a ratio of it.
+Object.keys(resultsByDiv).forEach(function (key) {
+  var rows = resultsByDiv[key];
+  rows.sort(function (a, b) {
+    var x = a.seconds == null ? Infinity : a.seconds,
+        y = b.seconds == null ? Infinity : b.seconds;
+    if (x !== y) return x - y;
+    return (a.place || 1e9) - (b.place || 1e9);
+  });
+  var n = rows.length, win = null;
   for (var i = 0; i < rows.length; i++) { if (rows[i].seconds) { win = rows[i].seconds; break; } }
-  rows.forEach(function (r) {
+  rows.forEach(function (r, i) {
+    // Recomputed rather than trusted: whether the source's printed place is
+    // overall or per-distance varies, and this has to be per-distance.
+    r.dplace = (r.seconds == null && r.place == null) ? null : i + 1;
     r.field = n;
-    r.pct = n > 1 && r.place ? (n - r.place) / (n - 1) : null;   // 1 = won, 0 = last
+    r.pct = n > 1 && r.dplace ? (n - r.dplace) / (n - 1) : null;   // 1 = won, 0 = last
     r.gap = (r.seconds && win) ? r.seconds - win : null;
     r.ratio = (r.seconds && win) ? r.seconds / win : null;
   });
+});
+
+RACES.forEach(function (race) {
+  var laps = {};
+  (resultsByRace[race.raceid] || []).forEach(function (r) {
+    if (r.lapCount != null) laps[r.lapCount] = (laps[r.lapCount] || 0) + 1;
+  });
+  race.lapGroups = Object.keys(laps).map(Number).sort(function (a, b) { return b - a; });
+  race.lapCounts = laps;
 });
 
 RACES.forEach(function (r) {
@@ -292,11 +322,18 @@ function coursePill(name) {
          '<span class="dot" style="background:' + courseColor(name) + '"></span>' + esc(name) + "</a>";
 }
 function racerLink(key) { return '<a href="#/racer/' + esc(key) + '">' + esc(nameOf(key)) + "</a>"; }
-function placeCell(p, field) {
+// Takes the row, not a bare number: the placing that counts is the one inside
+// the lap group, which only the row knows.
+function placeCell(r) {
+  var p = r.dplace;
   if (!p) return '<td class="num muted">—</td>';
   var cls = p <= 3 ? " medal p" + p : "";
   return '<td class="num"><span class="' + cls.trim() + '">' + p + "</span>" +
-         '<span class="muted">/' + field + "</span></td>";
+         '<span class="muted">/' + r.field + "</span></td>";
+}
+function lapLabel(r) { return r.lapCount == null ? "?" : r.lapCount + " lap"; }
+function lapCell(n) {
+  return n == null ? '<td class="muted">—</td>' : '<td class="num">' + n + "</td>";
 }
 
 // ---------------------------------------------------------------------------
@@ -403,8 +440,8 @@ function lineChart(series, opts) {
         d += (prev === null || q.x - prev > gap ? "M" : "L") + X(q.x).toFixed(1) + " " + Y(q.y).toFixed(1) + " ";
         prev = q.x;
       });
-      svg += '<path fill="none" style="stroke:' + s.color + '" stroke-width="1.75" stroke-linejoin="round" d="' +
-             d.trim() + '"/>';
+      svg += '<path fill="none" style="stroke:' + s.color + '" stroke-width="1.75" stroke-linejoin="round"' +
+             (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' d="' + d.trim() + '"/>';
     }
     p.forEach(function (q) {
       svg += '<circle class="pt" cx="' + X(q.x).toFixed(1) + '" cy="' + Y(q.y).toFixed(1) +
@@ -417,7 +454,9 @@ function lineChart(series, opts) {
 
 function legend(series) {
   return '<div class="legend">' + series.map(function (s) {
-    return '<span class="pill"><span class="dot" style="background:' + s.color + '"></span>' + esc(s.label) + "</span>";
+    return '<span class="pill"><span class="dot" style="background:' + s.color +
+           (s.dash ? ";outline:1px dashed var(--ink-3);outline-offset:1px" : "") + '"></span>' +
+           esc(s.label) + "</span>";
   }).join("") + "</div>";
 }
 
@@ -432,11 +471,13 @@ function yearTicks() {
 // ---------------------------------------------------------------------------
 
 function meetings(a, b) {
+  // Keyed by division, not race night: sharing a Wednesday while riding
+  // different lap counts is not a head to head.
   var mine = resultsByRacer[a] || [], theirs = {}, out = [];
-  (resultsByRacer[b] || []).forEach(function (r) { theirs[r.raceid] = r; });
+  (resultsByRacer[b] || []).forEach(function (r) { theirs[r.div] = r; });
   mine.forEach(function (r) {
-    var o = theirs[r.raceid];
-    if (o && r.place && o.place) out.push({ race: raceById[r.raceid], a: r, b: o });
+    var o = theirs[r.div];
+    if (o && r.dplace && o.dplace) out.push({ race: raceById[r.raceid], laps: r.lapCount, a: r, b: o });
   });
   out.sort(function (x, y) { return (x.race.date || "").localeCompare(y.race.date || ""); });
   return out;
@@ -444,7 +485,7 @@ function meetings(a, b) {
 
 function record(a, b) {
   var m = meetings(a, b), w = 0, l = 0;
-  m.forEach(function (x) { if (x.a.place < x.b.place) w++; else l++; });
+  m.forEach(function (x) { if (x.a.dplace < x.b.dplace) w++; else l++; });
   return { met: m.length, wins: w, losses: l, meetings: m };
 }
 
@@ -452,11 +493,11 @@ function record(a, b) {
 function rivals(key) {
   var mine = resultsByRacer[key] || [], tally = {};
   mine.forEach(function (r) {
-    (resultsByRace[r.raceid] || []).forEach(function (o) {
-      if (o.racer === key || !o.place || !r.place) return;
+    (resultsByDiv[r.div] || []).forEach(function (o) {
+      if (o.racer === key || !o.dplace || !r.dplace) return;
       var t = tally[o.racer] || (tally[o.racer] = { racer: o.racer, met: 0, wins: 0, losses: 0, margin: 0 });
       t.met++;
-      if (r.place < o.place) t.wins++; else t.losses++;
+      if (r.dplace < o.dplace) t.wins++; else t.losses++;
       if (r.seconds && o.seconds) t.margin += o.seconds - r.seconds;
     });
   });
@@ -483,9 +524,9 @@ views.racer = function (key) {
     return (raceById[b.raceid].date || "").localeCompare(raceById[a.raceid].date || "");
   });
 
-  var wins = rows.filter(function (r) { return r.place === 1; }).length;
-  var podiums = rows.filter(function (r) { return r.place && r.place <= 3; }).length;
-  var best = rows.reduce(function (m, r) { return r.place && (m == null || r.place < m) ? r.place : m; }, null);
+  var wins = rows.filter(function (r) { return r.dplace === 1; }).length;
+  var podiums = rows.filter(function (r) { return r.dplace && r.dplace <= 3; }).length;
+  var best = rows.reduce(function (m, r) { return r.dplace && (m == null || r.dplace < m) ? r.dplace : m; }, null);
   var pcts = rows.map(function (r) { return r.pct; }).filter(function (v) { return v != null; });
   var yrs = rows.map(function (r) { return raceById[r.raceid].year; }).filter(Boolean);
   var span = yrs.length ? Math.min.apply(null, yrs) + "–" + Math.max.apply(null, yrs) : "—";
@@ -502,13 +543,30 @@ views.racer = function (key) {
        stat(new Set(rows.map(function (r) { return raceById[r.raceid].course; }).filter(Boolean)).size, "Courses") +
        "</div></div>";
 
+  // Which distances they actually ride. Everything else on this page is
+  // computed inside a distance, so this is the key to reading the rest.
+  var lapTally = {};
+  rows.forEach(function (r) { if (r.lapCount != null) lapTally[r.lapCount] = (lapTally[r.lapCount] || 0) + 1; });
+  var lapKeys = Object.keys(lapTally).map(Number).sort(function (a, b) { return b - a; });
+  if (lapKeys.length) {
+    h += '<div class="card"><h2>Distances</h2>' +
+      '<p class="hint">The series runs 1 to 4 laps off the same start. Placings, ' +
+      'rivals and head to head on this page only ever compare riders who rode the ' +
+      'same number of laps that night.</p><div class="stats">' +
+      lapKeys.map(function (n) {
+        var pct = median(rows.filter(function (r) { return r.lapCount === n; })
+                             .map(function (r) { return r.pct; }).filter(function (v) { return v != null; }));
+        return stat(lapTally[n], n + " lap \u00b7 " + fmtPct(pct));
+      }).join("") + "</div></div>";
+  }
+
   // How they finish, over time.
   var byCourse = {};
   rows.forEach(function (r) {
     var c = raceById[r.raceid].course; if (!c || r.pct == null) return;
     (byCourse[c] = byCourse[c] || []).push({
       x: Date.parse(raceById[r.raceid].date), y: r.pct * 100,
-      title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + r.place + "/" + r.field
+      title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + lapLabel(r) + " · " + r.dplace + "/" + r.field
     });
   });
   var series = Object.keys(byCourse).sort().map(function (c) {
@@ -521,19 +579,34 @@ views.racer = function (key) {
        legend(series) + "</div>";
 
   // Same course, different years: the question that needs a chart.
-  var timeSeries = Object.keys(byCourse).sort().map(function (c) {
-    var pts = rows.filter(function (r) { return raceById[r.raceid].course === c && r.seconds; })
-      .map(function (r) {
+  // Split by distance as well as course: a 3-lap night and a 4-lap night on
+  // the same course are different races, and plotting them as one line would
+  // show a "trend" that is really just a lap count changing.
+  var DASHES = { 1: "2 3", 2: "6 3", 3: "10 4", 4: "" };
+  var timeSeries = [];
+  Object.keys(byCourse).sort().forEach(function (c) {
+    lapKeys.forEach(function (n) {
+      var pts = rows.filter(function (r) {
+        return raceById[r.raceid].course === c && r.lapCount === n && r.seconds;
+      }).map(function (r) {
         return { x: Date.parse(raceById[r.raceid].date), y: r.seconds,
-                 title: fmtDate(raceById[r.raceid].date) + " · " + fmtTime(r.seconds) + " · " + r.place + "/" + r.field };
+                 title: fmtDate(raceById[r.raceid].date) + " \u00b7 " + c + " \u00b7 " + n + " lap \u00b7 " +
+                        fmtTime(r.seconds) + " \u00b7 " + r.dplace + "/" + r.field };
       });
-    return { label: c, color: courseColor(c), points: pts };
-  }).filter(function (s) { return s.points.length > 1; });
+      if (pts.length > 1) {
+        timeSeries.push({ label: c + " \u00b7 " + n + " lap", color: courseColor(c),
+                          dash: DASHES[n] || "", points: pts });
+      }
+    });
+  });
 
   if (timeSeries.length) {
-    h += '<div class="card"><h2>Times on the same course, year over year</h2>' +
-         '<p class="hint">Each line is one course. Courses rotate between seasons, so only the ' +
-         'same colour is comparable.</p>' +
+    h += '<div class="card"><h2>Times by course and distance</h2>' +
+         '<p class="hint">Treat across-season comparisons loosely. A course keeps its name ' +
+         'year to year and runs roughly the same terrain, but the loop gets re-cut, so the ' +
+         '2019 "Red on Black" is not the same lap as the 2025 one. Within a season, where the ' +
+         'same course repeats, the times really are comparable. Finish percentile is the ' +
+         'honest way to read across years.</p>' +
          lineChart(timeSeries, { xTicks: yearTicks(), fmtY: fmtTime, label: "Finish time by course over time" }) +
          legend(timeSeries) + "</div>";
   }
@@ -559,6 +632,7 @@ views.racer = function (key) {
          { label: "", cls: "num",
            cell: function (t) { return '<td class="num"><a href="#/h2h/' + esc(key) + "/" + esc(t.racer) + '">H2H</a></td>'; } }
        ], rv, { sort: 1, dir: -1, limit: 40 }) + "</div>";
+
 
   // Does weather move this racer? Percentile is the right measure: it is
   // immune to a course being long, which raw time is not.
@@ -596,23 +670,28 @@ views.racer = function (key) {
   }
 
   // Per-course summary.
-  var courseRows = Object.keys(byCourse).sort().map(function (c) {
-    var rs = rows.filter(function (r) { return raceById[r.raceid].course === c; });
+  var courseRows = [];
+  Object.keys(byCourse).sort().forEach(function (c) {
+    lapKeys.forEach(function (lapN) {
+    var rs = rows.filter(function (r) { return raceById[r.raceid].course === c && r.lapCount === lapN; });
+    if (!rs.length) return;
     var secs = rs.map(function (r) { return r.seconds; }).filter(Boolean);
     var ratios = rs.map(function (r) { return r.ratio; }).filter(Boolean);
-    return {
-      course: c, n: rs.length,
+    courseRows.push({
+      course: c, laps: lapN, n: rs.length,
       best: secs.length ? Math.min.apply(null, secs) : null,
-      bestPlace: rs.reduce(function (m, r) { return r.place && (m == null || r.place < m) ? r.place : m; }, null),
+      bestPlace: rs.reduce(function (m, r) { return r.dplace && (m == null || r.dplace < m) ? r.dplace : m; }, null),
       ratio: ratios.length ? median(ratios) : null,
       pct: median(rs.map(function (r) { return r.pct; }).filter(function (v) { return v != null; }))
-    };
+    });
+    });
   });
   h += '<div class="card"><h2>By course</h2>' +
-       '<p class="hint">"vs winner" is the median of this racer\'s time divided by the winning time — ' +
+       '<p class="hint">One row per course and distance. "vs winner" is the median of this racer\'s time divided by the winning time of that distance — ' +
        "1.00 means they won, 1.20 means they took 20% longer.</p>" +
        table([
          { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+         { label: "Laps", cls: "num", get: function (r) { return r.laps; }, defaultDir: -1, cell: function (r) { return lapCell(r.laps); } },
          { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
          { label: "Best time", cls: "num", get: function (r) { return r.best; }, cell: function (r) { return '<td class="num">' + fmtTime(r.best) + "</td>"; } },
          { label: "Best place", cls: "num", get: function (r) { return r.bestPlace; }, cell: function (r) { return '<td class="num">' + (r.bestPlace || "—") + "</td>"; } },
@@ -627,8 +706,10 @@ views.racer = function (key) {
            cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(raceById[r.raceid].date) + "</a></td>"; } },
          { label: "Course", get: function (r) { return raceById[r.raceid].course; },
            cell: function (r) { return "<td>" + coursePill(raceById[r.raceid].course) + "</td>"; } },
-         { label: "Place", cls: "num", get: function (r) { return r.place; },
-           cell: function (r) { return placeCell(r.place, r.field); } },
+         { label: "Laps", cls: "num", get: function (r) { return r.lapCount; }, defaultDir: -1,
+           cell: function (r) { return lapCell(r.lapCount); } },
+         { label: "Place", cls: "num", get: function (r) { return r.dplace; },
+           cell: function (r) { return placeCell(r); } },
          { label: "Time", cls: "num", get: function (r) { return r.seconds; },
            cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
          { label: "Behind", cls: "num", get: function (r) { return r.gap; },
@@ -659,8 +740,8 @@ function pickRacer() {
       { label: "Racer", get: function (k) { return nameOf(k); }, cell: function (k) { return "<td>" + racerLink(k) + "</td>"; } },
       { label: "Starts", cls: "num", get: function (k) { return resultsByRacer[k].length; }, defaultDir: -1,
         cell: function (k) { return '<td class="num">' + resultsByRacer[k].length + "</td>"; } },
-      { label: "Wins", cls: "num", get: function (k) { return resultsByRacer[k].filter(function (r) { return r.place === 1; }).length; }, defaultDir: -1,
-        cell: function (k) { return '<td class="num">' + resultsByRacer[k].filter(function (r) { return r.place === 1; }).length + "</td>"; } },
+      { label: "Wins", cls: "num", get: function (k) { return resultsByRacer[k].filter(function (r) { return r.dplace === 1; }).length; }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + resultsByRacer[k].filter(function (r) { return r.dplace === 1; }).length + "</td>"; } },
       { label: "Median finish", cls: "num",
         get: function (k) { return median(resultsByRacer[k].map(function (r) { return r.pct; }).filter(function (v) { return v != null; })); },
         defaultDir: -1,
@@ -673,7 +754,8 @@ function pickRacer() {
 
 views.h2h = function (a, b) {
   var h = '<div class="card"><h2>Head to head</h2>' +
-    '<p class="hint">Pick two people. Only races they both finished are counted.</p>' +
+    '<p class="hint">Pick two people. Only counts nights they both finished <em>and</em> ' +
+    'rode the same number of laps — sharing a start line at different distances is not a race.</p>' +
     '<div class="row">' +
     racerSelect("h2h-a", a) + racerSelect("h2h-b", b) + "</div></div>";
 
@@ -702,7 +784,7 @@ views.h2h = function (a, b) {
   var pts = rec.meetings.filter(function (m) { return m.a.seconds && m.b.seconds; }).map(function (m) {
     return { x: Date.parse(m.race.date), y: m.b.seconds - m.a.seconds,
              title: fmtDate(m.race.date) + " · " + (m.race.course || "") + " · " +
-                    (m.a.place < m.b.place ? nameOf(a) : nameOf(b)) + " ahead by " +
+                    (m.a.dplace < m.b.dplace ? nameOf(a) : nameOf(b)) + " ahead by " +
                     fmtTime(Math.abs(m.b.seconds - m.a.seconds)) };
   });
   if (pts.length > 1) {
@@ -719,13 +801,15 @@ views.h2h = function (a, b) {
         cell: function (m) { return '<td><a href="#/race/' + m.race.raceid + '">' + fmtDate(m.race.date) + "</a></td>"; } },
       { label: "Course", get: function (m) { return m.race.course; },
         cell: function (m) { return "<td>" + coursePill(m.race.course) + "</td>"; } },
-      { label: "Ahead", get: function (m) { return m.a.place < m.b.place ? 0 : 1; },
-        cell: function (m) { var w = m.a.place < m.b.place;
+      { label: "Laps", cls: "num", get: function (m) { return m.laps; }, defaultDir: -1,
+        cell: function (m) { return lapCell(m.laps); } },
+      { label: "Ahead", get: function (m) { return m.a.dplace < m.b.dplace ? 0 : 1; },
+        cell: function (m) { var w = m.a.dplace < m.b.dplace;
           return '<td class="' + (w ? "win" : "loss") + '">' + esc(nameOf(w ? a : b)) + "</td>"; } },
-      { label: nameOf(a).split(" ")[0], cls: "num", get: function (m) { return m.a.place; },
-        cell: function (m) { return placeCell(m.a.place, m.a.field); } },
-      { label: nameOf(b).split(" ")[0], cls: "num", get: function (m) { return m.b.place; },
-        cell: function (m) { return placeCell(m.b.place, m.b.field); } },
+      { label: nameOf(a).split(" ")[0], cls: "num", get: function (m) { return m.a.dplace; },
+        cell: function (m) { return placeCell(m.a); } },
+      { label: nameOf(b).split(" ")[0], cls: "num", get: function (m) { return m.b.dplace; },
+        cell: function (m) { return placeCell(m.b); } },
       { label: "Margin", cls: "num",
         get: function (m) { return (m.a.seconds && m.b.seconds) ? Math.abs(m.b.seconds - m.a.seconds) : null; },
         cell: function (m) {
@@ -771,6 +855,15 @@ views.course = function (cslug) {
   var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
   var all = RESULTS.filter(function (r) { return ids[r.raceid] && r.seconds; });
   var fastest = all.slice().sort(function (a, b) { return a.seconds - b.seconds; });
+
+  // Times here are only comparable within a lap count.
+  var lapSet = {};
+  all.forEach(function (r) { if (r.lapCount != null) lapSet[r.lapCount] = 1; });
+  var lapList = Object.keys(lapSet).map(Number).sort(function (a, b) { return b - a; });
+  function bestAt(n) {
+    var g = all.filter(function (r) { return r.lapCount === n; });
+    return g.length ? Math.min.apply(null, g.map(function (r) { return r.seconds; })) : null;
+  }
   var rank = {};
   fastest.forEach(function (r, i) { rank[r.raceid + "|" + r.racer] = i + 1; });
 
@@ -780,39 +873,51 @@ views.course = function (cslug) {
     new Set(rs.map(function (r) { return r.year; })).size + " seasons</p>" +
     '<div class="stats">' +
     stat(rs.length, "Races") +
-    stat(fastest.length ? fmtTime(fastest[0].seconds) : "—", "Course record") +
     stat(new Set(all.map(function (r) { return r.racer; })).size, "Racers") +
-    stat(fmtTime(median(all.map(function (r) { return r.seconds; }))), "Median time") +
+    lapList.map(function (n) {
+      var b = bestAt(n);
+      return b == null ? "" : stat(fmtTime(b), "Best, " + n + " lap");
+    }).join("") +
     "</div></div>";
 
   // Winning time by edition - is the course getting faster, or was it re-cut?
   var byRace = rs.slice().sort(function (a, b) { return (a.date || "").localeCompare(b.date || ""); });
-  var winPts = [], medPts = [];
-  byRace.forEach(function (race) {
-    var rows = (resultsByRace[race.raceid] || []).filter(function (r) { return r.seconds; });
-    if (!rows.length) return;
-    var w = Math.min.apply(null, rows.map(function (r) { return r.seconds; }));
-    winPts.push({ x: Date.parse(race.date), y: w, title: fmtDate(race.date) + " · winner " + fmtTime(w) });
-    medPts.push({ x: Date.parse(race.date), y: median(rows.map(function (r) { return r.seconds; })),
-                  title: fmtDate(race.date) + " · median " + fmtTime(median(rows.map(function (r) { return r.seconds; }))) });
-  });
-  var series = [{ label: "Winning time", color: courseColor(name), points: winPts },
-                { label: "Median time", color: "var(--ink-3)", points: medPts }];
+  var DASHES = { 1: "2 3", 2: "6 3", 3: "10 4", 4: "" };
+  var series = lapList.map(function (n) {
+    var pts = [];
+    byRace.forEach(function (race) {
+      var g = (resultsByDiv[race.raceid + "|" + n] || []).filter(function (r) { return r.seconds; });
+      if (!g.length) return;
+      var w = Math.min.apply(null, g.map(function (r) { return r.seconds; }));
+      pts.push({ x: Date.parse(race.date), y: w,
+                 title: fmtDate(race.date) + " · " + n + " lap · winner " + fmtTime(w) +
+                        " · " + g.length + " riders" });
+    });
+    return { label: "Winning time, " + n + " lap", color: courseColor(name),
+             dash: DASHES[n] || "", points: pts };
+  }).filter(function (x) { return x.points.length; });
+
   h += '<div class="card"><h2>How the course has run</h2>' +
-    '<p class="hint">Winning and median time for every running of this course. A step change ' +
-    "usually means the loop was re-cut, not that the field changed.</p>" +
+    '<p class="hint">Winning time per distance, for every running of this course. Read it ' +
+    "within a season with confidence; across seasons only loosely — the course keeps its " +
+    "name and rough terrain, but the loop gets re-cut, so a step between years is usually " +
+    "the course changing rather than the field.</p>" +
     lineChart(series, { xTicks: yearTicks(), fmtY: fmtTime, label: "Winning and median time per edition" }) +
     legend(series) + "</div>";
 
   h += '<div class="card"><h2>Fastest times ever run here</h2>' +
+    '<p class="hint">Sort by laps first — a 4-lap time and a 1-lap time are not ' +
+    "competing with each other.</p>" +
     table([
       { label: "#", cls: "num", get: function (r) { return rank[r.raceid + "|" + r.racer]; },
         cell: function (r) { return '<td class="num muted">' + rank[r.raceid + "|" + r.racer] + "</td>"; } },
       { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+      { label: "Laps", cls: "num", get: function (r) { return r.lapCount; }, defaultDir: -1,
+        cell: function (r) { return lapCell(r.lapCount); } },
       { label: "Time", cls: "num", get: function (r) { return r.seconds; }, cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
       { label: "Date", get: function (r) { return raceById[r.raceid].date; }, defaultDir: -1,
         cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(raceById[r.raceid].date) + "</a></td>"; } },
-      { label: "Place", cls: "num", get: function (r) { return r.place; }, cell: function (r) { return placeCell(r.place, r.field); } }
+      { label: "Place", cls: "num", get: function (r) { return r.dplace; }, cell: function (r) { return placeCell(r); } }
     ], fastest, { sort: 2, dir: 1, limit: 50 }) + "</div>";
 
   h += '<div class="card"><h2>Every running of ' + esc(name) + "</h2>" +
@@ -825,9 +930,11 @@ views.course = function (cslug) {
         cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
       { label: "Weather", get: function (r) { return r.weather ? r.weather.temp : null; },
         cell: function (r) { return wxCell(r); } },
-      { label: "Winner", cell: function (r) {
-          var w = (resultsByRace[r.raceid] || [])[0];
-          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+      { label: "Won by, longest distance", cell: function (r) {
+          var n = (r.lapGroups || [])[0];
+          var w = n == null ? null : (resultsByDiv[r.raceid + "|" + n] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + n + " lap, " +
+                 fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
     ], byRace, { sort: 0, dir: -1 }) + "</div>";
 
   return h;
@@ -843,6 +950,8 @@ views.race = function (id) {
     '<div class="shrink">' + coursePill(race.course) + "</div>" +
     '<div class="shrink"><span class="pill">' + rows.length + " finishers</span></div>" +
     (race.weather ? '<div class="shrink">' + wxChip(race.weather) + "</div>" : "") +
+    ((race.lapGroups || []).length > 1
+      ? '<div class="shrink"><span class="pill">' + race.lapGroups.join(", ") + " lap</span></div>" : "") +
     (race.year ? '<div class="shrink"><a class="pill" href="#/series/' + race.year + '">' + race.year + " season</a></div>" : "") +
     (race.url ? '<div class="shrink"><a class="pill" href="' + esc(race.url) + '" target="_blank" rel="noopener">Webscorer ↗</a></div>' : "") +
     "</div></div>";
@@ -862,14 +971,25 @@ views.race = function (id) {
       "</div></div>";
   }
 
-  h += '<div class="card"><h2>Results</h2>' +
-    table([
-      { label: "Place", cls: "num", get: function (r) { return r.place; }, cell: function (r) { return placeCell(r.place, r.field); } },
-      { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
-      { label: "Category", get: function (r) { return r.category; }, cell: function (r) { return '<td class="muted">' + esc(r.category || "—") + "</td>"; } },
-      { label: "Time", cls: "num", get: function (r) { return r.seconds; }, cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
-      { label: "Behind", cls: "num", get: function (r) { return r.gap; }, cell: function (r) { return '<td class="num muted">' + fmtGap(r.gap) + "</td>"; } }
-    ], rows, { sort: 0, dir: 1 }) + "</div>";
+  // One table per lap distance. These are separate races sharing a start time,
+  // so a single ranked list would be wrong.
+  var groups = (race.lapGroups || []).slice();
+  if (rows.some(function (r) { return r.lapCount == null; })) groups.push(null);
+  if (!groups.length) groups = [null];
+
+  groups.forEach(function (n) {
+    var g = rows.filter(function (r) { return r.lapCount === n; });
+    if (!g.length) return;
+    h += '<div class="card"><h2>' + (n == null ? "Results" : n + " lap") + "</h2>" +
+      '<p class="hint">' + g.length + " finisher" + (g.length === 1 ? "" : "s") + "</p>" +
+      table([
+        { label: "Place", cls: "num", get: function (r) { return r.dplace; }, cell: function (r) { return placeCell(r); } },
+        { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+        { label: "Category", get: function (r) { return r.category; }, cell: function (r) { return '<td class="muted">' + esc(r.category || "—") + "</td>"; } },
+        { label: "Time", cls: "num", get: function (r) { return r.seconds; }, cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
+        { label: "Behind", cls: "num", get: function (r) { return r.gap; }, cell: function (r) { return '<td class="num muted">' + fmtGap(r.gap) + "</td>"; } }
+      ], g, { sort: 0, dir: 1 }) + "</div>";
+  });
   return h;
 };
 
@@ -904,8 +1024,8 @@ views.series = function (year) {
   res.forEach(function (r) {
     var t = by[r.racer] || (by[r.racer] = { racer: r.racer, starts: 0, wins: 0, podiums: 0, pcts: [] });
     t.starts++;
-    if (r.place === 1) t.wins++;
-    if (r.place && r.place <= 3) t.podiums++;
+    if (r.dplace === 1) t.wins++;
+    if (r.dplace && r.dplace <= 3) t.podiums++;
     if (r.pct != null) t.pcts.push(r.pct);
   });
   var standings = Object.keys(by).map(function (k) {
@@ -938,9 +1058,11 @@ views.series = function (year) {
         cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
       { label: "Weather", get: function (r) { return r.weather ? r.weather.temp : null; },
         cell: function (r) { return wxCell(r); } },
-      { label: "Winner", cell: function (r) {
-          var w = (resultsByRace[r.raceid] || [])[0];
-          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+      { label: "Won by, longest distance", cell: function (r) {
+          var n = (r.lapGroups || [])[0];
+          var w = n == null ? null : (resultsByDiv[r.raceid + "|" + n] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + n + " lap, " +
+                 fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
     ], rs.slice(), { sort: 0, dir: 1 }) + "</div>";
 
   return h;
@@ -959,9 +1081,11 @@ views.races = function () {
         cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
       { label: "Weather", get: function (r) { return r.weather ? r.weather.temp : null; },
         cell: function (r) { return wxCell(r); } },
-      { label: "Winner", cell: function (r) {
-          var w = (resultsByRace[r.raceid] || [])[0];
-          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+      { label: "Won by, longest distance", cell: function (r) {
+          var n = (r.lapGroups || [])[0];
+          var w = n == null ? null : (resultsByDiv[r.raceid + "|" + n] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + n + " lap, " +
+                 fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
     ], RACES.slice(), { sort: 0, dir: -1 }) + "</div>";
 };
 

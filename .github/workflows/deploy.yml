@@ -1,0 +1,39 @@
+# Same model as the burghertime-landing and emoji-rpg repos: build a dist/ of
+# just the static files and push it to Cloudflare Pages with wrangler.
+#
+# Requires, on this repo:
+#   secret   CLOUDFLARE_API_TOKEN   (the account-wide Pages:Edit token)
+#   variable CLOUDFLARE_ACCOUNT_ID
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage deployable files
+        run: |
+          mkdir -p dist/data
+          cp index.html dist/
+          cp data/catamount.js dist/data/
+          cp data/catamount.json dist/data/
+          cp robots.txt sitemap.xml dist/
+          ls -R dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          # --branch is compared against the Pages project's production-branch
+          # setting (default "main" for a direct-upload project), not this
+          # repo's branch name.
+          command: pages deploy dist --project-name=catamount-results --branch=main

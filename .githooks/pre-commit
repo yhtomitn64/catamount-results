@@ -1,0 +1,70 @@
+#!/bin/sh
+# Refuse any commit that would publish a personal email address or a credential.
+#
+# This works by ALLOWLIST on purpose. Writing the address we're protecting into
+# a blocklist would put that address in the repo, which is the exact thing being
+# prevented. So: noreply addresses are fine, everything else that looks like an
+# email stops the commit.
+
+# Installed both globally and per-repo, the chaining at the bottom could
+# otherwise re-enter this script.
+[ -n "$GIT_EMAIL_GUARD" ] && exit 0
+GIT_EMAIL_GUARD=1
+export GIT_EMAIL_GUARD
+
+ALLOWED='@users\.noreply\.github\.com|noreply@anthropic\.com|example\.(com|org)|@localhost'
+EMAIL='[^[:space:]"<>(),;:]+@[A-Za-z0-9.-]+\.[A-Za-z][A-Za-z]+'
+SECRETS='ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[abprs]-|sk-[A-Za-z0-9]{20,}|sk_live_|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|BEGIN [A-Z ]*PRIVATE KEY|ssh-rsa AAAA'
+
+fail=0
+
+ident_email () { git var "$1" 2>/dev/null | sed -e 's/^.*<//' -e 's/>.*$//'; }
+
+for who in GIT_AUTHOR_IDENT GIT_COMMITTER_IDENT; do
+  addr=$(ident_email "$who")
+  [ -z "$addr" ] && continue
+  if ! printf '%s' "$addr" | grep -qE "$ALLOWED"; then
+    echo "BLOCKED: commit ${who%_IDENT} email is <$addr>, which is not a noreply address." >&2
+    echo "         git config user.email 'ID+USERNAME@users.noreply.github.com'" >&2
+    fail=1
+  fi
+done
+
+# Added lines only: an address already in history isn't this commit's fault, and
+# flagging it would make the hook impossible to get past.
+added=$(git diff --cached --no-color -U0 --diff-filter=ACMR | grep '^+' | grep -v '^+++')
+
+# The guard files spell out the patterns they hunt for, so scanning them for
+# credentials makes the hook block itself. They are still scanned for emails.
+added_nocreds=$(git diff --cached --no-color -U0 --diff-filter=ACMR \
+  -- . ':(exclude).githooks/pre-commit' ':(exclude).github/workflows/guard.yml' \
+  | grep '^+' | grep -v '^+++')
+
+hits=$(printf '%s\n' "$added" | grep -oE "$EMAIL" | grep -vE "$ALLOWED" | sort -u)
+if [ -n "$hits" ]; then
+  echo "BLOCKED: these email addresses appear in the staged changes:" >&2
+  printf '         %s\n' $hits >&2
+  fail=1
+fi
+
+skeys=$(printf '%s\n' "$added_nocreds" | grep -oE "$SECRETS" | sort -u)
+if [ -n "$skeys" ]; then
+  echo "BLOCKED: these look like credentials in the staged changes:" >&2
+  printf '         %s\n' $skeys >&2
+  fail=1
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo "" >&2
+  echo "Nothing was committed. Fix the above, or if it is genuinely a false" >&2
+  echo "positive, re-run with --no-verify (CI still checks, so it will not merge)." >&2
+  exit 1
+fi
+
+# Chain to a repo's own hook if it has one, so this can be installed globally
+# without silently disabling project hooks.
+for chained in "$(git rev-parse --git-dir)/hooks/pre-commit" "$(git rev-parse --show-toplevel)/.githooks/pre-commit"; do
+  case "$chained" in *"$0") continue;; esac
+  [ -x "$chained" ] && "$chained" || true
+done
+exit 0

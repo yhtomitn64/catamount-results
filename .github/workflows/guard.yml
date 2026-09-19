@@ -1,0 +1,51 @@
+# Backstop for the pre-commit hook. A local hook can be skipped with
+# --no-verify or simply never installed; this cannot.
+name: Guard
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  no-personal-email-or-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan tracked content and commit metadata
+        run: |
+          set -u
+          ALLOWED='@users\.noreply\.github\.com|noreply@anthropic\.com|example\.(com|org)|@localhost'
+          EMAIL='[^[:space:]"<>(),;:]+@[A-Za-z0-9.-]+\.[A-Za-z][A-Za-z]+'
+          SECRETS='ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[abprs]-|sk-[A-Za-z0-9]{20,}|sk_live_|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|BEGIN [A-Z ]*PRIVATE KEY|ssh-rsa AAAA'
+          fail=0
+
+          echo "--- commit author/committer addresses ---"
+          bad_idents=$(git log --format='%ae%n%ce' | sort -u | grep -vE "$ALLOWED" || true)
+          if [ -n "$bad_idents" ]; then
+            echo "FAIL: non-noreply addresses in commit metadata:"; echo "$bad_idents"; fail=1
+          else
+            echo "ok"
+          fi
+
+          echo "--- tracked file content ---"
+          hits=$(git grep -hIoE "$EMAIL" -- . | grep -vE "$ALLOWED" | sort -u || true)
+          if [ -n "$hits" ]; then
+            echo "FAIL: email addresses in tracked content:"; echo "$hits"; fail=1
+          else
+            echo "ok"
+          fi
+
+          echo "--- credential patterns ---"
+          keys=$(git grep -hIoE "$SECRETS" -- . \
+            ':(exclude).githooks/pre-commit' ':(exclude).github/workflows/guard.yml' \
+            | sort -u || true)
+          if [ -n "$keys" ]; then
+            echo "FAIL: credential-shaped strings in tracked content:"; echo "$keys"; fail=1
+          else
+            echo "ok"
+          fi
+
+          exit $fail

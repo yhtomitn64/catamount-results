@@ -195,7 +195,8 @@ HEADER_MAP = {
     "time": "time", "finish": "time", "chip time": "time", "elapsed": "time",
     "diff": "diff", "difference": "diff", "gap": "diff", "behind": "diff",
     "pace": "pace", "speed": "pace",
-    "laps": "laps", "lap": "laps",
+    "laps": "laps", "lap": "laps", "distance": "distance", "dist": "distance",
+    "course": "coursecol", "event": "event", "race": "event",
     "city": "city", "hometown": "city",
     "state": "state",
 }
@@ -214,6 +215,33 @@ def parse_time(text: str) -> float | None:
     minutes, seconds = int(m.group(2)), int(m.group(3))
     frac = float(f"0.{m.group(4)}") if m.group(4) else 0.0
     return hours * 3600 + minutes * 60 + seconds + frac
+
+
+LAP_RE = re.compile(r"(\d+)\s*(?:x|\u00d7)?\s*laps?\b|\blaps?\s*[:=]?\s*(\d+)", re.I)
+
+
+def lap_count(row: dict) -> int | None:
+    """How many laps this rider actually did.
+
+    The series runs 1-4 lap options off the same start, and which column
+    carries that varies: sometimes a Laps column, sometimes it is buried in the
+    category or distance text ("Men A - 4 lap"). Placings are meaningless
+    across lap counts, so this is worth digging for.
+    """
+    raw = row.get("laps")
+    if raw:
+        m = re.search(r"\d+", str(raw))
+        if m:
+            return int(m.group())
+
+    for key in ("distance", "category", "event", "coursecol"):
+        text = row.get(key)
+        if not text:
+            continue
+        m = LAP_RE.search(str(text))
+        if m:
+            return int(m.group(1) or m.group(2))
+    return None
 
 
 def norm_header(text: str) -> str | None:
@@ -268,10 +296,10 @@ def parse_results(html: str, raceid: int) -> list[dict]:
                 "category": row.get("category") or None,
                 "gender": row.get("gender") or None,
                 "team": row.get("team") or None,
+                "laps": lap_count(row),
                 # Hometown is deliberately NOT carried through. Webscorer shows
                 # it, but nothing here uses it, and publishing where a named
                 # amateur lives is exposure this project has no need for.
-                "laps": row.get("laps") or None,
                 "time": row.get("time") or None,
                 "seconds": parse_time(row.get("time", "")),
             }

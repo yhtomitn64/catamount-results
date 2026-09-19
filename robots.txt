@@ -1,0 +1,7 @@
+# Race results for real people. Indexing the landing page is fine; crawling
+# every racer permutation is not useful to anyone.
+User-agent: *
+Allow: /$
+Disallow: /
+
+Sitemap: https://catamount.burghertime.com/sitemap.xml

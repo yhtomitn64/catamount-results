@@ -20,8 +20,10 @@ import scrape  # noqa: E402
 random.seed(20260919)
 
 COURSES = ["Red on Black", "Black on White", "Yellow on Green", "Green on Yellow", "Blue on Orange"]
-COURSE_BASE = {"Red on Black": 2280, "Black on White": 2040, "Yellow on Green": 2520,
-               "Green on Yellow": 2460, "Blue on Orange": 1920}
+# Seconds per lap. Riders pick a lap count; the series runs 1 through 4.
+COURSE_BASE = {"Red on Black": 760, "Black on White": 680, "Yellow on Green": 840,
+               "Green on Yellow": 820, "Blue on Orange": 640}
+LAP_CATEGORY = {4: "Men A", 3: "Men B", 2: "Men C", 1: "Junior"}
 YEARS = list(range(2017, 2027))
 
 FIRST = ["Timothy", "Sarah", "Mike", "Dave", "Emily", "Chris", "Katie", "Ben", "Laura", "Pete",
@@ -31,7 +33,7 @@ FIRST = ["Timothy", "Sarah", "Mike", "Dave", "Emily", "Chris", "Katie", "Ben", "
 LAST = ["Burgher", "Whitcomb", "Lang", "Pelletier", "Marsh", "Hoyt", "Deforge", "Bouchard",
         "Steele", "Nadeau", "Ainsworth", "Corriveau", "Braun", "Rivers", "Gagnon", "Thorne",
         "Mercier", "Knapp", "Vance", "Ledoux"]
-CATEGORIES = ["Men A", "Men B", "Men C", "Women A", "Women B", "Junior"]
+LAP_WEIGHTS = [(4, 0.22), (3, 0.30), (2, 0.33), (1, 0.15)]
 
 
 def make_racers(n: int = 58) -> list[dict]:
@@ -41,16 +43,25 @@ def make_racers(n: int = 58) -> list[dict]:
         if name in seen:
             continue
         seen.add(name)
+        roll = random.random()
+        acc, laps = 0.0, 4
+        for lap_n, weight in LAP_WEIGHTS:
+            acc += weight
+            if roll <= acc:
+                laps = lap_n
+                break
         racers.append({
             "name": name,
             "ability": random.gauss(1.18, 0.16),        # time multiplier vs. course base
-            "category": random.choice(CATEGORIES),
+            "laps": laps,                                # the distance they usually pick
+            "category": LAP_CATEGORY[laps],
             "loyalty": random.betavariate(2, 3),         # share of races entered
             "first_year": random.choice(YEARS[:6]),
             "trend": random.gauss(-0.006, 0.010),        # per-year improvement
         })
     # Pin one known racer so the demo has something to search for.
-    racers[0].update(name="Timothy Burgher", ability=1.12, category="Men B",
+    # Tim rides the 4-lap almost always, and drops to 3 now and then.
+    racers[0].update(name="Timothy Burgher", ability=1.12, laps=4, category="Men A",
                      loyalty=0.62, first_year=2018, trend=-0.014)
     for r in racers:
         r["ability"] = max(1.0, r["ability"])
@@ -94,16 +105,24 @@ def main() -> None:
                     continue  # he sat this season out
                 years_in = year - r["first_year"]
                 mult = r["ability"] * (1 + r["trend"] * years_in) * random.gauss(1.0, 0.035)
-                field.append((base * mult, r))
+                # Most nights they ride their usual distance; sometimes one less.
+                laps = r["laps"] - 1 if (r["laps"] > 1 and random.random() < 0.15) else r["laps"]
+                field.append((base * laps * mult, laps, r))
 
-            field.sort(key=lambda t: t[0])
-            for place, (secs, r) in enumerate(field, 1):
-                mins, rest = divmod(secs, 60)
-                results.append({
-                    "raceid": raceid, "place": place, "name": r["name"], "racer": r["racer"],
-                    "category": r["category"], "gender": None, "team": None,
-                    "laps": "3", "time": f"{int(mins)}:{rest:04.1f}", "seconds": round(secs, 1),
-                })
+            # Placings are per lap-distance - that is the actual race being run.
+            by_laps: dict[int, list] = {}
+            for secs, laps, r in field:
+                by_laps.setdefault(laps, []).append((secs, r))
+            for laps, group in by_laps.items():
+                group.sort(key=lambda t: t[0])
+                for place, (secs, r) in enumerate(group, 1):
+                    mins, rest = divmod(secs, 60)
+                    results.append({
+                        "raceid": raceid, "place": place, "name": r["name"], "racer": r["racer"],
+                        "category": r["category"], "gender": None, "team": None,
+                        "laps": str(laps),
+                        "time": f"{int(mins)}:{rest:04.1f}", "seconds": round(secs, 1),
+                    })
 
     # Plausible Vermont summer evenings, so the weather views have something
     # to render before the real Open-Meteo pull runs.
