@@ -494,18 +494,12 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
         if len(r["name"]) > len(names.get(r["racer"], "")):
             names[r["racer"]] = r["name"]
 
-    strava = {}
-    path = DATA / "strava.json"
-    if path.exists():
-        strava = (json.loads(path.read_text()) or {}).get("athletes") or {}
-
     return {
         "generated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "source": ORGANIZER,
         "races": keep,
         "results": results,
         "racers": names,
-        "strava": strava,
     }
 
 

@@ -288,27 +288,6 @@ function wxCell(race) {
   return race && race.weather ? "<td>" + wxChip(race.weather) + "</td>" : '<td class="muted">—</td>';
 }
 
-// --- strava --------------------------------------------------------------
-
-// Curated links only. This page never guesses which Strava account belongs to
-// a racer - data/strava.json is filled in by hand, opt-in. The fallback is a
-// plain search link, which asserts nothing about who anyone is. Set this to
-// false to drop the fallback entirely.
-var SHOW_STRAVA_SEARCH = true;
-
-function stravaLink(key) {
-  var url = (D.strava || {})[key];
-  if (url) {
-    if (/^\d+$/.test(String(url))) url = "https://www.strava.com/athletes/" + url;
-    return '<a class="pill" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer nofollow">' +
-           "Strava profile ↗</a>";
-  }
-  if (!SHOW_STRAVA_SEARCH) return "";
-  return '<a class="pill" href="https://www.strava.com/athletes/search?text=' +
-         encodeURIComponent(nameOf(key)) + '" target="_blank" rel="noopener noreferrer nofollow" ' +
-         'title="Searches Strava for this name. Not a confirmed match.">Search Strava ↗</a>';
-}
-
 // Course names carry their own colours ("Red on Black"), so use them.
 var HUES = { red:"#c8483a", black:"#4a4f52", white:"#9aa0a6", yellow:"#c9a227", green:"#3f8f5c",
              blue:"#3a6ea8", orange:"#cf7a2e", purple:"#7a5aa6", pink:"#c46a93", brown:"#8a6a4f" };
@@ -534,8 +513,6 @@ views.racer = function (key) {
   var h = '<div class="card">';
   h += '<p class="big-name">' + esc(nameOf(key)) + "</p>";
   h += '<p class="hint">' + span + " · " + rows.length + " starts</p>";
-  var sl = stravaLink(key);
-  if (sl) h += '<div class="legend" style="margin:10px 0 0">' + sl + "</div>";
   h += '<div class="stats">' +
        stat(rows.length, "Starts") + stat(wins, "Wins") + stat(podiums, "Podiums") +
        stat(best == null ? "—" : best, "Best finish") +

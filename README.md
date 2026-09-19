@@ -119,34 +119,13 @@ committed file.
 python scrape.py weather    # -> data/weather.json, merged into the bundle by `build`
 ```
 
-## Strava links
+## What is and isn't published
 
-`data/strava.json` maps a racer to their Strava profile. It is **hand-curated and
-opt-in**, and ships empty:
-
-```json
-{ "athletes": { "some-racer-slug": "https://www.strava.com/athletes/1234567" } }
-```
-
-### What is and isn't published
-
-Per racer, the data carries only what a results board already shows: name, category,
-team, placing, time and lap count. Hometown is **deliberately dropped** even though
-Webscorer displays it — nothing in the interface uses it, and publishing where a
-named amateur lives is exposure this project has no reason to create.
-
-Nothing in this repo tries to figure out which Strava account belongs to which
-racer. That restraint is deliberate. These are real names of local amateur
-athletes, on a public page; automatically matching them to personal training
-accounts would turn a results archive into a people-search tool, and a wrong match
-would attribute a stranger's training data to someone who never agreed to any of
-it. So: add a person here only when their profile is public *and* they're happy to
-be linked.
-
-For everyone without an entry, the page shows a "Search Strava" link that just runs
-their name through Strava's own search — it claims nothing about who they are. To
-remove even that, set `SHOW_STRAVA_SEARCH = false` near the top of the script block
-in `index.html`.
+Per racer, the data carries only what a results board already shows: name,
+category, team, placing, time and lap count. Hometown is **deliberately dropped**
+even though Webscorer displays it — nothing in the interface uses it, and
+publishing where a named amateur lives is exposure this project has no reason to
+create.
 
 ## How the scraping works
 
@@ -182,7 +161,6 @@ page says so in a banner. Running `scrape.py` overwrites everything it produced.
 index.html                    the interface — one self-contained file
 scrape.py                     discover / fetch / build
 tools/make_sample_data.py     invented stand-in data
-data/strava.json              hand-curated, opt-in profile links
 data/                         generated; committed so the page works on Pages
 cache/                        raw HTML and weather JSON, gitignored
 ```
