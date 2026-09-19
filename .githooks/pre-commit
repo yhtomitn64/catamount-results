@@ -62,9 +62,17 @@ if [ "$fail" -ne 0 ]; then
 fi
 
 # Chain to a repo's own hook if it has one, so this can be installed globally
-# without silently disabling project hooks.
+# without silently disabling project hooks. A global core.hooksPath makes git
+# stop looking in .git/hooks, so without this a repo's own secret scanner would
+# quietly never run.
+#
+# The chained hook's failure MUST fail the commit. An earlier version swallowed
+# the exit code, which would have turned a blocking detect-secrets hook into a
+# no-op the moment this was installed globally.
+self="$(cd "$(dirname "$0")" && pwd -P)/$(basename "$0")"
 for chained in "$(git rev-parse --git-dir)/hooks/pre-commit" "$(git rev-parse --show-toplevel)/.githooks/pre-commit"; do
-  case "$chained" in *"$0") continue;; esac
-  [ -x "$chained" ] && "$chained" || true
+  [ -x "$chained" ] || continue
+  [ "$(cd "$(dirname "$chained")" && pwd -P)/$(basename "$chained")" = "$self" ] && continue
+  "$chained" || exit $?
 done
 exit 0
