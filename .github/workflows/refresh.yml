@@ -1,0 +1,31 @@
+# Re-scrape Webscorer and commit any new results.
+#
+# Manual-only for now. Once a run has been verified against the live site,
+# uncomment the schedule below to pick up each Wednesday's race automatically.
+name: Refresh results
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 12 * * 4"   # Thursdays 12:00 UTC, the morning after race night
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: python scrape.py all
+      - name: Commit if the data moved
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "Refresh results from Webscorer"
+          git push

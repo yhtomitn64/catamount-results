@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catamount Wednesdays</title>
+<style>
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --panel-2:#f0f2ee; --line:#dfe3da;
+  --ink:#1d2320; --ink-2:#5a635c; --ink-3:#8b948c;
+  --accent:#2f6f4e; --accent-ink:#ffffff; --good:#2f6f4e; --bad:#a63d2f;
+  --shadow:0 1px 2px rgba(20,30,20,.06),0 4px 16px rgba(20,30,20,.05);
+  --radius:12px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#12150f; --panel:#1a1e17; --panel-2:#222720; --line:#313828;
+    --ink:#e8ece4; --ink-2:#a4ae9f; --ink-3:#727c6e;
+    --accent:#6bbd8c; --accent-ink:#0f1410; --good:#6bbd8c; --bad:#e08a72;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12150f; --panel:#1a1e17; --panel-2:#222720; --line:#313828;
+  --ink:#e8ece4; --ink-2:#a4ae9f; --ink-3:#727c6e;
+  --accent:#6bbd8c; --accent-ink:#0f1410; --good:#6bbd8c; --bad:#e08a72;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px 64px}
+
+header.top{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
+.top .wrap{padding-top:14px;padding-bottom:0}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{font-size:19px;margin:0;letter-spacing:-.01em}
+.brand .sub{color:var(--ink-3);font-size:13px}
+nav{display:flex;gap:2px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{
+  padding:9px 13px;border-radius:8px 8px 0 0;color:var(--ink-2);font-size:14px;
+  white-space:nowrap;border-bottom:2px solid transparent;
+}
+nav a.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav a:hover{background:var(--panel-2);text-decoration:none}
+
+.banner{
+  background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:10px 14px;margin:16px 0 0;font-size:13px;color:var(--ink-2);
+}
+.banner strong{color:var(--ink)}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:18px;margin-top:16px}
+.card h2{margin:0 0 4px;font-size:16px;letter-spacing:-.01em}
+.card h2 + .hint{margin:0 0 14px}
+.hint{color:var(--ink-3);font-size:13px;margin:0 0 12px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin:14px 0 0}
+.stat{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.stat .n{font-size:21px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600;
+   position:sticky;top:0;background:var(--panel);cursor:pointer;white-space:nowrap}
+th.nosort{cursor:default}
+tbody tr:hover{background:var(--panel-2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow:auto;max-height:70vh;margin:0 -18px;padding:0 18px}
+
+input,select,button{font:inherit;color:var(--ink)}
+input[type=search],input[type=text],select{
+  background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px 11px;width:100%;
+}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row > *{flex:1 1 180px;min-width:0}
+.row > .shrink{flex:0 0 auto}
+button.ghost{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}
+button.ghost:hover{border-color:var(--accent)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;
+  background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 1px rgba(128,128,128,.45) inset}
+.medal{font-variant-numeric:tabular-nums;font-weight:650}
+.medal.p1{color:#a6770a}.medal.p2{color:#767b7e}.medal.p3{color:#8f5f3c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .medal.p1{color:#e0b64a}
+  :root:not([data-theme="light"]) .medal.p2{color:#b6bcbf}
+  :root:not([data-theme="light"]) .medal.p3{color:#cf9268}}
+:root[data-theme="dark"] .medal.p1{color:#e0b64a}
+:root[data-theme="dark"] .medal.p2{color:#b6bcbf}
+:root[data-theme="dark"] .medal.p3{color:#cf9268}
+.win{color:var(--good);font-weight:600}
+.loss{color:var(--bad)}
+.muted{color:var(--ink-3)}
+.big-name{font-size:24px;font-weight:650;letter-spacing:-.02em;margin:0}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(auto-fit,minmax(88px,1fr))}}
+
+svg.chart{display:block;width:100%;height:auto;overflow:visible}
+svg.chart text{fill:var(--ink-3);font-size:10px}
+svg.chart .axis{stroke:var(--line);stroke-width:1}
+svg.chart .gridline{stroke:var(--line);stroke-width:1;stroke-dasharray:2 3}
+svg.chart .pt{stroke:var(--panel);stroke-width:1.25}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.empty{color:var(--ink-3);padding:26px 0;text-align:center;font-size:14px}
+footer{color:var(--ink-3);font-size:12.5px;margin-top:30px;text-align:center}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Catamount Wednesdays</h1>
+      <span class="sub" id="subtitle"></span>
+    </div>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="banner"></div>
+  <main id="view"></main>
+  <footer id="footer"></footer>
+</div>
+
+<script src="data/catamount.js"></script>
+<script>
+(function () {
+"use strict";
+
+// ---------------------------------------------------------------------------
+// data loading
+// ---------------------------------------------------------------------------
+
+var D = window.CATAMOUNT_DATA;
+if (!D) {
+  document.getElementById("view").innerHTML =
+    '<div class="card"><h2>No data loaded</h2><p class="hint">' +
+    'Expected <code>data/catamount.js</code> next to this page. Run ' +
+    '<code>python scrape.py all</code> (or <code>python tools/make_sample_data.py</code> ' +
+    'for the sample set) and reload.</p></div>';
+  return;
+}
+
+var RACES = D.races, RESULTS = D.results;
+var raceById = {}, resultsByRace = {}, resultsByRacer = {}, courses = {}, years = {};
+
+RACES.forEach(function (r) { raceById[r.raceid] = r; resultsByRace[r.raceid] = []; });
+
+RESULTS.forEach(function (r) {
+  if (!raceById[r.raceid]) return;
+  (resultsByRace[r.raceid] = resultsByRace[r.raceid] || []).push(r);
+  (resultsByRacer[r.racer] = resultsByRacer[r.racer] || []).push(r);
+});
+
+// Derived per-result fields: field size, percentile, gap to the winner, and
+// time as a ratio of the winning time. The ratio is what makes two different
+// courses comparable at all.
+Object.keys(resultsByRace).forEach(function (id) {
+  var rows = resultsByRace[id];
+  rows.sort(function (a, b) { return (a.place || 1e9) - (b.place || 1e9); });
+  var n = rows.length;
+  var win = null;
+  for (var i = 0; i < rows.length; i++) { if (rows[i].seconds) { win = rows[i].seconds; break; } }
+  rows.forEach(function (r) {
+    r.field = n;
+    r.pct = n > 1 && r.place ? (n - r.place) / (n - 1) : null;   // 1 = won, 0 = last
+    r.gap = (r.seconds && win) ? r.seconds - win : null;
+    r.ratio = (r.seconds && win) ? r.seconds / win : null;
+  });
+});
+
+RACES.forEach(function (r) {
+  if (r.course) (courses[r.course] = courses[r.course] || []).push(r);
+  if (r.year) (years[r.year] = years[r.year] || []).push(r);
+});
+
+var COURSE_NAMES = Object.keys(courses).sort();
+var YEAR_LIST = Object.keys(years).map(Number).sort(function (a, b) { return b - a; });
+var RACER_KEYS = Object.keys(resultsByRacer).sort(function (a, b) {
+  return resultsByRacer[b].length - resultsByRacer[a].length;
+});
+
+function nameOf(key) { return (D.racers && D.racers[key]) || key; }
+
+// ---------------------------------------------------------------------------
+// formatting helpers
+// ---------------------------------------------------------------------------
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+function fmtTime(sec) {
+  if (sec == null) return "—";
+  var neg = sec < 0; sec = Math.abs(sec);
+  var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  var out = (h ? h + ":" + String(m).padStart(2, "0") : String(m)) + ":" +
+            (s < 10 ? "0" : "") + s.toFixed(1);
+  return (neg ? "−" : "") + out;
+}
+function fmtGap(sec) { return sec == null ? "—" : sec === 0 ? "—" : "+" + fmtTime(sec); }
+function fmtPct(p) { return p == null ? "—" : Math.round(p * 100) + "%"; }
+function fmtDate(iso) {
+  if (!iso) return "—";
+  var p = iso.split("-");
+  return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p[1] - 1] +
+         " " + (+p[2]) + ", " + p[0];
+}
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+function median(a) {
+  if (!a.length) return null;
+  var s = a.slice().sort(function (x, y) { return x - y; }), m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+// Course names carry their own colours ("Red on Black"), so use them.
+var HUES = { red:"#c8483a", black:"#4a4f52", white:"#9aa0a6", yellow:"#c9a227", green:"#3f8f5c",
+             blue:"#3a6ea8", orange:"#cf7a2e", purple:"#7a5aa6", pink:"#c46a93", brown:"#8a6a4f" };
+function courseColor(name) {
+  var first = String(name || "").toLowerCase().split(/\s+/)[0];
+  return HUES[first] || "#6f7a72";
+}
+function coursePill(name) {
+  if (!name) return '<span class="muted">—</span>';
+  return '<a class="pill" href="#/course/' + slug(name) + '">' +
+         '<span class="dot" style="background:' + courseColor(name) + '"></span>' + esc(name) + "</a>";
+}
+function racerLink(key) { return '<a href="#/racer/' + esc(key) + '">' + esc(nameOf(key)) + "</a>"; }
+function placeCell(p, field) {
+  if (!p) return '<td class="num muted">—</td>';
+  var cls = p <= 3 ? " medal p" + p : "";
+  return '<td class="num"><span class="' + cls.trim() + '">' + p + "</span>" +
+         '<span class="muted">/' + field + "</span></td>";
+}
+
+// ---------------------------------------------------------------------------
+// sortable tables
+// ---------------------------------------------------------------------------
+
+// cols: [{label, cls, get(row) -> sort value, cell(row) -> <td> html, sort:'desc'|'asc'|false}]
+var tableSeq = 0;
+function table(cols, rows, opts) {
+  opts = opts || {};
+  var id = "t" + (++tableSeq);
+  TABLES[id] = { cols: cols, rows: rows, sort: opts.sort == null ? null : opts.sort, dir: opts.dir || 1, opts: opts };
+  return '<div class="scroll" id="' + id + '">' + tableHTML(id) + "</div>";
+}
+var TABLES = {};
+function tableHTML(id) {
+  var t = TABLES[id], cols = t.cols, rows = t.rows.slice();
+  if (t.sort != null && cols[t.sort].get) {
+    var g = cols[t.sort].get, dir = t.dir;
+    rows.sort(function (a, b) {
+      var x = g(a), y = g(b);
+      if (x == null && y == null) return 0;
+      if (x == null) return 1;
+      if (y == null) return -1;
+      if (typeof x === "string" || typeof y === "string") return dir * String(x).localeCompare(String(y));
+      return dir * (x - y);
+    });
+  }
+  if (t.opts.limit) rows = rows.slice(0, t.opts.limit);
+  var h = "<table><thead><tr>";
+  cols.forEach(function (c, i) {
+    var sortable = !!c.get;
+    var arrow = t.sort === i ? (t.dir === 1 ? " ↑" : " ↓") : "";
+    h += "<th" + (c.cls ? ' class="' + c.cls + (sortable ? "" : " nosort") + '"' : (sortable ? "" : ' class="nosort"')) +
+         (sortable ? ' data-sort="' + i + '"' : "") + ">" + esc(c.label) + arrow + "</th>";
+  });
+  h += "</tr></thead><tbody>";
+  if (!rows.length) {
+    h += '<tr><td colspan="' + cols.length + '" class="empty">Nothing here yet.</td></tr>';
+  }
+  rows.forEach(function (r) {
+    h += "<tr>" + cols.map(function (c) { return c.cell(r); }).join("") + "</tr>";
+  });
+  return h + "</tbody></table>";
+}
+document.addEventListener("click", function (e) {
+  var th = e.target.closest ? e.target.closest("th[data-sort]") : null;
+  if (!th) return;
+  var box = th.closest(".scroll"), t = TABLES[box.id];
+  var i = +th.dataset.sort;
+  if (t.sort === i) t.dir = -t.dir; else { t.sort = i; t.dir = t.cols[i].defaultDir || 1; }
+  box.innerHTML = tableHTML(box.id);
+});
+
+// ---------------------------------------------------------------------------
+// charts (plain SVG, no dependencies)
+// ---------------------------------------------------------------------------
+
+// series: [{label, color, points:[{x (ms), y, title}]}]
+function lineChart(series, opts) {
+  opts = opts || {};
+  var W = 720, H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
+  var pts = [];
+  series.forEach(function (s) { s.points.forEach(function (p) { pts.push(p); }); });
+  if (!pts.length) return '<div class="empty">Not enough data to plot.</div>';
+
+  var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+  var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+  var fixed = opts.y0 != null && opts.y1 != null;
+  var y0 = opts.y0 != null ? opts.y0 : Math.min.apply(null, ys);
+  var y1 = opts.y1 != null ? opts.y1 : Math.max.apply(null, ys);
+  if (y1 === y0) { y1 = y0 + 1; }
+  if (!fixed) { var padY = (y1 - y0) * 0.08; y0 -= padY; y1 += padY; }
+  if (x1 === x0) { x0 -= 1; x1 += 1; }
+
+  var X = function (v) { return P.l + (v - x0) / (x1 - x0) * (W - P.l - P.r); };
+  var Y = function (v) { return P.t + (1 - (v - y0) / (y1 - y0)) * (H - P.t - P.b); };
+
+  var svg = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' +
+            esc(opts.label || "chart") + '">';
+
+  for (var i = 0; i <= 4; i++) {
+    var v = y0 + (y1 - y0) * i / 4, y = Y(v);
+    svg += '<line class="gridline" x1="' + P.l + '" y1="' + y + '" x2="' + (W - P.r) + '" y2="' + y + '"/>';
+    svg += '<text x="' + (P.l - 6) + '" y="' + (y + 3) + '" text-anchor="end">' +
+           esc((opts.fmtY || String)(v)) + "</text>";
+  }
+  svg += '<line class="axis" x1="' + P.l + '" y1="' + (H - P.b) + '" x2="' + (W - P.r) + '" y2="' + (H - P.b) + '"/>';
+
+  var ticks = opts.xTicks || [];
+  ticks.forEach(function (t) {
+    if (t.x < x0 || t.x > x1) return;
+    svg += '<text x="' + X(t.x) + '" y="' + (H - P.b + 15) + '" text-anchor="middle">' + esc(t.label) + "</text>";
+  });
+
+  series.forEach(function (s) {
+    var p = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+    if (p.length > 1 && !opts.scatter) {
+      // Break the line across seasons a course was not used, so a three-year
+      // gap does not read as a smooth trend.
+      var gap = opts.gapMs || 300 * 864e5;
+      var d = "", prev = null;
+      p.forEach(function (q) {
+        d += (prev === null || q.x - prev > gap ? "M" : "L") + X(q.x).toFixed(1) + " " + Y(q.y).toFixed(1) + " ";
+        prev = q.x;
+      });
+      svg += '<path fill="none" style="stroke:' + s.color + '" stroke-width="1.75" stroke-linejoin="round" d="' +
+             d.trim() + '"/>';
+    }
+    p.forEach(function (q) {
+      svg += '<circle class="pt" cx="' + X(q.x).toFixed(1) + '" cy="' + Y(q.y).toFixed(1) +
+             '" r="' + (opts.scatter ? 3 : 3.4) + '" style="fill:' + s.color + '"><title>' + esc(q.title || "") +
+             "</title></circle>";
+    });
+  });
+  return svg + "</svg>";
+}
+
+function legend(series) {
+  return '<div class="legend">' + series.map(function (s) {
+    return '<span class="pill"><span class="dot" style="background:' + s.color + '"></span>' + esc(s.label) + "</span>";
+  }).join("") + "</div>";
+}
+
+function yearTicks() {
+  return YEAR_LIST.slice().sort(function (a, b) { return a - b; }).map(function (y) {
+    return { x: Date.parse(y + "-07-01"), label: String(y) };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// head-to-head
+// ---------------------------------------------------------------------------
+
+function meetings(a, b) {
+  var mine = resultsByRacer[a] || [], theirs = {}, out = [];
+  (resultsByRacer[b] || []).forEach(function (r) { theirs[r.raceid] = r; });
+  mine.forEach(function (r) {
+    var o = theirs[r.raceid];
+    if (o && r.place && o.place) out.push({ race: raceById[r.raceid], a: r, b: o });
+  });
+  out.sort(function (x, y) { return (x.race.date || "").localeCompare(y.race.date || ""); });
+  return out;
+}
+
+function record(a, b) {
+  var m = meetings(a, b), w = 0, l = 0;
+  m.forEach(function (x) { if (x.a.place < x.b.place) w++; else l++; });
+  return { met: m.length, wins: w, losses: l, meetings: m };
+}
+
+// Everyone a racer has lined up against, ranked by how often.
+function rivals(key) {
+  var mine = resultsByRacer[key] || [], tally = {};
+  mine.forEach(function (r) {
+    (resultsByRace[r.raceid] || []).forEach(function (o) {
+      if (o.racer === key || !o.place || !r.place) return;
+      var t = tally[o.racer] || (tally[o.racer] = { racer: o.racer, met: 0, wins: 0, losses: 0, margin: 0 });
+      t.met++;
+      if (r.place < o.place) t.wins++; else t.losses++;
+      if (r.seconds && o.seconds) t.margin += o.seconds - r.seconds;
+    });
+  });
+  return Object.keys(tally).map(function (k) {
+    var t = tally[k];
+    t.rate = t.met ? t.wins / t.met : 0;
+    t.avgMargin = t.met ? t.margin / t.met : 0;
+    return t;
+  }).sort(function (x, y) { return y.met - x.met; });
+}
+
+// ---------------------------------------------------------------------------
+// views
+// ---------------------------------------------------------------------------
+
+var views = {};
+
+views.racer = function (key) {
+  if (!key) return pickRacer();
+  var rows = resultsByRacer[key];
+  if (!rows) return '<div class="card"><h2>Not found</h2><p class="hint">No results for that racer.</p></div>' + pickRacer();
+
+  rows = rows.slice().sort(function (a, b) {
+    return (raceById[b.raceid].date || "").localeCompare(raceById[a.raceid].date || "");
+  });
+
+  var wins = rows.filter(function (r) { return r.place === 1; }).length;
+  var podiums = rows.filter(function (r) { return r.place && r.place <= 3; }).length;
+  var best = rows.reduce(function (m, r) { return r.place && (m == null || r.place < m) ? r.place : m; }, null);
+  var pcts = rows.map(function (r) { return r.pct; }).filter(function (v) { return v != null; });
+  var yrs = rows.map(function (r) { return raceById[r.raceid].year; }).filter(Boolean);
+  var span = yrs.length ? Math.min.apply(null, yrs) + "–" + Math.max.apply(null, yrs) : "—";
+
+  var h = '<div class="card">';
+  h += '<p class="big-name">' + esc(nameOf(key)) + "</p>";
+  h += '<p class="hint">' + span + " · " + rows.length + " starts</p>";
+  h += '<div class="stats">' +
+       stat(rows.length, "Starts") + stat(wins, "Wins") + stat(podiums, "Podiums") +
+       stat(best == null ? "—" : best, "Best finish") +
+       stat(fmtPct(median(pcts)), "Median finish") +
+       stat(new Set(rows.map(function (r) { return raceById[r.raceid].course; }).filter(Boolean)).size, "Courses") +
+       "</div></div>";
+
+  // How they finish, over time.
+  var byCourse = {};
+  rows.forEach(function (r) {
+    var c = raceById[r.raceid].course; if (!c || r.pct == null) return;
+    (byCourse[c] = byCourse[c] || []).push({
+      x: Date.parse(raceById[r.raceid].date), y: r.pct * 100,
+      title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + r.place + "/" + r.field
+    });
+  });
+  var series = Object.keys(byCourse).sort().map(function (c) {
+    return { label: c, color: courseColor(c), points: byCourse[c] };
+  });
+  h += '<div class="card"><h2>Where they finish</h2>' +
+       '<p class="hint">Percentile in the field — 100% is the win, 0% is last. Coloured by course.</p>' +
+       lineChart(series, { scatter: true, y0: 0, y1: 100, xTicks: yearTicks(),
+                           fmtY: function (v) { return Math.round(v) + "%"; }, label: "Finish percentile over time" }) +
+       legend(series) + "</div>";
+
+  // Same course, different years: the question that needs a chart.
+  var timeSeries = Object.keys(byCourse).sort().map(function (c) {
+    var pts = rows.filter(function (r) { return raceById[r.raceid].course === c && r.seconds; })
+      .map(function (r) {
+        return { x: Date.parse(raceById[r.raceid].date), y: r.seconds,
+                 title: fmtDate(raceById[r.raceid].date) + " · " + fmtTime(r.seconds) + " · " + r.place + "/" + r.field };
+      });
+    return { label: c, color: courseColor(c), points: pts };
+  }).filter(function (s) { return s.points.length > 1; });
+
+  if (timeSeries.length) {
+    h += '<div class="card"><h2>Times on the same course, year over year</h2>' +
+         '<p class="hint">Each line is one course. Courses rotate between seasons, so only the ' +
+         'same colour is comparable.</p>' +
+         lineChart(timeSeries, { xTicks: yearTicks(), fmtY: fmtTime, label: "Finish time by course over time" }) +
+         legend(timeSeries) + "</div>";
+  }
+
+  // Rivals - the "who beat who" table.
+  var rv = rivals(key).filter(function (t) { return t.met >= 2; });
+  h += '<div class="card"><h2>Rivals</h2>' +
+       '<p class="hint">Everyone ' + esc(nameOf(key)) + " has shared a start line with at least twice. " +
+       "Click a name for the full head-to-head.</p>" +
+       table([
+         { label: "Racer", get: function (t) { return nameOf(t.racer); },
+           cell: function (t) { return "<td>" + racerLink(t.racer) + "</td>"; } },
+         { label: "Met", cls: "num", get: function (t) { return t.met; }, defaultDir: -1,
+           cell: function (t) { return '<td class="num">' + t.met + "</td>"; } },
+         { label: "W–L", cls: "num", get: function (t) { return t.wins - t.losses; }, defaultDir: -1,
+           cell: function (t) { return '<td class="num"><span class="win">' + t.wins + '</span>–<span class="loss">' +
+                  t.losses + "</span></td>"; } },
+         { label: "Win rate", cls: "num", get: function (t) { return t.rate; }, defaultDir: -1,
+           cell: function (t) { return '<td class="num">' + Math.round(t.rate * 100) + "%</td>"; } },
+         { label: "Avg margin", cls: "num", get: function (t) { return t.avgMargin; }, defaultDir: -1,
+           cell: function (t) { return '<td class="num ' + (t.avgMargin >= 0 ? "win" : "loss") + '">' +
+                  (t.avgMargin >= 0 ? "+" : "−") + fmtTime(Math.abs(t.avgMargin)) + "</td>"; } },
+         { label: "", cls: "num",
+           cell: function (t) { return '<td class="num"><a href="#/h2h/' + esc(key) + "/" + esc(t.racer) + '">H2H</a></td>'; } }
+       ], rv, { sort: 1, dir: -1, limit: 40 }) + "</div>";
+
+  // Per-course summary.
+  var courseRows = Object.keys(byCourse).sort().map(function (c) {
+    var rs = rows.filter(function (r) { return raceById[r.raceid].course === c; });
+    var secs = rs.map(function (r) { return r.seconds; }).filter(Boolean);
+    var ratios = rs.map(function (r) { return r.ratio; }).filter(Boolean);
+    return {
+      course: c, n: rs.length,
+      best: secs.length ? Math.min.apply(null, secs) : null,
+      bestPlace: rs.reduce(function (m, r) { return r.place && (m == null || r.place < m) ? r.place : m; }, null),
+      ratio: ratios.length ? median(ratios) : null,
+      pct: median(rs.map(function (r) { return r.pct; }).filter(function (v) { return v != null; }))
+    };
+  });
+  h += '<div class="card"><h2>By course</h2>' +
+       '<p class="hint">"vs winner" is the median of this racer\'s time divided by the winning time — ' +
+       "1.00 means they won, 1.20 means they took 20% longer.</p>" +
+       table([
+         { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+         { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
+         { label: "Best time", cls: "num", get: function (r) { return r.best; }, cell: function (r) { return '<td class="num">' + fmtTime(r.best) + "</td>"; } },
+         { label: "Best place", cls: "num", get: function (r) { return r.bestPlace; }, cell: function (r) { return '<td class="num">' + (r.bestPlace || "—") + "</td>"; } },
+         { label: "vs winner", cls: "num", get: function (r) { return r.ratio; }, cell: function (r) { return '<td class="num">' + (r.ratio ? r.ratio.toFixed(2) + "×" : "—") + "</td>"; } },
+         { label: "Median finish", cls: "num", get: function (r) { return r.pct; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + fmtPct(r.pct) + "</td>"; } }
+       ], courseRows, { sort: 1, dir: -1 }) + "</div>";
+
+  // Every start.
+  h += '<div class="card"><h2>Every start</h2>' +
+       table([
+         { label: "Date", get: function (r) { return raceById[r.raceid].date; }, defaultDir: -1,
+           cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(raceById[r.raceid].date) + "</a></td>"; } },
+         { label: "Course", get: function (r) { return raceById[r.raceid].course; },
+           cell: function (r) { return "<td>" + coursePill(raceById[r.raceid].course) + "</td>"; } },
+         { label: "Place", cls: "num", get: function (r) { return r.place; },
+           cell: function (r) { return placeCell(r.place, r.field); } },
+         { label: "Time", cls: "num", get: function (r) { return r.seconds; },
+           cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
+         { label: "Behind", cls: "num", get: function (r) { return r.gap; },
+           cell: function (r) { return '<td class="num muted">' + fmtGap(r.gap) + "</td>"; } },
+         { label: "Finish", cls: "num", get: function (r) { return r.pct; }, defaultDir: -1,
+           cell: function (r) { return '<td class="num">' + fmtPct(r.pct) + "</td>"; } },
+         { label: "Category", get: function (r) { return r.category; },
+           cell: function (r) { return '<td class="muted">' + esc(r.category || "—") + "</td>"; } }
+       ], rows, { sort: 0, dir: -1 }) + "</div>";
+
+  return h;
+};
+
+function stat(n, label) {
+  return '<div class="stat"><div class="n">' + esc(n) + '</div><div class="l">' + esc(label) + "</div></div>";
+}
+
+function pickRacer() {
+  return '<div class="card"><h2>Find a racer</h2>' +
+    '<p class="hint">' + RACER_KEYS.length + " people have results here. Start typing a name.</p>" +
+    '<input type="search" id="racer-search" placeholder="e.g. Timothy Burgher" autocomplete="off">' +
+    '<div id="racer-hits"></div></div>' +
+    '<div class="card"><h2>Most starts, all time</h2>' +
+    table([
+      { label: "Racer", get: function (k) { return nameOf(k); }, cell: function (k) { return "<td>" + racerLink(k) + "</td>"; } },
+      { label: "Starts", cls: "num", get: function (k) { return resultsByRacer[k].length; }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + resultsByRacer[k].length + "</td>"; } },
+      { label: "Wins", cls: "num", get: function (k) { return resultsByRacer[k].filter(function (r) { return r.place === 1; }).length; }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + resultsByRacer[k].filter(function (r) { return r.place === 1; }).length + "</td>"; } },
+      { label: "Median finish", cls: "num",
+        get: function (k) { return median(resultsByRacer[k].map(function (r) { return r.pct; }).filter(function (v) { return v != null; })); },
+        defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + fmtPct(median(resultsByRacer[k].map(function (r) { return r.pct; }).filter(function (v) { return v != null; }))) + "</td>"; } },
+      { label: "Seasons", cls: "num",
+        get: function (k) { return new Set(resultsByRacer[k].map(function (r) { return raceById[r.raceid].year; })).size; }, defaultDir: -1,
+        cell: function (k) { return '<td class="num">' + new Set(resultsByRacer[k].map(function (r) { return raceById[r.raceid].year; })).size + "</td>"; } }
+    ], RACER_KEYS, { sort: 1, dir: -1, limit: 100 }) + "</div>";
+}
+
+views.h2h = function (a, b) {
+  var h = '<div class="card"><h2>Head to head</h2>' +
+    '<p class="hint">Pick two people. Only races they both finished are counted.</p>' +
+    '<div class="row">' +
+    racerSelect("h2h-a", a) + racerSelect("h2h-b", b) + "</div></div>";
+
+  if (!a || !b) return h;
+  if (a === b) return h + '<div class="card"><p class="empty">Pick two different racers.</p></div>';
+  if (!resultsByRacer[a] || !resultsByRacer[b]) return h + '<div class="card"><p class="empty">No results for one of those racers.</p></div>';
+
+  var rec = record(a, b);
+  if (!rec.met) {
+    return h + '<div class="card"><p class="empty">' + esc(nameOf(a)) + " and " + esc(nameOf(b)) +
+           " have never finished the same race.</p></div>";
+  }
+
+  var margins = rec.meetings.filter(function (m) { return m.a.seconds && m.b.seconds; })
+    .map(function (m) { return m.b.seconds - m.a.seconds; });
+
+  h += '<div class="card"><h2>' + esc(nameOf(a)) + " vs " + esc(nameOf(b)) + "</h2>" +
+    '<div class="stats">' +
+    stat(rec.met, "Races together") +
+    stat(rec.wins, nameOf(a).split(" ")[0] + " ahead") +
+    stat(rec.losses, nameOf(b).split(" ")[0] + " ahead") +
+    stat(Math.round(rec.wins / rec.met * 100) + "%", "Win rate") +
+    stat(margins.length ? (median(margins) >= 0 ? "+" : "−") + fmtTime(Math.abs(median(margins))) : "—", "Median margin") +
+    "</div></div>";
+
+  var pts = rec.meetings.filter(function (m) { return m.a.seconds && m.b.seconds; }).map(function (m) {
+    return { x: Date.parse(m.race.date), y: m.b.seconds - m.a.seconds,
+             title: fmtDate(m.race.date) + " · " + (m.race.course || "") + " · " +
+                    (m.a.place < m.b.place ? nameOf(a) : nameOf(b)) + " ahead by " +
+                    fmtTime(Math.abs(m.b.seconds - m.a.seconds)) };
+  });
+  if (pts.length > 1) {
+    h += '<div class="card"><h2>Margin over time</h2>' +
+      '<p class="hint">Above the line means ' + esc(nameOf(a)) + " finished ahead.</p>" +
+      lineChart([{ label: "margin", color: "var(--accent)", points: pts }],
+                { xTicks: yearTicks(), fmtY: function (v) { return (v >= 0 ? "+" : "−") + fmtTime(Math.abs(v)); },
+                  label: "Head to head margin over time" }) + "</div>";
+  }
+
+  h += '<div class="card"><h2>Every meeting</h2>' +
+    table([
+      { label: "Date", get: function (m) { return m.race.date; }, defaultDir: -1,
+        cell: function (m) { return '<td><a href="#/race/' + m.race.raceid + '">' + fmtDate(m.race.date) + "</a></td>"; } },
+      { label: "Course", get: function (m) { return m.race.course; },
+        cell: function (m) { return "<td>" + coursePill(m.race.course) + "</td>"; } },
+      { label: "Ahead", get: function (m) { return m.a.place < m.b.place ? 0 : 1; },
+        cell: function (m) { var w = m.a.place < m.b.place;
+          return '<td class="' + (w ? "win" : "loss") + '">' + esc(nameOf(w ? a : b)) + "</td>"; } },
+      { label: nameOf(a).split(" ")[0], cls: "num", get: function (m) { return m.a.place; },
+        cell: function (m) { return placeCell(m.a.place, m.a.field); } },
+      { label: nameOf(b).split(" ")[0], cls: "num", get: function (m) { return m.b.place; },
+        cell: function (m) { return placeCell(m.b.place, m.b.field); } },
+      { label: "Margin", cls: "num",
+        get: function (m) { return (m.a.seconds && m.b.seconds) ? Math.abs(m.b.seconds - m.a.seconds) : null; },
+        cell: function (m) {
+          if (!m.a.seconds || !m.b.seconds) return '<td class="num muted">—</td>';
+          return '<td class="num">' + fmtTime(Math.abs(m.b.seconds - m.a.seconds)) + "</td>"; } }
+    ], rec.meetings, { sort: 0, dir: -1 }) + "</div>";
+
+  return h;
+};
+
+function racerSelect(id, val) {
+  var opts = RACER_KEYS.map(function (k) {
+    return '<option value="' + esc(k) + '"' + (k === val ? " selected" : "") + ">" +
+           esc(nameOf(k)) + " (" + resultsByRacer[k].length + ")</option>";
+  }).join("");
+  return '<select id="' + id + '" data-h2h="1"><option value="">Choose a racer…</option>' + opts + "</select>";
+}
+
+views.course = function (cslug) {
+  if (!cslug) {
+    var rows = COURSE_NAMES.map(function (c) {
+      var rs = courses[c];
+      var ys = rs.map(function (r) { return r.year; }).filter(Boolean);
+      return { course: c, n: rs.length, years: new Set(ys).size,
+               from: ys.length ? Math.min.apply(null, ys) : null, to: ys.length ? Math.max.apply(null, ys) : null };
+    });
+    return '<div class="card"><h2>Courses</h2>' +
+      '<p class="hint">The series rotates courses between seasons but repeats them within one, ' +
+      "so a course page is where times actually compare.</p>" +
+      table([
+        { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+        { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
+        { label: "Seasons", cls: "num", get: function (r) { return r.years; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.years + "</td>"; } },
+        { label: "Years", get: function (r) { return r.from; },
+          cell: function (r) { return '<td class="muted">' + (r.from ? r.from + "–" + r.to : "—") + "</td>"; } }
+      ], rows, { sort: 1, dir: -1 }) + "</div>";
+  }
+
+  var name = COURSE_NAMES.filter(function (c) { return slug(c) === cslug; })[0];
+  if (!name) return '<div class="card"><h2>Unknown course</h2></div>' + views.course();
+
+  var rs = courses[name];
+  var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
+  var all = RESULTS.filter(function (r) { return ids[r.raceid] && r.seconds; });
+  var fastest = all.slice().sort(function (a, b) { return a.seconds - b.seconds; });
+  var rank = {};
+  fastest.forEach(function (r, i) { rank[r.raceid + "|" + r.racer] = i + 1; });
+
+  var h = '<div class="card"><p class="big-name">' +
+    '<span class="dot" style="display:inline-block;background:' + courseColor(name) + '"></span> ' + esc(name) + "</p>" +
+    '<p class="hint">' + rs.length + " races · " +
+    new Set(rs.map(function (r) { return r.year; })).size + " seasons</p>" +
+    '<div class="stats">' +
+    stat(rs.length, "Races") +
+    stat(fastest.length ? fmtTime(fastest[0].seconds) : "—", "Course record") +
+    stat(new Set(all.map(function (r) { return r.racer; })).size, "Racers") +
+    stat(fmtTime(median(all.map(function (r) { return r.seconds; }))), "Median time") +
+    "</div></div>";
+
+  // Winning time by edition - is the course getting faster, or was it re-cut?
+  var byRace = rs.slice().sort(function (a, b) { return (a.date || "").localeCompare(b.date || ""); });
+  var winPts = [], medPts = [];
+  byRace.forEach(function (race) {
+    var rows = (resultsByRace[race.raceid] || []).filter(function (r) { return r.seconds; });
+    if (!rows.length) return;
+    var w = Math.min.apply(null, rows.map(function (r) { return r.seconds; }));
+    winPts.push({ x: Date.parse(race.date), y: w, title: fmtDate(race.date) + " · winner " + fmtTime(w) });
+    medPts.push({ x: Date.parse(race.date), y: median(rows.map(function (r) { return r.seconds; })),
+                  title: fmtDate(race.date) + " · median " + fmtTime(median(rows.map(function (r) { return r.seconds; }))) });
+  });
+  var series = [{ label: "Winning time", color: courseColor(name), points: winPts },
+                { label: "Median time", color: "var(--ink-3)", points: medPts }];
+  h += '<div class="card"><h2>How the course has run</h2>' +
+    '<p class="hint">Winning and median time for every running of this course. A step change ' +
+    "usually means the loop was re-cut, not that the field changed.</p>" +
+    lineChart(series, { xTicks: yearTicks(), fmtY: fmtTime, label: "Winning and median time per edition" }) +
+    legend(series) + "</div>";
+
+  h += '<div class="card"><h2>Fastest times ever run here</h2>' +
+    table([
+      { label: "#", cls: "num", get: function (r) { return rank[r.raceid + "|" + r.racer]; },
+        cell: function (r) { return '<td class="num muted">' + rank[r.raceid + "|" + r.racer] + "</td>"; } },
+      { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+      { label: "Time", cls: "num", get: function (r) { return r.seconds; }, cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
+      { label: "Date", get: function (r) { return raceById[r.raceid].date; }, defaultDir: -1,
+        cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(raceById[r.raceid].date) + "</a></td>"; } },
+      { label: "Place", cls: "num", get: function (r) { return r.place; }, cell: function (r) { return placeCell(r.place, r.field); } }
+    ], fastest, { sort: 2, dir: 1, limit: 50 }) + "</div>";
+
+  h += '<div class="card"><h2>Every running of ' + esc(name) + "</h2>" +
+    table([
+      { label: "Date", get: function (r) { return r.date; }, defaultDir: -1,
+        cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(r.date) + "</a></td>"; } },
+      { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + r.year + "</a></td>"; } },
+      { label: "Finishers", cls: "num", get: function (r) { return (resultsByRace[r.raceid] || []).length; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
+      { label: "Winner", cell: function (r) {
+          var w = (resultsByRace[r.raceid] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+    ], byRace, { sort: 0, dir: -1 }) + "</div>";
+
+  return h;
+};
+
+views.race = function (id) {
+  var race = raceById[id];
+  if (!race) return '<div class="card"><h2>Unknown race</h2></div>';
+  var rows = resultsByRace[id] || [];
+  var h = '<div class="card"><p class="big-name">' + fmtDate(race.date) + "</p>" +
+    '<p class="hint">' + esc(race.title || "") + "</p>" +
+    '<div class="row" style="margin-top:10px">' +
+    '<div class="shrink">' + coursePill(race.course) + "</div>" +
+    '<div class="shrink"><span class="pill">' + rows.length + " finishers</span></div>" +
+    (race.year ? '<div class="shrink"><a class="pill" href="#/series/' + race.year + '">' + race.year + " season</a></div>" : "") +
+    (race.url ? '<div class="shrink"><a class="pill" href="' + esc(race.url) + '" target="_blank" rel="noopener">Webscorer ↗</a></div>' : "") +
+    "</div></div>";
+
+  h += '<div class="card"><h2>Results</h2>' +
+    table([
+      { label: "Place", cls: "num", get: function (r) { return r.place; }, cell: function (r) { return placeCell(r.place, r.field); } },
+      { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+      { label: "Category", get: function (r) { return r.category; }, cell: function (r) { return '<td class="muted">' + esc(r.category || "—") + "</td>"; } },
+      { label: "Time", cls: "num", get: function (r) { return r.seconds; }, cell: function (r) { return '<td class="num">' + fmtTime(r.seconds) + "</td>"; } },
+      { label: "Behind", cls: "num", get: function (r) { return r.gap; }, cell: function (r) { return '<td class="num muted">' + fmtGap(r.gap) + "</td>"; } }
+    ], rows, { sort: 0, dir: 1 }) + "</div>";
+  return h;
+};
+
+views.series = function (year) {
+  if (!year) {
+    var rows = YEAR_LIST.map(function (y) {
+      var rs = years[y];
+      var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
+      var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
+      return { year: y, races: rs.length, starts: res.length,
+               racers: new Set(res.map(function (r) { return r.racer; })).size,
+               courses: new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size };
+    });
+    return '<div class="card"><h2>Seasons</h2>' +
+      table([
+        { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+          cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + r.year + "</a></td>"; } },
+        { label: "Races", cls: "num", get: function (r) { return r.races; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.races + "</td>"; } },
+        { label: "Courses", cls: "num", get: function (r) { return r.courses; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.courses + "</td>"; } },
+        { label: "Racers", cls: "num", get: function (r) { return r.racers; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.racers + "</td>"; } },
+        { label: "Starts", cls: "num", get: function (r) { return r.starts; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.starts + "</td>"; } }
+      ], rows, { sort: 0, dir: -1 }) + "</div>";
+  }
+
+  year = +year;
+  var rs = years[year];
+  if (!rs) return '<div class="card"><h2>No races in ' + esc(year) + "</h2></div>" + views.series();
+
+  var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
+  var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
+  var by = {};
+  res.forEach(function (r) {
+    var t = by[r.racer] || (by[r.racer] = { racer: r.racer, starts: 0, wins: 0, podiums: 0, pcts: [] });
+    t.starts++;
+    if (r.place === 1) t.wins++;
+    if (r.place && r.place <= 3) t.podiums++;
+    if (r.pct != null) t.pcts.push(r.pct);
+  });
+  var standings = Object.keys(by).map(function (k) {
+    var t = by[k]; t.median = median(t.pcts); return t;
+  });
+
+  var h = '<div class="card"><p class="big-name">' + year + " season</p>" +
+    '<div class="stats">' + stat(rs.length, "Races") +
+    stat(new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size, "Courses") +
+    stat(standings.length, "Racers") + stat(res.length, "Starts") + "</div></div>";
+
+  h += '<div class="card"><h2>' + year + " standings</h2>" +
+    '<p class="hint">Sorted by starts. Click any column to re-rank — median finish is the ' +
+    "fairer measure if someone only showed up twice.</p>" +
+    table([
+      { label: "Racer", get: function (t) { return nameOf(t.racer); }, cell: function (t) { return "<td>" + racerLink(t.racer) + "</td>"; } },
+      { label: "Starts", cls: "num", get: function (t) { return t.starts; }, defaultDir: -1, cell: function (t) { return '<td class="num">' + t.starts + "</td>"; } },
+      { label: "Wins", cls: "num", get: function (t) { return t.wins; }, defaultDir: -1, cell: function (t) { return '<td class="num">' + (t.wins || "") + "</td>"; } },
+      { label: "Podiums", cls: "num", get: function (t) { return t.podiums; }, defaultDir: -1, cell: function (t) { return '<td class="num">' + (t.podiums || "") + "</td>"; } },
+      { label: "Median finish", cls: "num", get: function (t) { return t.median; }, defaultDir: -1,
+        cell: function (t) { return '<td class="num">' + fmtPct(t.median) + "</td>"; } }
+    ], standings, { sort: 1, dir: -1 }) + "</div>";
+
+  h += '<div class="card"><h2>Race calendar</h2>' +
+    table([
+      { label: "Date", get: function (r) { return r.date; },
+        cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(r.date) + "</a></td>"; } },
+      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+      { label: "Finishers", cls: "num", get: function (r) { return (resultsByRace[r.raceid] || []).length; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
+      { label: "Winner", cell: function (r) {
+          var w = (resultsByRace[r.raceid] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+    ], rs.slice(), { sort: 0, dir: 1 }) + "</div>";
+
+  return h;
+};
+
+views.races = function () {
+  return '<div class="card"><h2>All races</h2>' +
+    '<p class="hint">' + RACES.length + " races on record. Click a date for full results.</p>" +
+    table([
+      { label: "Date", get: function (r) { return r.date; }, defaultDir: -1,
+        cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(r.date) + "</a></td>"; } },
+      { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + (r.year || "—") + "</a></td>"; } },
+      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+      { label: "Finishers", cls: "num", get: function (r) { return (resultsByRace[r.raceid] || []).length; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
+      { label: "Winner", cell: function (r) {
+          var w = (resultsByRace[r.raceid] || [])[0];
+          return "<td>" + (w ? racerLink(w.racer) + ' <span class="muted">' + fmtTime(w.seconds) + "</span>" : "—") + "</td>"; } }
+    ], RACES.slice(), { sort: 0, dir: -1 }) + "</div>";
+};
+
+// ---------------------------------------------------------------------------
+// routing
+// ---------------------------------------------------------------------------
+
+var TABS = [
+  { id: "racer", label: "Racers" },
+  { id: "h2h", label: "Head to head" },
+  { id: "course", label: "Courses" },
+  { id: "series", label: "Seasons" },
+  { id: "races", label: "All races" }
+];
+
+function render() {
+  var parts = (location.hash || "#/racer").replace(/^#\/?/, "").split("/").filter(Boolean);
+  var tab = parts[0] || "racer";
+  if (!views[tab]) tab = "racer";
+
+  document.getElementById("nav").innerHTML = TABS.map(function (t) {
+    return '<a href="#/' + t.id + '" class="' + (t.id === tab ? "on" : "") + '">' + esc(t.label) + "</a>";
+  }).join("");
+
+  TABLES = {};
+  document.getElementById("view").innerHTML = views[tab].apply(null, parts.slice(1));
+  window.scrollTo(0, 0);
+
+  var search = document.getElementById("racer-search");
+  if (search) { search.focus(); search.oninput = function () { showHits(this.value); }; }
+}
+
+function showHits(q) {
+  var box = document.getElementById("racer-hits");
+  q = q.trim().toLowerCase();
+  if (!q) { box.innerHTML = ""; return; }
+  var hits = RACER_KEYS.filter(function (k) { return nameOf(k).toLowerCase().indexOf(q) >= 0; }).slice(0, 12);
+  box.innerHTML = hits.length
+    ? '<div class="legend" style="margin-top:12px">' + hits.map(function (k) {
+        return '<a class="pill" href="#/racer/' + esc(k) + '">' + esc(nameOf(k)) +
+               ' <span class="muted">' + resultsByRacer[k].length + "</span></a>";
+      }).join("") + "</div>"
+    : '<p class="hint" style="margin-top:12px">No one by that name.</p>';
+}
+
+document.addEventListener("change", function (e) {
+  if (!e.target.dataset || !e.target.dataset.h2h) return;
+  var a = document.getElementById("h2h-a").value, b = document.getElementById("h2h-b").value;
+  location.hash = "#/h2h/" + a + "/" + b;
+});
+
+window.addEventListener("hashchange", render);
+
+// ---------------------------------------------------------------------------
+// chrome
+// ---------------------------------------------------------------------------
+
+document.getElementById("subtitle").textContent =
+  RACES.length + " races · " + RACER_KEYS.length + " racers · " +
+  (YEAR_LIST.length ? YEAR_LIST[YEAR_LIST.length - 1] + "–" + YEAR_LIST[0] : "");
+
+if (D.sample) {
+  document.getElementById("banner").innerHTML =
+    '<div class="banner"><strong>Sample data.</strong> These names, times and races are ' +
+    "invented so the interface can be built and checked before the real scrape runs. " +
+    "Run <code>python scrape.py all</code> to replace everything here with the actual " +
+    "Webscorer results.</div>";
+}
+
+document.getElementById("footer").innerHTML =
+  "Results from <a href=\"" + esc(D.source || "https://www.webscorer.com/cofc") + "\" target=\"_blank\" rel=\"noopener\">Webscorer</a>" +
+  (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "");
+
+render();
+})();
+</script>
+</body>
+</html>
