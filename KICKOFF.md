@@ -21,26 +21,24 @@ below is done.
   Verified headlessly against the real bundle.
 - **Identity merges** live in `aliases.json` (explicit, hand-kept). Only
   Tim / Timothy Burgher is merged so far.
-- **Global email guard** is installed (`~/.githooks`). The chaining fix is proven
-  in a scratch repo. Nobody has watched the real `family-mail-digest` and
-  `someday` hooks fire under it: stage a fake secret in each and try one commit.
+- **Global email guard** is installed (`~/.githooks`) and verified: a fake secret
+  staged in `family-mail-digest` and in `someday` is blocked by each repo's own
+  `detect-secrets` hook, chained through the global one.
 - **`burghertime-landing` history is rewritten**; any other clone of it diverges
   (re-clone, or `git reset --hard origin/master`).
 
 ## Not done yet
 
-1. **Landing page link.** Branch `add-catamount-link` in `burghertime-landing` has
-   the card ("Catamount Race Series"). Merging it to `master` auto-deploys the
-   live landing page, so do it deliberately.
-2. **GitHub web setting:** Settings -> Emails -> "Block command line pushes that
-   expose my email" is the one layer that covers every machine.
-3. **Name merges beyond the safe set (optional).** `aliases.json` holds 102
+1. **Name merges beyond the safe set (optional).** `aliases.json` holds 102
    hand-kept merges (nicknames, spelling slips, middle names) that never share a race
    night. About 11 more pairs were left for a human call, plus near-misses like
    Karen/Karin Bove or Sam/Samantha Fox. Only add ones you are sure of.
-4. **Scheduled refresh.** `refresh.yml` is manual-only. Before enabling the
+2. **Scheduled refresh.** `refresh.yml` is manual-only. Before enabling the
    schedule, add `actions/cache` for `cache/` or every run re-downloads all ~196
    pages.
+
+Done and live: the site, the domain, the landing-page card, the event filter,
+and the GitHub "block pushes that expose my email" setting.
 
 ## Known data quirks
 
