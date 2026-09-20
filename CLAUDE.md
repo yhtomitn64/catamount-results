@@ -96,6 +96,8 @@ under `cache/` (gitignored) so parser work can be iterated offline.
 index.html                 the whole interface (vanilla JS, inline SVG charts)
 scrape.py                  discover / fetch / weather / build
 tools/make_sample_data.py  invented stand-in data
+tools/wayback.py           polite Wayback Machine client (slow, cached under cache/wayback/, backs off)
+course_labels.json         courses the race titles never named, found another way (see Working notes)
 tools/test/                ui.test.js (headless), touch.test.js + cdp.js (touch), fixtures.js
 aliases.json               hand-kept merges of one person's spelled names
 _headers                   Cloudflare Pages response headers

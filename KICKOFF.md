@@ -39,6 +39,23 @@ below is done.
 Done and live: the site, the domain, the landing-page card, the event filter,
 and the GitHub "block pushes that expose my email" setting.
 
+## Older results: the Wayback plan (paused, the Archive was down)
+
+The club's own pre-Webscorer results pages are archived at `catamountoutdoor.com/results/`:
+2009-2013 (scattered weekly pages and special events), **2017 (38 pages, about a full
+season), 2018 (13 pages), 2019 (39 pages)**, and nothing for 2014-2016. The list of 137
+archived URLs is cached in `cache/wayback/` (rebuild with `tools/wayback.py cdx`). When the
+Archive is back: fetch them with `tools/wayback.py` (4+ s apart, cached), look at each
+era's HTML format, write one parser per format, and decide how to show pre-2021 seasons
+(no distance groups on old pages?). Same publishing rules as everything else.
+
+Other places that might hold results, not yet checked: the club's dated "Current Race
+Course" banner on `catamountoutdoor.org/race-series-weekly/` (Wayback captures from 2021-22
+name the week's course); Google Drive folders of 2021 *virtual* results linked from that page;
+VMBA and BikeReg event pages (entries, not times); Velocity Results (special events such as
+the Catamount Classic XCT). `cofc.org` is NOT Catamount (Webscorer's "cofc" is only an
+account name); its archive is an unrelated organisation.
+
 ## Known data quirks
 
 - The organizer listing starts in July 2021; there is no earlier data.
