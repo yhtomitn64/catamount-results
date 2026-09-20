@@ -64,7 +64,8 @@ check("aliases: every target is a racer with results", Object.values(aliases).ev
 const labelFile = JSON.parse(fs.readFileSync(path.join(ROOT, "course_labels.json"), "utf8")).labels;
 const inferred = races.filter((r) => r.courseSource);
 const namedInTitle = (t) => /\([^)]+\)/.test(t) || /\b(red|black|white|yellow|green|blue|orange|purple)\s+(on|in)\s+(red|black|white|yellow|green|blue|orange|purple)\b/i.test(t);
-const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).map((r) => r.course));
+// Titles only use three courses, but 2021 also ran "Black on Orange" (named on the club's own weekly sheets).
+const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).map((r) => r.course).concat(["Black on Orange"]));
 check("labels: every labelled race is in the bundle with that course and source", Object.entries(labelFile).every(([id, l]) => { const r = fx.raceById[id]; return r && r.course === l.course && r.courseSource === l.source; }));
 check("labels: only races whose title names no course carry a label", inferred.every((r) => !namedInTitle(r.title)) && inferred.length === Object.keys(labelFile).length, inferred.length + " inferred");
 check("labels: sources are gps, club or sibling, and courses are ones the titles use", inferred.every((r) => ["gps", "club", "sibling"].includes(r.courseSource) && knownCourses.has(r.course)));
@@ -195,7 +196,7 @@ if (inferred.length) {
   check("inferred: an inferred course is starred on its race page", /class="inferred"/.test(rendered["#/race/" + inferred[0].raceid]));
   const named = races.find((r) => r.course && !r.courseSource);
   check("inferred: a course named in the title is not starred", !/class="inferred"/.test(rendered["#/race/" + named.raceid]));
-  check("inferred: the footer explains the asterisk", /Course inferred/.test(el("footer").innerHTML));
+  check("inferred: the footer explains the asterisk", /does not name a course/.test(el("footer").innerHTML));
 }
 
 // ---- type-to-search --------------------------------------------------------------------------

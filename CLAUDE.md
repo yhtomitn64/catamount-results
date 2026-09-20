@@ -116,12 +116,16 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   or two short of the page's own "Racers: N".
 - Age and hometown are on the Webscorer page and are deliberately dropped.
 - Race titles name a course only from 2023 (plus a few in 2024 written as plain words),
-  and cross never has one. `course_labels.json` fills 35 of the 45 unnamed 2021-22 MTB /
-  trail-run races and marks them `courseSource`: `gps` (the owner's ride matched against
-  the three courses' lap shapes: 11/11 on held-out known nights, and 3 of 3 spot checks
-  against the club's own banner and a ride title agreed), `club` (the club's dated "Current
-  Race Course" banner, from the Wayback Machine) or `sibling` (the Tuesday run uses the
-  same week's Wednesday course: true in 48 of 49 known weeks). The page stars them.
+  and cross never has one. `course_labels.json` fills the unnamed 2021-22 MTB / trail-run
+  races and marks them `courseSource`: `club` (2021: every in-person night, from the "Course:"
+  line on the club's own weekly results PDFs in its public Google Drive folders, lined up to
+  calendar weeks, plus the dated "Current Race Course" banner from the Wayback Machine),
+  `gps` (2022: the owner's ride matched against the three 2022 courses' lap shapes: 11/11 on
+  held-out known nights, 3 of 3 independent checks agreed) or `sibling` (the Tuesday run uses
+  the same week's Wednesday course: true in 48 of 49 known weeks). 2021 ran a fourth course,
+  "Black on Orange", which a three-course GPS match cannot tell from its neighbours (it
+  mislabelled two such nights until the club sheets corrected it), so GPS is only used for
+  2022, when the club listed three courses. The page stars every filled-in course.
 - Sample data is built to exercise the UI; a green run on it proves the UI logic,
   not the scraper. The results-table parser had never seen a real page as of the
   last commit.

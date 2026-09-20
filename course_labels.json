@@ -1,41 +1,65 @@
 {
-  "note": "Courses the race titles never named, worked out another way. source: gps = a rider's GPS track matched to the three courses; club = the club's own weekly course announcement; sibling = the Tuesday run uses the same week's Wednesday course. Nothing per person is kept here.",
+  "note": "Courses the race titles never named, worked out another way. source: club = the club's own weekly results sheet or dated course announcement; gps = a rider's GPS track matched to the three 2022 courses; sibling = the Tuesday run uses the same week's Wednesday course. Nothing per person is kept here.",
   "labels": {
     "247565": {
       "course": "Black on White",
-      "source": "sibling"
+      "source": "club"
     },
     "247657": {
       "course": "Black on White",
-      "source": "gps"
+      "source": "club"
+    },
+    "248866": {
+      "course": "Red on Black",
+      "source": "club"
     },
     "248964": {
       "course": "Red on Black",
       "source": "club"
     },
     "249511": {
-      "course": "Black on White",
-      "source": "sibling"
+      "course": "Black on Orange",
+      "source": "club"
     },
     "249634": {
+      "course": "Black on Orange",
+      "source": "club"
+    },
+    "250165": {
       "course": "Black on White",
-      "source": "gps"
+      "source": "club"
+    },
+    "250234": {
+      "course": "Black on White",
+      "source": "club"
     },
     "250724": {
       "course": "Yellow on Green",
-      "source": "sibling"
+      "source": "club"
     },
     "250808": {
       "course": "Yellow on Green",
-      "source": "gps"
+      "source": "club"
     },
     "251400": {
-      "course": "Black on White",
-      "source": "sibling"
+      "course": "Black on Orange",
+      "source": "club"
     },
     "251503": {
+      "course": "Black on Orange",
+      "source": "club"
+    },
+    "252132": {
+      "course": "Red on Black",
+      "source": "club"
+    },
+    "252813": {
       "course": "Black on White",
-      "source": "gps"
+      "source": "club"
+    },
+    "253804": {
+      "course": "Black on Orange",
+      "source": "club"
     },
     "276746": {
       "course": "Black on White",

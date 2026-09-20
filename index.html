@@ -433,7 +433,7 @@ function courseColor(name) {
 // the pill carries an asterisk and the footer explains it.
 var COURSE_SOURCE = {
   gps: "Inferred from a rider's GPS track that night",
-  club: "From the club's weekly course announcement",
+  club: "From the club's own weekly results sheet or course announcement",
   sibling: "Inferred: the Tuesday run uses the same week's Wednesday course"
 };
 function coursePill(name, race) {
@@ -1470,8 +1470,8 @@ document.getElementById("footer").innerHTML =
   "Results from <a href=\"" + esc(D.source || "https://www.webscorer.com/cofc") + "\" target=\"_blank\" rel=\"noopener\">Webscorer</a>" +
   (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "") +
   (RACES.some(function (r) { return r.courseSource; })
-    ? '<p class="fine">* Course inferred: the race title does not name one, so it comes from a rider\'s GPS track, ' +
-      "the club's weekly course announcement, or the same week's other race.</p>" : "");
+    ? '<p class="fine">* The race title does not name a course, so it comes from the club\'s own weekly results sheets or ' +
+      "announcements, a rider's GPS track, or the same week's other race.</p>" : "");
 
 render();
 })();
