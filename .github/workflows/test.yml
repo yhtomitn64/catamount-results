@@ -1,0 +1,21 @@
+# Run the headless UI tests on every push and pull request. They need no browser,
+# no secrets and no network: they render every page against the committed data and
+# check it against the publishing rules in CLAUDE.md.
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/test/ui.test.js

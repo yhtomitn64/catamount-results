@@ -1,0 +1,144 @@
+// Touch tests: drives real headless Chrome as a phone (390x844, coarse pointer, real
+// touch events) and taps, types and swipes through the site.
+//
+//     node tools/test/touch.test.js                         # the local index.html
+//     node tools/test/touch.test.js https://example.org/    # a deployed copy
+//     node tools/test/touch.test.js --shots /tmp/shots      # also save screenshots
+//
+// Needs Node 22+ and a local Chrome or Edge (set CHROME_PATH to pick one).
+// Test subjects come from the data, so no test names a real person.
+"use strict";
+const path = require("path");
+const { pathToFileURL } = require("url");
+const { launch } = require("./cdp.js");
+const { ROOT, readBundle, fixtures, prefixQuery } = require("./fixtures.js");
+
+const args = process.argv.slice(2);
+const shotIdx = args.indexOf("--shots");
+const shotDir = shotIdx >= 0 ? args.splice(shotIdx, 2)[1] : null;
+const target = args[0] || pathToFileURL(path.join(ROOT, "index.html")).href;
+const base = target.replace(/#.*$/, "");
+
+const bundle = readBundle();
+const fx = fixtures(bundle);
+const topName = bundle.racers[fx.top], partnerName = bundle.racers[fx.partner];
+const races = bundle.races;
+const cxCount = races.filter((r) => r.discipline === "CX").length;
+const yearRacers = {};
+bundle.results.forEach((r) => { (yearRacers[fx.raceById[r.raceid].year] = yearRacers[fx.raceById[r.raceid].year] || new Set()).add(r.racer); });
+const bigYear = Object.keys(yearRacers).find((y) => yearRacers[y].size > 200);
+
+let failures = 0, total = 0;
+const check = (name, ok, detail) => {
+  total++;
+  if (!ok) failures++;
+  console.log((ok ? "PASS " : "FAIL ") + name + (detail !== undefined ? "  -> " + detail : ""));
+};
+
+(async () => {
+  const b = await launch({ shotDir });
+  try {
+    await b.phone(390, 844);
+
+    // ---- nothing grabs focus on load ------------------------------------------------------
+    await b.go(base + "#/racer");
+    check("emulation is a real touch phone", await b.eval("matchMedia('(pointer: coarse)').matches && 'ontouchstart' in window"));
+    check("home: no field is focused on load (the keyboard stays down)", (await b.eval("document.activeElement.tagName")) === "BODY");
+    await b.hash("#/h2h");
+    check("head to head: no box is focused on load", (await b.eval("document.activeElement.tagName")) === "BODY");
+
+    // ---- layout facts ---------------------------------------------------------------------------
+    const f = await b.eval(`(() => { const nav = document.getElementById("nav"); const btn = document.querySelector(".filter button");
+      const input = document.getElementById("h2h-a");
+      return { navOverflow: nav.scrollWidth - nav.clientWidth, filterH: Math.round(btn.getBoundingClientRect().height),
+               inputFont: getComputedStyle(input).fontSize, overflowX: document.documentElement.scrollWidth - innerWidth }; })()`);
+    check("all five nav tabs fit on one row", f.navOverflow <= 0, JSON.stringify(f));
+    check("filter buttons are at least 44px tall", f.filterH >= 44, f.filterH + "px");
+    check("inputs are 16px, so iOS does not zoom in on focus", f.inputFont === "16px", f.inputFont);
+    check("no sideways page scroll", f.overflowX <= 0, f.overflowX);
+
+    // ---- type-to-search with real taps -------------------------------------------------------------
+    await b.tap("#h2h-a");
+    check("tapping a box focuses it", (await b.eval("document.activeElement.id")) === "h2h-a");
+    await b.type(prefixQuery(topName));
+    await b.sleep(500);
+    const opts = await b.eval("[...document.querySelectorAll('#h2h-a-list li')].map(li => li.textContent)");
+    check("typing shows matches, the right person first", opts.length > 0 && opts[0].startsWith(topName), opts.length + " matches");
+    const liH = await b.eval("Math.round(document.querySelector('#h2h-a-list li').getBoundingClientRect().height)");
+    check("suggestions are at least 44px tall", liH >= 44, liH + "px");
+    await b.shot("picker-open");
+    await b.tap(`#h2h-a-list li[data-key="${fx.top}"]`);
+    await b.sleep(400);
+    check("tapping a suggestion selects it", (await b.eval("document.getElementById('h2h-a').value")) === topName && (await b.eval("location.hash")).includes(fx.top), await b.eval("location.hash"));
+    await b.tap("#h2h-b");
+    await b.type(prefixQuery(partnerName));
+    await b.sleep(500);
+    await b.tap(`#h2h-b-list li[data-key="${fx.partner}"]`);
+    await b.sleep(600);
+    check("the second pick loads the comparison", (await b.eval("document.getElementById('view').innerText")).includes(topName + " vs " + partnerName), await b.eval("location.hash"));
+    await b.shot("h2h-result");
+
+    // ---- filter ------------------------------------------------------------------------------------------
+    await b.hash("#/races");
+    await b.tap(".filter button[data-filter='CX']");
+    check("tapping Cyclocross filters the races list", new RegExp(cxCount + " races \\(Cyclocross\\)").test(await b.eval("document.getElementById('view').innerText")));
+    await b.tap(".filter button[data-filter='all']");
+
+    // ---- charts ---------------------------------------------------------------------------------------------
+    await b.hash("#/racer/" + fx.top);
+    const label = await b.eval(`(() => { const t = document.querySelector("svg.chart text"), svg = t.ownerSVGElement;
+      const scale = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
+      return { scale: +scale.toFixed(2), fontPx: +(parseFloat(getComputedStyle(t).fontSize) * scale).toFixed(1), viewBoxW: svg.viewBox.baseVal.width }; })()`);
+    check("the chart is drawn at its shown width, so labels are not shrunk", label.scale >= 0.95 && label.scale <= 1.05, JSON.stringify(label));
+    check("chart axis labels are at least 9px on screen", label.fontPx >= 9, label.fontPx + "px");
+    const dot = await b.rect("svg.chart circle.pt");
+    check("a chart dot is tiny on a phone, which is why a tap takes the nearest dot", dot && dot.w < 12, dot && dot.w.toFixed(1) + "px wide");
+    await b.tapAt(dot.x + 9, dot.y + 7);   // a fingertip away from the dot's centre, not on it
+    const readout = await b.eval("document.querySelector('.chart-readout').textContent");
+    check("tapping near a dot shows its race in the readout", !!readout && !/^Tap a point/.test(readout), readout);
+    const empty = await b.eval(`(() => { const svg = document.querySelector("svg.chart"), r = svg.getBoundingClientRect();
+      const dots = [...svg.querySelectorAll("circle.pt")].map((c) => { const q = c.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2]; });
+      for (let y = r.top + 8; y < r.bottom - 8; y += 6) for (let x = r.left + 60; x < r.right - 8; x += 6) {
+        if (y < 0 || y > innerHeight) continue;
+        if (dots.every((d) => Math.hypot(d[0] - x, d[1] - y) > 40)) return { x, y }; }
+      return null; })()`);
+    if (empty) {
+      await b.eval("document.querySelector('.chart-readout').textContent = 'UNCHANGED'");
+      await b.tapAt(empty.x, empty.y);
+      check("tapping empty chart space leaves the readout alone", (await b.eval("document.querySelector('.chart-readout').textContent")) === "UNCHANGED");
+    }
+    await b.shot("chart-tap");
+    const wPortrait = await b.eval("document.querySelector('svg.chart').viewBox.baseVal.width");
+    await b.phone(844, 390);
+    await b.sleep(900);
+    const wLandscape = await b.eval("document.querySelector('svg.chart').viewBox.baseVal.width");
+    check("rotating to landscape redraws the chart wider", wLandscape > wPortrait, wPortrait + " -> " + wLandscape);
+    await b.phone(390, 844);
+    await b.sleep(900);
+
+    // ---- long tables, scrolling ------------------------------------------------------------------------------------
+    if (bigYear) {
+      await b.hash("#/series/" + bigYear);
+      const shown = await b.eval("[...document.querySelectorAll('#view table')].map(t => t.querySelectorAll('tbody tr').length).sort((a, b) => b - a)[0]");
+      check("a very long table starts at 60 rows on a phone", shown === 60, shown + " rows");
+      check("it offers Show all", await b.eval("!!document.querySelector('button[data-more]')"));
+      await b.tap("button[data-more]");
+      const all = await b.eval("[...document.querySelectorAll('#view table')].map(t => t.querySelectorAll('tbody tr').length).sort((a, b) => b - a)[0]");
+      check("tapping Show all reveals every row", all > shown, shown + " -> " + all);
+      await b.hash("#/series/" + bigYear);
+      await b.eval("window.scrollTo(0, 0)");
+      await b.sleep(200);
+      const y0 = await b.eval("scrollY");
+      await b.swipe(200, 700, 250);
+      const y1 = await b.eval("scrollY");
+      check("swiping over a table scrolls the page", y1 > y0, y0 + " -> " + y1);
+      check("no table is a vertical scroll box on a phone", (await b.eval("[...document.querySelectorAll('.scroll')].filter(e => e.scrollHeight > e.clientHeight + 4).length")) === 0);
+    }
+
+    check("no console errors or exceptions", b.consoleLog.filter((l) => /^(error|EXCEPTION)/.test(l)).length === 0, b.consoleLog.slice(0, 3).join(" | "));
+  } finally {
+    await b.close();
+  }
+  console.log(failures ? "\n" + failures + " of " + total + " checks FAILED" : "\nAll " + total + " checks passed");
+  process.exit(failures ? 1 : 0);
+})().catch((e) => { console.error("FAILED: " + e.message); process.exit(1); });

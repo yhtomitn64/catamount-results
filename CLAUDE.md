@@ -60,6 +60,22 @@ python tools/make_sample_data.py   # invented data; overwrites the above
 
 Open `index.html` directly — the data loads as a `<script>` so no server is needed.
 
+## Tests
+
+```
+node tools/test/ui.test.js       # headless, no browser, no dependencies; CI runs it on every push
+node tools/test/touch.test.js    # real touch events in headless Chrome as a phone (Node 22+, Chrome/Edge)
+node tools/test/touch.test.js https://catamount.burghertime.com/    # a deployed copy
+```
+
+`ui.test.js` checks the data bundle against the publishing rules (only the allowlisted
+fields, no placeholder names, no junk finish times, aliases resolve) and renders every
+route against the real data. It is what proves the two design facts below still hold, so
+run it after any change to `index.html` or `scrape.py`. `touch.test.js` covers what a
+stubbed DOM cannot: tap targets, the keyboard staying down, the picker, chart taps,
+rotation and scrolling. Both pick their test subjects from the data, so no test names a
+real person; `CHROME_PATH` selects a browser and `--shots DIR` saves screenshots.
+
 ## Scraping etiquette
 
 Webscorer's robots.txt allows `/cofc`, `/race?raceid=…` and
@@ -76,9 +92,12 @@ under `cache/` (gitignored) so parser work can be iterated offline.
 index.html                 the whole interface (vanilla JS, inline SVG charts)
 scrape.py                  discover / fetch / weather / build
 tools/make_sample_data.py  invented stand-in data
+tools/test/                ui.test.js (headless), touch.test.js + cdp.js (touch), fixtures.js
+aliases.json               hand-kept merges of one person's spelled names
+_headers                   Cloudflare Pages response headers
 tools/protect-email.sh     optional: install the guard for every repo (read its caveat)
 .githooks/pre-commit       email + credential guard
-.github/workflows/         deploy.yml (Cloudflare Pages), guard.yml, refresh.yml
+.github/workflows/         deploy.yml (Cloudflare Pages), guard.yml, test.yml, refresh.yml
 ```
 
 ## Working notes
