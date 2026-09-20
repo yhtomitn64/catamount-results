@@ -91,10 +91,20 @@ def cdx(url: str, *, year_from: str | None = None, year_to: str | None = None,
     return [tuple(r) for r in rows]
 
 
+def _path(timestamp: str, url: str) -> pathlib.Path:
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", url)[-60:]
+    return CACHE / f"{timestamp}_{slug}_{_key(timestamp, url)}.html"
+
+
+def cached(timestamp: str, url: str) -> str | None:
+    """The page if it is already on disk; never touches the network."""
+    path = _path(timestamp, url)
+    return path.read_text(encoding="utf-8", errors="replace") if path.exists() else None
+
+
 def get(timestamp: str, url: str) -> str | None:
     """The archived page as originally served ("id_" = no Wayback toolbar). None if not archived."""
-    slug = re.sub(r"[^A-Za-z0-9]+", "_", url)[-60:]
-    path = CACHE / f"{timestamp}_{slug}_{_key(timestamp, url)}.html"
+    path = _path(timestamp, url)
     if path.exists():
         return path.read_text(encoding="utf-8", errors="replace")
     resp = _slow_get(f"https://web.archive.org/web/{timestamp}id_/{url}")

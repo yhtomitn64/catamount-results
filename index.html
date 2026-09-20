@@ -220,6 +220,13 @@ var DISC_NAMES = { MTB: "MTB", TR: "Trail run", CX: "Cyclocross", vMTB: "Virtual
 function evOf(race) { return (race.virtual ? "v" : "") + ((race || {}).discipline || "?"); }
 function isVirt(r) { return !!(raceById[r.raceid] || {}).virtual; }
 function isWin(r) { return r.dplace === 1 && !isVirt(r); }
+// Where a race's results came from, by the link: Webscorer for most, Catamount's own sheets and
+// its old website (as the Wayback Machine kept it) for the earlier ones.
+function sourceName(url) {
+  if (/webscorer\.com/.test(url)) return "Webscorer";
+  if (/archive\.org/.test(url)) return "Old results page";
+  return "Results sheet";
+}
 function isPodium(r) { return !!r.dplace && r.dplace <= 3 && !isVirt(r); }
 function inPerson(r) { return !isVirt(r); }
 function distOf(r) { return r.distance || ""; }
@@ -1220,7 +1227,7 @@ views.race = function (id) {
       ? '<div class="shrink"><span class="pill">' + race.groups.map(distLabel).map(esc).join(", ") + "</span></div>" : "") +
     (race.year ? '<div class="shrink"><a class="pill" href="#/series/' + race.year + '">' + race.year + " season</a></div>" : "") +
     (race.url ? '<div class="shrink"><a class="pill" href="' + esc(race.url) + '" target="_blank" rel="noopener">' +
-      (race.virtual ? "Results sheet" : "Webscorer") + " ↗</a></div>" : "") +
+      sourceName(race.url) + " ↗</a></div>" : "") +
     "</div></div>";
   if (race.virtual) {
     h += '<div class="card"><h2>A virtual week</h2><p class="hint">Riders timed themselves on this ' +
@@ -1486,6 +1493,9 @@ if (D.sample) {
 
 document.getElementById("footer").innerHTML =
   "Results from <a href=\"" + esc(D.source || "https://www.webscorer.com/cofc") + "\" target=\"_blank\" rel=\"noopener\">Webscorer</a>" +
+  (RACES.some(function (r) { return r.virtual; }) ? ", Catamount's own 2021 weekly sheets" : "") +
+  (RACES.some(function (r) { return /archive\.org/.test(r.url || ""); })
+    ? " and its old website, as the Wayback Machine kept it" : "") +
   (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "") +
   (RACES.some(function (r) { return r.courseSource; })
     ? '<p class="fine">* The race title does not name a course, so it comes from Catamount\'s own weekly results sheets or ' +

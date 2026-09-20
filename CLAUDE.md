@@ -100,6 +100,7 @@ scrape.py                  discover / fetch / weather / build
 tools/make_sample_data.py  invented stand-in data
 tools/wayback.py           polite Wayback Machine client (slow, cached under cache/wayback/, backs off)
 tools/virtual_2021.py      Catamount's 2021 weekly results PDFs (public Drive) -> data/extra/virtual_2021.json
+tools/oldsite.py            Catamount's old results pages (Wayback copies in cache/wayback/) -> data/extra/oldsite.json
 data/extra/                results that are not on Webscorer; scrape.py build merges them (negative race ids)
 course_labels.json         courses the race titles never named, found another way (see Working notes)
 tools/test/                ui.test.js (headless), touch.test.js + cdp.js (touch), fixtures.js
@@ -112,6 +113,12 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 
 ## Working notes
 
+- **Old website (2019 so far).** `tools/oldsite.py` reads the age-group pages Catamount
+  posted before Webscorer. Same rules as everywhere: name, placing, time, distance group,
+  laps; team, bib, age and gender are dropped. Race links say "Old results page" and point
+  at the Wayback copy. The course is the page's own line (no star). Placings are recomputed
+  inside each distance group. `python tools/wayback.py` fetches (slow, cached); oldsite.py
+  never touches the network.
 - **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
   nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
   14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the

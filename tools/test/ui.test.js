@@ -215,8 +215,14 @@ if (virtual.length) {
   const vpage = route("#/race/" + vr.raceid);
   check("virtual: the race page says it was self-timed and links the results sheet", /A virtual week/.test(vpage) && /Results sheet/.test(vpage) && !/Webscorer/.test(vpage) && /Virtual (MTB|run)/.test(vpage));
   check("virtual: an in-person race page has neither the note nor the sheet link", (() => {
-    const p = route("#/race/" + races.find((r) => !r.virtual).raceid);
-    return !/A virtual week/.test(p) && /Webscorer/.test(p);
+    const p = route("#/race/" + races.find((r) => /webscorer\.com/.test(r.url)).raceid);
+    return !/A virtual week/.test(p) && /Webscorer/.test(p) && !/Results sheet/.test(p);
+  })());
+  const old = races.find((r) => /archive\.org/.test(r.url));
+  if (old) check("old site: the footer names the old website and the 2021 sheets as sources", /Wayback/.test(el("footer").innerHTML) && /2021 weekly sheets/.test(el("footer").innerHTML));
+  if (old) check("old site: a page from the old website links its archived copy, not Webscorer", (() => {
+    const p = route("#/race/" + old.raceid);
+    return /Old results page/.test(p) && !/Webscorer/.test(p) && !/A virtual week/.test(p);
   })());
   // Two riders who only ever shared a virtual week have no head to head or rivalry.
   const inPersonRacers = new Set(D.results.filter((r) => !isVirt(r)).map((r) => r.racer));
