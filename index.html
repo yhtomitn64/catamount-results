@@ -89,6 +89,31 @@ input:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px}
 button.ghost{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}
 button.ghost:hover{border-color:var(--accent)}
 
+/* Touch: no double-tap-zoom delay, 16px inputs (iOS zooms into anything smaller), 44px
+   targets, and tables that scroll with the page instead of trapping the finger. */
+a,button,input,th,.picker-list li{touch-action:manipulation}
+.chart-readout{min-height:20px;margin-top:8px;font-size:13px;color:var(--ink-2)}
+svg.chart circle.pt{cursor:pointer}
+.more-row{padding:12px 0 4px;text-align:center}
+@media (pointer:coarse){
+  input[type=search],input[type=text],select{font-size:16px;padding:12px 13px}
+  nav a{padding:14px 12px}
+  .filter button{min-height:44px;padding:0 17px;font-size:14px}
+  th,td{padding:12px 8px}
+  th{padding-top:14px;padding-bottom:14px}
+  a.pill{padding:11px 14px;font-size:13px}
+  button.ghost{min-height:44px;padding:0 16px}
+  .picker-list{max-height:min(340px,42vh)}
+  .picker-list li{min-height:46px;align-items:center}
+  .scroll{max-height:none;-webkit-overflow-scrolling:touch}
+  footer a{display:inline-block;padding:14px 6px}
+}
+@media (max-height:520px){header.top{position:static}}   /* landscape phone: don't spend a quarter of the screen on a pinned header */
+@media (pointer:coarse) and (max-width:520px){
+  nav a{padding:14px 8px;font-size:13px}
+  th{letter-spacing:.02em}
+}
+
 .picker{position:relative}
 .picker-list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;margin:0;padding:4px;
   list-style:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -321,6 +346,10 @@ function searchRacers(q, limit) {
 }
 // ---- racer search (end) ----
 
+// A phone raises the on-screen keyboard as soon as a field is focused, so never
+// focus one on the page's own initiative there.
+function isTouch() { return !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches); }
+
 function debounce(fn, ms) {
   var t;
   return function () {
@@ -441,7 +470,11 @@ function tableHTML(id) {
       return dir * (x - y);
     });
   }
-  if (t.opts.limit) rows = rows.slice(0, t.opts.limit);
+  // A few tables run to a thousand rows. Show the first 200 (60 on a phone) of the
+  // current sort and let the reader ask for the rest, so a phone is not handed a
+  // 28,000px page.
+  var total = rows.length, cap = t.opts.limit || (t.showAll ? 0 : isTouch() ? 60 : 200), capped = false;
+  if (cap && rows.length > cap) { rows = rows.slice(0, cap); capped = !t.opts.limit; }
   var h = "<table><thead><tr>";
   cols.forEach(function (c, i) {
     var sortable = !!c.get;
@@ -456,7 +489,9 @@ function tableHTML(id) {
   rows.forEach(function (r) {
     h += "<tr>" + cols.map(function (c) { return c.cell(r); }).join("") + "</tr>";
   });
-  return h + "</tbody></table>";
+  h += "</tbody></table>";
+  if (capped) h += '<div class="more-row"><button type="button" class="ghost" data-more>Show all ' + total + " rows</button></div>";
+  return h;
 }
 document.addEventListener("click", function (e) {
   var th = e.target.closest ? e.target.closest("th[data-sort]") : null;
@@ -472,9 +507,16 @@ document.addEventListener("click", function (e) {
 // ---------------------------------------------------------------------------
 
 // series: [{label, color, points:[{x (ms), y, title}]}]
+// Draw a chart at (about) the width it will be shown. A fixed 720-unit drawing
+// squeezed into a 320px phone shrinks its 10px labels to 4px.
+function chartWidth() {
+  var w = (window.innerWidth || 1000) - 2 * 16 - 2 * 18 - 2;   // page gutter, card padding, border
+  return Math.max(300, Math.min(720, w));
+}
+
 function lineChart(series, opts) {
   opts = opts || {};
-  var W = 720, H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
+  var W = chartWidth(), H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
   var pts = [];
   series.forEach(function (s) { s.points.forEach(function (p) { pts.push(p); }); });
   if (!pts.length) return '<div class="empty">Not enough data to plot.</div>';
@@ -532,12 +574,14 @@ function lineChart(series, opts) {
              (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' d="' + d.trim() + '"/>';
     }
     p.forEach(function (q) {
-      svg += '<circle class="pt" cx="' + X(q.x).toFixed(1) + '" cy="' + Y(q.y).toFixed(1) +
-             '" r="' + (opts.scatter ? 3 : 3.4) + '" style="fill:' + s.color + '"><title>' + esc(q.title || "") +
-             "</title></circle>";
+      var cx = X(q.x).toFixed(1), cy = Y(q.y).toFixed(1), t = esc(q.title || "");
+      // The tooltip only exists for a mouse; a tap shows the same text in the
+      // readout (see the click handler, which picks the nearest dot).
+      svg += '<circle class="pt" cx="' + cx + '" cy="' + cy + '" r="' + (opts.scatter ? 3 : 3.4) +
+             '" style="fill:' + s.color + '" data-t="' + t + '"><title>' + t + "</title></circle>";
     });
   });
-  return svg + "</svg>";
+  return svg + "</svg>" + '<div class="chart-readout" role="status" aria-live="polite">Tap a point to see its race.</div>';
 }
 
 function legend(series) {
@@ -1005,9 +1049,13 @@ function wirePickers() {
         close(); restore();
       }
     });
-    list.addEventListener("mousedown", function (e) {
+    // mousedown only keeps the input focused so its blur does not close the list
+    // before the tap lands; the pick itself is the click. (A finger dragging the
+    // list to scroll it fires neither, so scrolling never selects by accident.)
+    list.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    list.addEventListener("click", function (e) {
       var li = e.target && e.target.closest ? e.target.closest("li[data-key]") : null;
-      if (li) { e.preventDefault(); pick(li.dataset.key); }
+      if (li) pick(li.dataset.key);
     });
     input.addEventListener("blur", function () {
       setTimeout(function () { close(); restore(); }, 120);
@@ -1328,13 +1376,13 @@ function render(keepScroll) {
 
   var search = document.getElementById("racer-search");
   if (search) {
-    if (keepScroll !== true) search.focus();
+    if (keepScroll !== true && !isTouch()) search.focus();
     search.oninput = debounce(function () { showHits(search.value); }, 120);
   }
 
   wirePickers();
   var pa = document.getElementById("h2h-a"), pb = document.getElementById("h2h-b");
-  if (pa && pb && keepScroll !== true) {
+  if (pa && pb && keepScroll !== true && !isTouch()) {
     // Land in the first empty box, so picking two people is two typed names.
     if (!pa.dataset.key) pa.focus(); else if (!pb.dataset.key) pb.focus();
   }
@@ -1361,7 +1409,35 @@ document.addEventListener("click", function (e) {
   render(true);
 });
 
+document.addEventListener("click", function (e) {
+  var more = e.target && e.target.closest ? e.target.closest("button[data-more]") : null;
+  if (more) {
+    var box = more.closest(".scroll");
+    TABLES[box.id].showAll = true;
+    box.innerHTML = tableHTML(box.id);
+    return;
+  }
+  var svgEl = e.target && e.target.closest ? e.target.closest("svg.chart") : null;
+  if (svgEl) {
+    // The chart is scaled to the screen, so a dot can be only a few pixels wide
+    // on a phone. Take the dot nearest the tap, if one is within a fingertip.
+    var best = null, bestD = 24;
+    Array.prototype.forEach.call(svgEl.querySelectorAll("circle.pt"), function (c) {
+      var r = c.getBoundingClientRect();
+      var d = Math.sqrt(Math.pow(e.clientX - (r.left + r.width / 2), 2) + Math.pow(e.clientY - (r.top + r.height / 2), 2));
+      if (d < bestD) { bestD = d; best = c; }
+    });
+    var out = svgEl.nextElementSibling;
+    if (best && out && out.classList.contains("chart-readout")) out.textContent = best.getAttribute("data-t");
+  }
+});
+
 window.addEventListener("hashchange", function () { render(); });
+
+var lastChartWidth = chartWidth();
+window.addEventListener("resize", debounce(function () {
+  if (chartWidth() !== lastChartWidth) { lastChartWidth = chartWidth(); render(true); }
+}, 250));
 
 // ---------------------------------------------------------------------------
 // chrome
