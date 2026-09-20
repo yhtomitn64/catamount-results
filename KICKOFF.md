@@ -43,4 +43,5 @@ and the GitHub "block pushes that expose my email" setting.
 ## Known data quirks
 
 - The organizer listing starts in July 2021; there is no earlier data.
-- Tim has one 2026 row: a DNF on 5-27-26 (4 lap).
+- Tim has one 2026 row, a DNF on 5-27-26 (4 lap). That is correct: he quit
+  part-way through and did not race again that year. Not a scraper bug.
