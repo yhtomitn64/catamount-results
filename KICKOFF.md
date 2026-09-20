@@ -51,7 +51,8 @@ era's HTML format, write one parser per format, and decide how to show pre-2021 
 
 Other places that might hold results, not yet checked: Catamount's dated "Current Race
 Course" banner on `catamountoutdoor.org/race-series-weekly/` (Wayback captures from 2021-22
-name the week's course); Google Drive folders of 2021 *virtual* results linked from that page;
+name the week's course); Google Drive folders of 2021 *virtual* results linked from that page
+(DONE: `tools/virtual_2021.py`, 14 self-timed weeks in `data/extra/`);
 VMBA and BikeReg event pages (entries, not times); Velocity Results (special events such as
 the Catamount Classic XCT). `cofc.org` is NOT Catamount (Webscorer's "cofc" is only an
 account name); its archive is an unrelated organisation.

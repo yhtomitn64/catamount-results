@@ -99,6 +99,8 @@ index.html                 the whole interface (vanilla JS, inline SVG charts)
 scrape.py                  discover / fetch / weather / build
 tools/make_sample_data.py  invented stand-in data
 tools/wayback.py           polite Wayback Machine client (slow, cached under cache/wayback/, backs off)
+tools/virtual_2021.py      Catamount's 2021 weekly results PDFs (public Drive) -> data/extra/virtual_2021.json
+data/extra/                results that are not on Webscorer; scrape.py build merges them (negative race ids)
 course_labels.json         courses the race titles never named, found another way (see Working notes)
 tools/test/                ui.test.js (headless), touch.test.js + cdp.js (touch), fixtures.js
 aliases.json               hand-kept merges of one person's spelled names
@@ -109,6 +111,15 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 ```
 
 ## Working notes
+
+- **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
+  nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
+  14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the
+  group key `vMTB|4 Lap` / `vTR|5K`, they have a "Virtual 2021" filter, get no weather, and are
+  left out of wins, podiums, rivals and head to head (nobody shared a start line). Placings are
+  recomputed inside each distance because the sheet ranks across all of them; a rider listed
+  under two age groups is kept once. Age group and team on the sheets are dropped like
+  everywhere else. `python tools/virtual_2021.py --offline` re-parses `cache/drive/`.
 
 - `index.html` stores literal UTF-8 (—, ·, °), not JS escapes. Match that when
   patching with find/replace or the anchors won't match.

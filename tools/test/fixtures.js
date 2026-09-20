@@ -30,7 +30,8 @@ function fixtures(bundle) {
 
   const disciplinesOf = {};
   bundle.results.forEach((r) => {
-    (disciplinesOf[r.racer] = disciplinesOf[r.racer] || new Set()).add(raceById[r.raceid].discipline);
+    const set = (disciplinesOf[r.racer] = disciplinesOf[r.racer] || new Set());
+    if (!raceById[r.raceid].virtual) set.add(raceById[r.raceid].discipline);   // self-timed weeks are not a sport
   });
   const allRounders = racers.filter((k) => disciplinesOf[k].size >= 3);
   // someone who never raced one of the disciplines (to exercise the empty state)

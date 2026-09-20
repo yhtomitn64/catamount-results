@@ -31,7 +31,7 @@ const strip = (h) => h.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 // that identifies a person. This is the allowlist; adding a field means changing it
 // here on purpose.
 const ALLOWED_RESULT = new Set(["raceid", "place", "name", "racer", "distance", "laps", "time", "seconds"]);
-const ALLOWED_RACE = new Set(["raceid", "title", "url", "date", "year", "discipline", "course", "courseSource", "finishers", "sport", "weather"]);
+const ALLOWED_RACE = new Set(["raceid", "title", "url", "date", "year", "discipline", "course", "courseSource", "finishers", "sport", "weather", "virtual"]);
 const extraResult = new Set();
 bundle.results.forEach((r) => Object.keys(r).forEach((k) => { if (!ALLOWED_RESULT.has(k)) extraResult.add(k); }));
 check("data: results carry only allowlisted fields", extraResult.size === 0, [...extraResult].join(","));
@@ -50,7 +50,17 @@ const junkTimes = bundle.results.filter((r) => r.time && !(TIME.test(r.time) || 
 check("data: every finish time is a time, DNF or laps-down", junkTimes.length === 0, junkTimes.length + " rows, e.g. " + (junkTimes[0] && junkTimes[0].time));
 
 check("data: every race has a date, year and discipline", races.every((r) => r.date && r.year && ["MTB", "TR", "CX"].includes(r.discipline)));
-check("data: every race has weather", races.every((r) => r.weather && r.weather.temp != null), races.filter((r) => !r.weather).length + " without");
+// Virtual weeks were self-timed wherever riders were, so a 6pm reading at the venue would be wrong for them.
+const virtual = races.filter((r) => r.virtual);
+check("data: every in-person race has weather, no virtual week does", races.filter((r) => !r.virtual).every((r) => r.weather && r.weather.temp != null) && virtual.every((r) => !r.weather),
+  races.filter((r) => !r.virtual && !r.weather).length + " without");
+check("data: virtual weeks are extras (negative id, on a results sheet) and their placings are within the distance", virtual.every((r) => {
+  if (!(r.raceid < 0 && /^https:\/\/drive\.google\.com\//.test(r.url))) return false;
+  const byDist = {};
+  bundle.results.filter((x) => x.raceid === r.raceid).forEach((x) => { (byDist[x.distance] = byDist[x.distance] || []).push(x); });
+  return Object.values(byDist).every((g) => new Set(g.map((x) => x.racer)).size === g.length &&
+    g.every((x) => x.place === 1 + g.filter((y) => y.seconds < x.seconds).length));
+}), virtual.length + " virtual weeks");
 check("data: every result belongs to a race and has a group label", bundle.results.every((r) => fx.raceById[r.raceid] && typeof r.distance === "string"));
 check("data: 'N Lap' groups carry that many laps", bundle.results.every((r) => { const m = /^(\d+) Lap$/.exec(r.distance); return !m || r.laps === +m[1]; }));
 check("data: every racer has a display name", fx.racers.every((k) => bundle.racers[k]));
@@ -62,10 +72,12 @@ check("aliases: every target is a racer with results", Object.values(aliases).ev
 
 // Courses the race titles never named are filled in from course_labels.json and marked.
 const labelFile = JSON.parse(fs.readFileSync(path.join(ROOT, "course_labels.json"), "utf8")).labels;
-const inferred = races.filter((r) => r.courseSource);
+// Virtual weeks name their course on the sheet, not in the title, so they carry a source but no label-file entry.
+const inferred = races.filter((r) => r.courseSource && !r.virtual);
 const namedInTitle = (t) => /\([^)]+\)/.test(t) || /\b(red|black|white|yellow|green|blue|orange|purple)\s+(on|in)\s+(red|black|white|yellow|green|blue|orange|purple)\b/i.test(t);
 // Titles only use three courses, but 2021 also ran "Black on Orange" (named on Catamount's own weekly sheets).
 const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).map((r) => r.course).concat(["Black on Orange"]));
+check("virtual: every week names a course from the sheet and is marked as inferred", races.filter((r) => r.virtual).every((r) => r.courseSource === "center" && knownCourses.has(r.course)));
 check("labels: every labelled race is in the bundle with that course and source", Object.entries(labelFile).every(([id, l]) => { const r = fx.raceById[id]; return r && r.course === l.course && r.courseSource === l.source; }));
 check("labels: only races whose title names no course carry a label", inferred.every((r) => !namedInTitle(r.title)) && inferred.length === Object.keys(labelFile).length, inferred.length + " inferred");
 check("labels: sources are gps, center or sibling, and courses are ones the titles use", inferred.every((r) => ["gps", "center", "sibling"].includes(r.courseSource) && knownCourses.has(r.course)));
@@ -138,7 +150,7 @@ Object.keys(rowsByRace).forEach((id) => {
   if (new Set(rows.map((r) => r.div)).size !== new Set(rows.map((r) => r.distance)).size) badDivs++;
   rows.forEach((r) => {
     if (!r.grp) missingGrp++;
-    else if (r.grp.split("|")[0] !== fx.raceById[id].discipline) badDisc++;
+    else if (r.grp.split("|")[0] !== (fx.raceById[id].virtual ? "v" : "") + fx.raceById[id].discipline) badDisc++;
   });
 });
 check("groups: each race has exactly one division per start-line group (never per lap count)", badDivs === 0, badDivs + " races");
@@ -174,11 +186,11 @@ const mass = races.filter((r) => r.discipline === "CX" && groupCount(r.raceid) =
 check("cyclocross: a mass start is one table with a laps column", mass.length > 0 && mass.every((r) => { const h = rendered["#/race/" + r.raceid]; return (h.match(/<table>/g) || []).length === 1 && />Laps</.test(h); }), mass.length + " races");
 
 // ---- event-type filter ---------------------------------------------------------------------
-const byDisc = (d) => races.filter((r) => r.discipline === d);
-for (const d of ["MTB", "CX", "TR"]) {
+const byDisc = (d) => races.filter((r) => d === "V" ? r.virtual : !r.virtual && r.discipline === d);
+for (const d of ["MTB", "CX", "TR", "V"]) {
   clickFilter(d);
   const v = route("#/races");
-  const links = (v.match(/href="#\/race\/\d+"/g) || []).length;
+  const links = (v.match(/href="#\/race\/-?\d+"/g) || []).length;
   const shown = Math.min(byDisc(d).length, 200);
   check("filter " + d + ": races page lists " + byDisc(d).length + " races", new RegExp('<p class="hint">' + byDisc(d).length + " races \\(").test(v) && links === shown, links + " rows");
   check("filter " + d + ": the button is marked pressed", new RegExp('data-filter="' + d + '" class="on"').test(v));
@@ -189,6 +201,34 @@ const noCx = fx.missing("CX");
 if (noCx) check("filter: a racer with no starts in the sport gets a message and the bar", /No Cyclocross results for this racer/.test(route("#/racer/" + noCx)) && route("#/racer/" + noCx).includes('data-filter="all"'));
 clickFilter("all");
 check("filter: All restores every race", new RegExp('<p class="hint">' + races.length + " races on record").test(route("#/races")));
+
+// ---- virtual weeks are their own event type -------------------------------------------------
+if (virtual.length) {
+  const isVirt = (r) => fx.raceById[r.raceid].virtual;
+  const virtualWinner = D.results.find((r) => isVirt(r) && r.dplace === 1);
+  const winsOn = (k) => D.results.filter((r) => r.racer === k && !isVirt(r) && r.dplace === 1).length;
+  check("virtual: a virtual win is not counted as a win on the racer page", (() => {
+    const v = route("#/racer/" + virtualWinner.racer);
+    return new RegExp('<div class="n">' + winsOn(virtualWinner.racer) + '</div><div class="l">Wins</div>').test(v);
+  })());
+  const vr = virtual[0];
+  const vpage = route("#/race/" + vr.raceid);
+  check("virtual: the race page says it was self-timed and links the results sheet", /A virtual week/.test(vpage) && /Results sheet/.test(vpage) && !/Webscorer/.test(vpage) && /Virtual (MTB|run)/.test(vpage));
+  check("virtual: an in-person race page has neither the note nor the sheet link", (() => {
+    const p = route("#/race/" + races.find((r) => !r.virtual).raceid);
+    return !/A virtual week/.test(p) && /Webscorer/.test(p);
+  })());
+  // Two riders who only ever shared a virtual week have no head to head or rivalry.
+  const inPersonRacers = new Set(D.results.filter((r) => !isVirt(r)).map((r) => r.racer));
+  const sameDiv = {};
+  D.results.filter((r) => isVirt(r) && !inPersonRacers.has(r.racer)).forEach((r) => { (sameDiv[r.div] = sameDiv[r.div] || []).push(r.racer); });
+  const pair = Object.values(sameDiv).find((g) => g.length >= 2);
+  check("virtual: two riders who only ever shared a virtual group have no head to head or rivalry", !!pair && /have never finished the same race/.test(strip(route("#/h2h/" + pair[0] + "/" + pair[1]))) &&
+    !new RegExp("#/h2h/" + pair[0] + "/" + pair[1]).test(route("#/racer/" + pair[0])), pair ? "" : "no pair found");
+  clickFilter("V");
+  check("virtual filter: the racer list counts only virtual starts", route("#/racer").includes("Most starts, Virtual 2021"));
+  clickFilter("all");
+}
 check("filter: all races has an Event column", route("#/races").includes(">Event<"));
 
 // ---- inferred courses are marked ------------------------------------------------------------------

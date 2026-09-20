@@ -788,7 +788,7 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
             # Never override a course the title itself names.
             assert not r.get("course"), f"race {r['raceid']} names a course and has a label"
             r["course"], r["courseSource"] = label["course"], label["source"]
-        if weather and r.get("date") in weather:
+        if weather and r.get("date") in weather and not r.get("virtual"):  # self-timed, not at the venue
             r["weather"] = weather[r["date"]]
     keep.sort(key=lambda r: (r.get("date") or "", r["raceid"]))
 
@@ -858,7 +858,7 @@ def main() -> None:
         print(f"Wrote data/results.json: {len(results)} rows.\n")
 
     if args.phase in ("weather", "all"):
-        races = load("races.json") + load_extra()[0]
+        races = load("races.json") + [r for r in load_extra()[0] if not r.get("virtual")]
         print("Fetching weather...")
         save("weather.json", fetch_weather(races, refresh=args.refresh))
         print("Wrote data/weather.json.\n")

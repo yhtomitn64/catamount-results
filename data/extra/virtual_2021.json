@@ -1,0 +1,6891 @@
+{
+ "source": "Catamount Outdoor Family Center weekly results sheets (2021)",
+ "races": [
+  {
+   "raceid": -202106021,
+   "title": "2021 Week 1 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/12yvQn9_kkHPtJLGNF7q64Tx5iu8MTYMD/view",
+   "date": "2021-06-02",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106091,
+   "title": "2021 Week 2 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/1qumg3Au2dDOl1HQ-4bwTI7_yASV78uHP/view",
+   "date": "2021-06-09",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106161,
+   "title": "2021 Week 3 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/13HNRW9gPjRlZi1HW1OV_LZcCF3tzdU-U/view",
+   "date": "2021-06-16",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106231,
+   "title": "2021 Week 4 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/1_D2lrTaaVAcOsXlIlnYNwIy4IU6f08SG/view",
+   "date": "2021-06-23",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106301,
+   "title": "2021 Week 5 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/1k_8ICUUz4xy5lBkQikSt1C8e2LrrtPjN/view",
+   "date": "2021-06-30",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Yellow on Green",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202107071,
+   "title": "2021 Week 6 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/12otanc15EeIKbwStnL9DGWCyzTf7RgN5/view",
+   "date": "2021-07-07",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202107211,
+   "title": "2021 Week 8 MTB (virtual)",
+   "url": "https://drive.google.com/file/d/1vneOzUapt-zQWRO4Xnwc0MsjIYJpWpzg/view",
+   "date": "2021-07-21",
+   "year": 2021,
+   "discipline": "MTB",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106012,
+   "title": "2021 Week 1 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1NCwf36ROgq1_sbpxVYPXzH4K9Z0aM-Oh/view",
+   "date": "2021-06-01",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106082,
+   "title": "2021 Week 2 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1kV0mUoaeoRCacapu-ig5ugXGK_GRetya/view",
+   "date": "2021-06-08",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106152,
+   "title": "2021 Week 3 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1wNc1Ad1FmMBw8pxCGyyYBkHeMb0CtxNh/view",
+   "date": "2021-06-15",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106222,
+   "title": "2021 Week 4 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1llI6SDlFeROS4XDT485lnMN9Nbbkvj9P/view",
+   "date": "2021-06-22",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Black on White",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202106292,
+   "title": "2021 Week 5 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1yXCmGhpxO7eJNp1QfM3DFYAHHgcrPaTu/view",
+   "date": "2021-06-29",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Yellow on Green",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202107062,
+   "title": "2021 Week 6 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1AUqfWAVkSqD8cpa4RNDSOW2sjESmInDw/view",
+   "date": "2021-07-06",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  },
+  {
+   "raceid": -202107202,
+   "title": "2021 Week 8 trail run (virtual)",
+   "url": "https://drive.google.com/file/d/1XUIJGUxfAGgF6EZf2XUvX3hvznBK5416/view",
+   "date": "2021-07-20",
+   "year": 2021,
+   "discipline": "TR",
+   "virtual": true,
+   "course": "Red on Black",
+   "courseSource": "center"
+  }
+ ],
+ "results": [
+  {
+   "raceid": -202106021,
+   "name": "Sean Curran",
+   "racer": "sean-curran",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "17:30",
+   "seconds": 1050.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106021,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "25:00",
+   "seconds": 1500.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106021,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "25:54",
+   "seconds": 1554.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106021,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "25:56",
+   "seconds": 1556.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106021,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "26:19",
+   "seconds": 1579.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106021,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "32:02",
+   "seconds": 1922.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106021,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "33:06",
+   "seconds": 1986.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106021,
+   "name": "Jason Frank",
+   "racer": "jason-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "33:06",
+   "seconds": 1986.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106021,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "38:21",
+   "seconds": 2301.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106021,
+   "name": "Elizabeth Stinson",
+   "racer": "elizabeth-stinson",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "39:37",
+   "seconds": 2377.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106021,
+   "name": "Henry Sterner",
+   "racer": "henry-sterner",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "43:44",
+   "seconds": 2624.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106021,
+   "name": "Sofie Pedemonti",
+   "racer": "sofie-pedemonti",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "44:12",
+   "seconds": 2652.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106021,
+   "name": "Geoff Elder",
+   "racer": "geoff-elder",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "47:10",
+   "seconds": 2830.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106021,
+   "name": "Kate Kogut",
+   "racer": "kate-kogut",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "48:47",
+   "seconds": 2927.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106021,
+   "name": "Charlie Sterner",
+   "racer": "charlie-sterner",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "48:53",
+   "seconds": 2933.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106021,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "52:03",
+   "seconds": 3123.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106021,
+   "name": "Leila Griffith",
+   "racer": "leila-griffith",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "53:02",
+   "seconds": 3182.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106021,
+   "name": "Tanner Gregory",
+   "racer": "tanner-gregory",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "53:16",
+   "seconds": 3196.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106021,
+   "name": "Erica Bouton",
+   "racer": "erica-bouton",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "53:55",
+   "seconds": 3235.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106021,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "59:50",
+   "seconds": 3590.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106021,
+   "name": "Grady Vigneau",
+   "racer": "grady-vigneau",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:00:52",
+   "seconds": 3652.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106021,
+   "name": "Trent Coletta",
+   "racer": "trent-coletta",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:02:00",
+   "seconds": 3720.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106021,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:02:44",
+   "seconds": 3764.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106021,
+   "name": "Jen Daniels",
+   "racer": "jen-daniels",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:06:56",
+   "seconds": 4016.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106021,
+   "name": "Madeline Doiron",
+   "racer": "madeline-doiron",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:08:15",
+   "seconds": 4095.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106021,
+   "name": "Aaron Carroll",
+   "racer": "aaron-carroll",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:10:32",
+   "seconds": 4232.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106021,
+   "name": "Jake Hollenbach",
+   "racer": "jake-hollenbach",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:02:30",
+   "seconds": 3750.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106021,
+   "name": "Bobby Farrell",
+   "racer": "bobby-farrell",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:05:03",
+   "seconds": 3903.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106021,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:05:36",
+   "seconds": 3936.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106021,
+   "name": "Daniel Schmidt",
+   "racer": "daniel-schmidt",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:08:39",
+   "seconds": 4119.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106021,
+   "name": "Greg Dolbec",
+   "racer": "greg-dolbec",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:08:59",
+   "seconds": 4139.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106021,
+   "name": "Mike Hayes",
+   "racer": "mike-hayes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:10:31",
+   "seconds": 4231.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106021,
+   "name": "Maddox Gregory",
+   "racer": "maddox-gregory",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:16:22",
+   "seconds": 4582.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106021,
+   "name": "Tom Barnes",
+   "racer": "tom-barnes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:21:09",
+   "seconds": 4869.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106021,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:21:45",
+   "seconds": 4905.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106021,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:25:13",
+   "seconds": 5113.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106021,
+   "name": "Roxanne Bombardier",
+   "racer": "roxanne-bombardier",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:34:50",
+   "seconds": 5690.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106021,
+   "name": "Dave Kogut",
+   "racer": "dave-kogut",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:36:26",
+   "seconds": 5786.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106021,
+   "name": "Johnathon Kogut",
+   "racer": "johnathon-kogut",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "26:30",
+   "seconds": 1590.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106021,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "28:05",
+   "seconds": 1685.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106021,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "34:23",
+   "seconds": 2063.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106021,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "38:00",
+   "seconds": 2280.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106021,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "47:27",
+   "seconds": 2847.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106021,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "47:27",
+   "seconds": 2847.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Phelan Fretz",
+   "racer": "phelan-fretz",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "18:19",
+   "seconds": 1099.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106091,
+   "name": "Roxy Bombardier",
+   "racer": "roxy-bombardier",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "18:57",
+   "seconds": 1137.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106091,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "19:19",
+   "seconds": 1159.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106091,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "22:25",
+   "seconds": 1345.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106091,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "24:50",
+   "seconds": 1490.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Jason Frank",
+   "racer": "jason-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "24:50",
+   "seconds": 1490.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "25:06",
+   "seconds": 1506.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106091,
+   "name": "Amy Holibaugh",
+   "racer": "amy-holibaugh",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "26:49",
+   "seconds": 1609.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106091,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "33:00",
+   "seconds": 1980.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106091,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "36:49",
+   "seconds": 2209.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106091,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "36:49",
+   "seconds": 2209.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106091,
+   "name": "Brice Dubief",
+   "racer": "brice-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "37:43",
+   "seconds": 2263.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106091,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "37:43",
+   "seconds": 2263.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106091,
+   "name": "Johnathon Kogut",
+   "racer": "johnathon-kogut",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "38:51",
+   "seconds": 2331.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106091,
+   "name": "Megan Gregory",
+   "racer": "megan-gregory",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "39:15",
+   "seconds": 2355.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106091,
+   "name": "Tanner Gregory",
+   "racer": "tanner-gregory",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "41:09",
+   "seconds": 2469.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106091,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "41:15",
+   "seconds": 2475.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106091,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "42:00",
+   "seconds": 2520.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106091,
+   "name": "Kate Kogut",
+   "racer": "kate-kogut",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "43:20",
+   "seconds": 2600.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "47:14",
+   "seconds": 2834.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106091,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "38:25",
+   "seconds": 2305.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106091,
+   "name": "Blair Deale",
+   "racer": "blair-deale",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "42:56",
+   "seconds": 2576.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106091,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "44:58",
+   "seconds": 2698.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106091,
+   "name": "Marlijne Cook",
+   "racer": "marlijne-cook",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "49:24",
+   "seconds": 2964.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106091,
+   "name": "Maddy Doiron",
+   "racer": "maddy-doiron",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "52:19",
+   "seconds": 3139.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "52:52",
+   "seconds": 3172.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106091,
+   "name": "Kai Waldman",
+   "racer": "kai-waldman",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "56:41",
+   "seconds": 3401.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106091,
+   "name": "Erica Bouton",
+   "racer": "erica-bouton",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:10:00",
+   "seconds": 4200.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106091,
+   "name": "Jake Hollenbach",
+   "racer": "jake-hollenbach",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "47:01",
+   "seconds": 2821.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106091,
+   "name": "Owen Deale",
+   "racer": "owen-deale",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "47:29",
+   "seconds": 2849.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106091,
+   "name": "Greg Dolbec",
+   "racer": "greg-dolbec",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "50:40",
+   "seconds": 3040.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106091,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "51:46",
+   "seconds": 3106.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106091,
+   "name": "Mike Hayes",
+   "racer": "mike-hayes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "53:08",
+   "seconds": 3188.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106091,
+   "name": "Timothy Burgher",
+   "racer": "timothy-burgher",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "55:27",
+   "seconds": 3327.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106091,
+   "name": "Ethan Gilmour",
+   "racer": "ethan-gilmour",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "56:13",
+   "seconds": 3373.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106091,
+   "name": "Leif Kruse",
+   "racer": "leif-kruse",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "56:27",
+   "seconds": 3387.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106091,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "57:15",
+   "seconds": 3435.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106091,
+   "name": "Tom Barnes",
+   "racer": "tom-barnes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:02:41",
+   "seconds": 3761.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106091,
+   "name": "Maddox Gregory",
+   "racer": "maddox-gregory",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:03:20",
+   "seconds": 3800.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106091,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:07:56",
+   "seconds": 4076.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106091,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:09:39",
+   "seconds": 4179.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106091,
+   "name": "Dave Kogut",
+   "racer": "dave-kogut",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:12:45",
+   "seconds": 4365.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106091,
+   "name": "Rory Dolbec",
+   "racer": "rory-dolbec",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "14:03",
+   "seconds": 843.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106091,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "22:23",
+   "seconds": 1343.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106091,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "30:18",
+   "seconds": 1818.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106161,
+   "name": "Sam Mason",
+   "racer": "sam-mason",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "13:50",
+   "seconds": 830.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106161,
+   "name": "Ben Mason",
+   "racer": "ben-mason",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "17:57",
+   "seconds": 1077.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "18:43",
+   "seconds": 1123.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106161,
+   "name": "Jen Daniels",
+   "racer": "jen-daniels",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "20:24",
+   "seconds": 1224.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106161,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "20:30",
+   "seconds": 1230.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106161,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "21:02",
+   "seconds": 1262.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106161,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "22:55",
+   "seconds": 1375.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106161,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "23:20",
+   "seconds": 1400.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106161,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "31:25",
+   "seconds": 1885.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106161,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "39:26",
+   "seconds": 2366.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106161,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "39:26",
+   "seconds": 2366.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106161,
+   "name": "Max MacDonald",
+   "racer": "max-macdonald",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "38:19",
+   "seconds": 2299.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106161,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "44:11",
+   "seconds": 2651.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "43:15",
+   "seconds": 2595.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106161,
+   "name": "Marlijne Cook",
+   "racer": "marlijne-cook",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "47:55",
+   "seconds": 2875.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Trent Coletta",
+   "racer": "trent-coletta",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "50:40",
+   "seconds": 3040.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106161,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "51:34",
+   "seconds": 3094.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106161,
+   "name": "Phelan Fretz",
+   "racer": "phelan-fretz",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "57:29",
+   "seconds": 3449.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106161,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:08:36",
+   "seconds": 4116.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106161,
+   "name": "Jake Hollenbach",
+   "racer": "jake-hollenbach",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "47:10",
+   "seconds": 2830.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106161,
+   "name": "Owen Deale",
+   "racer": "owen-deale",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "47:35",
+   "seconds": 2855.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Greg Dolbec",
+   "racer": "greg-dolbec",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "47:50",
+   "seconds": 2870.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106161,
+   "name": "Jason Frank",
+   "racer": "jason-frank",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "50:15",
+   "seconds": 3015.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106161,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "51:42",
+   "seconds": 3102.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106161,
+   "name": "Timothy Burgher",
+   "racer": "timothy-burgher",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "51:56",
+   "seconds": 3116.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106161,
+   "name": "Mike Hayes",
+   "racer": "mike-hayes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "52:05",
+   "seconds": 3125.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106161,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "52:10",
+   "seconds": 3130.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106161,
+   "name": "Justin Clark",
+   "racer": "justin-clark",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "52:11",
+   "seconds": 3131.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106161,
+   "name": "Leif Kruse",
+   "racer": "leif-kruse",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "53:27",
+   "seconds": 3207.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106161,
+   "name": "Daniel Schmidt",
+   "racer": "daniel-schmidt",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "56:24",
+   "seconds": 3384.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106161,
+   "name": "Ethan Gilmour",
+   "racer": "ethan-gilmour",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "57:34",
+   "seconds": 3454.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106161,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:00:48",
+   "seconds": 3648.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106161,
+   "name": "Tom Barnes",
+   "racer": "tom-barnes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:03:19",
+   "seconds": 3799.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106161,
+   "name": "Dave Kogut",
+   "racer": "dave-kogut",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:13:44",
+   "seconds": 4424.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106161,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:16:15",
+   "seconds": 4575.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106161,
+   "name": "Roxy Bombardier",
+   "racer": "roxy-bombardier",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:39:03",
+   "seconds": 5943.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106161,
+   "name": "Rory Dolbec",
+   "racer": "rory-dolbec",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "14:45",
+   "seconds": 885.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106161,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "17:28",
+   "seconds": 1048.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "17:28",
+   "seconds": 1048.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106161,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "21:26",
+   "seconds": 1286.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106231,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "14:16",
+   "seconds": 856.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106231,
+   "name": "Ben Mason",
+   "racer": "ben-mason",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "19:09",
+   "seconds": 1149.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106231,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "19:39",
+   "seconds": 1179.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106231,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "19:52",
+   "seconds": 1192.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106231,
+   "name": "Roxy Bombardier",
+   "racer": "roxy-bombardier",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "25:58",
+   "seconds": 1558.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106231,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "28:56",
+   "seconds": 1736.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106231,
+   "name": "Abi Gardner",
+   "racer": "abi-gardner",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "32:13",
+   "seconds": 1933.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106231,
+   "name": "Brice Dubief",
+   "racer": "brice-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "38:12",
+   "seconds": 2292.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106231,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "38:12",
+   "seconds": 2292.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106231,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "47:29",
+   "seconds": 2849.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106231,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "47:29",
+   "seconds": 2849.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106231,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "32:38",
+   "seconds": 1958.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106231,
+   "name": "Megan Gregory",
+   "racer": "megan-gregory",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "32:45",
+   "seconds": 1965.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106231,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "46:09",
+   "seconds": 2769.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106231,
+   "name": "Marlijne Cook",
+   "racer": "marlijne-cook",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "46:38",
+   "seconds": 2798.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106231,
+   "name": "Trent Coletta",
+   "racer": "trent-coletta",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "47:49",
+   "seconds": 2869.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106231,
+   "name": "Erica Bouton",
+   "racer": "erica-bouton",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:04:27",
+   "seconds": 3867.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106231,
+   "name": "Justin Clark",
+   "racer": "justin-clark",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "51:59",
+   "seconds": 3119.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106231,
+   "name": "Mike Hayes",
+   "racer": "mike-hayes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "52:15",
+   "seconds": 3135.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106231,
+   "name": "Leif Kruse",
+   "racer": "leif-kruse",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "53:58",
+   "seconds": 3238.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106231,
+   "name": "Sam Mason",
+   "racer": "sam-mason",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "56:28",
+   "seconds": 3388.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106231,
+   "name": "Maddox Gregory",
+   "racer": "maddox-gregory",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "56:35",
+   "seconds": 3395.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106231,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "59:58",
+   "seconds": 3598.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106231,
+   "name": "Greg Dolbec",
+   "racer": "greg-dolbec",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:01:55",
+   "seconds": 3715.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106231,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:04:49",
+   "seconds": 3889.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106231,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:05:00",
+   "seconds": 3900.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106231,
+   "name": "Dave Kogut",
+   "racer": "dave-kogut",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:11:33",
+   "seconds": 4293.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106231,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "12:48",
+   "seconds": 768.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106231,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "12:58",
+   "seconds": 778.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106231,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "13:03",
+   "seconds": 783.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106231,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "18:16",
+   "seconds": 1096.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106301,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "28:38",
+   "seconds": 1718.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106301,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "28:53",
+   "seconds": 1733.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106301,
+   "name": "Roxy Bombardier",
+   "racer": "roxy-bombardier",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "31:36",
+   "seconds": 1896.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106301,
+   "name": "Ben Mason",
+   "racer": "ben-mason",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "35:17",
+   "seconds": 2117.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106301,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "39:51",
+   "seconds": 2391.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106301,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "41:00",
+   "seconds": 2460.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106301,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "42:30",
+   "seconds": 2550.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106301,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "44:20",
+   "seconds": 2660.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106301,
+   "name": "Brice Dubief",
+   "racer": "brice-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "45:21",
+   "seconds": 2721.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106301,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "45:21",
+   "seconds": 2721.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106301,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "47:00",
+   "seconds": 2820.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106301,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "48:13",
+   "seconds": 2893.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106301,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "48:13",
+   "seconds": 2893.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106301,
+   "name": "Abi Gardner",
+   "racer": "abi-gardner",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "50:21",
+   "seconds": 3021.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106301,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "44:10",
+   "seconds": 2650.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106301,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "57:37",
+   "seconds": 3457.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106301,
+   "name": "Sam Mason",
+   "racer": "sam-mason",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "57:38",
+   "seconds": 3458.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106301,
+   "name": "Erica Bouton",
+   "racer": "erica-bouton",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "1:14:24",
+   "seconds": 4464.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106301,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "1:28:05",
+   "seconds": 5285.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106301,
+   "name": "Tom Barnes",
+   "racer": "tom-barnes",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:23:28",
+   "seconds": 5008.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106301,
+   "name": "Trent Coletta",
+   "racer": "trent-coletta",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:23:55",
+   "seconds": 5035.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106301,
+   "name": "Bobby Farrell",
+   "racer": "bobby-farrell",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:24:35",
+   "seconds": 5075.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106301,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:41:53",
+   "seconds": 6113.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106301,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:55:40",
+   "seconds": 6940.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106301,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "18:58",
+   "seconds": 1138.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106301,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "18:59",
+   "seconds": 1139.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106301,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "23:03",
+   "seconds": 1383.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106301,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "23:03",
+   "seconds": 1383.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106301,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "27:17",
+   "seconds": 1637.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107071,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "22:30",
+   "seconds": 1350.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107071,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "26:26",
+   "seconds": 1586.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107071,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "26:50",
+   "seconds": 1610.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "Jason Frank",
+   "racer": "jason-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "26:50",
+   "seconds": 1610.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "28:56",
+   "seconds": 1736.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107071,
+   "name": "Abi Gardner",
+   "racer": "abi-gardner",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "30:49",
+   "seconds": 1849.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107071,
+   "name": "Amy Holibaugh",
+   "racer": "amy-holibaugh",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "32:13",
+   "seconds": 1933.0,
+   "place": 7
+  },
+  {
+   "raceid": -202107071,
+   "name": "Brice Dubief",
+   "racer": "brice-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "36:20",
+   "seconds": 2180.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107071,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "36:20",
+   "seconds": 2180.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107071,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "42:56",
+   "seconds": 2576.0,
+   "place": 10
+  },
+  {
+   "raceid": -202107071,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "42:56",
+   "seconds": 2576.0,
+   "place": 10
+  },
+  {
+   "raceid": -202107071,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "44:28",
+   "seconds": 2668.0,
+   "place": 12
+  },
+  {
+   "raceid": -202107071,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "44:33",
+   "seconds": 2673.0,
+   "place": 13
+  },
+  {
+   "raceid": -202107071,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "50:20",
+   "seconds": 3020.0,
+   "place": 14
+  },
+  {
+   "raceid": -202107071,
+   "name": "Roxy Bombardier",
+   "racer": "roxy-bombardier",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "46:53",
+   "seconds": 2813.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107071,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "50:17",
+   "seconds": 3017.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107071,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "51:28",
+   "seconds": 3088.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "Trent Coletta",
+   "racer": "trent-coletta",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "57:58",
+   "seconds": 3478.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107071,
+   "name": "Marlijne Cook",
+   "racer": "marlijne-cook",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "58:20",
+   "seconds": 3500.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107071,
+   "name": "Andre Bolduc",
+   "racer": "andre-bolduc",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:02:41",
+   "seconds": 3761.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "Jen Daniels",
+   "racer": "jen-daniels",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:04:12",
+   "seconds": 3852.0,
+   "place": 4
+  },
+  {
+   "raceid": -202107071,
+   "name": "Erica Bouton",
+   "racer": "erica-bouton",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:15:41",
+   "seconds": 4541.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107071,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:07:53",
+   "seconds": 4073.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107071,
+   "name": "Leif Kruse",
+   "racer": "leif-kruse",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:10:15",
+   "seconds": 4215.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107071,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:16:35",
+   "seconds": 4595.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:16:35",
+   "seconds": 4595.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107071,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:21:32",
+   "seconds": 4892.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107071,
+   "name": "Chris Bertrand",
+   "racer": "chris-bertrand",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:21:45",
+   "seconds": 4905.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107071,
+   "name": "Tom Barnes",
+   "racer": "tom-barnes",
+   "distance": "4 Lap",
+   "laps": 4,
+   "time": "1:22:16",
+   "seconds": 4936.0,
+   "place": 7
+  },
+  {
+   "raceid": -202107071,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "28:02",
+   "seconds": 1682.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107211,
+   "name": "Eric Tremble",
+   "racer": "eric-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "23:08",
+   "seconds": 1388.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107211,
+   "name": "Joe Eaton",
+   "racer": "joe-eaton",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "24:33",
+   "seconds": 1473.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107211,
+   "name": "Oliver Frank",
+   "racer": "oliver-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "30:41",
+   "seconds": 1841.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107211,
+   "name": "Oliver Tremble",
+   "racer": "oliver-tremble",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "30:41",
+   "seconds": 1841.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107211,
+   "name": "Jason Frank",
+   "racer": "jason-frank",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "30:41",
+   "seconds": 1841.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107211,
+   "name": "Nico Coleman",
+   "racer": "nico-coleman",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "37:17",
+   "seconds": 2237.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107211,
+   "name": "Kim Coleman",
+   "racer": "kim-coleman",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "37:17",
+   "seconds": 2237.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107211,
+   "name": "Brice Dubief",
+   "racer": "brice-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "45:36",
+   "seconds": 2736.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107211,
+   "name": "Yves Dubief",
+   "racer": "yves-dubief",
+   "distance": "1 Lap",
+   "laps": 1,
+   "time": "45:36",
+   "seconds": 2736.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107211,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "33:45",
+   "seconds": 2025.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107211,
+   "name": "Matt Vinci",
+   "racer": "matt-vinci",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "45:42",
+   "seconds": 2742.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107211,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "2 Lap",
+   "laps": 2,
+   "time": "52:46",
+   "seconds": 3166.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107211,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "3 Lap",
+   "laps": 3,
+   "time": "1:03:35",
+   "seconds": 3815.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107211,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "36:28",
+   "seconds": 2188.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107211,
+   "name": "Reilly Frank",
+   "racer": "reilly-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "44:17",
+   "seconds": 2657.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107211,
+   "name": "Samantha Frank",
+   "racer": "samantha-frank",
+   "distance": "Cadet",
+   "laps": null,
+   "time": "44:17",
+   "seconds": 2657.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "10K",
+   "laps": null,
+   "time": "53:48",
+   "seconds": 3228.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106012,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "10K",
+   "laps": null,
+   "time": "59:29",
+   "seconds": 3569.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106012,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:34:07",
+   "seconds": 5647.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106012,
+   "name": "Roland Ekstrom",
+   "racer": "roland-ekstrom",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "31:50",
+   "seconds": 1910.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106012,
+   "name": "Kaelyn McNamara",
+   "racer": "kaelyn-mcnamara",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "34:35",
+   "seconds": 2075.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106012,
+   "name": "Dylan McNamara",
+   "racer": "dylan-mcnamara",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "34:35",
+   "seconds": 2075.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106012,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "35:58",
+   "seconds": 2158.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106012,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "35:59",
+   "seconds": 2159.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106012,
+   "name": "Charlie Archanbault",
+   "racer": "charlie-archanbault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "50:07",
+   "seconds": 3007.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106012,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:06",
+   "seconds": 1566.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106012,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:43",
+   "seconds": 1603.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106012,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:41",
+   "seconds": 1661.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106012,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:10",
+   "seconds": 1690.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106012,
+   "name": "Laura Motter",
+   "racer": "laura-motter",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:11",
+   "seconds": 1691.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106012,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:36",
+   "seconds": 1716.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106012,
+   "name": "Tim Sullivan",
+   "racer": "tim-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:42",
+   "seconds": 1722.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106012,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:59",
+   "seconds": 1739.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106012,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:35",
+   "seconds": 1775.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:38",
+   "seconds": 1778.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106012,
+   "name": "James Langan",
+   "racer": "james-langan",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:52",
+   "seconds": 1792.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106012,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:04",
+   "seconds": 1804.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106012,
+   "name": "Michael Richards",
+   "racer": "michael-richards",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:36",
+   "seconds": 1836.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jonathan McNamara",
+   "racer": "jonathan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:48",
+   "seconds": 1848.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106012,
+   "name": "Billy D Dysart",
+   "racer": "billy-d-dysart",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:14",
+   "seconds": 1874.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106012,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:28",
+   "seconds": 1888.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106012,
+   "name": "Eric Seaton",
+   "racer": "eric-seaton",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:37",
+   "seconds": 1897.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106012,
+   "name": "Karen Oppenheimer",
+   "racer": "karen-oppenheimer",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:33",
+   "seconds": 1953.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106012,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:44",
+   "seconds": 1964.0,
+   "place": 19
+  },
+  {
+   "raceid": -202106012,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:47",
+   "seconds": 1967.0,
+   "place": 20
+  },
+  {
+   "raceid": -202106012,
+   "name": "Graham Sherriff",
+   "racer": "graham-sherriff",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:54",
+   "seconds": 1974.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106012,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:44",
+   "seconds": 2024.0,
+   "place": 22
+  },
+  {
+   "raceid": -202106012,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:51",
+   "seconds": 2031.0,
+   "place": 23
+  },
+  {
+   "raceid": -202106012,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:14",
+   "seconds": 2054.0,
+   "place": 24
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:24",
+   "seconds": 2064.0,
+   "place": 25
+  },
+  {
+   "raceid": -202106012,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:48",
+   "seconds": 2148.0,
+   "place": 26
+  },
+  {
+   "raceid": -202106012,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:50",
+   "seconds": 2150.0,
+   "place": 27
+  },
+  {
+   "raceid": -202106012,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:58",
+   "seconds": 2158.0,
+   "place": 28
+  },
+  {
+   "raceid": -202106012,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:04",
+   "seconds": 2164.0,
+   "place": 29
+  },
+  {
+   "raceid": -202106012,
+   "name": "Alex Durfee",
+   "racer": "alex-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:17",
+   "seconds": 2177.0,
+   "place": 30
+  },
+  {
+   "raceid": -202106012,
+   "name": "Keeley Schell",
+   "racer": "keeley-schell",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:32",
+   "seconds": 2192.0,
+   "place": 31
+  },
+  {
+   "raceid": -202106012,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:48",
+   "seconds": 2208.0,
+   "place": 32
+  },
+  {
+   "raceid": -202106012,
+   "name": "Beth Hager Cullen",
+   "racer": "beth-hager-cullen",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:28",
+   "seconds": 2248.0,
+   "place": 33
+  },
+  {
+   "raceid": -202106012,
+   "name": "Lori Hennessey",
+   "racer": "lori-hennessey",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:39",
+   "seconds": 2259.0,
+   "place": 34
+  },
+  {
+   "raceid": -202106012,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:07",
+   "seconds": 2287.0,
+   "place": 35
+  },
+  {
+   "raceid": -202106012,
+   "name": "Wendy Sicard",
+   "racer": "wendy-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:30",
+   "seconds": 2310.0,
+   "place": 36
+  },
+  {
+   "raceid": -202106012,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:42",
+   "seconds": 2322.0,
+   "place": 37
+  },
+  {
+   "raceid": -202106012,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:56",
+   "seconds": 2336.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106012,
+   "name": "Leah Ryan",
+   "racer": "leah-ryan",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:28",
+   "seconds": 2368.0,
+   "place": 39
+  },
+  {
+   "raceid": -202106012,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:40",
+   "seconds": 2380.0,
+   "place": 40
+  },
+  {
+   "raceid": -202106012,
+   "name": "Ken Schatz",
+   "racer": "ken-schatz",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:08",
+   "seconds": 2408.0,
+   "place": 41
+  },
+  {
+   "raceid": -202106012,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:12",
+   "seconds": 2412.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106012,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:12",
+   "seconds": 2412.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106012,
+   "name": "Elizabeth Nesbitt",
+   "racer": "elizabeth-nesbitt",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:30",
+   "seconds": 2490.0,
+   "place": 44
+  },
+  {
+   "raceid": -202106012,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:34",
+   "seconds": 2554.0,
+   "place": 45
+  },
+  {
+   "raceid": -202106012,
+   "name": "Pascal Cheng",
+   "racer": "pascal-cheng",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:11",
+   "seconds": 2591.0,
+   "place": 46
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:01",
+   "seconds": 2641.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106012,
+   "name": "Randi Sanville",
+   "racer": "randi-sanville",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:47",
+   "seconds": 2687.0,
+   "place": 48
+  },
+  {
+   "raceid": -202106012,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:55",
+   "seconds": 2695.0,
+   "place": 49
+  },
+  {
+   "raceid": -202106012,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:56",
+   "seconds": 2696.0,
+   "place": 50
+  },
+  {
+   "raceid": -202106012,
+   "name": "Amy Giuliani",
+   "racer": "amy-giuliani",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:01",
+   "seconds": 2701.0,
+   "place": 51
+  },
+  {
+   "raceid": -202106012,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:27",
+   "seconds": 2727.0,
+   "place": 52
+  },
+  {
+   "raceid": -202106012,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:28",
+   "seconds": 2728.0,
+   "place": 53
+  },
+  {
+   "raceid": -202106012,
+   "name": "Katherine Mcnamara",
+   "racer": "katherine-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:05",
+   "seconds": 2765.0,
+   "place": 54
+  },
+  {
+   "raceid": -202106012,
+   "name": "Suki DiGrande",
+   "racer": "suki-digrande",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:20",
+   "seconds": 2780.0,
+   "place": 55
+  },
+  {
+   "raceid": -202106012,
+   "name": "Dana Hutchinson",
+   "racer": "dana-hutchinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:32",
+   "seconds": 2792.0,
+   "place": 56
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jack Manning",
+   "racer": "jack-manning",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:20",
+   "seconds": 2840.0,
+   "place": 57
+  },
+  {
+   "raceid": -202106012,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "55:13",
+   "seconds": 3313.0,
+   "place": 58
+  },
+  {
+   "raceid": -202106012,
+   "name": "Karyn Vogel",
+   "racer": "karyn-vogel",
+   "distance": "5K",
+   "laps": null,
+   "time": "57:04",
+   "seconds": 3424.0,
+   "place": 59
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jenna Sawyer",
+   "racer": "jenna-sawyer",
+   "distance": "5K",
+   "laps": null,
+   "time": "59:32",
+   "seconds": 3572.0,
+   "place": 60
+  },
+  {
+   "raceid": -202106012,
+   "name": "Jennifer Dickinson",
+   "racer": "jennifer-dickinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "1:04:39",
+   "seconds": 3879.0,
+   "place": 61
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "10K",
+   "laps": null,
+   "time": "39:35",
+   "seconds": 2375.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106082,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "10K",
+   "laps": null,
+   "time": "43:29",
+   "seconds": 2609.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106082,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:09:16",
+   "seconds": 4156.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106082,
+   "name": "Roland Ekstrom",
+   "racer": "roland-ekstrom",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "17:43",
+   "seconds": 1063.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106082,
+   "name": "Kaelyn McNamara",
+   "racer": "kaelyn-mcnamara",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "18:10",
+   "seconds": 1090.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106082,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "25:35",
+   "seconds": 1535.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106082,
+   "name": "Chris Dorman",
+   "racer": "chris-dorman",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "29:46",
+   "seconds": 1786.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106082,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "35:57",
+   "seconds": 2157.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106082,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "38:06",
+   "seconds": 2286.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106082,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:15",
+   "seconds": 1155.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106082,
+   "name": "Caleb Burr",
+   "racer": "caleb-burr",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:20",
+   "seconds": 1160.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106082,
+   "name": "Dylan McNamara",
+   "racer": "dylan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:58",
+   "seconds": 1198.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106082,
+   "name": "Brad Carlson",
+   "racer": "brad-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:16",
+   "seconds": 1216.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106082,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:31",
+   "seconds": 1231.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106082,
+   "name": "James Langan",
+   "racer": "james-langan",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:53",
+   "seconds": 1253.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106082,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:12",
+   "seconds": 1272.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106082,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:35",
+   "seconds": 1295.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106082,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:36",
+   "seconds": 1296.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106082,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:39",
+   "seconds": 1299.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106082,
+   "name": "Tim Sullivan",
+   "racer": "tim-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:03",
+   "seconds": 1323.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106082,
+   "name": "Blair Deale",
+   "racer": "blair-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:12",
+   "seconds": 1332.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106082,
+   "name": "Michael Richards",
+   "racer": "michael-richards",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:27",
+   "seconds": 1347.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106082,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:18",
+   "seconds": 1398.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106082,
+   "name": "Owen Deale",
+   "racer": "owen-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:20",
+   "seconds": 1400.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:29",
+   "seconds": 1409.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106082,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:32",
+   "seconds": 1412.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106082,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:59",
+   "seconds": 1439.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106082,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:01",
+   "seconds": 1441.0,
+   "place": 19
+  },
+  {
+   "raceid": -202106082,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:08",
+   "seconds": 1448.0,
+   "place": 20
+  },
+  {
+   "raceid": -202106082,
+   "name": "Eric Seaton",
+   "racer": "eric-seaton",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:24",
+   "seconds": 1464.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106082,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:42",
+   "seconds": 1482.0,
+   "place": 22
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:20",
+   "seconds": 1520.0,
+   "place": 23
+  },
+  {
+   "raceid": -202106082,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:42",
+   "seconds": 1542.0,
+   "place": 24
+  },
+  {
+   "raceid": -202106082,
+   "name": "Laura Motter",
+   "racer": "laura-motter",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:44",
+   "seconds": 1544.0,
+   "place": 25
+  },
+  {
+   "raceid": -202106082,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:45",
+   "seconds": 1545.0,
+   "place": 26
+  },
+  {
+   "raceid": -202106082,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:57",
+   "seconds": 1557.0,
+   "place": 27
+  },
+  {
+   "raceid": -202106082,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:01",
+   "seconds": 1561.0,
+   "place": 28
+  },
+  {
+   "raceid": -202106082,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:18",
+   "seconds": 1578.0,
+   "place": 29
+  },
+  {
+   "raceid": -202106082,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:53",
+   "seconds": 1613.0,
+   "place": 30
+  },
+  {
+   "raceid": -202106082,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:04",
+   "seconds": 1624.0,
+   "place": 31
+  },
+  {
+   "raceid": -202106082,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:08",
+   "seconds": 1628.0,
+   "place": 32
+  },
+  {
+   "raceid": -202106082,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:03",
+   "seconds": 1683.0,
+   "place": 33
+  },
+  {
+   "raceid": -202106082,
+   "name": "Pascal Cheng",
+   "racer": "pascal-cheng",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:04",
+   "seconds": 1684.0,
+   "place": 34
+  },
+  {
+   "raceid": -202106082,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:21",
+   "seconds": 1701.0,
+   "place": 35
+  },
+  {
+   "raceid": -202106082,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:26",
+   "seconds": 1706.0,
+   "place": 36
+  },
+  {
+   "raceid": -202106082,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:31",
+   "seconds": 1711.0,
+   "place": 37
+  },
+  {
+   "raceid": -202106082,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:32",
+   "seconds": 1712.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106082,
+   "name": "Beth Hager",
+   "racer": "beth-hager",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:37",
+   "seconds": 1717.0,
+   "place": 39
+  },
+  {
+   "raceid": -202106082,
+   "name": "Bill Dysart",
+   "racer": "bill-dysart",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:56",
+   "seconds": 1736.0,
+   "place": 40
+  },
+  {
+   "raceid": -202106082,
+   "name": "Keeley Schell",
+   "racer": "keeley-schell",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:01",
+   "seconds": 1741.0,
+   "place": 41
+  },
+  {
+   "raceid": -202106082,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:13",
+   "seconds": 1753.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:17",
+   "seconds": 1757.0,
+   "place": 43
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jonathan McNamara",
+   "racer": "jonathan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:25",
+   "seconds": 1765.0,
+   "place": 44
+  },
+  {
+   "raceid": -202106082,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:55",
+   "seconds": 1795.0,
+   "place": 45
+  },
+  {
+   "raceid": -202106082,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:03",
+   "seconds": 1803.0,
+   "place": 46
+  },
+  {
+   "raceid": -202106082,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:09",
+   "seconds": 1809.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106082,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:40",
+   "seconds": 1840.0,
+   "place": 48
+  },
+  {
+   "raceid": -202106082,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:42",
+   "seconds": 1842.0,
+   "place": 49
+  },
+  {
+   "raceid": -202106082,
+   "name": "Wendy Sicard",
+   "racer": "wendy-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:02",
+   "seconds": 1862.0,
+   "place": 50
+  },
+  {
+   "raceid": -202106082,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:36",
+   "seconds": 1896.0,
+   "place": 51
+  },
+  {
+   "raceid": -202106082,
+   "name": "Penelope Gibson",
+   "racer": "penelope-gibson",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:04",
+   "seconds": 1984.0,
+   "place": 52
+  },
+  {
+   "raceid": -202106082,
+   "name": "Elizabeth Nesbitt",
+   "racer": "elizabeth-nesbitt",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:14",
+   "seconds": 1994.0,
+   "place": 53
+  },
+  {
+   "raceid": -202106082,
+   "name": "Lily Devereux",
+   "racer": "lily-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:39",
+   "seconds": 2019.0,
+   "place": 54
+  },
+  {
+   "raceid": -202106082,
+   "name": "Katherine Mcnamara",
+   "racer": "katherine-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:57",
+   "seconds": 2037.0,
+   "place": 55
+  },
+  {
+   "raceid": -202106082,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:09",
+   "seconds": 2049.0,
+   "place": 56
+  },
+  {
+   "raceid": -202106082,
+   "name": "Amy Holibaugh",
+   "racer": "amy-holibaugh",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:32",
+   "seconds": 2072.0,
+   "place": 57
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jack Manning",
+   "racer": "jack-manning",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:38",
+   "seconds": 2078.0,
+   "place": 58
+  },
+  {
+   "raceid": -202106082,
+   "name": "Tara Bandy",
+   "racer": "tara-bandy",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:53",
+   "seconds": 2093.0,
+   "place": 59
+  },
+  {
+   "raceid": -202106082,
+   "name": "Debbie Deale",
+   "racer": "debbie-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:21",
+   "seconds": 2181.0,
+   "place": 60
+  },
+  {
+   "raceid": -202106082,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:24",
+   "seconds": 2304.0,
+   "place": 61
+  },
+  {
+   "raceid": -202106082,
+   "name": "Randi Sanville",
+   "racer": "randi-sanville",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:52",
+   "seconds": 2332.0,
+   "place": 62
+  },
+  {
+   "raceid": -202106082,
+   "name": "Karyn Vogel",
+   "racer": "karyn-vogel",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:55",
+   "seconds": 2335.0,
+   "place": 63
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jenna Sawyer",
+   "racer": "jenna-sawyer",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:55",
+   "seconds": 2575.0,
+   "place": 64
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jennifer Nachbur",
+   "racer": "jennifer-nachbur",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:27",
+   "seconds": 2787.0,
+   "place": 65
+  },
+  {
+   "raceid": -202106082,
+   "name": "Kimberly Luebbers",
+   "racer": "kimberly-luebbers",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:47",
+   "seconds": 2867.0,
+   "place": 66
+  },
+  {
+   "raceid": -202106082,
+   "name": "Rose Bergeron",
+   "racer": "rose-bergeron",
+   "distance": "5K",
+   "laps": null,
+   "time": "50:00",
+   "seconds": 3000.0,
+   "place": 67
+  },
+  {
+   "raceid": -202106082,
+   "name": "Jennifer Dickinson",
+   "racer": "jennifer-dickinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "51:15",
+   "seconds": 3075.0,
+   "place": 68
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "10K",
+   "laps": null,
+   "time": "38:22",
+   "seconds": 2302.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106152,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "10K",
+   "laps": null,
+   "time": "43:14",
+   "seconds": 2594.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106152,
+   "name": "Kate Kogut",
+   "racer": "kate-kogut",
+   "distance": "10K",
+   "laps": null,
+   "time": "53:01",
+   "seconds": 3181.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106152,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:02:42",
+   "seconds": 3762.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106152,
+   "name": "Kate Carlson",
+   "racer": "kate-carlson",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "12:23",
+   "seconds": 743.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106152,
+   "name": "Roland Ekstrom",
+   "racer": "roland-ekstrom",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "14:48",
+   "seconds": 888.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106152,
+   "name": "Kaelyn McNamara",
+   "racer": "kaelyn-mcnamara",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "15:09",
+   "seconds": 909.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106152,
+   "name": "Celia Ekstrom",
+   "racer": "celia-ekstrom",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "19:01",
+   "seconds": 1141.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106152,
+   "name": "Keeley Schell",
+   "racer": "keeley-schell",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "19:01",
+   "seconds": 1141.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106152,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "25:46",
+   "seconds": 1546.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106152,
+   "name": "Todd Aechambault",
+   "racer": "todd-aechambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "25:47",
+   "seconds": 1547.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106152,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "30:41",
+   "seconds": 1841.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106152,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "30:41",
+   "seconds": 1841.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106152,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:06",
+   "seconds": 1146.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106152,
+   "name": "Dylan McNamara",
+   "racer": "dylan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:15",
+   "seconds": 1155.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106152,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:34",
+   "seconds": 1234.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106152,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:36",
+   "seconds": 1236.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106152,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:45",
+   "seconds": 1245.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106152,
+   "name": "Owen Deale",
+   "racer": "owen-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:47",
+   "seconds": 1247.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106152,
+   "name": "Tim Sullivan",
+   "racer": "tim-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:02",
+   "seconds": 1262.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106152,
+   "name": "Taylor Carlson",
+   "racer": "taylor-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:12",
+   "seconds": 1272.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106152,
+   "name": "James Langan",
+   "racer": "james-langan",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:37",
+   "seconds": 1297.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106152,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:38",
+   "seconds": 1298.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106152,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:50",
+   "seconds": 1310.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106152,
+   "name": "Mike Richards",
+   "racer": "mike-richards",
+   "distance": "5K",
+   "laps": null,
+   "time": "21:51",
+   "seconds": 1311.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106152,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:02",
+   "seconds": 1322.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:12",
+   "seconds": 1332.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106152,
+   "name": "Eric Seaton",
+   "racer": "eric-seaton",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:39",
+   "seconds": 1359.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106152,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:00",
+   "seconds": 1380.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106152,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:06",
+   "seconds": 1386.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106152,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:19",
+   "seconds": 1399.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106152,
+   "name": "Sam Werbel",
+   "racer": "sam-werbel",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:19",
+   "seconds": 1399.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106152,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:35",
+   "seconds": 1415.0,
+   "place": 20
+  },
+  {
+   "raceid": -202106152,
+   "name": "Althea Devereux",
+   "racer": "althea-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:55",
+   "seconds": 1435.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106152,
+   "name": "Eleanor Devereux",
+   "racer": "eleanor-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:55",
+   "seconds": 1435.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106152,
+   "name": "Annalise Wood",
+   "racer": "annalise-wood",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:04",
+   "seconds": 1444.0,
+   "place": 23
+  },
+  {
+   "raceid": -202106152,
+   "name": "Max MacDonald",
+   "racer": "max-macdonald",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:28",
+   "seconds": 1468.0,
+   "place": 24
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:43",
+   "seconds": 1483.0,
+   "place": 25
+  },
+  {
+   "raceid": -202106152,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:47",
+   "seconds": 1487.0,
+   "place": 26
+  },
+  {
+   "raceid": -202106152,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:05",
+   "seconds": 1505.0,
+   "place": 27
+  },
+  {
+   "raceid": -202106152,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:19",
+   "seconds": 1519.0,
+   "place": 28
+  },
+  {
+   "raceid": -202106152,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:30",
+   "seconds": 1530.0,
+   "place": 29
+  },
+  {
+   "raceid": -202106152,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:40",
+   "seconds": 1540.0,
+   "place": 30
+  },
+  {
+   "raceid": -202106152,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:50",
+   "seconds": 1550.0,
+   "place": 31
+  },
+  {
+   "raceid": -202106152,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:51",
+   "seconds": 1551.0,
+   "place": 32
+  },
+  {
+   "raceid": -202106152,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:22",
+   "seconds": 1582.0,
+   "place": 33
+  },
+  {
+   "raceid": -202106152,
+   "name": "Alex Durfee",
+   "racer": "alex-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:34",
+   "seconds": 1594.0,
+   "place": 34
+  },
+  {
+   "raceid": -202106152,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:01",
+   "seconds": 1621.0,
+   "place": 35
+  },
+  {
+   "raceid": -202106152,
+   "name": "Annalisa MacDonald",
+   "racer": "annalisa-macdonald",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:15",
+   "seconds": 1635.0,
+   "place": 36
+  },
+  {
+   "raceid": -202106152,
+   "name": "Andrew Sullivan",
+   "racer": "andrew-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:16",
+   "seconds": 1636.0,
+   "place": 37
+  },
+  {
+   "raceid": -202106152,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:20",
+   "seconds": 1640.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106152,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:38",
+   "seconds": 1658.0,
+   "place": 39
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:51",
+   "seconds": 1671.0,
+   "place": 40
+  },
+  {
+   "raceid": -202106152,
+   "name": "Beth Hager",
+   "racer": "beth-hager",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:35",
+   "seconds": 1715.0,
+   "place": 41
+  },
+  {
+   "raceid": -202106152,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:49",
+   "seconds": 1729.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106152,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:58",
+   "seconds": 1738.0,
+   "place": 43
+  },
+  {
+   "raceid": -202106152,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:02",
+   "seconds": 1742.0,
+   "place": 44
+  },
+  {
+   "raceid": -202106152,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:28",
+   "seconds": 1768.0,
+   "place": 45
+  },
+  {
+   "raceid": -202106152,
+   "name": "Nancy Wood",
+   "racer": "nancy-wood",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:38",
+   "seconds": 1778.0,
+   "place": 46
+  },
+  {
+   "raceid": -202106152,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:39",
+   "seconds": 1779.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106152,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:39",
+   "seconds": 1779.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106152,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:55",
+   "seconds": 1795.0,
+   "place": 49
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jonathan McNamara",
+   "racer": "jonathan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:00",
+   "seconds": 1800.0,
+   "place": 50
+  },
+  {
+   "raceid": -202106152,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:45",
+   "seconds": 1845.0,
+   "place": 51
+  },
+  {
+   "raceid": -202106152,
+   "name": "Bill Dysart",
+   "racer": "bill-dysart",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:14",
+   "seconds": 1874.0,
+   "place": 52
+  },
+  {
+   "raceid": -202106152,
+   "name": "Suki DiGrande",
+   "racer": "suki-digrande",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:27",
+   "seconds": 1887.0,
+   "place": 53
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jack Manning",
+   "racer": "jack-manning",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:58",
+   "seconds": 1918.0,
+   "place": 54
+  },
+  {
+   "raceid": -202106152,
+   "name": "Wendy-Jo Sicard",
+   "racer": "wendy-jo-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:04",
+   "seconds": 1924.0,
+   "place": 55
+  },
+  {
+   "raceid": -202106152,
+   "name": "Amy Holibaugh",
+   "racer": "amy-holibaugh",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:53",
+   "seconds": 1973.0,
+   "place": 56
+  },
+  {
+   "raceid": -202106152,
+   "name": "Lily Devereux",
+   "racer": "lily-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:38",
+   "seconds": 2018.0,
+   "place": 57
+  },
+  {
+   "raceid": -202106152,
+   "name": "Tara Bandy",
+   "racer": "tara-bandy",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:45",
+   "seconds": 2025.0,
+   "place": 58
+  },
+  {
+   "raceid": -202106152,
+   "name": "Randi Sanville",
+   "racer": "randi-sanville",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:54",
+   "seconds": 2034.0,
+   "place": 59
+  },
+  {
+   "raceid": -202106152,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:09",
+   "seconds": 2049.0,
+   "place": 60
+  },
+  {
+   "raceid": -202106152,
+   "name": "Katherine Mcnamara",
+   "racer": "katherine-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:28",
+   "seconds": 2068.0,
+   "place": 61
+  },
+  {
+   "raceid": -202106152,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:31",
+   "seconds": 2071.0,
+   "place": 62
+  },
+  {
+   "raceid": -202106152,
+   "name": "Debbie Deale",
+   "racer": "debbie-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:45",
+   "seconds": 2085.0,
+   "place": 63
+  },
+  {
+   "raceid": -202106152,
+   "name": "Elizabeth Nesbitt",
+   "racer": "elizabeth-nesbitt",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:00",
+   "seconds": 2100.0,
+   "place": 64
+  },
+  {
+   "raceid": -202106152,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:40",
+   "seconds": 2200.0,
+   "place": 65
+  },
+  {
+   "raceid": -202106152,
+   "name": "Kimberly Luebbers",
+   "racer": "kimberly-luebbers",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:00",
+   "seconds": 2400.0,
+   "place": 66
+  },
+  {
+   "raceid": -202106152,
+   "name": "Rose Bergeron",
+   "racer": "rose-bergeron",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:00",
+   "seconds": 2400.0,
+   "place": 66
+  },
+  {
+   "raceid": -202106152,
+   "name": "Dana Hutchinson",
+   "racer": "dana-hutchinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:51",
+   "seconds": 2451.0,
+   "place": 68
+  },
+  {
+   "raceid": -202106152,
+   "name": "Jennifer Dickinson",
+   "racer": "jennifer-dickinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "50:58",
+   "seconds": 3058.0,
+   "place": 69
+  },
+  {
+   "raceid": -202106222,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "10K",
+   "laps": null,
+   "time": "43:04",
+   "seconds": 2584.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106222,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "10K",
+   "laps": null,
+   "time": "43:14",
+   "seconds": 2594.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106222,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "10K",
+   "laps": null,
+   "time": "46:49",
+   "seconds": 2809.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106222,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "10K",
+   "laps": null,
+   "time": "46:51",
+   "seconds": 2811.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106222,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:02:59",
+   "seconds": 3779.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106222,
+   "name": "Kate Carlson",
+   "racer": "kate-carlson",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "12:21",
+   "seconds": 741.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106222,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "27:44",
+   "seconds": 1664.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106222,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "27:45",
+   "seconds": 1665.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106222,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "27:46",
+   "seconds": 1666.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106222,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "40:24",
+   "seconds": 2424.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106222,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "40:24",
+   "seconds": 2424.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106222,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "18:41",
+   "seconds": 1121.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106222,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "19:33",
+   "seconds": 1173.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106222,
+   "name": "Brad Carlson",
+   "racer": "brad-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:05",
+   "seconds": 1205.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106222,
+   "name": "Tim Sullivan",
+   "racer": "tim-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:19",
+   "seconds": 1219.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106222,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:49",
+   "seconds": 1249.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106222,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "20:54",
+   "seconds": 1254.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106222,
+   "name": "Eric Seaton",
+   "racer": "eric-seaton",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:07",
+   "seconds": 1327.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106222,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:20",
+   "seconds": 1340.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106222,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:25",
+   "seconds": 1345.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106222,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:32",
+   "seconds": 1352.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106222,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:32",
+   "seconds": 1352.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106222,
+   "name": "Eleanor Devereux",
+   "racer": "eleanor-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:45",
+   "seconds": 1365.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106222,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "22:51",
+   "seconds": 1371.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106222,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:02",
+   "seconds": 1382.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106222,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "23:04",
+   "seconds": 1384.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106222,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:01",
+   "seconds": 1441.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106222,
+   "name": "James Langan",
+   "racer": "james-langan",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:07",
+   "seconds": 1447.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106222,
+   "name": "Graham Sherriff",
+   "racer": "graham-sherriff",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:12",
+   "seconds": 1452.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106222,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:27",
+   "seconds": 1467.0,
+   "place": 19
+  },
+  {
+   "raceid": -202106222,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:34",
+   "seconds": 1474.0,
+   "place": 20
+  },
+  {
+   "raceid": -202106222,
+   "name": "Kate Kogut",
+   "racer": "kate-kogut",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:49",
+   "seconds": 1489.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106222,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:04",
+   "seconds": 1504.0,
+   "place": 22
+  },
+  {
+   "raceid": -202106222,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:19",
+   "seconds": 1519.0,
+   "place": 23
+  },
+  {
+   "raceid": -202106222,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:20",
+   "seconds": 1520.0,
+   "place": 24
+  },
+  {
+   "raceid": -202106222,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:32",
+   "seconds": 1532.0,
+   "place": 25
+  },
+  {
+   "raceid": -202106222,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:44",
+   "seconds": 1544.0,
+   "place": 26
+  },
+  {
+   "raceid": -202106222,
+   "name": "Alex Durfee",
+   "racer": "alex-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:46",
+   "seconds": 1546.0,
+   "place": 27
+  },
+  {
+   "raceid": -202106222,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:45",
+   "seconds": 1605.0,
+   "place": 28
+  },
+  {
+   "raceid": -202106222,
+   "name": "Liz Champagne",
+   "racer": "liz-champagne",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:59",
+   "seconds": 1619.0,
+   "place": 29
+  },
+  {
+   "raceid": -202106222,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:01",
+   "seconds": 1621.0,
+   "place": 30
+  },
+  {
+   "raceid": -202106222,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:10",
+   "seconds": 1690.0,
+   "place": 31
+  },
+  {
+   "raceid": -202106222,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:14",
+   "seconds": 1754.0,
+   "place": 32
+  },
+  {
+   "raceid": -202106222,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:45",
+   "seconds": 1785.0,
+   "place": 33
+  },
+  {
+   "raceid": -202106222,
+   "name": "Wendy-Jo Sicard",
+   "racer": "wendy-jo-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:13",
+   "seconds": 1813.0,
+   "place": 34
+  },
+  {
+   "raceid": -202106222,
+   "name": "Suki DiGrande",
+   "racer": "suki-digrande",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:17",
+   "seconds": 1817.0,
+   "place": 35
+  },
+  {
+   "raceid": -202106222,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:24",
+   "seconds": 1824.0,
+   "place": 36
+  },
+  {
+   "raceid": -202106222,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:54",
+   "seconds": 1854.0,
+   "place": 37
+  },
+  {
+   "raceid": -202106222,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:17",
+   "seconds": 1877.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106222,
+   "name": "Penelope Gibson",
+   "racer": "penelope-gibson",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:17",
+   "seconds": 1877.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106222,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:14",
+   "seconds": 1934.0,
+   "place": 40
+  },
+  {
+   "raceid": -202106222,
+   "name": "Leah Ryan",
+   "racer": "leah-ryan",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:09",
+   "seconds": 1989.0,
+   "place": 41
+  },
+  {
+   "raceid": -202106222,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:14",
+   "seconds": 2114.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106222,
+   "name": "Randi Sanville",
+   "racer": "randi-sanville",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:14",
+   "seconds": 2174.0,
+   "place": 43
+  },
+  {
+   "raceid": -202106222,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:51",
+   "seconds": 2271.0,
+   "place": 44
+  },
+  {
+   "raceid": -202106222,
+   "name": "Karyn Vogel",
+   "racer": "karyn-vogel",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:11",
+   "seconds": 2351.0,
+   "place": 45
+  },
+  {
+   "raceid": -202106222,
+   "name": "Johnathon Kogut",
+   "racer": "johnathon-kogut",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:52",
+   "seconds": 2692.0,
+   "place": 46
+  },
+  {
+   "raceid": -202106222,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "49:47",
+   "seconds": 2987.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106222,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "49:53",
+   "seconds": 2993.0,
+   "place": 48
+  },
+  {
+   "raceid": -202106292,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "10K",
+   "laps": null,
+   "time": "59:11",
+   "seconds": 3551.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106292,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:13:37",
+   "seconds": 4417.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106292,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:13:54",
+   "seconds": 4434.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106292,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:42:56",
+   "seconds": 6176.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106292,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "29:36",
+   "seconds": 1776.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106292,
+   "name": "Luke Buehler",
+   "racer": "luke-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:20",
+   "seconds": 2000.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106292,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:35",
+   "seconds": 2015.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106292,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:41",
+   "seconds": 2021.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106292,
+   "name": "Betty Buehler",
+   "racer": "betty-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:45",
+   "seconds": 2025.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106292,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:52",
+   "seconds": 2032.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106292,
+   "name": "Mike Early",
+   "racer": "mike-early",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:22",
+   "seconds": 1642.0,
+   "place": 1
+  },
+  {
+   "raceid": -202106292,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "27:50",
+   "seconds": 1670.0,
+   "place": 2
+  },
+  {
+   "raceid": -202106292,
+   "name": "Brad Carlson",
+   "racer": "brad-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:29",
+   "seconds": 1829.0,
+   "place": 3
+  },
+  {
+   "raceid": -202106292,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:54",
+   "seconds": 1854.0,
+   "place": 4
+  },
+  {
+   "raceid": -202106292,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:38",
+   "seconds": 1898.0,
+   "place": 5
+  },
+  {
+   "raceid": -202106292,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:18",
+   "seconds": 1938.0,
+   "place": 6
+  },
+  {
+   "raceid": -202106292,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:28",
+   "seconds": 1948.0,
+   "place": 7
+  },
+  {
+   "raceid": -202106292,
+   "name": "Mike Richards",
+   "racer": "mike-richards",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:40",
+   "seconds": 1960.0,
+   "place": 8
+  },
+  {
+   "raceid": -202106292,
+   "name": "Eric Seaton",
+   "racer": "eric-seaton",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:20",
+   "seconds": 2000.0,
+   "place": 9
+  },
+  {
+   "raceid": -202106292,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:42",
+   "seconds": 2022.0,
+   "place": 10
+  },
+  {
+   "raceid": -202106292,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:53",
+   "seconds": 2033.0,
+   "place": 11
+  },
+  {
+   "raceid": -202106292,
+   "name": "Eleanor Devereux",
+   "racer": "eleanor-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:47",
+   "seconds": 2087.0,
+   "place": 12
+  },
+  {
+   "raceid": -202106292,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:05",
+   "seconds": 2105.0,
+   "place": 13
+  },
+  {
+   "raceid": -202106292,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:54",
+   "seconds": 2154.0,
+   "place": 14
+  },
+  {
+   "raceid": -202106292,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:50",
+   "seconds": 2210.0,
+   "place": 15
+  },
+  {
+   "raceid": -202106292,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:15",
+   "seconds": 2235.0,
+   "place": 16
+  },
+  {
+   "raceid": -202106292,
+   "name": "Michael Gilman",
+   "racer": "michael-gilman",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:47",
+   "seconds": 2267.0,
+   "place": 17
+  },
+  {
+   "raceid": -202106292,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:08",
+   "seconds": 2348.0,
+   "place": 18
+  },
+  {
+   "raceid": -202106292,
+   "name": "Alex Durfee",
+   "racer": "alex-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:27",
+   "seconds": 2367.0,
+   "place": 19
+  },
+  {
+   "raceid": -202106292,
+   "name": "Annalisa MacDonald",
+   "racer": "annalisa-macdonald",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:02",
+   "seconds": 2402.0,
+   "place": 20
+  },
+  {
+   "raceid": -202106292,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:09",
+   "seconds": 2409.0,
+   "place": 21
+  },
+  {
+   "raceid": -202106292,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:45",
+   "seconds": 2445.0,
+   "place": 22
+  },
+  {
+   "raceid": -202106292,
+   "name": "Ken Schatz",
+   "racer": "ken-schatz",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:46",
+   "seconds": 2446.0,
+   "place": 23
+  },
+  {
+   "raceid": -202106292,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:21",
+   "seconds": 2481.0,
+   "place": 24
+  },
+  {
+   "raceid": -202106292,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:25",
+   "seconds": 2485.0,
+   "place": 25
+  },
+  {
+   "raceid": -202106292,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:35",
+   "seconds": 2495.0,
+   "place": 26
+  },
+  {
+   "raceid": -202106292,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:38",
+   "seconds": 2498.0,
+   "place": 27
+  },
+  {
+   "raceid": -202106292,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:10",
+   "seconds": 2530.0,
+   "place": 28
+  },
+  {
+   "raceid": -202106292,
+   "name": "Beth Hager",
+   "racer": "beth-hager",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:15",
+   "seconds": 2535.0,
+   "place": 29
+  },
+  {
+   "raceid": -202106292,
+   "name": "Jack Manning",
+   "racer": "jack-manning",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:33",
+   "seconds": 2553.0,
+   "place": 30
+  },
+  {
+   "raceid": -202106292,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:34",
+   "seconds": 2554.0,
+   "place": 31
+  },
+  {
+   "raceid": -202106292,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:04",
+   "seconds": 2584.0,
+   "place": 32
+  },
+  {
+   "raceid": -202106292,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:23",
+   "seconds": 2603.0,
+   "place": 33
+  },
+  {
+   "raceid": -202106292,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:35",
+   "seconds": 2615.0,
+   "place": 34
+  },
+  {
+   "raceid": -202106292,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:50",
+   "seconds": 2690.0,
+   "place": 35
+  },
+  {
+   "raceid": -202106292,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:52",
+   "seconds": 2692.0,
+   "place": 36
+  },
+  {
+   "raceid": -202106292,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:50",
+   "seconds": 2750.0,
+   "place": 37
+  },
+  {
+   "raceid": -202106292,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:35",
+   "seconds": 2795.0,
+   "place": 38
+  },
+  {
+   "raceid": -202106292,
+   "name": "Lily Devereux",
+   "racer": "lily-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "46:47",
+   "seconds": 2807.0,
+   "place": 39
+  },
+  {
+   "raceid": -202106292,
+   "name": "Penelope Gibson",
+   "racer": "penelope-gibson",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:02",
+   "seconds": 2822.0,
+   "place": 40
+  },
+  {
+   "raceid": -202106292,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:14",
+   "seconds": 2834.0,
+   "place": 41
+  },
+  {
+   "raceid": -202106292,
+   "name": "Elizabeth Nesbitt",
+   "racer": "elizabeth-nesbitt",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:36",
+   "seconds": 2856.0,
+   "place": 42
+  },
+  {
+   "raceid": -202106292,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:37",
+   "seconds": 2857.0,
+   "place": 43
+  },
+  {
+   "raceid": -202106292,
+   "name": "Wendy Sicard",
+   "racer": "wendy-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:48",
+   "seconds": 2868.0,
+   "place": 44
+  },
+  {
+   "raceid": -202106292,
+   "name": "Debbie Deale",
+   "racer": "debbie-deale",
+   "distance": "5K",
+   "laps": null,
+   "time": "50:45",
+   "seconds": 3045.0,
+   "place": 45
+  },
+  {
+   "raceid": -202106292,
+   "name": "Tara Bandy",
+   "racer": "tara-bandy",
+   "distance": "5K",
+   "laps": null,
+   "time": "51:22",
+   "seconds": 3082.0,
+   "place": 46
+  },
+  {
+   "raceid": -202106292,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "56:20",
+   "seconds": 3380.0,
+   "place": 47
+  },
+  {
+   "raceid": -202106292,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "1:01:51",
+   "seconds": 3711.0,
+   "place": 48
+  },
+  {
+   "raceid": -202106292,
+   "name": "Chelsey Stack",
+   "racer": "chelsey-stack",
+   "distance": "5K",
+   "laps": null,
+   "time": "1:05:35",
+   "seconds": 3935.0,
+   "place": 49
+  },
+  {
+   "raceid": -202107062,
+   "name": "John King",
+   "racer": "john-king",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:08:50",
+   "seconds": 4130.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107062,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:21:42",
+   "seconds": 4902.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107062,
+   "name": "Kaelyn McNamara",
+   "racer": "kaelyn-mcnamara",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "29:34",
+   "seconds": 1774.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107062,
+   "name": "Roland Ekstrom",
+   "racer": "roland-ekstrom",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "31:01",
+   "seconds": 1861.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107062,
+   "name": "Keeley Schell",
+   "racer": "keeley-schell",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "31:04",
+   "seconds": 1864.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107062,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "53:32",
+   "seconds": 3212.0,
+   "place": 4
+  },
+  {
+   "raceid": -202107062,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "56:38",
+   "seconds": 3398.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107062,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "56:40",
+   "seconds": 3400.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107062,
+   "name": "Bertram Johnson",
+   "racer": "bertram-johnson",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:00",
+   "seconds": 1500.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107062,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "25:55",
+   "seconds": 1555.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107062,
+   "name": "Mike Early",
+   "racer": "mike-early",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:11",
+   "seconds": 1571.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107062,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:15",
+   "seconds": 1695.0,
+   "place": 4
+  },
+  {
+   "raceid": -202107062,
+   "name": "Tim Sullivan",
+   "racer": "tim-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:25",
+   "seconds": 1705.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107062,
+   "name": "Megan Papineau",
+   "racer": "megan-papineau",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:41",
+   "seconds": 1721.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107062,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:59",
+   "seconds": 1739.0,
+   "place": 7
+  },
+  {
+   "raceid": -202107062,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:05",
+   "seconds": 1745.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107062,
+   "name": "James Langan",
+   "racer": "james-langan",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:37",
+   "seconds": 1777.0,
+   "place": 9
+  },
+  {
+   "raceid": -202107062,
+   "name": "Mike Richards",
+   "racer": "mike-richards",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:37",
+   "seconds": 1777.0,
+   "place": 9
+  },
+  {
+   "raceid": -202107062,
+   "name": "Mark Duchaine",
+   "racer": "mark-duchaine",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:58",
+   "seconds": 1798.0,
+   "place": 11
+  },
+  {
+   "raceid": -202107062,
+   "name": "Eleanor Devereux",
+   "racer": "eleanor-devereux",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:17",
+   "seconds": 1817.0,
+   "place": 12
+  },
+  {
+   "raceid": -202107062,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:16",
+   "seconds": 1876.0,
+   "place": 13
+  },
+  {
+   "raceid": -202107062,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:36",
+   "seconds": 1896.0,
+   "place": 14
+  },
+  {
+   "raceid": -202107062,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:38",
+   "seconds": 1898.0,
+   "place": 15
+  },
+  {
+   "raceid": -202107062,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:39",
+   "seconds": 1899.0,
+   "place": 16
+  },
+  {
+   "raceid": -202107062,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "31:51",
+   "seconds": 1911.0,
+   "place": 17
+  },
+  {
+   "raceid": -202107062,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:00",
+   "seconds": 1920.0,
+   "place": 18
+  },
+  {
+   "raceid": -202107062,
+   "name": "Michael Gilman",
+   "racer": "michael-gilman",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:11",
+   "seconds": 1931.0,
+   "place": 19
+  },
+  {
+   "raceid": -202107062,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:07",
+   "seconds": 1987.0,
+   "place": 20
+  },
+  {
+   "raceid": -202107062,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:21",
+   "seconds": 2001.0,
+   "place": 21
+  },
+  {
+   "raceid": -202107062,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:31",
+   "seconds": 2071.0,
+   "place": 22
+  },
+  {
+   "raceid": -202107062,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:38",
+   "seconds": 2138.0,
+   "place": 23
+  },
+  {
+   "raceid": -202107062,
+   "name": "Alexandra Durfee",
+   "racer": "alexandra-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:50",
+   "seconds": 2150.0,
+   "place": 24
+  },
+  {
+   "raceid": -202107062,
+   "name": "Eric Dague",
+   "racer": "eric-dague",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:02",
+   "seconds": 2162.0,
+   "place": 25
+  },
+  {
+   "raceid": -202107062,
+   "name": "Sarah Zobel",
+   "racer": "sarah-zobel",
+   "distance": "5K",
+   "laps": null,
+   "time": "36:10",
+   "seconds": 2170.0,
+   "place": 26
+  },
+  {
+   "raceid": -202107062,
+   "name": "Ken Schatz",
+   "racer": "ken-schatz",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:00",
+   "seconds": 2220.0,
+   "place": 27
+  },
+  {
+   "raceid": -202107062,
+   "name": "Karen Clark",
+   "racer": "karen-clark",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:01",
+   "seconds": 2221.0,
+   "place": 28
+  },
+  {
+   "raceid": -202107062,
+   "name": "Jack Manning",
+   "racer": "jack-manning",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:55",
+   "seconds": 2275.0,
+   "place": 29
+  },
+  {
+   "raceid": -202107062,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:56",
+   "seconds": 2276.0,
+   "place": 30
+  },
+  {
+   "raceid": -202107062,
+   "name": "Julie McCarthy",
+   "racer": "julie-mccarthy",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:14",
+   "seconds": 2294.0,
+   "place": 31
+  },
+  {
+   "raceid": -202107062,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:40",
+   "seconds": 2320.0,
+   "place": 32
+  },
+  {
+   "raceid": -202107062,
+   "name": "Wendy Sicard",
+   "racer": "wendy-sicard",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:46",
+   "seconds": 2326.0,
+   "place": 33
+  },
+  {
+   "raceid": -202107062,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:22",
+   "seconds": 2362.0,
+   "place": 34
+  },
+  {
+   "raceid": -202107062,
+   "name": "Andrew Sullivan",
+   "racer": "andrew-sullivan",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:36",
+   "seconds": 2376.0,
+   "place": 35
+  },
+  {
+   "raceid": -202107062,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:54",
+   "seconds": 2394.0,
+   "place": 36
+  },
+  {
+   "raceid": -202107062,
+   "name": "Amy Holibaugh",
+   "racer": "amy-holibaugh",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:21",
+   "seconds": 2421.0,
+   "place": 37
+  },
+  {
+   "raceid": -202107062,
+   "name": "Suki DiGrande",
+   "racer": "suki-digrande",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:40",
+   "seconds": 2440.0,
+   "place": 38
+  },
+  {
+   "raceid": -202107062,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:59",
+   "seconds": 2519.0,
+   "place": 39
+  },
+  {
+   "raceid": -202107062,
+   "name": "Penelope Gibson",
+   "racer": "penelope-gibson",
+   "distance": "5K",
+   "laps": null,
+   "time": "42:44",
+   "seconds": 2564.0,
+   "place": 40
+  },
+  {
+   "raceid": -202107062,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:05",
+   "seconds": 2585.0,
+   "place": 41
+  },
+  {
+   "raceid": -202107062,
+   "name": "Chelsey Stack",
+   "racer": "chelsey-stack",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:41",
+   "seconds": 2621.0,
+   "place": 42
+  },
+  {
+   "raceid": -202107062,
+   "name": "Elizabeth Nesbitt",
+   "racer": "elizabeth-nesbitt",
+   "distance": "5K",
+   "laps": null,
+   "time": "43:46",
+   "seconds": 2626.0,
+   "place": 43
+  },
+  {
+   "raceid": -202107062,
+   "name": "Jonathan McNamara",
+   "racer": "jonathan-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:05",
+   "seconds": 2705.0,
+   "place": 44
+  },
+  {
+   "raceid": -202107062,
+   "name": "Katherine McNamara",
+   "racer": "katherine-mcnamara",
+   "distance": "5K",
+   "laps": null,
+   "time": "47:19",
+   "seconds": 2839.0,
+   "place": 45
+  },
+  {
+   "raceid": -202107062,
+   "name": "Raymond Mainer",
+   "racer": "raymond-mainer",
+   "distance": "5K",
+   "laps": null,
+   "time": "51:39",
+   "seconds": 3099.0,
+   "place": 46
+  },
+  {
+   "raceid": -202107062,
+   "name": "Alyssa Fowler",
+   "racer": "alyssa-fowler",
+   "distance": "5K",
+   "laps": null,
+   "time": "55:10",
+   "seconds": 3310.0,
+   "place": 47
+  },
+  {
+   "raceid": -202107062,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "59:24",
+   "seconds": 3564.0,
+   "place": 48
+  },
+  {
+   "raceid": -202107062,
+   "name": "Jennifer Dickinson",
+   "racer": "jennifer-dickinson",
+   "distance": "5K",
+   "laps": null,
+   "time": "1:02:23",
+   "seconds": 3743.0,
+   "place": 49
+  },
+  {
+   "raceid": -202107202,
+   "name": "William Perry",
+   "racer": "william-perry",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:03:22",
+   "seconds": 3802.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107202,
+   "name": "Ellie Bouffard",
+   "racer": "ellie-bouffard",
+   "distance": "10K",
+   "laps": null,
+   "time": "1:29:38",
+   "seconds": 5378.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107202,
+   "name": "Ezra Buehler",
+   "racer": "ezra-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "31:45",
+   "seconds": 1905.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107202,
+   "name": "Ellen Buehler",
+   "racer": "ellen-buehler",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "31:45",
+   "seconds": 1905.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107202,
+   "name": "Elise Seraus",
+   "racer": "elise-seraus",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "33:06",
+   "seconds": 1986.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107202,
+   "name": "Charlie Archambault",
+   "racer": "charlie-archambault",
+   "distance": "2.5K",
+   "laps": null,
+   "time": "53:51",
+   "seconds": 3231.0,
+   "place": 4
+  },
+  {
+   "raceid": -202107202,
+   "name": "Jason Lippman",
+   "racer": "jason-lippman",
+   "distance": "5K",
+   "laps": null,
+   "time": "24:30",
+   "seconds": 1470.0,
+   "place": 1
+  },
+  {
+   "raceid": -202107202,
+   "name": "Tim Richmond",
+   "racer": "tim-richmond",
+   "distance": "5K",
+   "laps": null,
+   "time": "26:46",
+   "seconds": 1606.0,
+   "place": 2
+  },
+  {
+   "raceid": -202107202,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "5K",
+   "laps": null,
+   "time": "28:40",
+   "seconds": 1720.0,
+   "place": 3
+  },
+  {
+   "raceid": -202107202,
+   "name": "Jenn Carlson",
+   "racer": "jenn-carlson",
+   "distance": "5K",
+   "laps": null,
+   "time": "29:46",
+   "seconds": 1786.0,
+   "place": 4
+  },
+  {
+   "raceid": -202107202,
+   "name": "Eric Brigham",
+   "racer": "eric-brigham",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:19",
+   "seconds": 1819.0,
+   "place": 5
+  },
+  {
+   "raceid": -202107202,
+   "name": "Mike Fink",
+   "racer": "mike-fink",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:34",
+   "seconds": 1834.0,
+   "place": 6
+  },
+  {
+   "raceid": -202107202,
+   "name": "Katie Dolbec",
+   "racer": "katie-dolbec",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:48",
+   "seconds": 1848.0,
+   "place": 7
+  },
+  {
+   "raceid": -202107202,
+   "name": "Todd Archambault",
+   "racer": "todd-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "30:56",
+   "seconds": 1856.0,
+   "place": 8
+  },
+  {
+   "raceid": -202107202,
+   "name": "Scott Poquette",
+   "racer": "scott-poquette",
+   "distance": "5K",
+   "laps": null,
+   "time": "32:55",
+   "seconds": 1975.0,
+   "place": 9
+  },
+  {
+   "raceid": -202107202,
+   "name": "Tim Bilodeau",
+   "racer": "tim-bilodeau",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:13",
+   "seconds": 1993.0,
+   "place": 10
+  },
+  {
+   "raceid": -202107202,
+   "name": "Cris Cote",
+   "racer": "cris-cote",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:28",
+   "seconds": 2008.0,
+   "place": 11
+  },
+  {
+   "raceid": -202107202,
+   "name": "Duncan Dubief",
+   "racer": "duncan-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "33:59",
+   "seconds": 2039.0,
+   "place": 12
+  },
+  {
+   "raceid": -202107202,
+   "name": "Mike Miklus",
+   "racer": "mike-miklus",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:12",
+   "seconds": 2052.0,
+   "place": 13
+  },
+  {
+   "raceid": -202107202,
+   "name": "Liz Hollenbach",
+   "racer": "liz-hollenbach",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:31",
+   "seconds": 2071.0,
+   "place": 14
+  },
+  {
+   "raceid": -202107202,
+   "name": "Russ Cooke",
+   "racer": "russ-cooke",
+   "distance": "5K",
+   "laps": null,
+   "time": "34:52",
+   "seconds": 2092.0,
+   "place": 15
+  },
+  {
+   "raceid": -202107202,
+   "name": "Alex Durfee",
+   "racer": "alex-durfee",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:03",
+   "seconds": 2103.0,
+   "place": 16
+  },
+  {
+   "raceid": -202107202,
+   "name": "Jeff Buzas",
+   "racer": "jeff-buzas",
+   "distance": "5K",
+   "laps": null,
+   "time": "35:52",
+   "seconds": 2152.0,
+   "place": 17
+  },
+  {
+   "raceid": -202107202,
+   "name": "Kelsey Pasteris",
+   "racer": "kelsey-pasteris",
+   "distance": "5K",
+   "laps": null,
+   "time": "37:15",
+   "seconds": 2235.0,
+   "place": 18
+  },
+  {
+   "raceid": -202107202,
+   "name": "Daniel Blanchard",
+   "racer": "daniel-blanchard",
+   "distance": "5K",
+   "laps": null,
+   "time": "38:00",
+   "seconds": 2280.0,
+   "place": 19
+  },
+  {
+   "raceid": -202107202,
+   "name": "Jackson Biunno",
+   "racer": "jackson-biunno",
+   "distance": "5K",
+   "laps": null,
+   "time": "39:50",
+   "seconds": 2390.0,
+   "place": 20
+  },
+  {
+   "raceid": -202107202,
+   "name": "Levi Causey",
+   "racer": "levi-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "40:55",
+   "seconds": 2455.0,
+   "place": 21
+  },
+  {
+   "raceid": -202107202,
+   "name": "Alexis Dubief",
+   "racer": "alexis-dubief",
+   "distance": "5K",
+   "laps": null,
+   "time": "41:56",
+   "seconds": 2516.0,
+   "place": 22
+  },
+  {
+   "raceid": -202107202,
+   "name": "Suki DiGrande",
+   "racer": "suki-digrande",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:05",
+   "seconds": 2645.0,
+   "place": 23
+  },
+  {
+   "raceid": -202107202,
+   "name": "Sara Phillips",
+   "racer": "sara-phillips",
+   "distance": "5K",
+   "laps": null,
+   "time": "44:55",
+   "seconds": 2695.0,
+   "place": 24
+  },
+  {
+   "raceid": -202107202,
+   "name": "Cari Causey",
+   "racer": "cari-causey",
+   "distance": "5K",
+   "laps": null,
+   "time": "45:39",
+   "seconds": 2739.0,
+   "place": 25
+  },
+  {
+   "raceid": -202107202,
+   "name": "Susan Skalka",
+   "racer": "susan-skalka",
+   "distance": "5K",
+   "laps": null,
+   "time": "50:00",
+   "seconds": 3000.0,
+   "place": 26
+  },
+  {
+   "raceid": -202107202,
+   "name": "Rise Bergeron",
+   "racer": "rise-bergeron",
+   "distance": "5K",
+   "laps": null,
+   "time": "50:31",
+   "seconds": 3031.0,
+   "place": 27
+  },
+  {
+   "raceid": -202107202,
+   "name": "Henry Archambault",
+   "racer": "henry-archambault",
+   "distance": "5K",
+   "laps": null,
+   "time": "54:11",
+   "seconds": 3251.0,
+   "place": 28
+  }
+ ]
+}
