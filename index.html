@@ -581,9 +581,13 @@ function lineChart(series, opts) {
   }
   svg += '<line class="axis" x1="' + P.l + '" y1="' + (H - P.b) + '" x2="' + (W - P.r) + '" y2="' + (H - P.b) + '"/>';
 
-  var ticks = opts.xTicks || [];
-  ticks.forEach(function (t) {
-    if (t.x < x0 || t.x > x1) return;
+  // Label every year when they fit, else every second or third one, counting back from the newest.
+  var ticks = (opts.xTicks || []).filter(function (t) { return t.x >= x0 && t.x <= x1; });
+  var gap = 1e9;
+  ticks.forEach(function (t, i) { if (i) gap = Math.min(gap, X(t.x) - X(ticks[i - 1].x)); });
+  var every = Math.max(1, Math.ceil(34 / gap));
+  ticks.forEach(function (t, i) {
+    if ((ticks.length - 1 - i) % every) return;
     svg += '<text x="' + X(t.x) + '" y="' + (H - P.b + 15) + '" text-anchor="middle">' + esc(t.label) + "</text>";
   });
 

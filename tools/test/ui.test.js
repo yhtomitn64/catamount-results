@@ -282,6 +282,13 @@ check("h2h: an empty URL leaves both boxes empty", (rendered["#/h2h/-/-"].match(
 const yearTicks = (h) => new Set([...h.matchAll(/<text[^>]*text-anchor="middle"[^>]*>(\d{4})<\/text>/g)].map((m) => +m[1]));
 const topPage = rendered["#/racer/" + fx.top];
 check("charts: the time axis names every season on record", years.every((y) => yearTicks(topPage).has(y)), [...yearTicks(topPage)].join(","));
+// On a phone the axis is 300px wide: labels thin out (newest year always kept) instead of overprinting.
+win.innerWidth = 360;
+const narrow = route("#/racer/" + fx.top);
+win.innerWidth = 0;
+const labelXs = [...narrow.split('class="chart"')[1].split("</svg>")[0].matchAll(/<text x="([\d.]+)"[^>]*text-anchor="middle"[^>]*>(\d{4})<\/text>/g)].map((m) => [+m[1], +m[2]]);
+check("charts: on a narrow screen the year labels never crowd and keep the newest year",
+  labelXs.length > 1 && labelXs.every((l, i) => !i || l[0] - labelXs[i - 1][0] >= 30) && labelXs[labelXs.length - 1][1] === Math.max(...years), labelXs.map((l) => l[1]).join(","));
 const firstChart = (topPage.split('class="chart"')[1] || "").split("</svg>")[0];
 const withPct = D.results.filter((r) => r.racer === fx.top && r.pct != null).length;
 check("charts: 'Where they finish' plots every start that has a percentile", (firstChart.match(/<circle class="pt"/g) || []).length === withPct, withPct + " expected");
