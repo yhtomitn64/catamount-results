@@ -28,7 +28,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CACHE = ROOT / "cache" / "wayback"
 UA = "catamount-results/1.0 (personal race-results archive; contact via github.com/yhtomitn64/catamount-results)"
 
-MIN_GAP = 4.0        # seconds between any two requests
+MIN_GAP = 10.0       # seconds between any two requests
 JITTER = 2.0         # plus up to this much, so requests are not metronomic
 BACKOFF = (60, 180, 600)   # waits after a failure, then give up
 
