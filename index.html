@@ -469,12 +469,14 @@ function lineChart(series, opts) {
   series.forEach(function (s) {
     var p = s.points.slice().sort(function (a, b) { return a.x - b.x; });
     if (p.length > 1 && !opts.scatter) {
-      // Break the line across seasons a course was not used, so a three-year
-      // gap does not read as a smooth trend.
-      var gap = opts.gapMs || 300 * 864e5;
+      // Break the line at every season boundary. The off-season is not a data
+      // point, so a line from September to the next May would read as a trend
+      // that never happened. The gap is only a safety net inside a season.
+      var gap = opts.gapMs || 120 * 864e5;
       var d = "", prev = null;
       p.forEach(function (q) {
-        d += (prev === null || q.x - prev > gap ? "M" : "L") + X(q.x).toFixed(1) + " " + Y(q.y).toFixed(1) + " ";
+        var newSeason = prev !== null && new Date(q.x).getUTCFullYear() !== new Date(prev).getUTCFullYear();
+        d += (prev === null || newSeason || q.x - prev > gap ? "M" : "L") + X(q.x).toFixed(1) + " " + Y(q.y).toFixed(1) + " ";
         prev = q.x;
       });
       svg += '<path fill="none" style="stroke:' + s.color + '" stroke-width="1.75" stroke-linejoin="round"' +

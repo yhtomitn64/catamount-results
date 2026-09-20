@@ -299,6 +299,16 @@ def score_table(table) -> int:
 
 GROUP_SUFFIX = " - Overall"
 
+# Result cells carry stable CSS classes. Read the column from the cell, not from
+# its position under the header: some pages drop the header of a blank Category
+# column but keep its cell, which shifted every later column by one (Age landed
+# in the finish-time slot for 408 rows across six races).
+CELL_CLASS = {
+    "r-place": "place", "r-bibnumber": "bib", "r-racername": "name", "r-category": "category",
+    "r-age": "age", "r-gender": "gender", "r-laptimes": "laptimes",
+    "r-finish-time": "time", "r-difference": "diff",
+}
+
 # Timing-day stand-ins entered in the name field ("COFC 3", "Please email for
 # results", "Unknown racer", the sponsor "SkiRack 1") are not people.
 PLACEHOLDER_RE = re.compile(
@@ -409,7 +419,8 @@ def read_table(table, raceid: int, distance: str, group_laps: int | None = None,
         row: dict = {}
         laps_cell = None
         for idx, td in enumerate(cells):
-            key = cols[idx] if idx < len(cols) else None
+            key = next((CELL_CLASS[c] for c in (td.get("class") or []) if c in CELL_CLASS), None) \
+                or (cols[idx] if idx < len(cols) else None)
             if not key:
                 continue
             if key == "laptimes":

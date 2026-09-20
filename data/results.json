@@ -28025,9 +28025,9 @@
     "name": "Kevin Bouchard-hall",
     "racer": "kevin-bouchard-hall",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:46.1 5 +0:06.4 7:46.1 5 +0:06.4 2 7:33.3 4 +0:10.0 15:19.3 2 +0:01.8 3 7:08.2 1 - 22:27.5 1 - 4 7:29.9 1 - 29:57.4 1 - 5 7:32.5 1 - 37:30.0 1 - 6 7:23.4 1 - 44:53.4 1 -",
-    "seconds": null
+    "laps": 6,
+    "time": "44:53.4",
+    "seconds": 2693.4
   },
   {
     "raceid": 290224,
@@ -28035,9 +28035,9 @@
     "name": "Griffin Larson",
     "racer": "griffin-larson",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:42.9 3 +0:03.3 7:42.9 3 +0:03.3 2 7:36.4 5 +0:13.1 15:19.3 2 +0:01.8 3 7:25.5 3 +0:17.3 22:44.9 3 +0:17.3 4 7:34.7 2 +0:04.8 30:19.5 2 +0:22.1 5 7:50.5 3 +0:18.0 38:10.1 2 +0:40.1 6 7:32.3 2 +0:08.9 45:42.3 2 +0:48.9",
-    "seconds": null
+    "laps": 6,
+    "time": "45:42.3",
+    "seconds": 2742.3
   },
   {
     "raceid": 290224,
@@ -28045,9 +28045,9 @@
     "name": "Cody Phillips",
     "racer": "cody-phillips",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:39.6 1 - 7:39.6 1 - 2 7:39.7 7 +0:16.4 15:19.3 2 +0:01.8 3 7:19.6 2 +0:11.4 22:38.9 2 +0:11.4 4 7:50.4 6 +0:20.5 30:29.4 3 +0:31.9 5 7:57.7 7 +0:25.2 38:27.1 3 +0:57.1 6 7:53.1 3 +0:29.7 46:20.2 3 +1:26.8",
-    "seconds": null
+    "laps": 6,
+    "time": "46:20.2",
+    "seconds": 2780.2
   },
   {
     "raceid": 290224,
@@ -28055,9 +28055,9 @@
     "name": "Daniel Mullen",
     "racer": "daniel-mullen",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:39.9 2 +0:00.3 7:39.9 2 +0:00.3 2 7:39.4 6 +0:16.1 15:19.3 2 +0:01.8 3 7:35.4 4 +0:27.2 22:54.8 4 +0:27.2 4 7:47.7 4 +0:17.8 30:42.5 4 +0:45.0 5 7:53.1 5 +0:20.5 38:35.5 4 +1:05.6 6 7:59.3 6 +0:35.9 46:34.8 4 +1:41.4",
-    "seconds": null
+    "laps": 6,
+    "time": "46:34.8",
+    "seconds": 2794.8
   },
   {
     "raceid": 290224,
@@ -28065,9 +28065,9 @@
     "name": "Tyler Cohen",
     "racer": "tyler-cohen",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:54.2 8 +0:14.6 7:54.2 8 +0:14.6 2 7:23.3 1 - 15:17.5 1 - 3 8:19.3 14 +1:11.1 23:36.8 7 +1:09.3 4 8:02.2 7 +0:32.3 31:39.0 6 +1:41.6 5 7:49.6 2 +0:17.1 39:28.6 5 +1:58.6 6 8:01.7 7 +0:38.3 47:30.3 5 +2:36.9",
-    "seconds": null
+    "laps": 6,
+    "time": "47:30.3",
+    "seconds": 2850.3
   },
   {
     "raceid": 290224,
@@ -28075,9 +28075,9 @@
     "name": "Richard Bounds",
     "racer": "richard-bounds",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:21.4 12 +0:41.8 8:21.4 12 +0:41.8 2 7:52.3 10 +0:29.0 16:13.7 12 +0:56.2 3 7:45.0 6 +0:36.8 23:58.7 10 +1:31.2 4 7:47.8 5 +0:17.9 31:46.5 8 +1:49.1 5 7:53.1 6 +0:20.6 39:39.6 6 +2:09.6 6 8:02.7 8 +0:39.3 47:42.3 6 +2:48.9",
-    "seconds": null
+    "laps": 6,
+    "time": "47:42.3",
+    "seconds": 2862.3
   },
   {
     "raceid": 290224,
@@ -28085,9 +28085,9 @@
     "name": "Joshua Saxe",
     "racer": "joshua-saxe",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:53.5 7 +0:13.8 7:53.5 7 +0:13.8 2 7:49.6 8 +0:26.3 15:43.1 7 +0:25.6 3 7:53.1 7 +0:44.9 23:36.2 6 +1:08.7 4 8:03.3 8 +0:33.4 31:39.5 7 +1:42.1 5 8:11.2 9 +0:38.6 39:50.7 8 +2:20.7 6 7:54.0 4 +0:30.6 47:44.7 7 +2:51.4",
-    "seconds": null
+    "laps": 6,
+    "time": "47:44.7",
+    "seconds": 2864.7
   },
   {
     "raceid": 290224,
@@ -28095,9 +28095,9 @@
     "name": "Kip Roberts",
     "racer": "kip-roberts",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:48.9 6 +0:09.2 7:48.9 6 +0:09.2 2 7:51.2 9 +0:27.9 15:40.1 6 +0:22.6 3 7:53.6 8 +0:45.4 23:33.7 5 +1:06.2 4 8:04.0 9 +0:34.1 31:37.7 5 +1:40.3 5 8:11.4 10 +0:38.9 39:49.1 7 +2:19.1 6 7:55.9 5 +0:32.5 47:45.0 8 +2:51.6",
-    "seconds": null
+    "laps": 6,
+    "time": "47:45.0",
+    "seconds": 2865.0
   },
   {
     "raceid": 290224,
@@ -28105,9 +28105,9 @@
     "name": "Patrick Frank",
     "racer": "patrick-frank",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:33.6 18 +0:54.0 8:33.6 18 +0:54.0 2 7:28.8 3 +0:05.5 16:02.4 11 +0:44.9 3 8:47.2 31 +1:39.0 24:49.6 13 +2:22.1 4 7:35.4 3 +0:05.5 32:25.0 11 +2:27.6 5 7:50.6 4 +0:18.1 40:15.6 9 +2:45.6 6 8:08.0 10 +0:44.6 48:23.6 9 +3:30.2",
-    "seconds": null
+    "laps": 6,
+    "time": "48:23.6",
+    "seconds": 2903.6
   },
   {
     "raceid": 290224,
@@ -28115,9 +28115,9 @@
     "name": "Zach Levy",
     "racer": "zach-levy",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:02.7 9 +0:23.0 8:02.7 9 +0:23.0 2 7:59.3 11 +0:36.0 16:02.0 10 +0:44.5 3 7:44.3 5 +0:36.1 23:46.3 8 +1:18.8 4 8:20.4 14 +0:50.5 32:06.7 10 +2:09.2 5 8:17.1 12 +0:44.6 40:23.8 10 +2:53.8 6 8:09.1 11 +0:45.7 48:32.9 10 +3:39.6",
-    "seconds": null
+    "laps": 6,
+    "time": "48:32.9",
+    "seconds": 2912.9
   },
   {
     "raceid": 290224,
@@ -28125,9 +28125,9 @@
     "name": "Cooper Eastridge",
     "racer": "cooper-eastridge",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:34.7 20 +0:55.0 8:34.7 20 +0:55.0 2 8:05.8 15 +0:42.5 16:40.5 19 +1:23.0 3 8:17.3 12 +1:09.1 24:57.8 17 +2:30.3 4 8:05.4 10 +0:35.5 33:03.2 14 +3:05.8 5 8:05.7 8 +0:33.2 41:08.9 12 +3:39.0 6 8:18.2 14 +0:54.8 49:27.1 11 +4:33.8",
-    "seconds": null
+    "laps": 6,
+    "time": "49:27.1",
+    "seconds": 2967.1
   },
   {
     "raceid": 290224,
@@ -28135,9 +28135,9 @@
     "name": "Ben Coleman",
     "racer": "ben-coleman",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:19.3 10 +0:39.6 8:19.3 10 +0:39.6 2 7:26.8 2 +0:03.5 15:46.1 8 +0:28.6 3 8:02.4 9 +0:54.2 23:48.5 9 +1:21.0 4 8:07.7 11 +0:37.8 31:56.2 9 +1:58.8 5 8:27.7 16 +0:55.2 40:23.9 11 +2:53.9 6 9:04.2 28 +1:40.8 49:28.1 12 +4:34.7",
-    "seconds": null
+    "laps": 6,
+    "time": "49:28.1",
+    "seconds": 2968.1
   },
   {
     "raceid": 290224,
@@ -28145,9 +28145,9 @@
     "name": "Ethan Turner",
     "racer": "ethan-turner",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:33.9 19 +0:54.2 8:33.9 19 +0:54.2 2 8:02.3 12 +0:39.0 16:36.1 17 +1:18.6 3 8:24.0 19 +1:15.8 25:00.2 18 +2:32.6 4 8:07.7 11 +0:37.8 33:07.9 15 +3:10.4 5 8:14.4 11 +0:41.9 41:22.3 13 +3:52.3 6 8:10.2 12 +0:46.8 49:32.5 13 +4:39.1",
-    "seconds": null
+    "laps": 6,
+    "time": "49:32.5",
+    "seconds": 2972.5
   },
   {
     "raceid": 290224,
@@ -28155,9 +28155,9 @@
     "name": "Sean Curran",
     "racer": "sean-curran",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:22.6 14 +0:42.9 8:22.6 14 +0:42.9 2 8:13.2 19 +0:49.9 16:35.8 16 +1:18.3 3 8:17.3 11 +1:09.1 24:53.0 15 +2:25.5 4 8:08.4 13 +0:38.5 33:01.5 13 +3:04.0 5 8:25.2 14 +0:52.6 41:26.7 14 +3:56.7 6 8:06.2 9 +0:42.8 49:32.9 14 +4:39.5",
-    "seconds": null
+    "laps": 6,
+    "time": "49:32.9",
+    "seconds": 2972.9
   },
   {
     "raceid": 290224,
@@ -28165,9 +28165,9 @@
     "name": "Zach Brewton",
     "racer": "zach-brewton",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 7:45.7 4 +0:06.1 7:45.7 4 +0:06.1 2 8:11.3 17 +0:48.0 15:57.1 9 +0:39.6 3 8:23.2 18 +1:15.0 24:20.2 11 +1:52.7 4 8:30.3 18 +1:00.4 32:50.5 12 +2:53.1 5 8:41.4 22 +1:08.8 41:31.9 15 +4:01.9 6 8:25.8 15 +1:02.4 49:57.7 15 +5:04.3",
-    "seconds": null
+    "laps": 6,
+    "time": "49:57.7",
+    "seconds": 2997.7
   },
   {
     "raceid": 290224,
@@ -28175,9 +28175,9 @@
     "name": "Isaac Padberg",
     "racer": "isaac-padberg",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:35.8 21 +0:56.2 8:35.8 21 +0:56.2 2 8:03.4 13 +0:40.1 16:39.2 18 +1:21.7 3 8:22.8 17 +1:14.6 25:02.0 19 +2:34.5 4 8:21.2 15 +0:51.3 33:23.2 18 +3:25.8 5 8:17.5 13 +0:44.9 41:40.7 16 +4:10.7 6 8:17.5 13 +0:54.1 49:58.2 16 +5:04.8",
-    "seconds": null
+    "laps": 6,
+    "time": "49:58.2",
+    "seconds": 2998.2
   },
   {
     "raceid": 290224,
@@ -28185,9 +28185,9 @@
     "name": "Samantha Fox",
     "racer": "samantha-fox",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:25.7 15 +0:46.1 8:25.7 15 +0:46.1 2 8:07.6 16 +0:44.3 16:33.3 14 +1:15.8 3 8:19.2 13 +1:10.9 24:52.4 14 +2:24.9 4 8:23.2 16 +0:53.3 33:15.6 16 +3:18.2 5 8:31.6 18 +0:59.1 41:47.3 17 +4:17.3 6 8:32.1 18 +1:08.7 50:19.4 17 +5:26.0",
-    "seconds": null
+    "laps": 6,
+    "time": "50:19.4",
+    "seconds": 3019.4
   },
   {
     "raceid": 290224,
@@ -28195,9 +28195,9 @@
     "name": "Joseph Near",
     "racer": "joseph-near",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:20.0 11 +0:40.3 8:20.0 11 +0:40.3 2 8:03.5 14 +0:40.2 16:23.5 13 +1:06.0 3 8:20.8 16 +1:12.6 24:44.3 12 +2:16.8 4 8:34.4 20 +1:04.5 33:18.7 17 +3:21.3 5 8:29.0 17 +0:56.4 41:47.7 18 +4:17.7 6 8:32.8 19 +1:09.4 50:20.5 18 +5:27.1",
-    "seconds": null
+    "laps": 6,
+    "time": "50:20.5",
+    "seconds": 3020.5
   },
   {
     "raceid": 290224,
@@ -28205,9 +28205,9 @@
     "name": "Torsten Dworshak",
     "racer": "torsten-dworshak",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:44.8 28 +1:05.1 8:44.8 28 +1:05.1 2 8:22.5 20 +0:59.2 17:07.3 23 +1:49.8 3 8:10.6 10 +1:02.4 25:17.9 20 +2:50.4 4 8:27.1 17 +0:57.2 33:45.0 19 +3:47.6 5 8:26.0 15 +0:53.5 42:11.0 19 +4:41.1 6 8:33.3 20 +1:09.9 50:44.4 19 +5:51.0",
-    "seconds": null
+    "laps": 6,
+    "time": "50:44.4",
+    "seconds": 3044.4
   },
   {
     "raceid": 290224,
@@ -28215,9 +28215,9 @@
     "name": "Greta Kilburn",
     "racer": "greta-kilburn",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:26.2 16 +0:46.6 8:26.2 16 +0:46.6 2 8:25.8 22 +1:02.5 16:52.1 20 +1:34.6 3 8:35.8 22 +1:27.6 25:27.8 21 +3:00.3 4 8:43.8 25 +1:13.9 34:11.7 21 +4:14.2 5 8:38.9 21 +1:06.4 42:50.6 20 +5:20.6 6 8:30.5 17 +1:07.1 51:21.1 20 +6:27.7",
-    "seconds": null
+    "laps": 6,
+    "time": "51:21.1",
+    "seconds": 3081.1
   },
   {
     "raceid": 290224,
@@ -28225,9 +28225,9 @@
     "name": "Dunbar Oehmig",
     "racer": "dunbar-oehmig",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:30.7 17 +0:51.0 8:30.7 17 +0:51.0 2 8:26.0 23 +1:02.7 16:56.7 21 +1:39.2 3 8:35.0 21 +1:26.7 25:31.6 22 +3:04.1 4 8:39.4 23 +1:09.5 34:11.0 20 +4:13.6 5 8:46.7 25 +1:14.2 42:57.8 21 +5:27.8 6 8:26.7 16 +1:03.3 51:24.5 21 +6:31.1",
-    "seconds": null
+    "laps": 6,
+    "time": "51:24.5",
+    "seconds": 3084.5
   },
   {
     "raceid": 290224,
@@ -28235,9 +28235,9 @@
     "name": "Eric Morris",
     "racer": "eric-morris",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:37.1 23 +0:57.4 8:37.1 23 +0:57.4 2 8:28.7 24 +1:05.4 17:05.8 22 +1:48.3 3 8:35.8 23 +1:27.6 25:41.6 23 +3:14.1 4 8:30.6 19 +1:00.7 34:12.2 22 +4:14.8 5 8:47.2 26 +1:14.7 42:59.5 22 +5:29.5 6 8:38.6 23 +1:15.2 51:38.1 22 +6:44.7",
-    "seconds": null
+    "laps": 6,
+    "time": "51:38.1",
+    "seconds": 3098.1
   },
   {
     "raceid": 290224,
@@ -28245,9 +28245,9 @@
     "name": "Kim Coleman",
     "racer": "kim-coleman",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:39.1 26 +0:59.4 8:39.1 26 +0:59.4 2 8:42.4 29 +1:19.1 17:21.5 26 +2:04.0 3 8:30.4 20 +1:22.2 25:51.9 24 +3:24.3 4 8:45.4 27 +1:15.5 34:37.2 23 +4:39.8 5 8:48.2 27 +1:15.7 43:25.4 25 +5:55.4 6 8:33.7 21 +1:10.3 51:59.1 23 +7:05.7",
-    "seconds": null
+    "laps": 6,
+    "time": "51:59.1",
+    "seconds": 3119.1
   },
   {
     "raceid": 290224,
@@ -28255,9 +28255,9 @@
     "name": "David Crelling",
     "racer": "david-crelling",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:37.8 25 +0:58.2 8:37.8 25 +0:58.2 2 8:39.2 26 +1:15.9 17:17.0 25 +1:59.5 3 8:36.4 25 +1:28.2 25:53.4 25 +3:25.9 4 8:44.4 26 +1:14.5 34:37.8 24 +4:40.3 5 8:46.1 24 +1:13.5 43:23.9 24 +5:53.9 6 8:40.8 24 +1:17.4 52:04.6 24 +7:11.2",
-    "seconds": null
+    "laps": 6,
+    "time": "52:04.6",
+    "seconds": 3124.6
   },
   {
     "raceid": 290224,
@@ -28265,9 +28265,9 @@
     "name": "Grady Vigneau",
     "racer": "grady-vigneau",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:41.6 27 +1:02.0 8:41.6 27 +1:02.0 2 8:40.0 27 +1:16.7 17:21.6 27 +2:04.1 3 8:36.1 24 +1:27.9 25:57.7 26 +3:30.2 4 8:45.5 28 +1:15.6 34:43.2 25 +4:45.8 5 8:52.5 30 +1:20.0 43:35.7 26 +6:05.7 6 8:36.6 22 +1:13.2 52:12.3 25 +7:18.9",
-    "seconds": null
+    "laps": 6,
+    "time": "52:12.3",
+    "seconds": 3132.3
   },
   {
     "raceid": 290224,
@@ -28275,9 +28275,9 @@
     "name": "Daniel Liguori",
     "racer": "daniel-liguori",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:04.4 33 +1:24.7 9:04.4 33 +1:24.7 2 8:32.8 25 +1:09.5 17:37.1 32 +2:19.6 3 8:37.5 26 +1:29.3 26:14.6 28 +3:47.1 4 8:36.7 22 +1:06.8 34:51.4 27 +4:53.9 5 8:49.5 28 +1:17.0 43:40.9 27 +6:10.9 6 8:44.3 26 +1:20.9 52:25.2 26 +7:31.8",
-    "seconds": null
+    "laps": 6,
+    "time": "52:25.2",
+    "seconds": 3145.2
   },
   {
     "raceid": 290224,
@@ -28285,9 +28285,9 @@
     "name": "Scott Lawrence",
     "racer": "scott-lawrence",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:07.7 37 +1:28.0 9:07.7 37 +1:28.0 2 8:50.3 32 +1:27.0 17:58.0 35 +2:40.5 3 8:43.6 29 +1:35.4 26:41.6 34 +4:14.1 4 8:41.9 24 +1:12.0 35:23.5 29 +5:26.1 5 8:41.9 23 +1:09.4 44:05.4 28 +6:35.4 6 8:43.2 25 +1:19.8 52:48.7 27 +7:55.3",
-    "seconds": null
+    "laps": 6,
+    "time": "52:48.7",
+    "seconds": 3168.7
   },
   {
     "raceid": 290224,
@@ -28295,9 +28295,9 @@
     "name": "Rachel Cohen",
     "racer": "rachel-cohen",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:07.0 36 +1:27.3 9:07.0 36 +1:27.3 2 8:42.8 30 +1:19.5 17:49.8 33 +2:32.3 3 8:39.6 28 +1:31.4 26:29.4 29 +4:01.9 4 8:53.1 31 +1:23.2 35:22.5 28 +5:25.0 5 8:53.1 31 +1:20.6 44:15.6 29 +6:45.6 6 9:04.7 29 +1:41.2 53:20.3 28 +8:26.9",
-    "seconds": null
+    "laps": 6,
+    "time": "53:20.3",
+    "seconds": 3200.3
   },
   {
     "raceid": 290224,
@@ -28305,9 +28305,9 @@
     "name": "Whitney Hanson",
     "racer": "whitney-hanson",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:49.8 31 +1:10.2 8:49.8 31 +1:10.2 2 9:02.0 36 +1:38.7 17:51.8 34 +2:34.3 3 8:49.3 32 +1:41.1 26:41.1 33 +4:13.6 4 9:16.8 34 +1:46.9 35:57.9 31 +6:00.5 5 8:56.9 33 +1:24.3 44:54.8 30 +7:24.8 6 8:58.2 27 +1:34.8 53:53.0 29 +8:59.6",
-    "seconds": null
+    "laps": 6,
+    "time": "53:53.0",
+    "seconds": 3233.0
   },
   {
     "raceid": 290224,
@@ -28315,8 +28315,8 @@
     "name": "Caden Frost",
     "racer": "caden-frost",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:46.1 29 +1:06.5 8:46.1 29 +1:06.5 2 8:49.5 31 +1:26.2 17:35.6 29 +2:18.2 3 8:37.6 27 +1:29.4 26:13.3 27 +3:45.8 4 8:36.2 21 +1:06.3 34:49.5 26 +4:52.1 5 8:33.0 19 +1:00.5 43:22.5 23 +5:52.5 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28325,8 +28325,8 @@
     "name": "Niels Musschoot",
     "racer": "niels-musschoot",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:36.7 22 +0:57.0 8:36.7 22 +0:57.0 2 8:59.4 35 +1:36.2 17:36.1 30 +2:18.6 3 8:58.5 33 +1:50.3 26:34.6 31 +4:07.0 4 8:59.2 32 +1:29.3 35:33.8 30 +5:36.3 5 9:22.4 41 +1:49.8 44:56.1 31 +7:26.2 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28335,8 +28335,8 @@
     "name": "Kevin O'Brien",
     "racer": "kevin-o-brien",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:48.3 30 +1:08.6 8:48.3 30 +1:08.6 2 8:25.8 21 +1:02.5 17:14.1 24 +1:56.6 3 9:18.3 40 +2:10.1 26:32.4 30 +4:04.9 4 10:06.8 49 +2:36.9 36:39.2 33 +6:41.8 5 8:33.6 20 +1:01.1 45:12.8 32 +7:42.8 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28345,8 +28345,8 @@
     "name": "Kaitlyn Agnew",
     "racer": "kaitlyn-agnew",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:55.9 32 +1:16.3 8:55.9 32 +1:16.3 2 8:40.7 28 +1:17.4 17:36.6 31 +2:19.1 3 9:27.0 44 +2:18.8 27:03.6 35 +4:36.1 4 9:37.8 40 +2:07.9 36:41.5 35 +6:44.0 5 9:00.3 35 +1:27.8 45:41.8 33 +8:11.8 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28355,8 +28355,8 @@
     "name": "Alex Warner",
     "racer": "alex-warner",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:37.5 24 +0:57.8 8:37.5 24 +0:57.8 2 8:57.6 34 +1:34.2 17:35.0 28 +2:17.5 3 9:02.9 35 +1:54.7 26:37.9 32 +4:10.4 4 9:37.8 39 +2:07.9 36:15.8 32 +6:18.3 5 9:27.7 42 +1:55.2 45:43.5 34 +8:13.5 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28365,8 +28365,8 @@
     "name": "Jared Katz",
     "racer": "jared-katz",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:59.3 50 +2:19.7 9:59.3 50 +2:19.7 2 9:02.3 37 +1:39.0 19:01.7 42 +3:44.2 3 8:58.9 34 +1:50.7 28:00.6 39 +5:33.0 4 8:50.1 30 +1:20.2 36:50.7 37 +6:53.2 5 8:53.4 32 +1:20.8 45:44.0 35 +8:14.0 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28375,8 +28375,8 @@
     "name": "Nate Schafsteck",
     "racer": "nate-schafsteck",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:06.2 34 +1:26.6 9:06.2 34 +1:26.6 2 9:15.8 40 +1:52.5 18:22.0 37 +3:04.5 3 9:04.9 36 +1:56.7 27:26.9 37 +4:59.4 4 9:20.8 35 +1:50.9 36:47.7 36 +6:50.3 5 8:59.4 34 +1:26.9 45:47.1 36 +8:17.1 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28385,8 +28385,8 @@
     "name": "Jane Vigneau",
     "racer": "jane-vigneau",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:06.6 35 +1:27.0 9:06.6 35 +1:27.0 2 8:52.7 33 +1:29.4 17:59.4 36 +2:41.9 3 9:15.3 39 +2:07.1 27:14.7 36 +4:47.1 4 9:25.7 36 +1:55.8 36:40.3 34 +6:42.9 5 9:12.4 37 +1:39.8 45:52.7 37 +8:22.7 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28395,8 +28395,8 @@
     "name": "Flynn Opatz",
     "racer": "flynn-opatz",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:45.0 45 +2:05.3 9:45.0 45 +2:05.3 2 9:04.5 38 +1:41.2 18:49.4 40 +3:31.9 3 9:07.2 37 +1:58.9 27:56.6 38 +5:29.0 4 9:16.3 33 +1:46.4 37:12.8 39 +7:15.4 5 9:13.4 38 +1:40.8 46:26.2 38 +8:56.2 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28405,8 +28405,8 @@
     "name": "Ethan Cayko",
     "racer": "ethan-cayko",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:08.0 38 +1:28.4 9:08.0 38 +1:28.4 2 9:37.4 47 +2:14.1 18:45.4 39 +3:27.9 3 9:20.8 42 +2:12.6 28:06.3 40 +5:38.7 4 9:43.9 43 +2:14.0 37:50.1 40 +7:52.7 5 9:08.7 36 +1:36.2 46:58.8 39 +9:28.9 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28415,8 +28415,8 @@
     "name": "Joanne Grogan",
     "racer": "joanne-grogan",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:45.4 46 +2:05.8 9:45.4 46 +2:05.8 2 9:42.3 50 +2:19.0 19:27.7 49 +4:10.2 3 8:45.4 30 +1:37.2 28:13.2 41 +5:45.6 4 8:49.2 29 +1:19.2 37:02.3 38 +7:04.9 5 9:56.9 49 +2:24.4 46:59.3 40 +9:29.3 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28425,8 +28425,8 @@
     "name": "Gilman Lang",
     "racer": "gilman-lang",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:43.1 43 +2:03.4 9:43.1 43 +2:03.4 2 9:34.1 46 +2:10.8 19:17.2 47 +3:59.7 3 9:10.0 38 +2:01.8 28:27.2 44 +5:59.7 4 9:30.0 38 +2:00.1 37:57.2 41 +7:59.8 5 9:14.6 39 +1:42.1 47:11.8 41 +9:41.8 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28435,8 +28435,8 @@
     "name": "Lindsay Hrenko",
     "racer": "lindsay-hrenko",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:42.8 42 +2:03.1 9:42.8 42 +2:03.1 2 9:16.0 41 +1:52.7 18:58.8 41 +3:41.3 3 9:18.9 41 +2:10.6 28:17.6 42 +5:50.1 4 9:42.5 42 +2:12.6 38:00.1 42 +8:02.7 5 9:34.1 44 +2:01.5 47:34.2 42 +10:04.2 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28445,8 +28445,8 @@
     "name": "Kate Barash-Engel",
     "racer": "kate-barash-engel",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:53.6 49 +2:13.9 9:53.6 49 +2:13.9 2 9:09.5 39 +1:46.2 19:03.0 43 +3:45.5 3 9:23.4 43 +2:15.2 28:26.4 43 +5:58.9 4 9:46.1 45 +2:16.2 38:12.5 43 +8:15.1 5 9:35.6 46 +2:03.1 47:48.1 43 +10:18.2 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28455,8 +28455,8 @@
     "name": "John King",
     "racer": "john-king",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:05.2 53 +2:25.5 10:05.2 53 +2:25.5 2 9:31.6 45 +2:08.3 19:36.8 50 +4:19.3 3 9:31.7 46 +2:23.5 29:08.5 48 +6:41.0 4 9:27.6 37 +1:57.7 38:36.1 46 +8:38.7 5 9:18.9 40 +1:46.4 47:55.1 44 +10:25.1 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28465,8 +28465,8 @@
     "name": "Jamie McQueen",
     "racer": "jamie-mcqueen",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:43.5 44 +2:03.8 9:43.5 44 +2:03.8 2 9:20.6 43 +1:57.3 19:04.1 44 +3:46.6 3 9:42.1 47 +2:33.9 28:46.2 47 +6:18.7 4 9:39.7 41 +2:09.8 38:25.9 45 +8:28.5 5 9:30.3 43 +1:57.7 47:56.2 45 +10:26.2 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28475,8 +28475,8 @@
     "name": "Jerry Macner",
     "racer": "jerry-macner",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:52.3 48 +2:12.6 9:52.3 48 +2:12.6 2 9:16.2 42 +1:52.9 19:08.5 45 +3:51.0 3 9:31.4 45 +2:23.2 28:39.9 46 +6:12.4 4 9:45.3 44 +2:15.4 38:25.2 44 +8:27.8 5 9:42.7 47 +2:10.2 48:07.9 46 +10:37.9 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28485,8 +28485,8 @@
     "name": "John Witmer",
     "racer": "john-witmer",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:23.5 40 +1:43.9 9:23.5 40 +1:43.9 2 10:03.3 52 +2:40.0 19:26.8 48 +4:09.3 3 9:43.8 48 +2:35.6 29:10.7 49 +6:43.1 4 9:46.4 46 +2:16.5 38:57.1 47 +8:59.7 5 9:35.4 45 +2:02.8 48:32.5 47 +11:02.5 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28495,8 +28495,8 @@
     "name": "Jim Watkins",
     "racer": "jim-watkins",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:37.8 41 +1:58.1 9:37.8 41 +1:58.1 2 9:37.4 47 +2:14.1 19:15.2 46 +3:57.7 3 10:02.4 51 +2:54.2 29:17.6 50 +6:50.1 4 9:48.7 47 +2:18.8 39:06.4 48 +9:08.9 5 10:10.5 50 +2:38.0 49:16.9 48 +11:46.9 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28505,8 +28505,8 @@
     "name": "Jonathan Rodd",
     "racer": "jonathan-rodd",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:03.1 52 +2:23.5 10:03.1 52 +2:23.5 2 9:38.6 49 +2:15.3 19:41.7 51 +4:24.2 3 9:50.0 50 +2:41.8 29:31.7 51 +7:04.2 4 10:09.4 50 +2:39.5 39:41.1 49 +9:43.7 5 10:11.1 51 +2:38.6 49:52.2 49 +12:22.3 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28515,8 +28515,8 @@
     "name": "Patrick Murphy",
     "racer": "patrick-murphy",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:19.2 39 +1:39.6 9:19.2 39 +1:39.6 2 9:25.5 44 +2:02.2 18:44.7 38 +3:27.2 3 9:47.6 49 +2:39.4 28:32.3 45 +6:04.8 4 13:42.8 62 +6:12.9 42:15.1 55 +12:17.6 5 8:49.7 29 +1:17.2 51:04.8 50 +13:34.8 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28525,8 +28525,8 @@
     "name": "Brennan McCleary",
     "racer": "brennan-mccleary",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:01.6 51 +2:22.0 10:01.6 51 +2:22.0 2 10:09.0 53 +2:45.7 20:10.6 53 +4:53.1 3 10:26.7 53 +3:18.4 30:37.3 53 +8:09.7 4 10:46.6 55 +3:16.7 41:23.8 51 +11:26.4 5 10:12.8 52 +2:40.2 51:36.6 51 +14:06.6 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28535,8 +28535,8 @@
     "name": "Steve Znamierowski",
     "racer": "steve-znamierowski",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 9:49.3 47 +2:09.7 9:49.3 47 +2:09.7 2 10:03.2 51 +2:39.9 19:52.5 52 +4:35.0 3 10:29.6 54 +3:21.4 30:22.1 52 +7:54.5 4 10:44.5 54 +3:14.6 41:06.6 50 +11:09.1 5 10:36.5 56 +3:03.9 51:43.0 52 +14:13.0 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28545,8 +28545,8 @@
     "name": "Mike Dacey",
     "racer": "mike-dacey",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:38.7 59 +2:59.1 10:38.7 59 +2:59.1 2 10:15.8 54 +2:52.5 20:54.5 55 +5:37.0 3 10:35.9 55 +3:27.7 31:30.5 56 +9:02.9 4 9:54.8 48 +2:24.9 41:25.3 52 +11:27.8 5 10:19.4 55 +2:46.9 51:44.7 53 +14:14.7 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28555,8 +28555,8 @@
     "name": "Robert Dillon",
     "racer": "robert-dillon",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:29.2 58 +2:49.6 10:29.2 58 +2:49.6 2 10:26.4 55 +3:03.1 20:55.6 56 +5:38.1 3 10:16.0 52 +3:07.8 31:11.6 54 +8:44.1 4 10:18.1 51 +2:48.2 41:29.7 53 +11:32.3 5 10:16.2 53 +2:43.7 51:45.9 54 +14:15.9 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28565,8 +28565,8 @@
     "name": "Jesse Downs",
     "racer": "jesse-downs",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:19.1 57 +2:39.5 10:19.1 57 +2:39.5 2 10:48.1 57 +3:24.8 21:07.3 57 +5:49.8 3 10:41.4 57 +3:33.1 31:48.6 57 +9:21.1 4 10:31.0 52 +3:01.0 42:19.6 56 +12:22.2 5 9:50.2 48 +2:17.6 52:09.7 55 +14:39.8 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28575,8 +28575,8 @@
     "name": "Talia Loiter",
     "racer": "talia-loiter",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:06.4 54 +2:26.7 10:06.4 54 +2:26.7 2 10:40.0 56 +3:16.7 20:46.4 54 +5:28.9 3 10:38.1 56 +3:29.9 31:24.5 55 +8:57.0 4 10:35.1 53 +3:05.2 41:59.7 54 +12:02.2 5 10:19.4 54 +2:46.8 52:19.0 56 +14:49.0 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28585,8 +28585,8 @@
     "name": "Roxy Bombardier",
     "racer": "roxy-bombardier",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:44.6 61 +3:05.0 10:44.6 61 +3:05.0 2 11:37.0 60 +4:13.7 22:21.7 59 +7:04.2 3 10:49.1 58 +3:40.9 33:10.8 59 +10:43.2 4 11:02.0 57 +3:32.1 44:12.8 57 +14:15.4 5 10:51.9 57 +3:19.3 55:04.7 57 +17:34.7 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28595,8 +28595,8 @@
     "name": "Erica Marano",
     "racer": "erica-marano",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:41.8 60 +3:02.2 10:41.8 60 +3:02.2 2 11:44.4 61 +4:21.1 22:26.2 60 +7:08.7 3 10:52.0 59 +3:43.8 33:18.3 60 +10:50.7 4 11:00.2 56 +3:30.3 44:18.5 58 +14:21.0 5 10:53.2 58 +3:20.6 55:11.6 58 +17:41.6 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28605,8 +28605,8 @@
     "name": "Tony Orgain",
     "racer": "tony-orgain",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:11.8 56 +2:32.2 10:11.8 56 +2:32.2 2 11:22.2 58 +3:58.9 21:34.0 58 +6:16.5 3 10:54.6 60 +3:46.4 32:28.6 58 +10:01.1 4 12:20.0 60 +4:50.1 44:48.6 59 +14:51.2 5 11:40.4 59 +4:07.9 56:29.0 59 +18:59.0 6 - - - - - -",
+    "laps": 5,
+    "time": "-1 lap",
     "seconds": null
   },
   {
@@ -28615,8 +28615,8 @@
     "name": "Todd Gray",
     "racer": "todd-gray",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 11:54.3 64 +4:14.6 11:54.3 64 +4:14.6 2 11:36.8 59 +4:13.5 23:31.1 61 +8:13.6 3 11:09.8 61 +4:01.6 34:40.9 61 +12:13.4 4 11:18.7 58 +3:48.8 45:59.6 60 +16:02.2 5 - - - - - - 6 - - - - - -",
+    "laps": 4,
+    "time": "-2 laps",
     "seconds": null
   },
   {
@@ -28625,8 +28625,8 @@
     "name": "Lizzy Guido",
     "racer": "lizzy-guido",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 11:05.0 62 +3:25.4 11:05.0 62 +3:25.4 2 12:55.2 64 +5:31.9 24:00.2 63 +8:42.7 3 11:43.9 62 +4:35.7 35:44.1 62 +13:16.6 4 11:35.2 59 +4:05.3 47:19.3 61 +17:21.9 5 - - - - - - 6 - - - - - -",
+    "laps": 4,
+    "time": "-2 laps",
     "seconds": null
   },
   {
@@ -28635,8 +28635,8 @@
     "name": "Oliver Tremble",
     "racer": "oliver-tremble",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 11:05.6 63 +3:26.0 11:05.6 63 +3:26.0 2 12:39.6 62 +5:16.3 23:45.2 62 +8:27.7 3 13:52.6 64 +6:44.4 37:37.8 63 +15:10.3 4 12:39.3 61 +5:09.4 50:17.1 62 +20:19.7 5 - - - - - - 6 - - - - - -",
+    "laps": 4,
+    "time": "-2 laps",
     "seconds": null
   },
   {
@@ -28645,8 +28645,8 @@
     "name": "Justin Bennett",
     "racer": "justin-bennett",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 13:08.3 65 +5:28.7 13:08.3 65 +5:28.7 2 12:54.8 63 +5:31.5 26:03.1 64 +10:45.6 3 13:42.8 63 +6:34.6 39:45.9 64 +17:18.4 4 14:18.2 63 +6:48.3 54:04.1 63 +24:06.7 5 - - - - - - 6 - - - - - -",
+    "laps": 4,
+    "time": "-2 laps",
     "seconds": null
   },
   {
@@ -28655,8 +28655,8 @@
     "name": "Kristin Sundquist",
     "racer": "kristin-sundquist",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 8:22.0 13 +0:42.4 8:22.0 13 +0:42.4 2 8:11.7 18 +0:48.4 16:33.7 15 +1:16.2 3 8:20.0 15 +1:11.8 24:53.7 16 +2:26.2 4 - - - - - - 5 - - - - - - 6 - - - - - -",
+    "laps": 3,
+    "time": "-3 laps",
     "seconds": null
   },
   {
@@ -28665,8 +28665,8 @@
     "name": "Celia Cote",
     "racer": "celia-cote",
     "distance": "",
-    "laps": null,
-    "time": "Show Lap Lap time / Rank Behind Race time / Rank Behind 1 10:07.2 55 +2:27.6 10:07.2 55 +2:27.6 2 - - - - - - 3 - - - - - - 4 - - - - - - 5 - - - - - - 6 - - - - - -",
+    "laps": 1,
+    "time": "-5 laps",
     "seconds": null
   },
   {
@@ -32126,8 +32126,8 @@
     "racer": "danielle-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "30:53.5",
+    "seconds": 1853.5
   },
   {
     "raceid": 315755,
@@ -32136,8 +32136,8 @@
     "racer": "cassius-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "4",
-    "seconds": null
+    "time": "30:54.0",
+    "seconds": 1854.0
   },
   {
     "raceid": 315755,
@@ -32146,8 +32146,8 @@
     "racer": "dan-bahrenburg",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "20:21.3",
+    "seconds": 1221.3
   },
   {
     "raceid": 315755,
@@ -32156,8 +32156,8 @@
     "racer": "eric-darling",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "20:27.6",
+    "seconds": 1227.6
   },
   {
     "raceid": 315755,
@@ -32166,8 +32166,8 @@
     "racer": "brad-patnaude",
     "distance": "5K",
     "laps": null,
-    "time": "33",
-    "seconds": null
+    "time": "21:18.5",
+    "seconds": 1278.5
   },
   {
     "raceid": 315755,
@@ -32176,8 +32176,8 @@
     "racer": "chris-hamlin",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "21:50.0",
+    "seconds": 1310.0
   },
   {
     "raceid": 315755,
@@ -32186,8 +32186,8 @@
     "racer": "allen-mead",
     "distance": "5K",
     "laps": null,
-    "time": "56",
-    "seconds": null
+    "time": "22:01.5",
+    "seconds": 1321.5
   },
   {
     "raceid": 315755,
@@ -32196,8 +32196,8 @@
     "racer": "tim-richmond",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "22:17.1",
+    "seconds": 1337.1
   },
   {
     "raceid": 315755,
@@ -32206,8 +32206,8 @@
     "racer": "thomas-howard",
     "distance": "5K",
     "laps": null,
-    "time": "46",
-    "seconds": null
+    "time": "22:31.3",
+    "seconds": 1351.3
   },
   {
     "raceid": 315755,
@@ -32216,8 +32216,8 @@
     "racer": "steven-merrill",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "23:05.5",
+    "seconds": 1385.5
   },
   {
     "raceid": 315755,
@@ -32226,8 +32226,8 @@
     "racer": "jim-langan",
     "distance": "5K",
     "laps": null,
-    "time": "49",
-    "seconds": null
+    "time": "23:14.2",
+    "seconds": 1394.2
   },
   {
     "raceid": 315755,
@@ -32236,8 +32236,8 @@
     "racer": "lauren-purcell",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "23:17.3",
+    "seconds": 1397.3
   },
   {
     "raceid": 315755,
@@ -32246,8 +32246,8 @@
     "racer": "eric-brigham",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "23:41.5",
+    "seconds": 1421.5
   },
   {
     "raceid": 315755,
@@ -32256,8 +32256,8 @@
     "racer": "jay-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "23:52.5",
+    "seconds": 1432.5
   },
   {
     "raceid": 315755,
@@ -32266,8 +32266,8 @@
     "racer": "blair-deale",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "24:28.5",
+    "seconds": 1468.5
   },
   {
     "raceid": 315755,
@@ -32276,8 +32276,8 @@
     "racer": "corey-woloschin",
     "distance": "5K",
     "laps": null,
-    "time": "32",
-    "seconds": null
+    "time": "24:32.8",
+    "seconds": 1472.8
   },
   {
     "raceid": 315755,
@@ -32286,8 +32286,8 @@
     "racer": "daniel-dillon",
     "distance": "5K",
     "laps": null,
-    "time": "29",
-    "seconds": null
+    "time": "24:33.7",
+    "seconds": 1473.7
   },
   {
     "raceid": 315755,
@@ -32296,8 +32296,8 @@
     "racer": "kim-murkette",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "24:36.7",
+    "seconds": 1476.7
   },
   {
     "raceid": 315755,
@@ -32306,8 +32306,8 @@
     "racer": "jamie-spencer",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "24:37.0",
+    "seconds": 1477.0
   },
   {
     "raceid": 315755,
@@ -32316,8 +32316,8 @@
     "racer": "mark-duchaine",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "24:56.7",
+    "seconds": 1496.7
   },
   {
     "raceid": 315755,
@@ -32326,8 +32326,8 @@
     "racer": "steve-dasilva",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "24:59.0",
+    "seconds": 1499.0
   },
   {
     "raceid": 315755,
@@ -32336,8 +32336,8 @@
     "racer": "robert-watt",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "25:08.2",
+    "seconds": 1508.2
   },
   {
     "raceid": 315755,
@@ -32346,8 +32346,8 @@
     "racer": "paul-charron",
     "distance": "5K",
     "laps": null,
-    "time": "56",
-    "seconds": null
+    "time": "25:12.0",
+    "seconds": 1512.0
   },
   {
     "raceid": 315755,
@@ -32356,8 +32356,8 @@
     "racer": "chloe-egan",
     "distance": "5K",
     "laps": null,
-    "time": "30",
-    "seconds": null
+    "time": "25:16.4",
+    "seconds": 1516.4
   },
   {
     "raceid": 315755,
@@ -32366,8 +32366,8 @@
     "racer": "adrianna-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "12",
-    "seconds": null
+    "time": "25:19.5",
+    "seconds": 1519.5
   },
   {
     "raceid": 315755,
@@ -32376,8 +32376,8 @@
     "racer": "john-king",
     "distance": "5K",
     "laps": null,
-    "time": "60",
-    "seconds": null
+    "time": "25:23.2",
+    "seconds": 1523.2
   },
   {
     "raceid": 315755,
@@ -32386,8 +32386,8 @@
     "racer": "alyse-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "16",
-    "seconds": null
+    "time": "25:27.7",
+    "seconds": 1527.7
   },
   {
     "raceid": 315755,
@@ -32396,8 +32396,8 @@
     "racer": "mike-miklus",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "25:33.2",
+    "seconds": 1533.2
   },
   {
     "raceid": 315755,
@@ -32406,8 +32406,8 @@
     "racer": "jeff-compo",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "25:35.8",
+    "seconds": 1535.8
   },
   {
     "raceid": 315755,
@@ -32416,8 +32416,8 @@
     "racer": "colin-montgomery",
     "distance": "5K",
     "laps": null,
-    "time": "29",
-    "seconds": null
+    "time": "25:49.9",
+    "seconds": 1549.9
   },
   {
     "raceid": 315755,
@@ -32426,8 +32426,8 @@
     "racer": "todd-archambault",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "25:51.3",
+    "seconds": 1551.3
   },
   {
     "raceid": 315755,
@@ -32436,8 +32436,8 @@
     "racer": "liz-hollenbach",
     "distance": "5K",
     "laps": null,
-    "time": "43",
-    "seconds": null
+    "time": "25:59.8",
+    "seconds": 1559.8
   },
   {
     "raceid": 315755,
@@ -32446,8 +32446,8 @@
     "racer": "elizabeth-nesbitt",
     "distance": "5K",
     "laps": null,
-    "time": "40",
-    "seconds": null
+    "time": "26:03.0",
+    "seconds": 1563.0
   },
   {
     "raceid": 315755,
@@ -32456,8 +32456,8 @@
     "racer": "kelsey-pasteris",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "26:09.8",
+    "seconds": 1569.8
   },
   {
     "raceid": 315755,
@@ -32466,8 +32466,8 @@
     "racer": "mary-williams",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "26:42.8",
+    "seconds": 1602.8
   },
   {
     "raceid": 315755,
@@ -32476,8 +32476,8 @@
     "racer": "jeff-padgett",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "26:44.9",
+    "seconds": 1604.9
   },
   {
     "raceid": 315755,
@@ -32486,8 +32486,8 @@
     "racer": "tim-bilodeau",
     "distance": "5K",
     "laps": null,
-    "time": "60",
-    "seconds": null
+    "time": "26:54.4",
+    "seconds": 1614.4
   },
   {
     "raceid": 315755,
@@ -32496,8 +32496,8 @@
     "racer": "maurine-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "39",
-    "seconds": null
+    "time": "26:59.5",
+    "seconds": 1619.5
   },
   {
     "raceid": 315755,
@@ -32506,8 +32506,8 @@
     "racer": "tom-knight",
     "distance": "5K",
     "laps": null,
-    "time": "47",
-    "seconds": null
+    "time": "27:01.3",
+    "seconds": 1621.3
   },
   {
     "raceid": 315755,
@@ -32516,8 +32516,8 @@
     "racer": "carolyn-siccama",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "27:09.0",
+    "seconds": 1629.0
   },
   {
     "raceid": 315755,
@@ -32526,8 +32526,8 @@
     "racer": "jonathan-rodd",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "27:27.2",
+    "seconds": 1647.2
   },
   {
     "raceid": 315755,
@@ -32536,8 +32536,8 @@
     "racer": "brian-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "51",
-    "seconds": null
+    "time": "27:28.7",
+    "seconds": 1648.7
   },
   {
     "raceid": 315755,
@@ -32546,8 +32546,8 @@
     "racer": "gary-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "27:36.4",
+    "seconds": 1656.4
   },
   {
     "raceid": 315755,
@@ -32556,8 +32556,8 @@
     "racer": "mike-fink",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "27:38.9",
+    "seconds": 1658.9
   },
   {
     "raceid": 315755,
@@ -32566,8 +32566,8 @@
     "racer": "paul-dicovitsky",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "27:39.4",
+    "seconds": 1659.4
   },
   {
     "raceid": 315755,
@@ -32576,8 +32576,8 @@
     "racer": "kimberly-tillotson",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "27:39.8",
+    "seconds": 1659.8
   },
   {
     "raceid": 315755,
@@ -32586,8 +32586,8 @@
     "racer": "jeff-buzas",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "27:45.5",
+    "seconds": 1665.5
   },
   {
     "raceid": 315755,
@@ -32596,8 +32596,8 @@
     "racer": "harry-schukei",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "27:46.3",
+    "seconds": 1666.3
   },
   {
     "raceid": 315755,
@@ -32606,8 +32606,8 @@
     "racer": "jim-bentlage",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "27:55.3",
+    "seconds": 1675.3
   },
   {
     "raceid": 315755,
@@ -32616,8 +32616,8 @@
     "racer": "michael-gilman",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "28:06.6",
+    "seconds": 1686.6
   },
   {
     "raceid": 315755,
@@ -32626,8 +32626,8 @@
     "racer": "john-lahr",
     "distance": "5K",
     "laps": null,
-    "time": "64",
-    "seconds": null
+    "time": "28:12.0",
+    "seconds": 1692.0
   },
   {
     "raceid": 315755,
@@ -32636,8 +32636,8 @@
     "racer": "james-bove",
     "distance": "5K",
     "laps": null,
-    "time": "63",
-    "seconds": null
+    "time": "28:12.4",
+    "seconds": 1692.4
   },
   {
     "raceid": 315755,
@@ -32646,8 +32646,8 @@
     "racer": "karin-p-ward",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "28:18.2",
+    "seconds": 1698.2
   },
   {
     "raceid": 315755,
@@ -32656,8 +32656,8 @@
     "racer": "sarahtabasko",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "28:35.9",
+    "seconds": 1715.9
   },
   {
     "raceid": 315755,
@@ -32666,8 +32666,8 @@
     "racer": "brian-ulmer",
     "distance": "5K",
     "laps": null,
-    "time": "46",
-    "seconds": null
+    "time": "28:47.1",
+    "seconds": 1727.1
   },
   {
     "raceid": 315755,
@@ -32676,8 +32676,8 @@
     "racer": "name-missing",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "29:00.3",
+    "seconds": 1740.3
   },
   {
     "raceid": 315755,
@@ -32686,8 +32686,8 @@
     "racer": "daniel-blanchard",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "29:03.0",
+    "seconds": 1743.0
   },
   {
     "raceid": 315755,
@@ -32696,8 +32696,8 @@
     "racer": "bill-dysart",
     "distance": "5K",
     "laps": null,
-    "time": "70",
-    "seconds": null
+    "time": "29:06.2",
+    "seconds": 1746.2
   },
   {
     "raceid": 315755,
@@ -32706,8 +32706,8 @@
     "racer": "ronald-clevelans",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "29:07.6",
+    "seconds": 1747.6
   },
   {
     "raceid": 315755,
@@ -32716,8 +32716,8 @@
     "racer": "andy-coddington",
     "distance": "5K",
     "laps": null,
-    "time": "41",
-    "seconds": null
+    "time": "29:13.3",
+    "seconds": 1753.3
   },
   {
     "raceid": 315755,
@@ -32726,8 +32726,8 @@
     "racer": "cassidy-frost",
     "distance": "5K",
     "laps": null,
-    "time": "21",
-    "seconds": null
+    "time": "29:17.5",
+    "seconds": 1757.5
   },
   {
     "raceid": 315755,
@@ -32736,8 +32736,8 @@
     "racer": "meghan-butler",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "29:46.9",
+    "seconds": 1786.9
   },
   {
     "raceid": 315755,
@@ -32746,8 +32746,8 @@
     "racer": "mery-moran",
     "distance": "5K",
     "laps": null,
-    "time": "46",
-    "seconds": null
+    "time": "29:48.9",
+    "seconds": 1788.9
   },
   {
     "raceid": 315755,
@@ -32756,8 +32756,8 @@
     "racer": "matt-butler",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "30:04.9",
+    "seconds": 1804.9
   },
   {
     "raceid": 315755,
@@ -32766,8 +32766,8 @@
     "racer": "neil-wheelwright",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "30:29.8",
+    "seconds": 1829.8
   },
   {
     "raceid": 315755,
@@ -32776,8 +32776,8 @@
     "racer": "kurt-kaffenberger",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "30:51.8",
+    "seconds": 1851.8
   },
   {
     "raceid": 315755,
@@ -32786,8 +32786,8 @@
     "racer": "jason-davila",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "31:28.9",
+    "seconds": 1888.9
   },
   {
     "raceid": 315755,
@@ -32796,8 +32796,8 @@
     "racer": "sue-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "68",
-    "seconds": null
+    "time": "31:58.9",
+    "seconds": 1918.9
   },
   {
     "raceid": 315755,
@@ -32806,8 +32806,8 @@
     "racer": "pascal-cheng",
     "distance": "5K",
     "laps": null,
-    "time": "69",
-    "seconds": null
+    "time": "32:08.0",
+    "seconds": 1928.0
   },
   {
     "raceid": 315755,
@@ -32816,8 +32816,8 @@
     "racer": "jack-manning",
     "distance": "5K",
     "laps": null,
-    "time": "68",
-    "seconds": null
+    "time": "32:08.4",
+    "seconds": 1928.4
   },
   {
     "raceid": 315755,
@@ -32826,8 +32826,8 @@
     "racer": "ken-schatz",
     "distance": "5K",
     "laps": null,
-    "time": "69",
-    "seconds": null
+    "time": "32:08.9",
+    "seconds": 1928.9
   },
   {
     "raceid": 315755,
@@ -32836,8 +32836,8 @@
     "racer": "russell-cooke",
     "distance": "5K",
     "laps": null,
-    "time": "71",
-    "seconds": null
+    "time": "32:22.1",
+    "seconds": 1942.1
   },
   {
     "raceid": 315755,
@@ -32846,8 +32846,8 @@
     "racer": "jennifer-walker",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "32:34.8",
+    "seconds": 1954.8
   },
   {
     "raceid": 315755,
@@ -32856,8 +32856,8 @@
     "racer": "ellie-madden",
     "distance": "5K",
     "laps": null,
-    "time": "62",
-    "seconds": null
+    "time": "32:48.0",
+    "seconds": 1968.0
   },
   {
     "raceid": 315755,
@@ -32866,8 +32866,8 @@
     "racer": "kristin-sprenkle",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "33:27.4",
+    "seconds": 2007.4
   },
   {
     "raceid": 315755,
@@ -32876,8 +32876,8 @@
     "racer": "maida-mclean",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "33:50.9",
+    "seconds": 2030.9
   },
   {
     "raceid": 315755,
@@ -32886,8 +32886,8 @@
     "racer": "sandra-wright",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "34:08.4",
+    "seconds": 2048.4
   },
   {
     "raceid": 315755,
@@ -32896,8 +32896,8 @@
     "racer": "debbie-deale",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "34:50.2",
+    "seconds": 2090.2
   },
   {
     "raceid": 315755,
@@ -32906,8 +32906,8 @@
     "racer": "molly-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "34:53.7",
+    "seconds": 2093.7
   },
   {
     "raceid": 315755,
@@ -32916,8 +32916,8 @@
     "racer": "louisa-larson",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "35:09.0",
+    "seconds": 2109.0
   },
   {
     "raceid": 315755,
@@ -32926,8 +32926,8 @@
     "racer": "raymond-mainer",
     "distance": "5K",
     "laps": null,
-    "time": "73",
-    "seconds": null
+    "time": "35:22.5",
+    "seconds": 2122.5
   },
   {
     "raceid": 315755,
@@ -32936,8 +32936,8 @@
     "racer": "scott-perrapato",
     "distance": "5K",
     "laps": null,
-    "time": "66",
-    "seconds": null
+    "time": "35:23.9",
+    "seconds": 2123.9
   },
   {
     "raceid": 315755,
@@ -32946,8 +32946,8 @@
     "racer": "chelsea-degree",
     "distance": "5K",
     "laps": null,
-    "time": "33",
-    "seconds": null
+    "time": "35:53.8",
+    "seconds": 2153.8
   },
   {
     "raceid": 315755,
@@ -32956,8 +32956,8 @@
     "racer": "henry-archambault",
     "distance": "5K",
     "laps": null,
-    "time": "12",
-    "seconds": null
+    "time": "36:09.4",
+    "seconds": 2169.4
   },
   {
     "raceid": 315755,
@@ -32966,8 +32966,8 @@
     "racer": "christina-frost",
     "distance": "5K",
     "laps": null,
-    "time": "58",
-    "seconds": null
+    "time": "36:13.5",
+    "seconds": 2173.5
   },
   {
     "raceid": 315755,
@@ -32976,8 +32976,8 @@
     "racer": "casey-darling",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "36:16.9",
+    "seconds": 2176.9
   },
   {
     "raceid": 315755,
@@ -32986,8 +32986,8 @@
     "racer": "jennifer-weiss",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "36:55.5",
+    "seconds": 2215.5
   },
   {
     "raceid": 315755,
@@ -32996,8 +32996,8 @@
     "racer": "danica-moller",
     "distance": "5K",
     "laps": null,
-    "time": "8",
-    "seconds": null
+    "time": "36:56.0",
+    "seconds": 2216.0
   },
   {
     "raceid": 315755,
@@ -33006,8 +33006,8 @@
     "racer": "catherine-moller",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "36:57.3",
+    "seconds": 2217.3
   },
   {
     "raceid": 315755,
@@ -33016,8 +33016,8 @@
     "racer": "tim-carter",
     "distance": "5K",
     "laps": null,
-    "time": "59",
-    "seconds": null
+    "time": "37:09.0",
+    "seconds": 2229.0
   },
   {
     "raceid": 315755,
@@ -33026,8 +33026,8 @@
     "racer": "suki-digrande",
     "distance": "5K",
     "laps": null,
-    "time": "57",
-    "seconds": null
+    "time": "37:35.5",
+    "seconds": 2255.5
   },
   {
     "raceid": 315755,
@@ -33036,8 +33036,8 @@
     "racer": "alissa-wilson",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "38:00.4",
+    "seconds": 2280.4
   },
   {
     "raceid": 315755,
@@ -33046,8 +33046,8 @@
     "racer": "jennifer-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "60",
-    "seconds": null
+    "time": "38:28.4",
+    "seconds": 2308.4
   },
   {
     "raceid": 315755,
@@ -33056,8 +33056,8 @@
     "racer": "jim-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "38:28.9",
+    "seconds": 2308.9
   },
   {
     "raceid": 315755,
@@ -33066,8 +33066,8 @@
     "racer": "meg-mackinnon",
     "distance": "5K",
     "laps": null,
-    "time": "28",
-    "seconds": null
+    "time": "40:32.1",
+    "seconds": 2432.1
   },
   {
     "raceid": 315755,
@@ -33076,8 +33076,8 @@
     "racer": "cynthia-peterson",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "40:40.5",
+    "seconds": 2440.5
   },
   {
     "raceid": 315755,
@@ -33086,8 +33086,8 @@
     "racer": "virginia-kittell",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "40:42.5",
+    "seconds": 2442.5
   },
   {
     "raceid": 315755,
@@ -33096,8 +33096,8 @@
     "racer": "tara-bandy",
     "distance": "5K",
     "laps": null,
-    "time": "43",
-    "seconds": null
+    "time": "40:51.3",
+    "seconds": 2451.3
   },
   {
     "raceid": 315755,
@@ -33106,8 +33106,8 @@
     "racer": "chapin-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "41:30.6",
+    "seconds": 2490.6
   },
   {
     "raceid": 315755,
@@ -33116,8 +33116,8 @@
     "racer": "carrie-pratt",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "41:31.2",
+    "seconds": 2491.2
   },
   {
     "raceid": 315755,
@@ -33126,8 +33126,8 @@
     "racer": "joseph-templin",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "43:04.9",
+    "seconds": 2584.9
   },
   {
     "raceid": 315755,
@@ -33136,8 +33136,8 @@
     "racer": "karyn-vogel",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "45:32.2",
+    "seconds": 2732.2
   },
   {
     "raceid": 315755,
@@ -33146,8 +33146,8 @@
     "racer": "rebecca-nock",
     "distance": "5K",
     "laps": null,
-    "time": "32",
-    "seconds": null
+    "time": "45:56.4",
+    "seconds": 2756.4
   },
   {
     "raceid": 315755,
@@ -33156,8 +33156,8 @@
     "racer": "tammy-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "47",
-    "seconds": null
+    "time": "51:03.4",
+    "seconds": 3063.4
   },
   {
     "raceid": 315755,
@@ -33166,7 +33166,7 @@
     "racer": "rachel-wells",
     "distance": "5K",
     "laps": null,
-    "time": "24",
+    "time": "DNF",
     "seconds": null
   },
   {
@@ -33176,8 +33176,8 @@
     "racer": "emmett-arndt",
     "distance": "1 Lap",
     "laps": 1,
-    "time": "9",
-    "seconds": null
+    "time": "31:28.5",
+    "seconds": 1888.5
   },
   {
     "raceid": 315854,
@@ -33186,8 +33186,8 @@
     "racer": "alec-dulling",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "45",
-    "seconds": null
+    "time": "38:09.2",
+    "seconds": 2289.2
   },
   {
     "raceid": 315854,
@@ -33196,8 +33196,8 @@
     "racer": "oliver-tremble",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "8",
-    "seconds": null
+    "time": "44:49.8",
+    "seconds": 2689.8
   },
   {
     "raceid": 315854,
@@ -33206,8 +33206,8 @@
     "racer": "eric-tremble",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "43",
-    "seconds": null
+    "time": "44:51.1",
+    "seconds": 2691.1
   },
   {
     "raceid": 315854,
@@ -33216,8 +33216,8 @@
     "racer": "celia-cote",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "20",
-    "seconds": null
+    "time": "53:40.0",
+    "seconds": 3220.0
   },
   {
     "raceid": 315854,
@@ -33226,8 +33226,8 @@
     "racer": "noah-bousquet",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "14",
-    "seconds": null
+    "time": "1:04:28.3",
+    "seconds": 3868.3
   },
   {
     "raceid": 315854,
@@ -33236,8 +33236,8 @@
     "racer": "ilana-siegelman",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "39",
-    "seconds": null
+    "time": "1:15:26.8",
+    "seconds": 4526.8
   },
   {
     "raceid": 315854,
@@ -33246,8 +33246,8 @@
     "racer": "austin-beard",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "19",
-    "seconds": null
+    "time": "50:03.6",
+    "seconds": 3003.6
   },
   {
     "raceid": 315854,
@@ -33256,8 +33256,8 @@
     "racer": "owen-deale",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "17",
-    "seconds": null
+    "time": "51:53.7",
+    "seconds": 3113.7
   },
   {
     "raceid": 315854,
@@ -33266,8 +33266,8 @@
     "racer": "chris-hamlin",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "35",
-    "seconds": null
+    "time": "57:19.0",
+    "seconds": 3439.0
   },
   {
     "raceid": 315854,
@@ -33276,8 +33276,8 @@
     "racer": "ben-lustgarten",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "31",
-    "seconds": null
+    "time": "57:30.5",
+    "seconds": 3450.5
   },
   {
     "raceid": 315854,
@@ -33286,8 +33286,8 @@
     "racer": "chris-burnham",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "35",
-    "seconds": null
+    "time": "1:02:54.5",
+    "seconds": 3774.5
   },
   {
     "raceid": 315854,
@@ -33296,8 +33296,8 @@
     "racer": "brian-valentine",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "40",
-    "seconds": null
+    "time": "1:03:52.5",
+    "seconds": 3832.5
   },
   {
     "raceid": 315854,
@@ -33306,8 +33306,8 @@
     "racer": "andy-hardy",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "41",
-    "seconds": null
+    "time": "1:06:23.0",
+    "seconds": 3983.0
   },
   {
     "raceid": 315854,
@@ -33316,8 +33316,8 @@
     "racer": "griffin-larson",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "16",
-    "seconds": null
+    "time": "1:08:33.9",
+    "seconds": 4113.9
   },
   {
     "raceid": 315854,
@@ -33326,8 +33326,8 @@
     "racer": "blair-deale",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "53",
-    "seconds": null
+    "time": "1:09:13.1",
+    "seconds": 4153.1
   },
   {
     "raceid": 315854,
@@ -33336,8 +33336,8 @@
     "racer": "chris-bertrand",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "54",
-    "seconds": null
+    "time": "1:13:01.8",
+    "seconds": 4381.8
   },
   {
     "raceid": 315854,
@@ -33346,8 +33346,8 @@
     "racer": "john-king",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "64",
-    "seconds": null
+    "time": "1:13:39.8",
+    "seconds": 4419.8
   },
   {
     "raceid": 316646,
@@ -35846,8 +35846,8 @@
     "racer": "ben-amidon",
     "distance": "Cadet",
     "laps": null,
-    "time": "13",
-    "seconds": null
+    "time": "19:00.1",
+    "seconds": 1140.1
   },
   {
     "raceid": 318260,
@@ -35856,8 +35856,8 @@
     "racer": "matthew-rector",
     "distance": "Cadet",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "19:00.5",
+    "seconds": 1140.5
   },
   {
     "raceid": 318260,
@@ -35866,8 +35866,8 @@
     "racer": "ezra-buehler",
     "distance": "Cadet",
     "laps": null,
-    "time": "10",
-    "seconds": null
+    "time": "31:12.4",
+    "seconds": 1872.4
   },
   {
     "raceid": 318260,
@@ -35876,8 +35876,8 @@
     "racer": "danielle-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "31:47.9",
+    "seconds": 1907.9
   },
   {
     "raceid": 318260,
@@ -35886,8 +35886,8 @@
     "racer": "cassius-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "4",
-    "seconds": null
+    "time": "31:48.3",
+    "seconds": 1908.3
   },
   {
     "raceid": 318260,
@@ -35896,8 +35896,8 @@
     "racer": "ellen-buehler",
     "distance": "Cadet",
     "laps": null,
-    "time": "49",
-    "seconds": null
+    "time": "33:56.4",
+    "seconds": 2036.4
   },
   {
     "raceid": 318260,
@@ -35906,8 +35906,8 @@
     "racer": "betty-buehler",
     "distance": "Cadet",
     "laps": null,
-    "time": "17",
-    "seconds": null
+    "time": "33:58.1",
+    "seconds": 2038.1
   },
   {
     "raceid": 318260,
@@ -35916,8 +35916,8 @@
     "racer": "henry-harmeyer",
     "distance": "5K",
     "laps": null,
-    "time": "25",
-    "seconds": null
+    "time": "20:26.8",
+    "seconds": 1226.8
   },
   {
     "raceid": 318260,
@@ -35926,8 +35926,8 @@
     "racer": "jasper-henderson",
     "distance": "5K",
     "laps": null,
-    "time": "21",
-    "seconds": null
+    "time": "20:35.4",
+    "seconds": 1235.4
   },
   {
     "raceid": 318260,
@@ -35936,8 +35936,8 @@
     "racer": "keenan-billings",
     "distance": "5K",
     "laps": null,
-    "time": "16",
-    "seconds": null
+    "time": "20:44.4",
+    "seconds": 1244.4
   },
   {
     "raceid": 318260,
@@ -35946,8 +35946,8 @@
     "racer": "caden-frost",
     "distance": "5K",
     "laps": null,
-    "time": "24",
-    "seconds": null
+    "time": "20:47.6",
+    "seconds": 1247.6
   },
   {
     "raceid": 318260,
@@ -35956,8 +35956,8 @@
     "racer": "chris-hamlin",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "21:02.9",
+    "seconds": 1262.9
   },
   {
     "raceid": 318260,
@@ -35966,8 +35966,8 @@
     "racer": "chris-burnham",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "21:03.3",
+    "seconds": 1263.3
   },
   {
     "raceid": 318260,
@@ -35976,8 +35976,8 @@
     "racer": "stephen-gonzalez",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "21:06.6",
+    "seconds": 1266.6
   },
   {
     "raceid": 318260,
@@ -35986,8 +35986,8 @@
     "racer": "matthew-mallory",
     "distance": "5K",
     "laps": null,
-    "time": "14",
-    "seconds": null
+    "time": "21:09.5",
+    "seconds": 1269.5
   },
   {
     "raceid": 318260,
@@ -35996,8 +35996,8 @@
     "racer": "daniel-dylan",
     "distance": "5K",
     "laps": null,
-    "time": "29",
-    "seconds": null
+    "time": "21:59.9",
+    "seconds": 1319.9
   },
   {
     "raceid": 318260,
@@ -36006,8 +36006,8 @@
     "racer": "tim-richmond",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "22:07.4",
+    "seconds": 1327.4
   },
   {
     "raceid": 318260,
@@ -36016,8 +36016,8 @@
     "racer": "bertram-johnson",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "22:12.5",
+    "seconds": 1332.5
   },
   {
     "raceid": 318260,
@@ -36026,8 +36026,8 @@
     "racer": "thomas-howard",
     "distance": "5K",
     "laps": null,
-    "time": "46",
-    "seconds": null
+    "time": "23:16.1",
+    "seconds": 1396.1
   },
   {
     "raceid": 318260,
@@ -36036,8 +36036,8 @@
     "racer": "roland-ekstrom",
     "distance": "5K",
     "laps": null,
-    "time": "13",
-    "seconds": null
+    "time": "23:23.3",
+    "seconds": 1403.3
   },
   {
     "raceid": 318260,
@@ -36046,8 +36046,8 @@
     "racer": "steven-merrill",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "23:27.7",
+    "seconds": 1407.7
   },
   {
     "raceid": 318260,
@@ -36056,8 +36056,8 @@
     "racer": "jamie-spencer",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "23:42.2",
+    "seconds": 1422.2
   },
   {
     "raceid": 318260,
@@ -36066,8 +36066,8 @@
     "racer": "kenny-robertson",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "23:44.6",
+    "seconds": 1424.6
   },
   {
     "raceid": 318260,
@@ -36076,8 +36076,8 @@
     "racer": "kim-murkette",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "23:48.7",
+    "seconds": 1428.7
   },
   {
     "raceid": 318260,
@@ -36086,8 +36086,8 @@
     "racer": "eric-brigham",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "24:03.6",
+    "seconds": 1443.6
   },
   {
     "raceid": 318260,
@@ -36096,8 +36096,8 @@
     "racer": "adrianna-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "12",
-    "seconds": null
+    "time": "24:10.2",
+    "seconds": 1450.2
   },
   {
     "raceid": 318260,
@@ -36106,8 +36106,8 @@
     "racer": "steve-dasilva",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "24:27.0",
+    "seconds": 1467.0
   },
   {
     "raceid": 318260,
@@ -36116,8 +36116,8 @@
     "racer": "paul-charron",
     "distance": "5K",
     "laps": null,
-    "time": "56",
-    "seconds": null
+    "time": "24:41.1",
+    "seconds": 1481.1
   },
   {
     "raceid": 318260,
@@ -36126,8 +36126,8 @@
     "racer": "mike-fink",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "24:47.8",
+    "seconds": 1487.8
   },
   {
     "raceid": 318260,
@@ -36136,8 +36136,8 @@
     "racer": "todd-archambault",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "25:03.7",
+    "seconds": 1503.7
   },
   {
     "raceid": 318260,
@@ -36146,8 +36146,8 @@
     "racer": "jeff-padgett",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "25:09.0",
+    "seconds": 1509.0
   },
   {
     "raceid": 318260,
@@ -36156,8 +36156,8 @@
     "racer": "liz-hollenbach",
     "distance": "5K",
     "laps": null,
-    "time": "43",
-    "seconds": null
+    "time": "25:15.9",
+    "seconds": 1515.9
   },
   {
     "raceid": 318260,
@@ -36166,8 +36166,8 @@
     "racer": "mike-miklus",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "25:20.9",
+    "seconds": 1520.9
   },
   {
     "raceid": 318260,
@@ -36176,8 +36176,8 @@
     "racer": "harry-schukei",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "25:28.1",
+    "seconds": 1528.1
   },
   {
     "raceid": 318260,
@@ -36186,8 +36186,8 @@
     "racer": "felicity-billings",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "25:37.2",
+    "seconds": 1537.2
   },
   {
     "raceid": 318260,
@@ -36196,8 +36196,8 @@
     "racer": "sara-tabasko",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "25:45.2",
+    "seconds": 1545.2
   },
   {
     "raceid": 318260,
@@ -36206,8 +36206,8 @@
     "racer": "elizabeth-nesbitt",
     "distance": "5K",
     "laps": null,
-    "time": "40",
-    "seconds": null
+    "time": "25:59.6",
+    "seconds": 1559.6
   },
   {
     "raceid": 318260,
@@ -36216,8 +36216,8 @@
     "racer": "maurine-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "39",
-    "seconds": null
+    "time": "26:02.1",
+    "seconds": 1562.1
   },
   {
     "raceid": 318260,
@@ -36226,8 +36226,8 @@
     "racer": "cassidy-frost",
     "distance": "5K",
     "laps": null,
-    "time": "21",
-    "seconds": null
+    "time": "26:06.5",
+    "seconds": 1566.5
   },
   {
     "raceid": 318260,
@@ -36236,8 +36236,8 @@
     "racer": "jay-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "26:14.1",
+    "seconds": 1574.1
   },
   {
     "raceid": 318260,
@@ -36246,8 +36246,8 @@
     "racer": "mark-duchaine",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "26:22.1",
+    "seconds": 1582.1
   },
   {
     "raceid": 318260,
@@ -36256,8 +36256,8 @@
     "racer": "gary-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "26:36.3",
+    "seconds": 1596.3
   },
   {
     "raceid": 318260,
@@ -36266,8 +36266,8 @@
     "racer": "aidan-nourse",
     "distance": "5K",
     "laps": null,
-    "time": "12",
-    "seconds": null
+    "time": "26:47.4",
+    "seconds": 1607.4
   },
   {
     "raceid": 318260,
@@ -36276,8 +36276,8 @@
     "racer": "jim-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "26:53.5",
+    "seconds": 1613.5
   },
   {
     "raceid": 318260,
@@ -36286,8 +36286,8 @@
     "racer": "carolyn-siccama",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "26:57.9",
+    "seconds": 1617.9
   },
   {
     "raceid": 318260,
@@ -36296,8 +36296,8 @@
     "racer": "brian-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "51",
-    "seconds": null
+    "time": "26:58.8",
+    "seconds": 1618.8
   },
   {
     "raceid": 318260,
@@ -36306,8 +36306,8 @@
     "racer": "mary-williams",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "27:03.8",
+    "seconds": 1623.8
   },
   {
     "raceid": 318260,
@@ -36316,8 +36316,8 @@
     "racer": "liviya-kovacevic",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "27:21.2",
+    "seconds": 1641.2
   },
   {
     "raceid": 318260,
@@ -36326,8 +36326,8 @@
     "racer": "cris-cote",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "27:24.3",
+    "seconds": 1644.3
   },
   {
     "raceid": 318260,
@@ -36336,8 +36336,8 @@
     "racer": "kimberly-tillotson",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "27:50.1",
+    "seconds": 1670.1
   },
   {
     "raceid": 318260,
@@ -36346,8 +36346,8 @@
     "racer": "zach-chen",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "28:01.5",
+    "seconds": 1681.5
   },
   {
     "raceid": 318260,
@@ -36356,8 +36356,8 @@
     "racer": "kurt-kaffenberger",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "28:16.3",
+    "seconds": 1696.3
   },
   {
     "raceid": 318260,
@@ -36366,8 +36366,8 @@
     "racer": "daniel-blanchard",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "28:27.3",
+    "seconds": 1707.3
   },
   {
     "raceid": 318260,
@@ -36376,8 +36376,8 @@
     "racer": "john-howe",
     "distance": "5K",
     "laps": null,
-    "time": "64",
-    "seconds": null
+    "time": "28:39.0",
+    "seconds": 1719.0
   },
   {
     "raceid": 318260,
@@ -36386,8 +36386,8 @@
     "racer": "david-jensen",
     "distance": "5K",
     "laps": null,
-    "time": "62",
-    "seconds": null
+    "time": "28:46.0",
+    "seconds": 1726.0
   },
   {
     "raceid": 318260,
@@ -36396,8 +36396,8 @@
     "racer": "shannen-dando",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "28:53.9",
+    "seconds": 1733.9
   },
   {
     "raceid": 318260,
@@ -36406,8 +36406,8 @@
     "racer": "ronald-clevelans",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "29:07.7",
+    "seconds": 1747.7
   },
   {
     "raceid": 318260,
@@ -36416,8 +36416,8 @@
     "racer": "heather-nourse",
     "distance": "5K",
     "laps": null,
-    "time": "43",
-    "seconds": null
+    "time": "29:15.2",
+    "seconds": 1755.2
   },
   {
     "raceid": 318260,
@@ -36426,8 +36426,8 @@
     "racer": "jim-bentlage",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "29:30.4",
+    "seconds": 1770.4
   },
   {
     "raceid": 318260,
@@ -36436,8 +36436,8 @@
     "racer": "paul-menichelli",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "29:37.5",
+    "seconds": 1777.5
   },
   {
     "raceid": 318260,
@@ -36446,8 +36446,8 @@
     "racer": "virginia-kittell",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "29:50.1",
+    "seconds": 1790.1
   },
   {
     "raceid": 318260,
@@ -36456,8 +36456,8 @@
     "racer": "james-bove",
     "distance": "5K",
     "laps": null,
-    "time": "63",
-    "seconds": null
+    "time": "29:59.2",
+    "seconds": 1799.2
   },
   {
     "raceid": 318260,
@@ -36466,8 +36466,8 @@
     "racer": "pascal-cheng",
     "distance": "5K",
     "laps": null,
-    "time": "69",
-    "seconds": null
+    "time": "30:17.9",
+    "seconds": 1817.9
   },
   {
     "raceid": 318260,
@@ -36476,8 +36476,8 @@
     "racer": "neil-wheelwright",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "30:21.9",
+    "seconds": 1821.9
   },
   {
     "raceid": 318260,
@@ -36486,8 +36486,8 @@
     "racer": "patrick-o-brien",
     "distance": "5K",
     "laps": null,
-    "time": "57",
-    "seconds": null
+    "time": "30:31.4",
+    "seconds": 1831.4
   },
   {
     "raceid": 318260,
@@ -36496,8 +36496,8 @@
     "racer": "bill-dysart",
     "distance": "5K",
     "laps": null,
-    "time": "70",
-    "seconds": null
+    "time": "30:49.6",
+    "seconds": 1849.6
   },
   {
     "raceid": 318260,
@@ -36506,8 +36506,8 @@
     "racer": "molly-welch",
     "distance": "5K",
     "laps": null,
-    "time": "26",
-    "seconds": null
+    "time": "31:18.6",
+    "seconds": 1878.6
   },
   {
     "raceid": 318260,
@@ -36516,8 +36516,8 @@
     "racer": "keeley-schell",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "31:20.3",
+    "seconds": 1880.3
   },
   {
     "raceid": 318260,
@@ -36526,8 +36526,8 @@
     "racer": "kristin-sprenkle",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "31:22.9",
+    "seconds": 1882.9
   },
   {
     "raceid": 318260,
@@ -36536,8 +36536,8 @@
     "racer": "sue-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "68",
-    "seconds": null
+    "time": "31:27.6",
+    "seconds": 1887.6
   },
   {
     "raceid": 318260,
@@ -36546,8 +36546,8 @@
     "racer": "karin-p-ward",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "31:32.7",
+    "seconds": 1892.7
   },
   {
     "raceid": 318260,
@@ -36556,8 +36556,8 @@
     "racer": "sandra-wright",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "31:47.1",
+    "seconds": 1907.1
   },
   {
     "raceid": 318260,
@@ -36566,8 +36566,8 @@
     "racer": "mery-moran",
     "distance": "5K",
     "laps": null,
-    "time": "46",
-    "seconds": null
+    "time": "31:53.1",
+    "seconds": 1913.1
   },
   {
     "raceid": 318260,
@@ -36576,8 +36576,8 @@
     "racer": "molly-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "32:24.1",
+    "seconds": 1944.1
   },
   {
     "raceid": 318260,
@@ -36586,8 +36586,8 @@
     "racer": "pat-harmeyer",
     "distance": "5K",
     "laps": null,
-    "time": "56",
-    "seconds": null
+    "time": "32:33.3",
+    "seconds": 1953.3
   },
   {
     "raceid": 318260,
@@ -36596,8 +36596,8 @@
     "racer": "louisa-larson",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "32:57.1",
+    "seconds": 1977.1
   },
   {
     "raceid": 318260,
@@ -36606,8 +36606,8 @@
     "racer": "ellie-madden",
     "distance": "5K",
     "laps": null,
-    "time": "62",
-    "seconds": null
+    "time": "33:13.7",
+    "seconds": 1993.7
   },
   {
     "raceid": 318260,
@@ -36616,8 +36616,8 @@
     "racer": "danica-moller",
     "distance": "5K",
     "laps": null,
-    "time": "8",
-    "seconds": null
+    "time": "33:14.2",
+    "seconds": 1994.2
   },
   {
     "raceid": 318260,
@@ -36626,8 +36626,8 @@
     "racer": "catherine-moller",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "33:19.9",
+    "seconds": 1999.9
   },
   {
     "raceid": 318260,
@@ -36636,8 +36636,8 @@
     "racer": "kati-christoffel",
     "distance": "5K",
     "laps": null,
-    "time": "32",
-    "seconds": null
+    "time": "33:23.2",
+    "seconds": 2003.2
   },
   {
     "raceid": 318260,
@@ -36646,8 +36646,8 @@
     "racer": "maida-mclean",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "33:31.0",
+    "seconds": 2011.0
   },
   {
     "raceid": 318260,
@@ -36656,8 +36656,8 @@
     "racer": "joey-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "33:35.1",
+    "seconds": 2015.1
   },
   {
     "raceid": 318260,
@@ -36666,8 +36666,8 @@
     "racer": "todd-mallory",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "34:24.1",
+    "seconds": 2064.1
   },
   {
     "raceid": 318260,
@@ -36676,8 +36676,8 @@
     "racer": "casey-darling",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "35:13.5",
+    "seconds": 2113.5
   },
   {
     "raceid": 318260,
@@ -36686,8 +36686,8 @@
     "racer": "jennifer-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "60",
-    "seconds": null
+    "time": "35:16.2",
+    "seconds": 2116.2
   },
   {
     "raceid": 318260,
@@ -36696,8 +36696,8 @@
     "racer": "suki-digrande",
     "distance": "5K",
     "laps": null,
-    "time": "57",
-    "seconds": null
+    "time": "35:40.8",
+    "seconds": 2140.8
   },
   {
     "raceid": 318260,
@@ -36706,8 +36706,8 @@
     "racer": "chelsea-degree",
     "distance": "5K",
     "laps": null,
-    "time": "33",
-    "seconds": null
+    "time": "35:41.3",
+    "seconds": 2141.3
   },
   {
     "raceid": 318260,
@@ -36716,8 +36716,8 @@
     "racer": "jacquelyn-bombardier",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "35:50.6",
+    "seconds": 2150.6
   },
   {
     "raceid": 318260,
@@ -36726,8 +36726,8 @@
     "racer": "joseph-templin",
     "distance": "5K",
     "laps": null,
-    "time": "58",
-    "seconds": null
+    "time": "36:00.9",
+    "seconds": 2160.9
   },
   {
     "raceid": 318260,
@@ -36736,8 +36736,8 @@
     "racer": "alissa-wilson",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "36:10.6",
+    "seconds": 2170.6
   },
   {
     "raceid": 318260,
@@ -36746,8 +36746,8 @@
     "racer": "scott-perrapato",
     "distance": "5K",
     "laps": null,
-    "time": "66",
-    "seconds": null
+    "time": "36:15.2",
+    "seconds": 2175.2
   },
   {
     "raceid": 318260,
@@ -36756,8 +36756,8 @@
     "racer": "bill-burnett",
     "distance": "5K",
     "laps": null,
-    "time": "67",
-    "seconds": null
+    "time": "38:47.4",
+    "seconds": 2327.4
   },
   {
     "raceid": 318260,
@@ -36766,8 +36766,8 @@
     "racer": "chapin-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "39:34.3",
+    "seconds": 2374.3
   },
   {
     "raceid": 318260,
@@ -36776,8 +36776,8 @@
     "racer": "carrie-pratt",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "39:35.0",
+    "seconds": 2375.0
   },
   {
     "raceid": 318260,
@@ -36786,8 +36786,8 @@
     "racer": "gary-furlong",
     "distance": "5K",
     "laps": null,
-    "time": "69",
-    "seconds": null
+    "time": "41:48.5",
+    "seconds": 2508.5
   },
   {
     "raceid": 318260,
@@ -36796,8 +36796,8 @@
     "racer": "karyn-vogel",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "48:48.8",
+    "seconds": 2928.8
   },
   {
     "raceid": 318260,
@@ -36806,8 +36806,8 @@
     "racer": "rebecca-nock",
     "distance": "5K",
     "laps": null,
-    "time": "32",
-    "seconds": null
+    "time": "52:06.7",
+    "seconds": 3126.7
   },
   {
     "raceid": 318260,
@@ -36816,8 +36816,8 @@
     "racer": "tammy-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "47",
-    "seconds": null
+    "time": "59:33.4",
+    "seconds": 3573.4
   },
   {
     "raceid": 318960,
@@ -38546,8 +38546,8 @@
     "racer": "oliver-tramble",
     "distance": "Cadet",
     "laps": null,
-    "time": "8",
-    "seconds": null
+    "time": "16:54.8",
+    "seconds": 1014.8
   },
   {
     "raceid": 319672,
@@ -38556,8 +38556,8 @@
     "racer": "luke-amidon",
     "distance": "Cadet",
     "laps": null,
-    "time": "15",
-    "seconds": null
+    "time": "20:49.9",
+    "seconds": 1249.9
   },
   {
     "raceid": 319672,
@@ -38566,8 +38566,8 @@
     "racer": "matt-rector",
     "distance": "Cadet",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "21:22.3",
+    "seconds": 1282.3
   },
   {
     "raceid": 319672,
@@ -38576,8 +38576,8 @@
     "racer": "ezra-buehler",
     "distance": "Cadet",
     "laps": null,
-    "time": "10",
-    "seconds": null
+    "time": "30:57.8",
+    "seconds": 1857.8
   },
   {
     "raceid": 319672,
@@ -38586,8 +38586,8 @@
     "racer": "willow-loomis",
     "distance": "Cadet",
     "laps": null,
-    "time": "9",
-    "seconds": null
+    "time": "32:28.7",
+    "seconds": 1948.7
   },
   {
     "raceid": 319672,
@@ -38596,8 +38596,8 @@
     "racer": "cassius-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "4",
-    "seconds": null
+    "time": "33:13.1",
+    "seconds": 1993.1
   },
   {
     "raceid": 319672,
@@ -38606,8 +38606,8 @@
     "racer": "alexis-licursi",
     "distance": "Cadet",
     "laps": null,
-    "time": "40",
-    "seconds": null
+    "time": "33:16.6",
+    "seconds": 1996.6
   },
   {
     "raceid": 319672,
@@ -38616,8 +38616,8 @@
     "racer": "ellen-buehler",
     "distance": "Cadet",
     "laps": null,
-    "time": "49",
-    "seconds": null
+    "time": "41:34.9",
+    "seconds": 2494.9
   },
   {
     "raceid": 319672,
@@ -38626,8 +38626,8 @@
     "racer": "oliver-wood",
     "distance": "5K",
     "laps": null,
-    "time": "27",
-    "seconds": null
+    "time": "18:55.0",
+    "seconds": 1135.0
   },
   {
     "raceid": 319672,
@@ -38636,8 +38636,8 @@
     "racer": "silas-talbot",
     "distance": "5K",
     "laps": null,
-    "time": "30",
-    "seconds": null
+    "time": "19:03.4",
+    "seconds": 1143.4
   },
   {
     "raceid": 319672,
@@ -38646,8 +38646,8 @@
     "racer": "caden-frost",
     "distance": "5K",
     "laps": null,
-    "time": "24",
-    "seconds": null
+    "time": "20:38.3",
+    "seconds": 1238.3
   },
   {
     "raceid": 319672,
@@ -38656,8 +38656,8 @@
     "racer": "brad-patnaude",
     "distance": "5K",
     "laps": null,
-    "time": "33",
-    "seconds": null
+    "time": "20:58.0",
+    "seconds": 1258.0
   },
   {
     "raceid": 319672,
@@ -38666,8 +38666,8 @@
     "racer": "kyle-doran",
     "distance": "5K",
     "laps": null,
-    "time": "39",
-    "seconds": null
+    "time": "21:29.0",
+    "seconds": 1289.0
   },
   {
     "raceid": 319672,
@@ -38676,8 +38676,8 @@
     "racer": "chris-burnham",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "21:52.9",
+    "seconds": 1312.9
   },
   {
     "raceid": 319672,
@@ -38686,8 +38686,8 @@
     "racer": "chase-weaver",
     "distance": "5K",
     "laps": null,
-    "time": "28",
-    "seconds": null
+    "time": "22:11.7",
+    "seconds": 1331.7
   },
   {
     "raceid": 319672,
@@ -38696,8 +38696,8 @@
     "racer": "erin-fisher",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "22:35.4",
+    "seconds": 1355.4
   },
   {
     "raceid": 319672,
@@ -38706,8 +38706,8 @@
     "racer": "tim-richmond",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "22:38.0",
+    "seconds": 1358.0
   },
   {
     "raceid": 319672,
@@ -38716,8 +38716,8 @@
     "racer": "steven-merrill",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "23:07.8",
+    "seconds": 1387.8
   },
   {
     "raceid": 319672,
@@ -38726,8 +38726,8 @@
     "racer": "jim-langan",
     "distance": "5K",
     "laps": null,
-    "time": "49",
-    "seconds": null
+    "time": "23:10.0",
+    "seconds": 1390.0
   },
   {
     "raceid": 319672,
@@ -38736,8 +38736,8 @@
     "racer": "jimmy-burnham",
     "distance": "5K",
     "laps": null,
-    "time": "33",
-    "seconds": null
+    "time": "23:11.8",
+    "seconds": 1391.8
   },
   {
     "raceid": 319672,
@@ -38746,8 +38746,8 @@
     "racer": "nate-ward",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "23:23.8",
+    "seconds": 1403.8
   },
   {
     "raceid": 319672,
@@ -38756,8 +38756,8 @@
     "racer": "eric-brigham",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "24:08.4",
+    "seconds": 1448.4
   },
   {
     "raceid": 319672,
@@ -38766,8 +38766,8 @@
     "racer": "curt-weeber",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "24:20.0",
+    "seconds": 1460.0
   },
   {
     "raceid": 319672,
@@ -38776,8 +38776,8 @@
     "racer": "adrianna-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "12",
-    "seconds": null
+    "time": "24:24.7",
+    "seconds": 1464.7
   },
   {
     "raceid": 319672,
@@ -38786,8 +38786,8 @@
     "racer": "lauren-purcell",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "24:43.4",
+    "seconds": 1483.4
   },
   {
     "raceid": 319672,
@@ -38796,8 +38796,8 @@
     "racer": "jamie-spencer",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "25:01.4",
+    "seconds": 1501.4
   },
   {
     "raceid": 319672,
@@ -38806,8 +38806,8 @@
     "racer": "chris-bedell",
     "distance": "5K",
     "laps": null,
-    "time": "49",
-    "seconds": null
+    "time": "25:04.7",
+    "seconds": 1504.7
   },
   {
     "raceid": 319672,
@@ -38816,8 +38816,8 @@
     "racer": "paul-charron",
     "distance": "5K",
     "laps": null,
-    "time": "56",
-    "seconds": null
+    "time": "25:10.6",
+    "seconds": 1510.6
   },
   {
     "raceid": 319672,
@@ -38826,8 +38826,8 @@
     "racer": "grant-holmes",
     "distance": "5K",
     "laps": null,
-    "time": "20",
-    "seconds": null
+    "time": "25:19.1",
+    "seconds": 1519.1
   },
   {
     "raceid": 319672,
@@ -38836,8 +38836,8 @@
     "racer": "jay-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "25:20.3",
+    "seconds": 1520.3
   },
   {
     "raceid": 319672,
@@ -38846,8 +38846,8 @@
     "racer": "mike-fink",
     "distance": "5K",
     "laps": null,
-    "time": "45",
-    "seconds": null
+    "time": "25:32.3",
+    "seconds": 1532.3
   },
   {
     "raceid": 319672,
@@ -38856,8 +38856,8 @@
     "racer": "robert-watt",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "25:33.4",
+    "seconds": 1533.4
   },
   {
     "raceid": 319672,
@@ -38866,8 +38866,8 @@
     "racer": "mazzy-merritt",
     "distance": "5K",
     "laps": null,
-    "time": "9",
-    "seconds": null
+    "time": "25:35.2",
+    "seconds": 1535.2
   },
   {
     "raceid": 319672,
@@ -38876,8 +38876,8 @@
     "racer": "sara-tabasko",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "25:48.2",
+    "seconds": 1548.2
   },
   {
     "raceid": 319672,
@@ -38886,8 +38886,8 @@
     "racer": "jackie-ward",
     "distance": "5K",
     "laps": null,
-    "time": "35",
-    "seconds": null
+    "time": "25:55.5",
+    "seconds": 1555.5
   },
   {
     "raceid": 319672,
@@ -38896,8 +38896,8 @@
     "racer": "mark-duchaine",
     "distance": "5K",
     "laps": null,
-    "time": "44",
-    "seconds": null
+    "time": "25:57.0",
+    "seconds": 1557.0
   },
   {
     "raceid": 319672,
@@ -38906,8 +38906,8 @@
     "racer": "harry-schukei",
     "distance": "5K",
     "laps": null,
-    "time": "23",
-    "seconds": null
+    "time": "26:21.4",
+    "seconds": 1581.4
   },
   {
     "raceid": 319672,
@@ -38916,8 +38916,8 @@
     "racer": "joe-knox",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "26:27.0",
+    "seconds": 1587.0
   },
   {
     "raceid": 319672,
@@ -38926,8 +38926,8 @@
     "racer": "gary-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "50",
-    "seconds": null
+    "time": "26:38.4",
+    "seconds": 1598.4
   },
   {
     "raceid": 319672,
@@ -38936,8 +38936,8 @@
     "racer": "betty-buehler",
     "distance": "5K",
     "laps": null,
-    "time": "17",
-    "seconds": null
+    "time": "26:39.4",
+    "seconds": 1599.4
   },
   {
     "raceid": 319672,
@@ -38946,8 +38946,8 @@
     "racer": "cassidy-frost",
     "distance": "5K",
     "laps": null,
-    "time": "21",
-    "seconds": null
+    "time": "26:45.9",
+    "seconds": 1605.9
   },
   {
     "raceid": 319672,
@@ -38956,8 +38956,8 @@
     "racer": "emily-coppenrath",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "26:54.0",
+    "seconds": 1614.0
   },
   {
     "raceid": 319672,
@@ -38966,8 +38966,8 @@
     "racer": "liz-hollenbach",
     "distance": "5K",
     "laps": null,
-    "time": "43",
-    "seconds": null
+    "time": "27:05.6",
+    "seconds": 1625.6
   },
   {
     "raceid": 319672,
@@ -38976,8 +38976,8 @@
     "racer": "jim-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "27:07.8",
+    "seconds": 1627.8
   },
   {
     "raceid": 319672,
@@ -38986,8 +38986,8 @@
     "racer": "maurine-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "39",
-    "seconds": null
+    "time": "27:22.8",
+    "seconds": 1642.8
   },
   {
     "raceid": 319672,
@@ -38996,8 +38996,8 @@
     "racer": "brian-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "51",
-    "seconds": null
+    "time": "27:28.0",
+    "seconds": 1648.0
   },
   {
     "raceid": 319672,
@@ -39006,8 +39006,8 @@
     "racer": "timothy-dall",
     "distance": "5K",
     "laps": null,
-    "time": "47",
-    "seconds": null
+    "time": "27:38.7",
+    "seconds": 1658.7
   },
   {
     "raceid": 319672,
@@ -39016,8 +39016,8 @@
     "racer": "karin-p-ward",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "27:41.4",
+    "seconds": 1661.4
   },
   {
     "raceid": 319672,
@@ -39026,8 +39026,8 @@
     "racer": "mary-williams",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "28:05.6",
+    "seconds": 1685.6
   },
   {
     "raceid": 319672,
@@ -39036,8 +39036,8 @@
     "racer": "jim-bentlage",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "28:16.7",
+    "seconds": 1696.7
   },
   {
     "raceid": 319672,
@@ -39046,8 +39046,8 @@
     "racer": "alyse-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "16",
-    "seconds": null
+    "time": "28:17.9",
+    "seconds": 1697.9
   },
   {
     "raceid": 319672,
@@ -39056,8 +39056,8 @@
     "racer": "andy-coddington",
     "distance": "5K",
     "laps": null,
-    "time": "41",
-    "seconds": null
+    "time": "28:20.9",
+    "seconds": 1700.9
   },
   {
     "raceid": 319672,
@@ -39066,8 +39066,8 @@
     "racer": "david-jensen",
     "distance": "5K",
     "laps": null,
-    "time": "62",
-    "seconds": null
+    "time": "28:24.4",
+    "seconds": 1704.4
   },
   {
     "raceid": 319672,
@@ -39076,8 +39076,8 @@
     "racer": "john-howe",
     "distance": "5K",
     "laps": null,
-    "time": "64",
-    "seconds": null
+    "time": "28:43.2",
+    "seconds": 1723.2
   },
   {
     "raceid": 319672,
@@ -39086,8 +39086,8 @@
     "racer": "kurt-kaffenberger",
     "distance": "5K",
     "laps": null,
-    "time": "65",
-    "seconds": null
+    "time": "28:45.4",
+    "seconds": 1725.4
   },
   {
     "raceid": 319672,
@@ -39096,8 +39096,8 @@
     "racer": "daniel-blanchard",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "28:54.9",
+    "seconds": 1734.9
   },
   {
     "raceid": 319672,
@@ -39106,8 +39106,8 @@
     "racer": "michael-gilman",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "29:11.6",
+    "seconds": 1751.6
   },
   {
     "raceid": 319672,
@@ -39116,8 +39116,8 @@
     "racer": "paul-menichelli",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "29:34.7",
+    "seconds": 1774.7
   },
   {
     "raceid": 319672,
@@ -39126,8 +39126,8 @@
     "racer": "robert-monette",
     "distance": "5K",
     "laps": null,
-    "time": "59",
-    "seconds": null
+    "time": "29:52.8",
+    "seconds": 1792.8
   },
   {
     "raceid": 319672,
@@ -39136,8 +39136,8 @@
     "racer": "ronald-clevelans",
     "distance": "5K",
     "laps": null,
-    "time": "55",
-    "seconds": null
+    "time": "30:04.5",
+    "seconds": 1804.5
   },
   {
     "raceid": 319672,
@@ -39146,8 +39146,8 @@
     "racer": "sue-gilbert",
     "distance": "5K",
     "laps": null,
-    "time": "68",
-    "seconds": null
+    "time": "31:42.0",
+    "seconds": 1902.0
   },
   {
     "raceid": 319672,
@@ -39156,8 +39156,8 @@
     "racer": "kristin-sprenkle",
     "distance": "5K",
     "laps": null,
-    "time": "42",
-    "seconds": null
+    "time": "31:57.7",
+    "seconds": 1917.7
   },
   {
     "raceid": 319672,
@@ -39166,8 +39166,8 @@
     "racer": "jeff-buzas",
     "distance": "5K",
     "laps": null,
-    "time": "61",
-    "seconds": null
+    "time": "32:05.9",
+    "seconds": 1925.9
   },
   {
     "raceid": 319672,
@@ -39176,8 +39176,8 @@
     "racer": "chapin-lashombe",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "32:17.5",
+    "seconds": 1937.5
   },
   {
     "raceid": 319672,
@@ -39186,8 +39186,8 @@
     "racer": "molly-trayah",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "32:17.9",
+    "seconds": 1937.9
   },
   {
     "raceid": 319672,
@@ -39196,8 +39196,8 @@
     "racer": "sandra-wright",
     "distance": "5K",
     "laps": null,
-    "time": "52",
-    "seconds": null
+    "time": "32:32.8",
+    "seconds": 1952.8
   },
   {
     "raceid": 319672,
@@ -39206,8 +39206,8 @@
     "racer": "meghan-butler",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "32:41.8",
+    "seconds": 1961.8
   },
   {
     "raceid": 319672,
@@ -39216,8 +39216,8 @@
     "racer": "louisa-larson",
     "distance": "5K",
     "laps": null,
-    "time": "53",
-    "seconds": null
+    "time": "32:58.2",
+    "seconds": 1978.2
   },
   {
     "raceid": 319672,
@@ -39226,8 +39226,8 @@
     "racer": "ellie-madden",
     "distance": "5K",
     "laps": null,
-    "time": "62",
-    "seconds": null
+    "time": "33:55.2",
+    "seconds": 2035.2
   },
   {
     "raceid": 319672,
@@ -39236,8 +39236,8 @@
     "racer": "suki-digrande",
     "distance": "5K",
     "laps": null,
-    "time": "57",
-    "seconds": null
+    "time": "33:59.2",
+    "seconds": 2039.2
   },
   {
     "raceid": 319672,
@@ -39246,8 +39246,8 @@
     "racer": "alissa-wilson",
     "distance": "5K",
     "laps": null,
-    "time": "37",
-    "seconds": null
+    "time": "34:55.3",
+    "seconds": 2095.3
   },
   {
     "raceid": 319672,
@@ -39256,8 +39256,8 @@
     "racer": "casey-darling",
     "distance": "5K",
     "laps": null,
-    "time": "48",
-    "seconds": null
+    "time": "35:34.1",
+    "seconds": 2134.1
   },
   {
     "raceid": 319672,
@@ -39266,8 +39266,8 @@
     "racer": "joseph-templin",
     "distance": "5K",
     "laps": null,
-    "time": "38",
-    "seconds": null
+    "time": "36:37.0",
+    "seconds": 2197.0
   },
   {
     "raceid": 319672,
@@ -39276,8 +39276,8 @@
     "racer": "raymond-mainer",
     "distance": "5K",
     "laps": null,
-    "time": "73",
-    "seconds": null
+    "time": "37:21.5",
+    "seconds": 2241.5
   },
   {
     "raceid": 319672,
@@ -39286,8 +39286,8 @@
     "racer": "scott-perrapato",
     "distance": "5K",
     "laps": null,
-    "time": "66",
-    "seconds": null
+    "time": "37:23.6",
+    "seconds": 2243.6
   },
   {
     "raceid": 319672,
@@ -39296,8 +39296,8 @@
     "racer": "bill-burnett",
     "distance": "5K",
     "laps": null,
-    "time": "67",
-    "seconds": null
+    "time": "39:00.2",
+    "seconds": 2340.2
   },
   {
     "raceid": 319672,
@@ -39306,8 +39306,8 @@
     "racer": "jennifer-adkisson",
     "distance": "5K",
     "laps": null,
-    "time": "60",
-    "seconds": null
+    "time": "40:08.8",
+    "seconds": 2408.8
   },
   {
     "raceid": 319672,
@@ -39316,8 +39316,8 @@
     "racer": "gary-furlong",
     "distance": "5K",
     "laps": null,
-    "time": "69",
-    "seconds": null
+    "time": "40:49.0",
+    "seconds": 2449.0
   },
   {
     "raceid": 319672,
@@ -39326,8 +39326,8 @@
     "racer": "carrie-pratt",
     "distance": "5K",
     "laps": null,
-    "time": "36",
-    "seconds": null
+    "time": "41:56.9",
+    "seconds": 2516.9
   },
   {
     "raceid": 319672,
@@ -39336,8 +39336,8 @@
     "racer": "cynthia-peterson",
     "distance": "5K",
     "laps": null,
-    "time": "34",
-    "seconds": null
+    "time": "42:30.0",
+    "seconds": 2550.0
   },
   {
     "raceid": 319672,
@@ -39346,8 +39346,8 @@
     "racer": "joey-bibeau",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "44:56.7",
+    "seconds": 2696.7
   },
   {
     "raceid": 319672,
@@ -39356,8 +39356,8 @@
     "racer": "mary-cenci",
     "distance": "5K",
     "laps": null,
-    "time": "57",
-    "seconds": null
+    "time": "46:10.8",
+    "seconds": 2770.8
   },
   {
     "raceid": 319672,
@@ -39366,8 +39366,8 @@
     "racer": "karyn-vogel",
     "distance": "5K",
     "laps": null,
-    "time": "54",
-    "seconds": null
+    "time": "50:49.2",
+    "seconds": 3049.2
   },
   {
     "raceid": 319672,
@@ -39376,8 +39376,8 @@
     "racer": "rebecca-nock",
     "distance": "5K",
     "laps": null,
-    "time": "32",
-    "seconds": null
+    "time": "52:31.3",
+    "seconds": 3151.3
   },
   {
     "raceid": 319672,
@@ -39386,8 +39386,8 @@
     "racer": "tammy-jadus",
     "distance": "5K",
     "laps": null,
-    "time": "47",
-    "seconds": null
+    "time": "52:35.5",
+    "seconds": 3155.5
   },
   {
     "raceid": 319672,
@@ -39396,7 +39396,7 @@
     "racer": "james-bove",
     "distance": "5K",
     "laps": null,
-    "time": "63",
+    "time": "DNF",
     "seconds": null
   },
   {
@@ -39406,8 +39406,8 @@
     "racer": "crosby-wheeler",
     "distance": "1 Lap",
     "laps": 1,
-    "time": "8",
-    "seconds": null
+    "time": "20:08.1",
+    "seconds": 1208.1
   },
   {
     "raceid": 319754,
@@ -39416,8 +39416,8 @@
     "racer": "duke-kingsbury",
     "distance": "1 Lap",
     "laps": 1,
-    "time": "10",
-    "seconds": null
+    "time": "27:52.2",
+    "seconds": 1672.2
   },
   {
     "raceid": 319754,
@@ -39426,8 +39426,8 @@
     "racer": "whip-kingsbury",
     "distance": "1 Lap",
     "laps": 1,
-    "time": "7",
-    "seconds": null
+    "time": "27:54.4",
+    "seconds": 1674.4
   },
   {
     "raceid": 319754,
@@ -39436,8 +39436,8 @@
     "racer": "wilson-keller",
     "distance": "1 Lap",
     "laps": 1,
-    "time": "8",
-    "seconds": null
+    "time": "27:59.6",
+    "seconds": 1679.6
   },
   {
     "raceid": 319754,
@@ -39446,8 +39446,8 @@
     "racer": "brad-corvi",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "15",
-    "seconds": null
+    "time": "23:58.5",
+    "seconds": 1438.5
   },
   {
     "raceid": 319754,
@@ -39456,8 +39456,8 @@
     "racer": "alden-lapointe",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "13",
-    "seconds": null
+    "time": "36:17.1",
+    "seconds": 2177.1
   },
   {
     "raceid": 319754,
@@ -39466,8 +39466,8 @@
     "racer": "killian-kingsbury",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "12",
-    "seconds": null
+    "time": "36:56.8",
+    "seconds": 2216.8
   },
   {
     "raceid": 319754,
@@ -39476,8 +39476,8 @@
     "racer": "soren-wilkens",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "13",
-    "seconds": null
+    "time": "37:18.5",
+    "seconds": 2238.5
   },
   {
     "raceid": 319754,
@@ -39486,8 +39486,8 @@
     "racer": "levi-peters",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "12",
-    "seconds": null
+    "time": "37:44.7",
+    "seconds": 2264.7
   },
   {
     "raceid": 319754,
@@ -39496,8 +39496,8 @@
     "racer": "avery-mcconnell",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "12",
-    "seconds": null
+    "time": "37:57.7",
+    "seconds": 2277.7
   },
   {
     "raceid": 319754,
@@ -39506,8 +39506,8 @@
     "racer": "oliver-pierson",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "49",
-    "seconds": null
+    "time": "39:05.2",
+    "seconds": 2345.2
   },
   {
     "raceid": 319754,
@@ -39516,8 +39516,8 @@
     "racer": "kai-waldman",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "14",
-    "seconds": null
+    "time": "39:09.2",
+    "seconds": 2349.2
   },
   {
     "raceid": 319754,
@@ -39526,8 +39526,8 @@
     "racer": "zoe-ringquist",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "13",
-    "seconds": null
+    "time": "39:15.2",
+    "seconds": 2355.2
   },
   {
     "raceid": 319754,
@@ -39536,8 +39536,8 @@
     "racer": "sierra-putnam",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "13",
-    "seconds": null
+    "time": "42:35.5",
+    "seconds": 2555.5
   },
   {
     "raceid": 319754,
@@ -39546,8 +39546,8 @@
     "racer": "sage-putnam",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "11",
-    "seconds": null
+    "time": "43:07.1",
+    "seconds": 2587.1
   },
   {
     "raceid": 319754,
@@ -39556,8 +39556,8 @@
     "racer": "wilder-lapointe",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "11",
-    "seconds": null
+    "time": "45:05.1",
+    "seconds": 2705.1
   },
   {
     "raceid": 319754,
@@ -39566,8 +39566,8 @@
     "racer": "craig-thrall",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "48",
-    "seconds": null
+    "time": "54:22.6",
+    "seconds": 3262.6
   },
   {
     "raceid": 319754,
@@ -39576,8 +39576,8 @@
     "racer": "callum-waldman",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "11",
-    "seconds": null
+    "time": "55:55.9",
+    "seconds": 3355.9
   },
   {
     "raceid": 319754,
@@ -39586,8 +39586,8 @@
     "racer": "harper-mcconnell",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "11",
-    "seconds": null
+    "time": "55:57.8",
+    "seconds": 3357.8
   },
   {
     "raceid": 319754,
@@ -39596,8 +39596,8 @@
     "racer": "warren-larned",
     "distance": "2 Lap",
     "laps": 2,
-    "time": "9",
-    "seconds": null
+    "time": "55:58.2",
+    "seconds": 3358.2
   },
   {
     "raceid": 319754,
@@ -39606,8 +39606,8 @@
     "racer": "connor-sault",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "13",
-    "seconds": null
+    "time": "52:43.8",
+    "seconds": 3163.8
   },
   {
     "raceid": 319754,
@@ -39616,8 +39616,8 @@
     "racer": "ben-mason",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "14",
-    "seconds": null
+    "time": "52:44.5",
+    "seconds": 3164.5
   },
   {
     "raceid": 319754,
@@ -39626,8 +39626,8 @@
     "racer": "chris-lapointe",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "45",
-    "seconds": null
+    "time": "58:18.4",
+    "seconds": 3498.4
   },
   {
     "raceid": 319754,
@@ -39636,8 +39636,8 @@
     "racer": "cassidy-frost",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "21",
-    "seconds": null
+    "time": "58:20.4",
+    "seconds": 3500.4
   },
   {
     "raceid": 319754,
@@ -39646,8 +39646,8 @@
     "racer": "trent-coletta",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "60",
-    "seconds": null
+    "time": "58:32.1",
+    "seconds": 3512.1
   },
   {
     "raceid": 319754,
@@ -39656,8 +39656,8 @@
     "racer": "chris-hamlin",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "35",
-    "seconds": null
+    "time": "59:04.1",
+    "seconds": 3544.1
   },
   {
     "raceid": 319754,
@@ -39666,8 +39666,8 @@
     "racer": "ilana-siegelman",
     "distance": "3 Lap",
     "laps": 3,
-    "time": "39",
-    "seconds": null
+    "time": "1:09:20.0",
+    "seconds": 4160.0
   },
   {
     "raceid": 319754,
@@ -39676,8 +39676,8 @@
     "racer": "caden-frost",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "24",
-    "seconds": null
+    "time": "1:00:30.6",
+    "seconds": 3630.6
   },
   {
     "raceid": 319754,
@@ -39686,8 +39686,8 @@
     "racer": "noah-tautfest",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "33",
-    "seconds": null
+    "time": "1:01:26.8",
+    "seconds": 3686.8
   },
   {
     "raceid": 319754,
@@ -39696,8 +39696,8 @@
     "racer": "sam-mason",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "17",
-    "seconds": null
+    "time": "1:01:28.5",
+    "seconds": 3688.5
   },
   {
     "raceid": 319754,
@@ -39706,8 +39706,8 @@
     "racer": "andy-hardy",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "41",
-    "seconds": null
+    "time": "1:05:36.6",
+    "seconds": 3936.6
   },
   {
     "raceid": 319754,
@@ -39716,8 +39716,8 @@
     "racer": "jim-cochran",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "41",
-    "seconds": null
+    "time": "1:06:32.8",
+    "seconds": 3992.8
   },
   {
     "raceid": 319754,
@@ -39726,8 +39726,8 @@
     "racer": "max-gorman",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "22",
-    "seconds": null
+    "time": "1:08:08.9",
+    "seconds": 4088.9
   },
   {
     "raceid": 319754,
@@ -39736,8 +39736,8 @@
     "racer": "sean-curran",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "35",
-    "seconds": null
+    "time": "1:10:04.9",
+    "seconds": 4204.9
   },
   {
     "raceid": 319754,
@@ -39746,8 +39746,8 @@
     "racer": "stephen-gorman",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "58",
-    "seconds": null
+    "time": "1:11:59.4",
+    "seconds": 4319.4
   },
   {
     "raceid": 319754,
@@ -39756,8 +39756,8 @@
     "racer": "ezra-tautfest",
     "distance": "4 Lap",
     "laps": 4,
-    "time": "35",
-    "seconds": null
+    "time": "1:14:34.7",
+    "seconds": 4474.7
   },
   {
     "raceid": 320460,
