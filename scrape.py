@@ -733,9 +733,18 @@ def load_aliases() -> dict:
     return json.loads(path.read_text(encoding="utf-8")).get("aliases", {})
 
 
+def load_course_labels() -> dict:
+    """Courses the race titles never named (2021-22), found another way; see CLAUDE.md."""
+    path = ROOT / "course_labels.json"
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8")).get("labels", {})
+
+
 def build(races: list[dict], results: list[dict], weather: dict | None = None) -> dict:
     """Bundle races + results, dropping races we never got rows for."""
     aliases = load_aliases()
+    course_labels = load_course_labels()
     for r in results:
         r["racer"] = aliases.get(r["racer"], r["racer"])
 
@@ -746,6 +755,11 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
     keep = [r for r in races if by_race.get(r["raceid"])]
     for r in keep:
         r["finishers"] = by_race[r["raceid"]]
+        label = course_labels.get(str(r["raceid"]))
+        if label:
+            # Never override a course the title itself names.
+            assert not r.get("course"), f"race {r['raceid']} names a course and has a label"
+            r["course"], r["courseSource"] = label["course"], label["source"]
         if weather and r.get("date") in weather:
             r["weather"] = weather[r["date"]]
     keep.sort(key=lambda r: (r.get("date") or "", r["raceid"]))

@@ -21,8 +21,12 @@ data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer
   group, laps. Nothing that identifies a person beyond the race they did: hometown,
   age, age category, team, bib and gender are all dropped (bib and gender are read
   only to de-duplicate). Placeholder names ("COFC 3", "Please email for results")
-  are skipped. Do not add anything that links racers to personal accounts
-  (Strava, social) or infers identity — that idea was considered and dropped.
+  are skipped. Do not link racers to personal accounts (Strava, social) or infer
+  identity from them. One narrow use of Strava is allowed: the owner's OWN activities,
+  read locally and once, to work out which course a race night used. That yields one
+  course label per race in `course_labels.json` and nothing per person; no token, key or
+  raw track is ever committed. Other riders' Strava, Garmin or Trailforks data is off
+  limits (Strava's API terms bar collecting it).
   Merging one person's spelled variants ("Tim" / "Timothy") is done only through the
   hand-kept `aliases.json`, never by guessing.
 - **Do not deploy sample data.** `data/` holds a real scrape. `python
@@ -109,6 +113,13 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   finisher with a bib but no registered name is skipped, so parsed rows can be one
   or two short of the page's own "Racers: N".
 - Age and hometown are on the Webscorer page and are deliberately dropped.
+- Race titles name a course only from 2023 (plus a few in 2024 written as plain words),
+  and cross never has one. `course_labels.json` fills 35 of the 45 unnamed 2021-22 MTB /
+  trail-run races and marks them `courseSource`: `gps` (the owner's ride matched against
+  the three courses' lap shapes: 11/11 on held-out known nights, and 3 of 3 spot checks
+  against the club's own banner and a ride title agreed), `club` (the club's dated "Current
+  Race Course" banner, from the Wayback Machine) or `sibling` (the Tuesday run uses the
+  same week's Wednesday course: true in 48 of 49 known weeks). The page stars them.
 - Sample data is built to exercise the UI; a green run on it proves the UI logic,
   not the scraper. The results-table parser had never seen a real page as of the
   last commit.

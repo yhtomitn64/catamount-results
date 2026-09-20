@@ -1,0 +1,145 @@
+{
+  "note": "Courses the race titles never named, worked out another way. source: gps = a rider's GPS track matched to the three courses; club = the club's own weekly course announcement; sibling = the Tuesday run uses the same week's Wednesday course. Nothing per person is kept here.",
+  "labels": {
+    "247565": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "247657": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "248964": {
+      "course": "Red on Black",
+      "source": "club"
+    },
+    "249511": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "249634": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "250724": {
+      "course": "Yellow on Green",
+      "source": "sibling"
+    },
+    "250808": {
+      "course": "Yellow on Green",
+      "source": "gps"
+    },
+    "251400": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "251503": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "276746": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "276864": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "277540": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "277690": {
+      "course": "Red on Black",
+      "source": "gps"
+    },
+    "278404": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "278538": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "279238": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "279355": {
+      "course": "Red on Black",
+      "source": "gps"
+    },
+    "280114": {
+      "course": "Yellow on Green",
+      "source": "sibling"
+    },
+    "280214": {
+      "course": "Yellow on Green",
+      "source": "gps"
+    },
+    "280840": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "281021": {
+      "course": "Red on Black",
+      "source": "gps"
+    },
+    "281624": {
+      "course": "Yellow on Green",
+      "source": "sibling"
+    },
+    "281736": {
+      "course": "Yellow on Green",
+      "source": "gps"
+    },
+    "282331": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "282440": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "283036": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "283158": {
+      "course": "Red on Black",
+      "source": "gps"
+    },
+    "284377": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "284454": {
+      "course": "Red on Black",
+      "source": "gps"
+    },
+    "285046": {
+      "course": "Black on White",
+      "source": "sibling"
+    },
+    "285173": {
+      "course": "Black on White",
+      "source": "gps"
+    },
+    "285826": {
+      "course": "Yellow on Green",
+      "source": "sibling"
+    },
+    "285913": {
+      "course": "Yellow on Green",
+      "source": "gps"
+    },
+    "286539": {
+      "course": "Red on Black",
+      "source": "sibling"
+    },
+    "286656": {
+      "course": "Red on Black",
+      "source": "gps"
+    }
+  }
+}

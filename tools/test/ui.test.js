@@ -31,7 +31,7 @@ const strip = (h) => h.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 // that identifies a person. This is the allowlist; adding a field means changing it
 // here on purpose.
 const ALLOWED_RESULT = new Set(["raceid", "place", "name", "racer", "distance", "laps", "time", "seconds"]);
-const ALLOWED_RACE = new Set(["raceid", "title", "url", "date", "year", "discipline", "course", "finishers", "sport", "weather"]);
+const ALLOWED_RACE = new Set(["raceid", "title", "url", "date", "year", "discipline", "course", "courseSource", "finishers", "sport", "weather"]);
 const extraResult = new Set();
 bundle.results.forEach((r) => Object.keys(r).forEach((k) => { if (!ALLOWED_RESULT.has(k)) extraResult.add(k); }));
 check("data: results carry only allowlisted fields", extraResult.size === 0, [...extraResult].join(","));
@@ -59,6 +59,15 @@ const aliases = JSON.parse(fs.readFileSync(path.join(ROOT, "aliases.json"), "utf
 const resolved = Object.keys(aliases).filter((s) => bundle.racers[s]);
 check("aliases: no merged-away spelling is still a racer", resolved.length === 0, resolved.slice(0, 3).join(","));
 check("aliases: every target is a racer with results", Object.values(aliases).every((t) => bundle.racers[t]));
+
+// Courses the race titles never named are filled in from course_labels.json and marked.
+const labelFile = JSON.parse(fs.readFileSync(path.join(ROOT, "course_labels.json"), "utf8")).labels;
+const inferred = races.filter((r) => r.courseSource);
+const namedInTitle = (t) => /\([^)]+\)/.test(t) || /\b(red|black|white|yellow|green|blue|orange|purple)\s+(on|in)\s+(red|black|white|yellow|green|blue|orange|purple)\b/i.test(t);
+const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).map((r) => r.course));
+check("labels: every labelled race is in the bundle with that course and source", Object.entries(labelFile).every(([id, l]) => { const r = fx.raceById[id]; return r && r.course === l.course && r.courseSource === l.source; }));
+check("labels: only races whose title names no course carry a label", inferred.every((r) => !namedInTitle(r.title)) && inferred.length === Object.keys(labelFile).length, inferred.length + " inferred");
+check("labels: sources are gps, club or sibling, and courses are ones the titles use", inferred.every((r) => ["gps", "club", "sibling"].includes(r.courseSource) && knownCourses.has(r.course)));
 
 // ---------------------------------------------------------------------------
 // the UI, in a stubbed DOM
@@ -180,6 +189,14 @@ if (noCx) check("filter: a racer with no starts in the sport gets a message and 
 clickFilter("all");
 check("filter: All restores every race", new RegExp('<p class="hint">' + races.length + " races on record").test(route("#/races")));
 check("filter: all races has an Event column", route("#/races").includes(">Event<"));
+
+// ---- inferred courses are marked ------------------------------------------------------------------
+if (inferred.length) {
+  check("inferred: an inferred course is starred on its race page", /class="inferred"/.test(rendered["#/race/" + inferred[0].raceid]));
+  const named = races.find((r) => r.course && !r.courseSource);
+  check("inferred: a course named in the title is not starred", !/class="inferred"/.test(rendered["#/race/" + named.raceid]));
+  check("inferred: the footer explains the asterisk", /Course inferred/.test(el("footer").innerHTML));
+}
 
 // ---- type-to-search --------------------------------------------------------------------------
 const src = html.match(/\/\/ ---- racer search \(begin\) ----([\s\S]*?)\/\/ ---- racer search \(end\) ----/)[1];

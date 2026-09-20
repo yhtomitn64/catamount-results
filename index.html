@@ -159,6 +159,8 @@ svg.chart .pt{stroke:var(--panel);stroke-width:1.25}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .empty{color:var(--ink-3);padding:26px 0;text-align:center;font-size:14px}
 footer{color:var(--ink-3);font-size:12.5px;margin-top:30px;text-align:center}
+footer .fine{max-width:640px;margin:10px auto 0;line-height:1.45}
+sup.inferred{font-size:.8em;margin-left:1px;color:var(--ink-3);cursor:help}
 </style>
 </head>
 <body>
@@ -427,10 +429,19 @@ function courseColor(name) {
   var first = String(name || "").toLowerCase().split(/\s+/)[0];
   return HUES[first] || "#6f7a72";
 }
-function coursePill(name) {
+// Where a course was not named in the race title, it was worked out another way;
+// the pill carries an asterisk and the footer explains it.
+var COURSE_SOURCE = {
+  gps: "Inferred from a rider's GPS track that night",
+  club: "From the club's weekly course announcement",
+  sibling: "Inferred: the Tuesday run uses the same week's Wednesday course"
+};
+function coursePill(name, race) {
   if (!name) return '<span class="muted">—</span>';
+  var mark = race && race.courseSource
+    ? '<sup class="inferred" title="' + esc(COURSE_SOURCE[race.courseSource] || "Inferred") + '">*</sup>' : "";
   return '<a class="pill" href="#/course/' + slug(name) + '">' +
-         '<span class="dot" style="background:' + courseColor(name) + '"></span>' + esc(name) + "</a>";
+         '<span class="dot" style="background:' + courseColor(name) + '"></span>' + esc(name) + mark + "</a>";
 }
 function racerLink(key) { return '<a href="#/racer/' + esc(key) + '">' + esc(nameOf(key)) + "</a>"; }
 // Takes the row, not a bare number: the placing that counts is the one inside
@@ -833,7 +844,7 @@ views.racer = function (key) {
        '<p class="hint">One row per course and event. "vs winner" is the median of this racer\'s time divided by the winning time of that distance — ' +
        "1.00 means they won, 1.20 means they took 20% longer.</p>" +
        table([
-         { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+         { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course, r) + "</td>"; } },
          { label: "Event", get: function (r) { return grpRank(r.grp); }, defaultDir: -1, cell: function (r) { return grpCell(r.grp); } },
          { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
          { label: "Best time", cls: "num", get: function (r) { return r.best; }, cell: function (r) { return '<td class="num">' + fmtTime(r.best) + "</td>"; } },
@@ -848,7 +859,7 @@ views.racer = function (key) {
          { label: "Date", get: function (r) { return raceById[r.raceid].date; }, defaultDir: -1,
            cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(raceById[r.raceid].date) + "</a></td>"; } },
          { label: "Course", get: function (r) { return raceById[r.raceid].course; },
-           cell: function (r) { return "<td>" + coursePill(raceById[r.raceid].course) + "</td>"; } },
+           cell: function (r) { return "<td>" + coursePill(raceById[r.raceid].course, raceById[r.raceid]) + "</td>"; } },
          { label: "Event", get: function (r) { return grpRank(r.grp); }, defaultDir: -1,
            cell: function (r) { return grpCell(r.grp); } },
          { label: "Place", cls: "num", get: function (r) { return r.dplace; },
@@ -969,7 +980,7 @@ views.h2h = function (a, b) {
       { label: "Date", get: function (m) { return m.race.date; }, defaultDir: -1,
         cell: function (m) { return '<td><a href="#/race/' + m.race.raceid + '">' + fmtDate(m.race.date) + "</a></td>"; } },
       { label: "Course", get: function (m) { return m.race.course; },
-        cell: function (m) { return "<td>" + coursePill(m.race.course) + "</td>"; } },
+        cell: function (m) { return "<td>" + coursePill(m.race.course, m.race) + "</td>"; } },
       { label: "Event", get: function (m) { return grpRank(m.grp); }, defaultDir: -1,
         cell: function (m) { return grpCell(m.grp); } },
       { label: "Ahead", get: function (m) { return m.a.dplace < m.b.dplace ? 0 : 1; },
@@ -1075,7 +1086,7 @@ views.course = function (cslug) {
       '<p class="hint">The series rotates courses between seasons but repeats them within one, ' +
       "so a course page is where times actually compare.</p>" +
       table([
-        { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+        { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course, r) + "</td>"; } },
         { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
         { label: "Seasons", cls: "num", get: function (r) { return r.years; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.years + "</td>"; } },
         { label: "Years", get: function (r) { return r.from; },
@@ -1189,7 +1200,7 @@ views.race = function (id) {
   var h = '<div class="card"><p class="big-name">' + fmtDate(race.date) + "</p>" +
     '<p class="hint">' + esc(race.title || "") + "</p>" +
     '<div class="row" style="margin-top:10px">' +
-    '<div class="shrink">' + coursePill(race.course) + "</div>" +
+    '<div class="shrink">' + coursePill(race.course, race) + "</div>" +
     '<div class="shrink"><span class="pill">' + rows.length + " finishers</span></div>" +
     (race.weather ? '<div class="shrink">' + wxChip(race.weather) + "</div>" : "") +
     (race.discipline ? '<div class="shrink"><span class="pill">' + esc(DISC_NAMES[race.discipline] || race.discipline) + "</span></div>" : "") +
@@ -1310,7 +1321,7 @@ views.series = function (year) {
     table([
       { label: "Date", get: function (r) { return r.date; },
         cell: function (r) { return '<td><a href="#/race/' + r.raceid + '">' + fmtDate(r.date) + "</a></td>"; } },
-      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course, r) + "</td>"; } },
       { label: "Finishers", cls: "num", get: function (r) { return (resultsByRace[r.raceid] || []).length; }, defaultDir: -1,
         cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
       { label: "Weather", get: function (r) { return r.weather ? r.weather.temp : null; },
@@ -1336,7 +1347,7 @@ views.races = function () {
         cell: function (r) { return "<td>" + esc(DISC_NAMES[r.discipline] || r.discipline || "—") + "</td>"; } },
       { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
         cell: function (r) { return '<td class="num"><a href="#/series/' + r.year + '">' + (r.year || "—") + "</a></td>"; } },
-      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course) + "</td>"; } },
+      { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course, r) + "</td>"; } },
       { label: "Finishers", cls: "num", get: function (r) { return (resultsByRace[r.raceid] || []).length; }, defaultDir: -1,
         cell: function (r) { return '<td class="num">' + (resultsByRace[r.raceid] || []).length + "</td>"; } },
       { label: "Weather", get: function (r) { return r.weather ? r.weather.temp : null; },
@@ -1457,7 +1468,10 @@ if (D.sample) {
 
 document.getElementById("footer").innerHTML =
   "Results from <a href=\"" + esc(D.source || "https://www.webscorer.com/cofc") + "\" target=\"_blank\" rel=\"noopener\">Webscorer</a>" +
-  (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "");
+  (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "") +
+  (RACES.some(function (r) { return r.courseSource; })
+    ? '<p class="fine">* Course inferred: the race title does not name one, so it comes from a rider\'s GPS track, ' +
+      "the club's weekly course announcement, or the same week's other race.</p>" : "");
 
 render();
 })();
