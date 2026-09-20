@@ -89,6 +89,15 @@ input:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px}
 button.ghost{background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}
 button.ghost:hover{border-color:var(--accent)}
 
+.picker{position:relative}
+.picker-list{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:30;margin:0;padding:4px;
+  list-style:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);max-height:340px;overflow:auto}
+.picker-list[hidden]{display:none}
+.picker-list li{padding:8px 10px;border-radius:7px;cursor:pointer;display:flex;justify-content:space-between;gap:14px}
+.picker-list li[aria-selected="true"],.picker-list li:hover{background:var(--panel-2)}
+.picker-list li .muted{color:var(--ink-3);font-size:12.5px;white-space:nowrap}
+.picker-list li.none{cursor:default;color:var(--ink-3)}
 .filter{display:inline-flex;margin-top:16px;border:1px solid var(--line);border-radius:999px;
   background:var(--panel);overflow:hidden;max-width:100%}
 .filter button{border:0;background:transparent;color:var(--ink-2);font-size:13px;padding:6px 15px;
@@ -280,6 +289,46 @@ var RACER_KEYS = Object.keys(resultsByRacer).sort(function (a, b) {
 });
 
 function nameOf(key) { return (D.racers && D.racers[key]) || key; }
+
+// ---- racer search (begin) ----
+function fold(s) { return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+var SEARCH_INDEX = null;
+// Every typed word must match. A name where a word STARTS with what was typed
+// outranks one where it only appears inside a word; then people with more
+// starts come first, then alphabetical.
+function searchRacers(q, limit) {
+  var terms = fold(q).split(/\s+/).filter(Boolean);
+  if (!terms.length) return [];
+  if (!SEARCH_INDEX) {
+    SEARCH_INDEX = RACER_KEYS.map(function (k) {
+      var n = nameOf(k), f = fold(n);
+      return { key: k, name: n, text: f, words: f.split(/[^a-z0-9']+/).filter(Boolean), starts: resultsByRacer[k].length };
+    });
+  }
+  var out = [];
+  SEARCH_INDEX.forEach(function (e) {
+    var score = 0;
+    for (var i = 0; i < terms.length; i++) {
+      var t = terms[i];
+      if (e.words.some(function (w) { return w.indexOf(t) === 0; })) score += 2;
+      else if (e.text.indexOf(t) >= 0) score += 1;
+      else return;
+    }
+    out.push({ e: e, score: score });
+  });
+  out.sort(function (a, b) { return b.score - a.score || b.e.starts - a.e.starts || a.e.name.localeCompare(b.e.name); });
+  return out.slice(0, limit || 8).map(function (x) { return x.e; });
+}
+// ---- racer search (end) ----
+
+function debounce(fn, ms) {
+  var t;
+  return function () {
+    var self = this, args = arguments;
+    clearTimeout(t);
+    t = setTimeout(function () { fn.apply(self, args); }, ms);
+  };
+}
 
 // ---------------------------------------------------------------------------
 // formatting helpers
@@ -827,11 +876,13 @@ function pickRacer() {
 }
 
 views.h2h = function (a, b) {
+  if (a === "-") a = "";   // "-" stands for "nobody picked yet" in the URL
+  if (b === "-") b = "";
   var h = filterBar() + '<div class="card"><h2>Head to head</h2>' +
-    '<p class="hint">Pick two people. Only counts nights they both finished <em>and</em> ' +
+    '<p class="hint">Pick two people: start typing a name. Only counts nights they both finished <em>and</em> ' +
     'raced the same distance — sharing a start line at different distances is not a race.</p>' +
     '<div class="row">' +
-    racerSelect("h2h-a", a) + racerSelect("h2h-b", b) + "</div></div>";
+    racerPicker("h2h-a", a) + racerPicker("h2h-b", b) + "</div></div>";
 
   if (!a || !b) return h;
   if (a === b) return h + '<div class="card"><p class="empty">Pick two different racers.</p></div>';
@@ -894,12 +945,74 @@ views.h2h = function (a, b) {
   return h;
 };
 
-function racerSelect(id, val) {
-  var opts = RACER_KEYS.map(function (k) {
-    return '<option value="' + esc(k) + '"' + (k === val ? " selected" : "") + ">" +
-           esc(nameOf(k)) + " (" + resultsByRacer[k].length + ")</option>";
-  }).join("");
-  return '<select id="' + id + '" data-h2h="1"><option value="">Choose a racer…</option>' + opts + "</select>";
+// A type-to-search box in place of a drop-down of everyone.
+function racerPicker(id, val) {
+  return '<div class="picker">' +
+    '<input type="text" class="picker-input" id="' + id + '" role="combobox" aria-expanded="false" ' +
+    'aria-autocomplete="list" aria-controls="' + id + '-list" aria-label="Racer name" ' +
+    'autocomplete="off" spellcheck="false" placeholder="Type a name…" ' +
+    'value="' + esc(val ? nameOf(val) : "") + '" data-key="' + esc(val || "") + '">' +
+    '<ul class="picker-list" id="' + id + '-list" role="listbox" hidden></ul></div>';
+}
+
+function wirePickers() {
+  var inputs = document.querySelectorAll ? document.querySelectorAll(".picker-input") : [];
+  Array.prototype.forEach.call(inputs, function (input) {
+    var list = document.getElementById(input.id + "-list"), items = [], active = -1;
+
+    function close() {
+      list.hidden = true; active = -1;
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
+    }
+    function paint() {
+      list.innerHTML = items.length ? items.map(function (e, i) {
+        return '<li role="option" id="' + input.id + "-opt" + i + '" data-key="' + esc(e.key) +
+               '" aria-selected="' + (i === active) + '"><span>' + esc(e.name) + '</span>' +
+               '<span class="muted">' + e.starts + " start" + (e.starts === 1 ? "" : "s") + "</span></li>";
+      }).join("") : '<li class="none">No one by that name</li>';
+      list.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+      if (active >= 0) input.setAttribute("aria-activedescendant", input.id + "-opt" + active);
+    }
+    function pick(key) {
+      input.dataset.key = key;
+      input.value = nameOf(key);
+      close();
+      var a = document.getElementById("h2h-a").dataset.key || "-";
+      var b = document.getElementById("h2h-b").dataset.key || "-";
+      location.hash = "#/h2h/" + a + "/" + b;
+    }
+    function restore() { input.value = input.dataset.key ? nameOf(input.dataset.key) : ""; }
+
+    input.addEventListener("input", debounce(function () {
+      var q = input.value.trim();
+      if (!q) { items = []; close(); return; }
+      items = searchRacers(q, 8);
+      active = items.length ? 0 : -1;
+      paint();
+    }, 120));
+    input.addEventListener("focus", function () { input.select(); });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        if (!items.length || list.hidden) return;
+        e.preventDefault();
+        active = (active + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+        paint();
+      } else if (e.key === "Enter") {
+        if (!list.hidden && active >= 0 && items[active]) { e.preventDefault(); pick(items[active].key); }
+      } else if (e.key === "Escape") {
+        close(); restore();
+      }
+    });
+    list.addEventListener("mousedown", function (e) {
+      var li = e.target && e.target.closest ? e.target.closest("li[data-key]") : null;
+      if (li) { e.preventDefault(); pick(li.dataset.key); }
+    });
+    input.addEventListener("blur", function () {
+      setTimeout(function () { close(); restore(); }, 120);
+    });
+  });
 }
 
 views.course = function (cslug) {
@@ -1214,27 +1327,31 @@ function render(keepScroll) {
   if (keepScroll !== true) window.scrollTo(0, 0);
 
   var search = document.getElementById("racer-search");
-  if (search) { if (keepScroll !== true) search.focus(); search.oninput = function () { showHits(this.value); }; }
+  if (search) {
+    if (keepScroll !== true) search.focus();
+    search.oninput = debounce(function () { showHits(search.value); }, 120);
+  }
+
+  wirePickers();
+  var pa = document.getElementById("h2h-a"), pb = document.getElementById("h2h-b");
+  if (pa && pb && keepScroll !== true) {
+    // Land in the first empty box, so picking two people is two typed names.
+    if (!pa.dataset.key) pa.focus(); else if (!pb.dataset.key) pb.focus();
+  }
 }
 
 function showHits(q) {
   var box = document.getElementById("racer-hits");
-  q = q.trim().toLowerCase();
-  if (!q) { box.innerHTML = ""; return; }
-  var hits = RACER_KEYS.filter(function (k) { return nameOf(k).toLowerCase().indexOf(q) >= 0; }).slice(0, 12);
+  if (!box) return;
+  if (!q.trim()) { box.innerHTML = ""; return; }
+  var hits = searchRacers(q, 12);
   box.innerHTML = hits.length
-    ? '<div class="legend" style="margin-top:12px">' + hits.map(function (k) {
-        return '<a class="pill" href="#/racer/' + esc(k) + '">' + esc(nameOf(k)) +
-               ' <span class="muted">' + resultsByRacer[k].length + "</span></a>";
+    ? '<div class="legend" style="margin-top:12px">' + hits.map(function (e) {
+        return '<a class="pill" href="#/racer/' + esc(e.key) + '">' + esc(e.name) +
+               ' <span class="muted">' + e.starts + "</span></a>";
       }).join("") + "</div>"
     : '<p class="hint" style="margin-top:12px">No one by that name.</p>';
 }
-
-document.addEventListener("change", function (e) {
-  if (!e.target.dataset || !e.target.dataset.h2h) return;
-  var a = document.getElementById("h2h-a").value, b = document.getElementById("h2h-b").value;
-  location.hash = "#/h2h/" + a + "/" + b;
-});
 
 document.addEventListener("click", function (e) {
   var b = e.target && e.target.closest ? e.target.closest("button[data-filter]") : null;
