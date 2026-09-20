@@ -409,6 +409,17 @@ def panel_heading(panel, table) -> str:
     return re.sub(r"\s*Results Table$", "", head)
 
 
+def clean_name(raw: str) -> str | None:
+    """A racer's name as published, or None for a timing-day placeholder."""
+    name = " ".join(QUOTED_NICKNAME_RE.sub(" ", BIB_NOTE_RE.sub(" ", raw or "")).split())
+    if not name or PLACEHOLDER_RE.search(name):
+        return None
+    if name.isupper():
+        name = name.title()  # "DAVID SCHMIDT"
+    # "kimberly Tillotson", "billy d Dysart": capitalise a lowercase token start.
+    return " ".join(t[0].upper() + t[1:] if t[0].islower() else t for t in name.split())
+
+
 def read_table(table, raceid: int, distance: str, group_laps: int | None = None, group_gender: str | None = None) -> list[dict]:
     cols = [norm_header(th.get_text(" ", strip=True)) for th in table.find_all("th", recursive=True)]
     # Nested lap tables have their own <th>; only the outer header row counts.
@@ -444,13 +455,9 @@ def read_table(table, raceid: int, distance: str, group_laps: int | None = None,
             if key in row and row[key]:
                 continue
             row[key] = value
-        name = " ".join(QUOTED_NICKNAME_RE.sub(" ", BIB_NOTE_RE.sub(" ", row.get("name", ""))).split())
-        if not name or PLACEHOLDER_RE.search(name):
+        name = clean_name(row.get("name", ""))
+        if not name:
             continue
-        if name.isupper():
-            name = name.title()  # "DAVID SCHMIDT"
-        # "kimberly Tillotson", "billy d Dysart": capitalise a lowercase token start.
-        name = " ".join(t[0].upper() + t[1:] if t[0].islower() else t for t in name.split())
 
         place_raw = re.sub(r"[^\d]", "", row.get("place", ""))
         laps = group_laps if group_laps is not None else laps_from_distance(distance)
@@ -666,7 +673,9 @@ def fetch_weather(races: list[dict], refresh: bool = False) -> dict:
             "precipitation_unit": "inch",
         }
         try:
-            blob = fetch_json(ARCHIVE, params, f"weather-{year}", refresh=refresh)
+            # The key carries the date range: adding an earlier race date must not reuse a cache
+            # that stopped short of it.
+            blob = fetch_json(ARCHIVE, params, f"weather-{year}-{days[0]}-{days[-1]}", refresh=refresh)
         except requests.RequestException as exc:
             print(f"  {year}: {exc}", file=sys.stderr)
             continue
@@ -733,6 +742,22 @@ def load_aliases() -> dict:
     return json.loads(path.read_text(encoding="utf-8")).get("aliases", {})
 
 
+def load_extra() -> tuple[list[dict], list[dict]]:
+    """Races and results that did not come from Webscorer: data/extra/*.json, each {races, results}.
+
+    Written by the tools/ scripts that read Catamount's own sheets and old website. Race ids
+    there are negative (a Webscorer id is never negative), so they cannot collide.
+    """
+    races: list[dict] = []
+    results: list[dict] = []
+    extra = DATA / "extra"
+    for path in sorted(extra.glob("*.json")) if extra.exists() else []:
+        blob = json.loads(path.read_text(encoding="utf-8"))
+        races += blob.get("races", [])
+        results += blob.get("results", [])
+    return races, results
+
+
 def load_course_labels() -> dict:
     """Courses the race titles never named (2021-22), found another way; see CLAUDE.md."""
     path = ROOT / "course_labels.json"
@@ -745,6 +770,9 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
     """Bundle races + results, dropping races we never got rows for."""
     aliases = load_aliases()
     course_labels = load_course_labels()
+    extra_races, extra_results = load_extra()
+    races = races + extra_races
+    results = results + extra_results
     for r in results:
         r["racer"] = aliases.get(r["racer"], r["racer"])
 
@@ -830,7 +858,7 @@ def main() -> None:
         print(f"Wrote data/results.json: {len(results)} rows.\n")
 
     if args.phase in ("weather", "all"):
-        races = load("races.json")
+        races = load("races.json") + load_extra()[0]
         print("Fetching weather...")
         save("weather.json", fetch_weather(races, refresh=args.refresh))
         print("Wrote data/weather.json.\n")

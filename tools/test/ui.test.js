@@ -64,11 +64,11 @@ check("aliases: every target is a racer with results", Object.values(aliases).ev
 const labelFile = JSON.parse(fs.readFileSync(path.join(ROOT, "course_labels.json"), "utf8")).labels;
 const inferred = races.filter((r) => r.courseSource);
 const namedInTitle = (t) => /\([^)]+\)/.test(t) || /\b(red|black|white|yellow|green|blue|orange|purple)\s+(on|in)\s+(red|black|white|yellow|green|blue|orange|purple)\b/i.test(t);
-// Titles only use three courses, but 2021 also ran "Black on Orange" (named on the club's own weekly sheets).
+// Titles only use three courses, but 2021 also ran "Black on Orange" (named on Catamount's own weekly sheets).
 const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).map((r) => r.course).concat(["Black on Orange"]));
 check("labels: every labelled race is in the bundle with that course and source", Object.entries(labelFile).every(([id, l]) => { const r = fx.raceById[id]; return r && r.course === l.course && r.courseSource === l.source; }));
 check("labels: only races whose title names no course carry a label", inferred.every((r) => !namedInTitle(r.title)) && inferred.length === Object.keys(labelFile).length, inferred.length + " inferred");
-check("labels: sources are gps, club or sibling, and courses are ones the titles use", inferred.every((r) => ["gps", "club", "sibling"].includes(r.courseSource) && knownCourses.has(r.course)));
+check("labels: sources are gps, center or sibling, and courses are ones the titles use", inferred.every((r) => ["gps", "center", "sibling"].includes(r.courseSource) && knownCourses.has(r.course)));
 
 // ---------------------------------------------------------------------------
 // the UI, in a stubbed DOM

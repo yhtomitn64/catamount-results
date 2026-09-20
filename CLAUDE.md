@@ -1,7 +1,9 @@
 # catamount-results
 
-An explorable archive of the Catamount Outdoor Family Center Wednesday night
-race series (Williston, VT). One static page (`index.html`) reads a generated
+An explorable archive of the weekly summer and fall race series (Tuesday trail
+running, Wednesday mountain biking, cyclocross) at Catamount Outdoor Family Center in
+Williston, VT: a family outdoor center that was privately owned and is now owned by the
+Town of Williston. It is not a club. One static page (`index.html`) reads a generated
 data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer.
 
 **This is a PUBLIC repository.** Everything committed is world-readable forever.
@@ -117,15 +119,15 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 - Age and hometown are on the Webscorer page and are deliberately dropped.
 - Race titles name a course only from 2023 (plus a few in 2024 written as plain words),
   and cross never has one. `course_labels.json` fills the unnamed 2021-22 MTB / trail-run
-  races and marks them `courseSource`: `club` (2021: every in-person night, from the "Course:"
-  line on the club's own weekly results PDFs in its public Google Drive folders, lined up to
+  races and marks them `courseSource`: `center` (2021: every in-person night, from the "Course:"
+  line on Catamount's own weekly results PDFs in its public Google Drive folders, lined up to
   calendar weeks, plus the dated "Current Race Course" banner from the Wayback Machine),
   `gps` (2022: the owner's ride matched against the three 2022 courses' lap shapes: 11/11 on
   held-out known nights, 3 of 3 independent checks agreed) or `sibling` (the Tuesday run uses
   the same week's Wednesday course: true in 48 of 49 known weeks). 2021 ran a fourth course,
   "Black on Orange", which a three-course GPS match cannot tell from its neighbours (it
-  mislabelled two such nights until the club sheets corrected it), so GPS is only used for
-  2022, when the club listed three courses. The page stars every filled-in course.
+  mislabelled two such nights until Catamount's sheets corrected it), so GPS is only used for
+  2022, when Catamount listed three courses. The page stars every filled-in course.
 - Sample data is built to exercise the UI; a green run on it proves the UI logic,
   not the scraper. The results-table parser had never seen a real page as of the
   last commit.
