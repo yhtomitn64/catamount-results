@@ -25,7 +25,7 @@ jobs:
           cp index.html dist/
           cp data/catamount.js dist/data/
           cp data/catamount.json dist/data/
-          cp robots.txt sitemap.xml dist/
+          cp robots.txt sitemap.xml _headers dist/
           ls -R dist
 
       - name: Deploy to Cloudflare Pages

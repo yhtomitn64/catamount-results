@@ -1,0 +1,8 @@
+# Cloudflare Pages response headers.
+#
+# The data bundle is replaced on every deploy while index.html revalidates each
+# load, so a browser holding the default 4-hour cache of data/catamount.js showed
+# new page code against old data. "no-cache" means revalidate with the ETag on
+# every load: an unchanged file costs a 304, a changed one is never stale.
+/data/*
+  Cache-Control: no-cache
