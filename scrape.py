@@ -76,6 +76,10 @@ ISO_RE = re.compile(r"(?P<y>\d{4})-(?P<m>\d{1,2})-(?P<d>\d{1,2})")
 DMY_RE = re.compile(r"(?P<d>\d{1,2})-(?P<mon>[A-Za-z]{3})[a-z]*-(?P<y>\d{4})")
 MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 COURSE_RE = re.compile(r"\(([^)]+)\)")
+# Most titles put the course in parentheses, "(Red on Black)"; in 2024 some wrote it
+# as plain words, "MTB race Black on White".
+COURSE_COLORS = "red|black|white|yellow|green|blue|orange|purple|pink|brown"
+COURSE_WORDS_RE = re.compile(rf"\b(?:{COURSE_COLORS})\s+(?:on|in)\s+(?:{COURSE_COLORS})\b", re.I)
 
 DISCIPLINE_NAMES = {"MTB": "Mountain bike", "TR": "Trail run", "CX": "Cyclocross", "XC": "Cross country", "SS": "Single speed"}
 
@@ -111,6 +115,8 @@ def parse_title(title: str) -> dict:
     c = COURSE_RE.search(title)
     if c:
         out["course"] = normalize_course(c.group(1))
+    elif (w := COURSE_WORDS_RE.search(title)):
+        out["course"] = normalize_course(w.group(0))
     return out
 
 

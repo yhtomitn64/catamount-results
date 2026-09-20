@@ -1029,7 +1029,7 @@
     "date": "2024-05-15",
     "year": 2024,
     "discipline": "MTB",
-    "course": null,
+    "course": "Black on White",
     "finishers": 43,
     "sport": "Cycling - mtn cross-country"
   },
@@ -1040,7 +1040,7 @@
     "date": "2024-05-22",
     "year": 2024,
     "discipline": "MTB",
-    "course": null,
+    "course": "Red on Black",
     "finishers": 53,
     "sport": "Cycling - mtn cross-country"
   },
@@ -1051,7 +1051,7 @@
     "date": "2024-05-28",
     "year": 2024,
     "discipline": "TR",
-    "course": null,
+    "course": "Red on Black",
     "finishers": 84,
     "sport": "Running - trail"
   },
@@ -1062,7 +1062,7 @@
     "date": "2024-05-29",
     "year": 2024,
     "discipline": "MTB",
-    "course": null,
+    "course": "Red on Black",
     "finishers": 64,
     "sport": "Cycling - mtn cross-country"
   },
@@ -1073,7 +1073,7 @@
     "date": "2024-06-04",
     "year": 2024,
     "discipline": "TR",
-    "course": null,
+    "course": "Yellow on Green",
     "finishers": 98,
     "sport": "Running - trail"
   },
@@ -1084,7 +1084,7 @@
     "date": "2024-06-05",
     "year": 2024,
     "discipline": "MTB",
-    "course": null,
+    "course": "Yellow on Green",
     "finishers": 58,
     "sport": "Cycling - mtn cross-country"
   },
@@ -1117,7 +1117,7 @@
     "date": "2024-06-18",
     "year": 2024,
     "discipline": "TR",
-    "course": null,
+    "course": "Red on Black",
     "finishers": 80,
     "sport": "Running - trail"
   },
@@ -1128,7 +1128,7 @@
     "date": "2024-06-19",
     "year": 2024,
     "discipline": "MTB",
-    "course": null,
+    "course": "Red on Black",
     "finishers": 39,
     "sport": "Cycling - mtn cross-country"
   },
