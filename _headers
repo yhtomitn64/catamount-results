@@ -4,5 +4,8 @@
 # load, so a browser holding the default 4-hour cache of data/catamount.js showed
 # new page code against old data. "no-cache" means revalidate with the ETag on
 # every load: an unchanged file costs a 304, a changed one is never stale.
+#
+# On the custom domain the zone-wide Browser Cache TTL overrides this, which is why
+# deploy.yml also stamps the data URL with the commit id. Kept for pages.dev.
 /data/*
   Cache-Control: no-cache

@@ -26,6 +26,11 @@ jobs:
           cp data/catamount.js dist/data/
           cp data/catamount.json dist/data/
           cp robots.txt sitemap.xml _headers dist/
+          # The zone's Browser Cache TTL (4 hours) overrides the headers this site
+          # sends, so version the data URL per deploy: a new deploy is a new URL that
+          # no cache has seen. index.html itself revalidates on every load.
+          sed -i "s#src=\"data/catamount.js\"#src=\"data/catamount.js?v=${GITHUB_SHA}\"#" dist/index.html
+          grep -q 'catamount.js?v=' dist/index.html
           ls -R dist
 
       - name: Deploy to Cloudflare Pages
