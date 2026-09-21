@@ -113,12 +113,13 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 
 ## Working notes
 
-- **Old website (2019 so far).** `tools/oldsite.py` reads the age-group pages Catamount
-  posted before Webscorer. Same rules as everywhere: name, placing, time, distance group,
-  laps; team, bib, age and gender are dropped. Race links say "Old results page" and point
-  at the Wayback copy. The course is the page's own line (no star). Placings are recomputed
-  inside each distance group. `python tools/wayback.py` fetches (slow, cached); oldsite.py
-  never touches the network.
+- **Old website (2009-2019, with gaps).** `tools/oldsite.py` reads the results pages Catamount
+  posted before Webscorer (Wayback copies; see its docstring for the four page formats). Same
+  rules as everywhere: name, placing, time, distance group, laps; team, city, bib, age and gender
+  are dropped. Race links say "Old results page" and point at the Wayback copy. A course is shown
+  only where the page names one (2019; no star). Placings are recomputed inside each distance
+  group, and a time no one could have run (a 5K in 1:40) is left out. `python tools/wayback.py`
+  fetches (slow: 10 s apart, cached, backs off on 429/offline); oldsite.py never touches the network.
 - **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
   nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
   14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the

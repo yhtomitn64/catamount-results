@@ -61,6 +61,16 @@ check("data: virtual weeks are extras (negative id, on a results sheet) and thei
   return Object.values(byDist).every((g) => new Set(g.map((x) => x.racer)).size === g.length &&
     g.every((x) => x.place === 1 + g.filter((y) => y.seconds < x.seconds).length));
 }), virtual.length + " virtual weeks");
+// Nights read from the old website: the page's own heading date is sometimes stale, so the title's date is
+// used and must land on the sport's weekday; and a time nobody could have run is left out.
+const oldRaces = races.filter((r) => /archive\.org/.test(r.url));
+const weekday = (d) => new Date(d + "T12:00:00Z").getUTCDay();
+check("old site: every night falls on its sport's weekday (Tue run, Wed bike and cross)", oldRaces.length > 0 && oldRaces.every((r) => weekday(r.date) === (r.discipline === "TR" ? 2 : 3)),
+  oldRaces.filter((r) => weekday(r.date) !== (r.discipline === "TR" ? 2 : 3)).map((r) => r.date).join(","));
+const oldIds = new Set(oldRaces.map((r) => r.raceid));
+const tooFast = bundle.results.filter((r) => oldIds.has(r.raceid) && r.seconds && ((r.distance === "5K" && r.seconds < 720) || (/^\d Lap$/.test(r.distance) && r.seconds < 450 * r.laps)));
+check("old site: no time faster than anyone could run", tooFast.length === 0, tooFast.length + " rows");
+check("old site: every race id is unique and negative", oldRaces.every((r) => r.raceid < 0) && new Set(races.map((r) => r.raceid)).size === races.length);
 check("data: every result belongs to a race and has a group label", bundle.results.every((r) => fx.raceById[r.raceid] && typeof r.distance === "string"));
 check("data: 'N Lap' groups carry that many laps", bundle.results.every((r) => { const m = /^(\d+) Lap$/.exec(r.distance); return !m || r.laps === +m[1]; }));
 check("data: every racer has a display name", fx.racers.every((k) => bundle.racers[k]));
