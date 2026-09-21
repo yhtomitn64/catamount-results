@@ -91,6 +91,41 @@ def cdx(url: str, *, year_from: str | None = None, year_to: str | None = None,
     return [tuple(r) for r in rows]
 
 
+def norm_url(url: str) -> str:
+    """One name for the http/https, www, and :80 spellings of a page."""
+    return re.sub(r":80(?=/)", "", url.replace("https://", "http://").replace("://www.", "://"))
+
+
+def cdx_all(url: str, *, limit: int = 20000) -> list[tuple[str, str, str, int]]:
+    """Every capture, not one per URL: (timestamp, original_url, digest, compressed_length). Cached."""
+    params = {"url": url, "output": "json", "fl": "timestamp,original,digest,length", "filter": "statuscode:200",
+              "matchType": "prefix", "limit": limit}
+    path = CACHE / f"cdxall_{_key(json.dumps(params, sort_keys=True))}.json"
+    if path.exists():
+        rows = json.loads(path.read_text())
+    else:
+        resp = _slow_get("https://web.archive.org/cdx/search/cdx", params)
+        rows = resp.json()[1:] if resp.text.strip() else []
+        CACHE.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(rows))
+    return [(ts, u, dg, int(ln)) for ts, u, dg, ln in rows]
+
+
+# After the 2019 redesign catamountoutdoor.com answers a missing page with its home page (status 200, about
+# 7,000-7,500 bytes compressed). A capture of that size is not the page asked for.
+HOME_PAGE_BYTES = range(7000, 7500)
+
+
+def candidates(url: str) -> dict[str, list[tuple[str, str]]]:
+    """{page: [(timestamp, original_url), ...]} of captures that are not the home page, earliest first."""
+    out: dict[str, list[tuple[str, str]]] = {}
+    for ts, u, _digest, length in sorted(cdx_all(url)):
+        if length in HOME_PAGE_BYTES or length < 2500:
+            continue
+        out.setdefault(norm_url(u), []).append((ts, u))
+    return out
+
+
 def _path(timestamp: str, url: str) -> pathlib.Path:
     slug = re.sub(r"[^A-Za-z0-9]+", "_", url)[-60:]
     return CACHE / f"{timestamp}_{slug}_{_key(timestamp, url)}.html"

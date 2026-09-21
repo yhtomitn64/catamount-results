@@ -259,21 +259,18 @@ def main() -> None:
     ap.add_argument("--list", action="store_true", help="show how each cached page parses; write nothing")
     args = ap.parse_args()
 
-    seen: dict[str, tuple[str, str]] = {}
-    for ts, url in wayback.cdx("catamountoutdoor.com/results/", match="prefix", limit=5000):
-        norm = re.sub(r":80(?=/)", "", url.replace("https://", "http://").replace("://www.", "://"))
-        seen.setdefault(norm, (ts, url))
-
     races, results, pages = [], [], 0
-    for norm, (ts, url) in sorted(seen.items()):
+    for norm, captures in sorted(wayback.candidates("catamountoutdoor.com/results/").items()):
         if not re.search(r"/results/\d{4}/(?:cx)?\d{6}\.html?$", norm, re.I):
             continue
-        html = wayback.cached(ts, url)
-        if html is None:
-            continue
-        pages += 1
-        page = parse_page(html, url)
+        # The earliest capture that is on disk and parses; captures that were never fetched are skipped.
+        page = ts = url = None
+        for ts, url in captures:
+            html = wayback.cached(ts, url)
+            if html is not None and (page := parse_page(html, url)):
+                break
         label = norm.split("/results/")[-1]
+        pages += 1
         if page is None:
             print(f"  {label:18} not a results page")
             continue

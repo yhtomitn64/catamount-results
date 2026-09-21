@@ -119,7 +119,9 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   are dropped. Race links say "Old results page" and point at the Wayback copy. A course is shown
   only where the page names one (2019; no star). Placings are recomputed inside each distance
   group, and a time no one could have run (a 5K in 1:40) is left out. `python tools/wayback.py`
-  fetches (slow: 10 s apart, cached, backs off on 429/offline); oldsite.py never touches the network.
+  fetches (slow: 10 s apart, cached, backs off on 429/offline; it skips captures that are the site's
+  home page, which the Archive stores for pages the redesigned site no longer has);
+  oldsite.py never touches the network.
 - **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
   nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
   14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the
