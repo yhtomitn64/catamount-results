@@ -140,6 +140,7 @@ const routes = ["#/racer", "#/racer/" + fx.top, "#/h2h", "#/h2h/" + fx.top + "/"
   .concat(fx.allRounders.slice(0, 2).map((k) => "#/racer/" + k))
   .concat(courses.map((c) => "#/course/" + slug(c)))
   .concat(years.map((y) => "#/series/" + y))
+  .concat(["#/power"], years.map((y) => "#/power/" + y))
   .concat(races.map((r) => "#/race/" + r.raceid));
 const rendered = {};
 let renderFailures = 0, sample = "";
@@ -365,6 +366,57 @@ function clickYear(y) {
   const zoom = el("view").innerHTML.split('<svg class="chart"').slice(1).map((c) => c.split("</svg>")[0]);
   check("participation: zooming a season leaves the trend alone and joins that season's night dots", (zoom[0].match(/<circle class="pt"/g) || []).length === (both[0].match(/<circle class="pt"/g) || []).length && /<path /.test(zoom[1]));
   clickYear("all");
+}
+
+// ---- power rankings ------------------------------------------------------------------------------------------------------------
+{
+  const rank = ctx.window.CatamountRank.ratings;
+  const night = (...order) => order.map((k, i) => ({ k, p: i + 1 }));
+  // The scenario from the brief: Bea is 2nd on five nights when nobody fast is there; Cy is 3rd on five nights but
+  // finished ahead of the fast riders, including Pat, the one who beat Bea. Fast riders are shown to be fast elsewhere.
+  const nights = [];
+  for (let i = 0; i < 5; i++) nights.push(night("pat", "bea", "s1", "s2", "s3"));
+  for (let i = 0; i < 5; i++) nights.push(night("x", "y", "cy", "pat", "g1", "g2"));
+  for (let i = 0; i < 3; i++) nights.push(night("pat", "g1", "g2", "s1", "s2", "s3", "s4"));
+  const r = rank(nights);
+  check("rankings: a 3rd place that beat the fast riders outranks a 2nd place in a soft field", r.rating.cy > r.rating.bea, Math.round(r.rating.cy) + " vs " + Math.round(r.rating.bea));
+  check("rankings: the same holds although Bea's average place is better", (5 * 2) / 5 < (5 * 3) / 5 && r.rating.cy > r.rating.bea);
+  const order = Object.keys(r.rating).sort((a, b) => r.rating[b] - r.rating[a]);
+  check("rankings: the riders who beat everyone rank above the ones who beat no one", order.indexOf("x") < order.indexOf("pat") && order.indexOf("pat") < order.indexOf("s1"), order.join(">"));
+  check("rankings: a racer who never beat anyone still gets a finite rating", Object.values(r.rating).every(Number.isFinite));
+  check("rankings: nights, beat and lost are counted from the results", r.nights.cy === 5 && r.beat.cy === 5 * 3 && r.lost.cy === 5 * 2, JSON.stringify([r.nights.cy, r.beat.cy, r.lost.cy]));
+  check("rankings: the best win is the strongest rider beaten", r.best.cy.k === "pat" || r.best.cy.k === "g1" || r.best.cy.k === "g2");
+  const tie = rank([[{ k: "a", p: 1 }, { k: "b", p: 1 }]]);
+  check("rankings: a tie is worth half a win to each", Math.abs(tie.rating.a - tie.rating.b) < 1e-6 && tie.beat.a === 0.5 && tie.lost.a === 0.5);
+  const apart = rank([night("a", "b"), night("c", "d")]);
+  check("rankings: groups of riders who never met are still rated", ["a", "b", "c", "d"].every((k) => Number.isFinite(apart.rating[k])) && apart.rating.a > apart.rating.b);
+
+  // On the real data
+  clickFilter("all");
+  const inPersonYears = [...new Set(races.filter((r) => !r.virtual).map((r) => r.year))].sort();
+  const busiest = inPersonYears.map((y) => [y, races.filter((r) => !r.virtual && r.year === y).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const parse = (h) => [...h.matchAll(/<tr><td class="num">(\d+)<\/td><td><a href="#\/racer\/([^"]+)"[^>]*>[^<]*<\/a><\/td><td class="num">(\d+)<\/td><td class="num">(\d+)<\/td>/g)].map((m) => ({ rank: +m[1], k: m[2], rating: +m[3], nights: +m[4] }));
+  const page = route("#/power/" + busiest + "/3");
+  const rows = parse(page);
+  check("rankings: the page lists ranked racers, best first, none under the minimum nights", rows.length > 20 && rows.every((r, i) => r.rank === i + 1 && (!i || rows[i - 1].rating >= r.rating) && r.nights >= 3), rows.length + " rows");
+  const rows10 = parse(route("#/power/" + busiest + "/10"));
+  check("rankings: the minimum-nights buttons narrow the list", rows10.length < rows.length && rows10.every((r) => r.nights >= 10), rows10.length + " vs " + rows.length);
+  check("rankings: season and minimum buttons are links, the current ones marked", new RegExp('href="#/power/' + busiest + '/3" class="on"').test(page) && inPersonYears.every((y) => page.includes('href="#/power/' + y + '/3"')));
+  // Virtual weeks share no start line, so 2021's in-person nights are the only ones that count.
+  const inPerson21 = new Set(races.filter((r) => !r.virtual && r.year === 2021).map((r) => r.raceid));
+  const nightsIn = (k) => new Set(D.results.filter((x) => x.racer === k && inPerson21.has(x.raceid)).map((x) => x.div)).size;
+  const rows21 = parse(route("#/power/2021/3"));
+  check("rankings: virtual weeks are left out (nights never exceed the in-person groups a racer ran)", rows21.length > 0 && rows21.every((r) => r.nights <= nightsIn(r.k)), rows21.length + " rows");
+  // Sanity against something simple: better ratings go with better finishing percentiles.
+  const pct = {};
+  D.results.filter((x) => races.find((r) => r.raceid === x.raceid && !r.virtual && r.year === busiest) && x.pct != null).forEach((x) => { (pct[x.racer] = pct[x.racer] || []).push(x.pct); });
+  const paired = rows.filter((r) => pct[r.k] && pct[r.k].length >= 3).map((r) => [r.rating, pct[r.k].reduce((a, b) => a + b, 0) / pct[r.k].length]);
+  const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+  const mx = mean(paired.map((p) => p[0])), my = mean(paired.map((p) => p[1]));
+  const corr = paired.reduce((t, p) => t + (p[0] - mx) * (p[1] - my), 0) /
+    Math.sqrt(paired.reduce((t, p) => t + (p[0] - mx) ** 2, 0) * paired.reduce((t, p) => t + (p[1] - my) ** 2, 0));
+  check("rankings: ratings track average finishing percentile (correlation " + corr.toFixed(2) + ")", corr > 0.6, corr.toFixed(2));
+  check("rankings: the sport filter changes the field", (() => { clickFilter("CX"); const cx = route("#/power"); clickFilter("all"); return /Cyclocross/.test(cx); })());
 }
 
 // ---- long tables ---------------------------------------------------------------------------------------------------------

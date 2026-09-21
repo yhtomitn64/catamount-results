@@ -52,7 +52,13 @@ const check = (name, ok, detail) => {
       const input = document.getElementById("h2h-a");
       return { navOverflow: nav.scrollWidth - nav.clientWidth, filterH: Math.round(btn.getBoundingClientRect().height),
                inputFont: getComputedStyle(input).fontSize, overflowX: document.documentElement.scrollWidth - innerWidth }; })()`);
-    check("all five nav tabs fit on one row", f.navOverflow <= 0, JSON.stringify(f));
+    // Six tabs are wider than a phone, so the row scrolls sideways; what must hold is that the page does not,
+    // and that the current tab is in view.
+    await b.hash("#/power");
+    const nv = await b.eval(`(() => { const nav = document.getElementById("nav"), on = nav.querySelector("a.on"), r = on.getBoundingClientRect(), n = nav.getBoundingClientRect();
+      return { tabs: nav.querySelectorAll("a").length, inView: r.left >= n.left - 1 && r.right <= n.right + 1, page: document.documentElement.scrollWidth - innerWidth }; })()`);
+    check("all six nav tabs exist, the current one is scrolled into view and the page does not scroll sideways", nv.tabs === 6 && nv.inView && nv.page <= 0, JSON.stringify(nv));
+    await b.hash("#/h2h");
     check("filter buttons are at least 44px tall", f.filterH >= 44, f.filterH + "px");
     check("inputs are 16px, so iOS does not zoom in on focus", f.inputFont === "16px", f.inputFont);
     check("no sideways page scroll", f.overflowX <= 0, f.overflowX);
@@ -96,6 +102,9 @@ const check = (name, ok, detail) => {
     check("the Seasons page has no sideways scroll on a phone", (await b.eval("document.documentElement.scrollWidth - innerWidth")) <= 0);
     await b.eval("document.querySelector('svg.chart').scrollIntoView()");
     await b.shot("participation");
+    await b.hash("#/power");
+    check("the Rankings page has no sideways scroll on a phone", (await b.eval("document.documentElement.scrollWidth - innerWidth")) <= 0);
+    await b.shot("rankings");
     await b.hash("#/racer/" + fx.top);
 
     // ---- season zoom: a phone-sized tap target, zooms to one season, and All years brings it back ----------------

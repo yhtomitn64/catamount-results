@@ -122,6 +122,16 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   fetches (slow: 10 s apart, cached, backs off on 429/offline; it skips captures that are the site's
   home page, which the Archive stores for pages the redesigned site no longer has);
   oldsite.py never touches the network.
+- **Power rankings** (`views.power`, tab "Rankings"). A Bradley-Terry fit per season over every pair of
+  finishers inside each (night, distance) group, in-person nights only: beating a strong rider counts
+  for more than beating a weak one, so a 3rd behind two fast riders can outrank a 2nd in a soft field.
+  A prior (one win and one loss against an average rider) keeps thin records near 1500 and lets groups
+  that never met be rated. Rating = 1500 + 200*log10(strength). Seasons only: a chain of opponents from
+  2008 to 2024 is not a comparison. The algorithm is exposed as `window.CatamountRank.ratings` so the
+  tests can feed it made-up nights. A racer listed twice in one group counts once.
+- **Season zoom.** Time charts show dots only across all years (a line inside a sliver of a 20-year
+  axis is a smear); a button per season zooms in and draws the line. `opts.trend` (the participation
+  chart) opts out: one point per season, joined, gaps of more than a year break the line.
 - **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
   nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
   14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the

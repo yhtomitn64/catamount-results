@@ -133,13 +133,17 @@ svg.chart circle.pt{cursor:pointer}
 .seasons{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
 .seasons button{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);font-size:13px;
   padding:4px 12px;border-radius:999px;cursor:pointer;min-height:32px}
+.seasons a{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);font-size:13px;
+  padding:4px 12px;border-radius:999px;min-height:32px;display:inline-flex;align-items:center;white-space:nowrap}
+.seasons a:hover{background:var(--panel-2);text-decoration:none}
+.seasons a.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
 .seasons button:hover{background:var(--panel-2)}
 .seasons button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
-@media (pointer:coarse){.seasons button{min-height:40px;padding:0 15px}}
+@media (pointer:coarse){.seasons button,.seasons a{min-height:40px;padding:0 15px}}
 @media (max-width:700px){   /* twenty seasons would stack five rows deep: one scrolling row instead */
   .seasons{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .seasons::-webkit-scrollbar{display:none}
-  .seasons button{flex:0 0 auto}
+  .seasons button,.seasons a{flex:0 0 auto}
 }
 
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;
@@ -1472,6 +1476,136 @@ views.series = function (year) {
   return h;
 };
 
+// ---------------------------------------------------------------------------
+// power rankings
+// ---------------------------------------------------------------------------
+// Who you beat, weighted by how good they are, like a college football computer poll. Every start-line
+// group on every night is a small tournament: each pair of finishers is one result (ahead / behind,
+// a tie counts half). A Bradley-Terry fit turns those results into a strength for each racer: beating a
+// strong rider counts for more than beating a weak one, and losing to a strong rider costs less than
+// losing to a weak one, so a third place behind two fast riders can outrank a second place in a soft
+// field. It is fit within one season (courses are re-cut and the roster turns over, so a chain of
+// opponents from 2008 to 2024 is not a comparison) and only on in-person nights (virtual weeks shared
+// no start line). Everyone is also given one win and one loss against an average rider, so a racer
+// with few starts stays near the middle instead of shooting to the top or bottom, and separate
+// groups of riders that never met still get a rating.
+// divs: [[{k: racer, p: place in the group}, ...], ...]  ->  { rating, nights, beat, lost, best }
+function powerRatings(divs) {
+  var idx = {}, keys = [], nights = {};
+  function id(k) { if (idx[k] === undefined) { idx[k] = keys.length; keys.push(k); } return idx[k]; }
+  var edge = {};                                   // a*65536+b (a<b) -> [meetings, a's wins, b's wins]
+  divs.forEach(function (rows) {
+    var ids = rows.map(function (r) { nights[r.k] = (nights[r.k] || 0) + 1; return id(r.k); });
+    for (var i = 0; i < rows.length; i++) {
+      for (var j = i + 1; j < rows.length; j++) {
+        var a = ids[i], b = ids[j], pa = rows[i].p, pb = rows[j].p, flip = a > b;
+        var wa = pa < pb ? 1 : pa === pb ? 0.5 : 0;
+        var key = flip ? b * 65536 + a : a * 65536 + b, e = edge[key] || (edge[key] = [0, 0, 0]);
+        e[0]++;
+        e[flip ? 2 : 1] += wa; e[flip ? 1 : 2] += 1 - wa;
+      }
+    }
+  });
+  var N = keys.length, ea = [], eb = [], en = [], ewa = [], ewb = [], W = [], p = [], den = [], i, e;
+  for (i = 0; i < N; i++) { W.push(0); p.push(1); den.push(0); }
+  Object.keys(edge).forEach(function (key) {
+    var v = edge[key], a = Math.floor(key / 65536), b = key % 65536;
+    ea.push(a); eb.push(b); en.push(v[0]); ewa.push(v[1]); ewb.push(v[2]);
+    W[a] += v[1]; W[b] += v[2];
+  });
+  var PRIOR = 1;
+  for (var it = 0; it < 400; it++) {
+    for (i = 0; i < N; i++) den[i] = 2 * PRIOR / (p[i] + 1);
+    for (e = 0; e < ea.length; e++) { var d = en[e] / (p[ea[e]] + p[eb[e]]); den[ea[e]] += d; den[eb[e]] += d; }
+    var moved = 0;
+    for (i = 0; i < N; i++) {
+      var np = (W[i] + PRIOR) / den[i];
+      moved = Math.max(moved, Math.abs(np - p[i]) / p[i]);
+      p[i] = np;
+    }
+    if (moved < 1e-7) break;
+  }
+  var out = { rating: {}, nights: nights, beat: {}, lost: {}, best: {} };
+  for (i = 0; i < N; i++) { out.rating[keys[i]] = 1500 + 200 * Math.log(p[i]) / Math.LN10; out.beat[keys[i]] = 0; out.lost[keys[i]] = 0; }
+  for (e = 0; e < ea.length; e++) {
+    var A = keys[ea[e]], B = keys[eb[e]];
+    out.beat[A] += ewa[e]; out.lost[A] += ewb[e]; out.beat[B] += ewb[e]; out.lost[B] += ewa[e];
+    if (ewa[e] > 0 && (!out.best[A] || p[eb[e]] > out.best[A].p)) out.best[A] = { k: B, p: p[eb[e]] };
+    if (ewb[e] > 0 && (!out.best[B] || p[ea[e]] > out.best[B].p)) out.best[B] = { k: A, p: p[ea[e]] };
+  }
+  return out;
+}
+window.CatamountRank = { ratings: powerRatings };   // the tests feed it made-up nights
+
+var POWER = {};                                     // season + sport filter -> ratings, worked out once
+function seasonRatings(year) {
+  var key = year + "|" + discFilter;
+  if (POWER[key]) return POWER[key];
+  var divs = [];
+  (years[year] || []).filter(passRace).filter(function (r) { return !r.virtual; }).forEach(function (race) {
+    (race.groups || [""]).forEach(function (g) {
+      // One row per person: a racer who appears twice in a group (two bibs on one night) is not their own rival.
+      var best = {};
+      (resultsByDiv[race.raceid + "|" + g] || []).forEach(function (r) {
+        if (r.dplace && (best[r.racer] === undefined || r.dplace < best[r.racer])) best[r.racer] = r.dplace;
+      });
+      var rows = Object.keys(best).map(function (k) { return { k: k, p: best[k] }; });
+      if (rows.length > 1) divs.push(rows);
+    });
+  });
+  return (POWER[key] = powerRatings(divs));
+}
+function powerYears() {
+  return YEAR_LIST.slice().sort(function (a, b) { return b - a; }).filter(function (y) {
+    return (years[y] || []).some(function (r) { return passRace(r) && !r.virtual; });
+  });
+}
+
+views.power = function (year, min) {
+  var ys = powerYears();
+  if (!ys.length) return filterBar() + '<div class="card"><h2>Power rankings</h2><p class="hint">No in-person races for this filter.</p></div>';
+  // Newest season with a real run of nights (a season just begun has too few to rank anyone).
+  var dflt = ys.filter(function (y) { return (years[y] || []).filter(function (r) { return passRace(r) && !r.virtual; }).length >= 5; })[0] || ys[0];
+  year = +year || dflt;
+  if (ys.indexOf(year) < 0) year = dflt;
+  min = [3, 5, 10].indexOf(+min) >= 0 ? +min : 5;   // three nights is enough to rank, but a lucky three tops the list
+  var pr = seasonRatings(year);
+  var rows = Object.keys(pr.rating).filter(function (k) { return (pr.nights[k] || 0) >= min; })
+    .sort(function (a, b) { return pr.rating[b] - pr.rating[a]; })
+    .map(function (k, i) { return { racer: k, rank: i + 1 }; });
+  function link(y, m, label, on) {
+    return '<a href="#/power/' + y + "/" + m + '" class="' + (on ? "on" : "") + '"' + (on ? ' aria-current="true"' : "") + ">" + label + "</a>";
+  }
+  var h = filterBar() + '<div class="card"><h2>Power rankings, ' + year + (filterName() ? " · " + esc(filterName()) : "") + "</h2>" +
+    '<p class="hint">Not who finished highest, but who you beat and who beat you. Every start-line group on every night ' +
+    "is a small tournament, and a rating is fitted so that beating a strong rider counts for more than beating a weak one. " +
+    "A third place behind two fast riders can outrank a second place in a soft field. Only in-person nights in one season are compared, " +
+    "so a rating says how someone stacked up against that year's field, not against another year's.</p>" +
+    '<div class="seasons" role="group" aria-label="Season">' + ys.map(function (y) { return link(y, min, y, y === year); }).join("") + "</div>" +
+    '<div class="seasons" role="group" aria-label="Minimum nights"><span class="muted" style="align-self:center">At least</span>' +
+    [3, 5, 10].map(function (m) { return link(year, m, m + " nights", m === min); }).join("") + "</div>";
+  if (!rows.length) return h + '<p class="empty">Nobody raced ' + min + " nights that season.</p></div>";
+  h += table([
+    { label: "#", cls: "num", get: function (r) { return r.rank; }, cell: function (r) { return '<td class="num">' + r.rank + "</td>"; } },
+    { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+    { label: "Rating", cls: "num", get: function (r) { return pr.rating[r.racer]; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num">' + Math.round(pr.rating[r.racer]) + "</td>"; } },
+    { label: "Nights", cls: "num", get: function (r) { return pr.nights[r.racer]; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num">' + pr.nights[r.racer] + "</td>"; } },
+    { label: "Beat", cls: "num", get: function (r) { return pr.beat[r.racer]; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num"><span class="win">' + Math.round(pr.beat[r.racer]) + "</span></td>"; } },
+    { label: "Lost to", cls: "num", get: function (r) { return pr.lost[r.racer]; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num"><span class="loss">' + Math.round(pr.lost[r.racer]) + "</span></td>"; } },
+    { label: "Best win over", get: function (r) { var b = pr.best[r.racer]; return b ? pr.rating[b.k] : 0; }, defaultDir: -1,
+      cell: function (r) {
+        var b = pr.best[r.racer];
+        return "<td>" + (b ? racerLink(b.k) + ' <span class="muted">' + Math.round(pr.rating[b.k]) + "</span>" : '<span class="muted">—</span>') + "</td>";
+      } }
+  ], rows, { sort: 0, dir: 1, limit: 100 });
+  return h + '<p class="fine">Beat and Lost to count rivals across every night (a night in a group of 40 is 39 results). ' +
+    "Rating 1500 is an average racer that season; every 200 points is ten times the odds of finishing ahead of someone.</p></div>";
+};
+
 views.races = function () {
   var list = RACES.filter(passRace);
   return filterBar() + '<div class="card"><h2>All races</h2>' +
@@ -1505,6 +1639,7 @@ var TABS = [
   { id: "h2h", label: "Head to head" },
   { id: "course", label: "Courses" },
   { id: "series", label: "Seasons" },
+  { id: "power", label: "Rankings" },
   { id: "races", label: "All races" }
 ];
 
@@ -1516,6 +1651,10 @@ function render(keepScroll) {
   document.getElementById("nav").innerHTML = TABS.map(function (t) {
     return '<a href="#/' + t.id + '" class="' + (t.id === tab ? "on" : "") + '">' + esc(t.label) + "</a>";
   }).join("");
+
+  // Six tabs are wider than a phone: the row scrolls, so bring the current tab into view.
+  var navEl = document.getElementById("nav"), onTab = navEl.querySelector && navEl.querySelector("a.on");
+  if (onTab && navEl.scrollTo) navEl.scrollTo({ left: Math.max(0, onTab.offsetLeft - 12), behavior: "auto" });
 
   TABLES = {};
   document.getElementById("view").innerHTML = views[tab].apply(null, parts.slice(1));
