@@ -43,6 +43,7 @@ check("data: there are races and results", races.length > 0 && bundle.results.le
 
 const PLACEHOLDER = /e-?mail|unknown|\btbd\b|\(missing\)|need name|no bib|^cofc\b|^skirack\b|please|pleasse|plz/i;
 const badNames = [...new Set(bundle.results.map((r) => r.name).filter((n) => PLACEHOLDER.test(n) || /\(\s*bib/i.test(n)))];
+check("data: names are plain text (no leftover HTML entities or tags)", !bundle.results.some((r) => /[<>&; ]/.test(r.name)), bundle.results.filter((r) => /[<>&; ]/.test(r.name)).slice(0, 2).map((r) => r.name).join(" | "));
 check("data: no timing-day placeholder names", badNames.length === 0, badNames.slice(0, 3).join(" | "));
 
 const TIME = /^\s*\+?\s*(?:\d+:)?\d{1,2}:\d{2}(?:\.\d+)?\s*$/;
@@ -291,7 +292,10 @@ check("h2h: an empty URL leaves both boxes empty", (rendered["#/h2h/-/-"].match(
 // ---- charts -------------------------------------------------------------------------------------------------------
 const yearTicks = (h) => new Set([...h.matchAll(/<text[^>]*text-anchor="middle"[^>]*>(\d{4})<\/text>/g)].map((m) => +m[1]));
 const topPage = rendered["#/racer/" + fx.top];
-check("charts: the time axis names every season on record", years.every((y) => yearTicks(topPage).has(y)), [...yearTicks(topPage)].join(","));
+// With 20 seasons on a 720px chart the labels thin to every second year (never closer than 34px); every label
+// must still be a season on record, and the newest is always named.
+const axisYears = [...yearTicks(topPage)];
+check("charts: the time axis labels only seasons on record, newest included, at least a third of them", axisYears.every((y) => years.includes(y)) && axisYears.includes(Math.max(...years)) && axisYears.length * 3 >= years.length, axisYears.join(","));
 // On a phone the axis is 300px wide: labels thin out (newest year always kept) instead of overprinting.
 win.innerWidth = 360;
 const narrow = route("#/racer/" + fx.top);

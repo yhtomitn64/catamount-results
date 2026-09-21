@@ -9,11 +9,11 @@ below is done.
   `catamount-results`, direct upload; `deploy.yml` redeploys on every push to
   `main`). The deploy token is the repo secret `CLOUDFLARE_API_TOKEN` (Pages:Edit,
   this account only) and the account id is the variable `CLOUDFLARE_ACCOUNT_ID`.
-- **Real data:** 298 races (Wednesday MTB, Tuesday trail run, cyclocross), 26,122
-  results, 4,424 racers, 2009-2026 with gaps (see below), with 6pm weather for every in-person
+- **Real data:** 306 races (Wednesday MTB, Tuesday trail run, cyclocross), 26,356
+  results, 4,423 racers, 2006-2026 with gaps (see below), with 6pm weather for every in-person
   race date. Three sources: Webscorer (2021-), Catamount's own 2021 weekly sheets
   (`tools/virtual_2021.py`, 14 self-timed "virtual" weeks) and Catamount's old website via the
-  Wayback Machine (`tools/oldsite.py`: 89 nights across 2009, 2010, 2012, 2013, 2017, 2018, 2019). Every
+  Wayback Machine (`tools/oldsite.py`: 97 nights, 2006-2019). Every
   parsed race matches the page's own "Racers: N" except those short by exactly
   the number of finishers with no registered name or a placeholder name
   ("COFC 3", "Please email for results"), which are skipped on purpose.
@@ -32,7 +32,7 @@ below is done.
 
 ## Not done yet
 
-1. **Name merges beyond the safe set (optional).** `aliases.json` holds 296
+1. **Name merges beyond the safe set (optional).** `aliases.json` holds 301
    merges: 140 reviewed by Tim, plus one-letter typos of a well-attested spelling (a rider with
    3+ starts and a variant with 1-2, never on the same night) added when the old pages arrived.
    Pairs left for a human call are listed at the bottom. Only add ones you are sure of.
@@ -53,11 +53,12 @@ the next one, which recovered 18 more nights. Gaps that remain: nothing archived
 and 2011, only scattered nights for 2009-2013 and 2018, and a few 2017 nights whose every
 capture is the home page. Not read: special events, attendance reports, one Excel export.
 
-Not yet looked at: root-level pages such as `catamountoutdoor.com/cx913.htm` (listed on the
-old `results.html`, possibly older cyclocross nights), the 2007-2009 index pages
-(`results07.html` etc., which list weekly nights but whose result links are not in the copy),
-Catamount's dated "Current Race Course" banner for the 4 unlabelled 2022 courses, and Velocity
-Results / BikeReg for special events. The 2020 check found only re-captures of old pages.
+Also read: the root-level cyclocross pages (`catamountoutdoor.com/cxMMDDYY.htm`: 2006-2008).
+Not yet looked at: the 2007-2009 index pages (`results07.html` etc. list the weekly Tuesday/Wednesday
+nights but the result links are not in the copy), the year-2000 `WEDMB.HTM` (links to per-class
+pages that were not archived), Catamount's dated "Current Race Course" banner for the 4 unlabelled
+2022 courses, and Velocity Results / BikeReg for special events. The 2020 check found only
+re-captures of old pages: nothing new for that season.
 
 ## Known data quirks
 

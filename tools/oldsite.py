@@ -9,7 +9,8 @@ catamountoutdoor.com/results/YYYY/MMDDYY.htm. Four generations are read:
       Wednesday bike race) holding one preformatted table per gender and age group. 2019 also
       names the course on a line under the date. 2009-2013 head each distance with a centred <h1>.
   2017-2019 cyclocross  CrossMgr saves (one JSON payload with every rider's lap times).
-  2012 cyclocross       one night typed up in Word ("1. First Last 34:20").
+  2006-2008, 2012 cyclocross  nights typed up in Word ("1. First Last 34:20", a lap down as "-1 lap"), at
+      catamountoutdoor.com/cxMMDDYY.htm (the night is taken from the file name; the heading is sometimes stale).
 
 Not read: special events (Flower Power, Bramble Scramble, the Eastern Cup, Stampy Stomp), the
 attendance/team reports, and 2018/052218.htm, an Excel export whose times are not reliably
@@ -30,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import html as htmllib
 import json
 import pathlib
 import re
@@ -50,7 +52,8 @@ TOKEN_RE = re.compile(r"<h1[^>]*align=.?center.?[^>]*>(.*?)</h1>|<h2[^>]*>(.*?)<
 
 
 def clean_html(text: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)).strip()
+    """Tags out, entities (&nbsp; &amp;) decoded, whitespace collapsed."""
+    return re.sub(r"\s+", " ", htmllib.unescape(re.sub(r"<[^>]+>", " ", text)).replace(" ", " ")).strip()
 
 
 def discipline_of(title: str) -> str | None:
@@ -151,36 +154,50 @@ def parse_crossmgr(html: str) -> dict | None:
             "title": clean_html(title_m.group(1)) if title_m else "Cyclocross"}
 
 
-def parse_word_cx(html: str) -> dict | None:
-    """The one 2012 cyclocross night, typed up in Word: "1. First Last 34:20", a lap down as "-1 lap".
+def parse_text_cx(html: str, url: str) -> dict | None:
+    """A cyclocross night typed up in Word (2006-2008, 2012): "1. First Last 34:20", a lap down as "-1 lap".
 
-    The lead lap count is not on the page, so `laps` is left empty; the field is one undivided group.
+    The night is named in the file (cxMMDDYY.htm); the heading inside is sometimes last week's. Men and
+    women are listed separately but raced together, so they are one undivided field: rows with a time
+    first, by time, then riders a lap or more down in the order printed. The lead lap count is not on
+    the page, so `laps` is left empty.
     """
-    paras = [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", p)).strip() for p in re.findall(r"<p[^>]*>(.*?)</p>", html, re.S | re.I)]
-    head = next((p for p in paras if re.match(r"[A-Z][a-z]+\.? \d{1,2}, \d{4}", p)), None)
-    if not head or not any("Cyclocross" in p for p in paras[:3]):
+    fm = re.search(r"/cx(\d\d)(\d\d)(\d\d)\.html?$", url, re.I)
+    if not fm:
         return None
-    dm = re.match(r"([A-Z][a-z]{2})[a-z]*\.? (\d{1,2}), (\d{4})", head)
     try:
-        date = datetime.datetime.strptime(f"{dm[1]} {dm[2]} {dm[3]}", "%b %d %Y").date()
+        date = datetime.date(2000 + int(fm[3]), int(fm[1]), int(fm[2]))
     except ValueError:
         return None
+    if date.weekday() != 2:
+        return None
+    paras = [clean_html(p) for p in re.findall(r"<p[^>]*>(.*?)</p>", html, re.S | re.I)]
     rows = []
-    for p in paras:
-        m = re.match(r"(\d+) ?\. (.+?) (\d{1,2}:\d{2}(?::\d{2})?|-\d+ laps?)(?: \S+)?$", p)   # trailing "F4": a category note
-        name = scrape.clean_name(m[2]) if m else None
+    for order, p in enumerate(paras):
+        m = re.match(r"(\d+) ?\.? (.+?) (\d{1,2}:\d{2}(?::\d{2})?|-\d+(?: laps?)?)(?: F?\d+)?$", p)
+        name = scrape.clean_name(re.sub(r"\([^)]*\)", " ", m[2])) if m else None
         if not name:
             continue
-        lapped = m[3].startswith("-")
-        rows.append({"name": name, "racer": scrape.racer_key(name), "distance": "", "laps": None, "time": m[3],
-                     "seconds": None if lapped else to_seconds(m[3]), "place": int(m[1])})
-    return {"date": date, "discipline": "CX", "course": None, "rows": rows, "skipped": [], "title": "Catamount Cyclocross Series"} if rows else None
+        down = int(m[3][1:].split()[0]) if m[3].startswith("-") else 0
+        rows.append({"name": name, "racer": scrape.racer_key(name), "distance": "", "laps": None, "order": order,
+                     "time": m[3] if not down else f"-{down} lap{'s' if down > 1 else ''}",
+                     "seconds": None if down else to_seconds(m[3]), "down": down})
+    if len(rows) < 8:
+        return None
+    rows.sort(key=lambda r: (r["down"], r["seconds"] or 0, r["order"]))
+    seen, out = set(), []
+    for r in rows:
+        if r["racer"] in seen:
+            continue
+        seen.add(r["racer"])
+        out.append({k: v for k, v in r.items() if k not in ("order", "down")} | {"place": len(out) + 1})
+    return {"date": date, "discipline": "CX", "course": None, "rows": out, "skipped": [], "title": "Catamount Cyclocross Series"}
 
 
 def parse_page(html: str, url: str) -> dict | None:
     """One results page -> {date, discipline, course, rows}, or None if it is not a results page."""
     if "Microsoft Word" in html[:3000]:
-        return parse_word_cx(html)
+        return parse_text_cx(html, url)
     if "generator" in html[:3000] and "CrossMgr" in html[:3000]:
         return parse_crossmgr(html)
     title_m = re.search(r"<title>(.*?)</title>", html, re.S | re.I)
@@ -216,7 +233,7 @@ def parse_page(html: str, url: str) -> dict | None:
         if section is None:
             continue
         for line in m.group(3).splitlines():
-            line = re.sub(r"<[^>]+>", "", line).rstrip()
+            line = htmllib.unescape(re.sub(r"<[^>]+>", "", line)).replace(" ", " ").rstrip()
             chunks = [c for c in re.split(r"\s{2,}", line.strip()) if c]
             if len(chunks) < 3 or not chunks[0].isdigit():
                 continue                                   # column headings, blank lines, "Top" anchors
@@ -260,8 +277,9 @@ def main() -> None:
     args = ap.parse_args()
 
     races, results, pages = [], [], 0
-    for norm, captures in sorted(wayback.candidates("catamountoutdoor.com/results/").items()):
-        if not re.search(r"/results/\d{4}/(?:cx)?\d{6}\.html?$", norm, re.I):
+    found = {**wayback.candidates("catamountoutdoor.com/results/"), **wayback.candidates("catamountoutdoor.com/cx")}
+    for norm, captures in sorted(found.items()):
+        if not re.search(r"/(?:results/\d{4}/(?:cx)?|cx)\d{6}\.html?$", norm, re.I):
             continue
         # The earliest capture that is on disk and parses; captures that were never fetched are skipped.
         page = ts = url = None
@@ -269,7 +287,7 @@ def main() -> None:
             html = wayback.cached(ts, url)
             if html is not None and (page := parse_page(html, url)):
                 break
-        label = norm.split("/results/")[-1]
+        label = norm.split("catamountoutdoor.com/")[-1].replace("results/", "")
         pages += 1
         if page is None:
             print(f"  {label:18} not a results page")
