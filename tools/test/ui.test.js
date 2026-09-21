@@ -155,6 +155,16 @@ routes.forEach((r) => {
 check("ui: every route renders with no undefined/NaN (" + routes.length + " routes)", renderFailures === 0, renderFailures + " bad, first: " + sample);
 
 // ---- the unit of competition is the start-line group -----------------------------------
+// The lap groups do NOT go off together: each has its own gun, minutes apart, on a stagger that has
+// been reshuffled over the years and is not even ordered by distance. Saying otherwise reads as "one
+// race some people leave early", which is the exact mistake the whole page is built to avoid, so the
+// claim is banned outright. Cyclocross really is a mass start and keeps its wording.
+const sharedStart = html.match(/.{0,70}same (?:start|gun).{0,70}/gi) || [];
+check("copy: nothing claims the distance groups start together", sharedStart.length === 0, sharedStart.join(" | "));
+check("copy: the method note says they go off separately, minutes apart",
+  /off separately,\s*\n?\s*"?\s*\+?\s*"?minutes apart/.test(html) || /off separately[^<]{0,40}minutes apart/.test(strip(route("#/power"))),
+  strip(route("#/power")).match(/Wednesday sends[^.]*\./) || "not found");
+
 const rowsByRace = {};
 D.results.forEach((r) => { (rowsByRace[r.raceid] = rowsByRace[r.raceid] || []).push(r); });
 let badDivs = 0, badDisc = 0, missingGrp = 0;
