@@ -662,6 +662,58 @@
     "sky": "Sunny",
     "summary": "Clear"
   },
+  "2003-09-10": {
+    "temp": 71.0,
+    "feels": 70.9,
+    "humidity": 54,
+    "precip": 0.0,
+    "precip_3h": 0.0,
+    "cloud": 0,
+    "wind": 2.6,
+    "gust": 12.8,
+    "code": 0,
+    "sky": "Sunny",
+    "summary": "Clear"
+  },
+  "2003-09-17": {
+    "temp": 68.0,
+    "feels": 67.0,
+    "humidity": 56,
+    "precip": 0.0,
+    "precip_3h": 0.0,
+    "cloud": 0,
+    "wind": 3.6,
+    "gust": 11.0,
+    "code": 0,
+    "sky": "Sunny",
+    "summary": "Clear"
+  },
+  "2003-09-24": {
+    "temp": 62.9,
+    "feels": 59.9,
+    "humidity": 61,
+    "precip": 0.0,
+    "precip_3h": 0.0,
+    "cloud": 25,
+    "wind": 7.0,
+    "gust": 17.4,
+    "code": 1,
+    "sky": "Mostly sunny",
+    "summary": "Mainly clear"
+  },
+  "2003-10-01": {
+    "temp": 52.4,
+    "feels": 48.2,
+    "humidity": 63,
+    "precip": 0.0,
+    "precip_3h": 0.012,
+    "cloud": 35,
+    "wind": 4.5,
+    "gust": 15.7,
+    "code": 1,
+    "sky": "Mostly sunny",
+    "summary": "Mainly clear"
+  },
   "2004-06-02": {
     "temp": 58.7,
     "feels": 55.3,

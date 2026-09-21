@@ -15,6 +15,11 @@ Before Webscorer, Catamount posted each night as a plain HTML page, at first in 
       with a centred <h1>; 2019 names the course under the date.
   2007-2008  courses (Pink / Blue / Purple) come from the series index pages results07.html and
       results08.html, whose drop-downs read "May 29 Pink Course".
+  2009-2013 courses  the "Date / Course / Results" tables on the WordPress series pages ("05/25/2010 blue
+      results", "09/18/2012 new black on yellow results") name the course of every night, so a night with no
+      course of its own (or in its own page) takes it from there.
+  2003 cyclocross  one Word page holding every week ("9/10/03", "Male:", "1 Michael Cody 39:33", a lap
+      down as "-1 Steve White").
   2017-2019 cyclocross  CrossMgr saves (one JSON payload with every rider's lap times).
   2006-2008, 2012 cyclocross  nights typed up in Word ("1. First Last 34:20", a lap down as "-1 lap"), at
       catamountoutdoor.com/cxMMDDYY.htm (the night is taken from the file name; the heading is sometimes stale).
@@ -274,8 +279,52 @@ def parse_class_tables(html: str, url: str) -> dict | None:
             "rows": rank(rows), "skipped": [], "dropped": dropped}
 
 
+def parse_cx_season(html: str) -> dict | None:
+    """The 2003 cyclocross series: every week listed in one page, "9/10/03", "Male:" rows, "Female" rows.
+
+    Each row is "1 Michael Cody 39:33" or, a lap or more down, "-1 Steve White" (women's laps are counted
+    from the lead man, so they are one field). The nights come back as {"multi": [night, ...]}.
+    """
+    paras = [clean_html(p) for p in re.findall(r"<p[^>]*>(.*?)</p>", html, re.S | re.I)]
+    nights: list[dict] = []
+    for order, p in enumerate(paras):
+        dm = re.fullmatch(r"(\d{1,2})/(\d{1,2})/(\d\d)", p)
+        if dm:
+            try:
+                nights.append({"date": datetime.date(2000 + int(dm[3]), int(dm[1]), int(dm[2])), "rows": []})
+            except ValueError:
+                pass
+            continue
+        m = re.match(r"(-\d+|\d+)\s+(.+?)(?:\s+(\d{1,2}:\d{2}(?::\d{2})?))?$", p)
+        if not (nights and m):
+            continue
+        down = -int(m[1]) if m[1].startswith("-") else 0
+        if not down and not m[3]:
+            continue                                        # a place with no time is not a result
+        name = scrape.clean_name(m[2])
+        if not name or re.search(r"\d", name):
+            continue
+        nights[-1]["rows"].append({"name": name, "racer": scrape.racer_key(name), "distance": "", "laps": None, "order": order,
+                                   "time": m[3] if not down else f"-{down} lap{'s' if down > 1 else ''}",
+                                   "seconds": None if down else to_seconds(m[3]), "down": down})
+    out = []
+    for n in nights:
+        rows = sorted(n["rows"], key=lambda r: (r["down"], r["seconds"] or 0, r["order"]))
+        seen, ranked = set(), []
+        for r in rows:
+            if r["racer"] not in seen:
+                seen.add(r["racer"])
+                ranked.append({k: v for k, v in r.items() if k not in ("order", "down")} | {"place": len(ranked) + 1})
+        if len(ranked) >= 8 and n["date"].weekday() == 2:
+            out.append({"date": n["date"], "discipline": "CX", "course": None, "rows": ranked, "skipped": [],
+                        "title": "Wednesday Night Cyclocross Racing Series for 2003"})
+    return {"multi": out} if out else None
+
+
 def parse_page(html: str, url: str) -> dict | None:
     """One results page -> {date, discipline, course, rows}, or None if it is not a results page."""
+    if "Cyclocross Racing Series for" in html and "Male:" in html:
+        return parse_cx_season(html)
     if "Click on the class you want" in html:
         return parse_class_tables(html, url)
     if "Microsoft Word" in html[:3000]:
@@ -386,17 +435,46 @@ def index_courses() -> dict[datetime.date, str]:
     return out
 
 
+COLOURS = "pink|blue|purple|green|red|yellow|hill|black|white|orange"
+
+
+def series_courses() -> dict[datetime.date, str]:
+    """Course per night from the 2009-2013 series pages on the WordPress site.
+
+    Each page is a "Date / Course / Results" table: "05/25/2010 blue results", "09/18/2012 new black on
+    yellow results". Cancelled nights carry no course and are skipped. One colour is "<Colour> Course"; a
+    pair ("black on yellow") is the course of that name.
+    """
+    out: dict[datetime.date, str] = {}
+    for path in sorted(wayback.CACHE.glob("*.html")):
+        if not re.search(r"(?:20(?:09|1[0-3])[-_]|_(?:mountain[_-]bike|trail[_-]run|mtb)[_-]series[_-])", path.name, re.I):
+            continue
+        text = clean_html(re.sub(r"<script.*?</script>|<style.*?</style>|<!--.*?-->", "", path.read_text(encoding="utf-8", errors="replace"), flags=re.S))
+        start = text.find("Date Course Results")
+        if start < 0:
+            continue
+        table = text[start:].split("SPONSORS")[0].split("Attendance")[0]
+        for m in re.finditer(rf"(\d\d)/(\d\d)/(\d{{4}})\s+(?:new\s+)?((?:{COLOURS})(?:\s+on\s+(?:{COLOURS}))?)(?:\s*\([^)]*\))?\s+results", table, re.I):
+            try:
+                day = datetime.date(int(m[3]), int(m[1]), int(m[2]))
+            except ValueError:
+                continue
+            name = m[4].lower().split()
+            out[day] = " ".join(w.capitalize() if w != "on" else w for w in name) + ("" if "on" in name else " Course")
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--list", action="store_true", help="show how each cached page parses; write nothing")
     args = ap.parse_args()
 
-    from_index = index_courses()
+    from_index = {**series_courses(), **index_courses()}
     races, results, pages = [], [], 0
     found = {**wayback.candidates("catamountoutdoor.com/results/"), **wayback.candidates("catamountoutdoor.com/cx"),
-             **wayback.candidates("catamountoutdoor.com/0")}
+             **wayback.candidates("catamountoutdoor.com/0"), **wayback.candidates("catamountoutdoor.com/catamountsite/catamountsiteresults/")}
     for norm, captures in sorted(found.items()):
-        if not re.search(r"/(?:results/\d{4}/(?:cx)?|cx)?\d{6}\.html?$", norm, re.I):
+        if not re.search(r"/(?:results/\d{4}/(?:cx)?|cx)?\d{6}\.html?$|/catamountsiteresults/cx03\.htm$", norm, re.I):
             continue
         # The earliest capture that is on disk and parses; captures that were never fetched are skipped.
         page = ts = url = None
@@ -409,20 +487,21 @@ def main() -> None:
         if page is None:
             print(f"  {label:18} not a results page")
             continue
-        if not page["course"] and page["date"] in from_index:
-            page["course"] = from_index[page["date"]]
-        raceid = -(int(page["date"].strftime("%Y%m%d")) * 10 + CODE[page["discipline"]])
-        if any(r["raceid"] == raceid for r in races):
-            print(f"  {label:18} DUPLICATE night {page['date']}, skipped", file=sys.stderr)
-            continue
-        groups = sorted({r["distance"] for r in page["rows"]})
-        print(f"  {label:18} {page['date']} {page['discipline']:3} {(page['course'] or '?'):16} {len(page['rows']):4} rows  {groups}"
-              + (f"  ignored headings: {page['skipped']}" if page["skipped"] else "")
-              + (f"  left out as impossible times: {len(page['dropped'])}" if page.get("dropped") else ""))
-        races.append({"raceid": raceid, "title": page["title"], "url": f"https://web.archive.org/web/{ts}/{url}",
-                      "date": page["date"].isoformat(), "year": page["date"].year, "discipline": page["discipline"],
-                      "course": page["course"]})
-        results += [{"raceid": raceid, **r} for r in page["rows"]]
+        for night in page.get("multi") or [page]:
+            if not night["course"] and night["date"] in from_index:
+                night["course"] = from_index[night["date"]]
+            raceid = -(int(night["date"].strftime("%Y%m%d")) * 10 + CODE[night["discipline"]])
+            if any(r["raceid"] == raceid for r in races):
+                print(f"  {label:18} DUPLICATE night {night['date']}, skipped", file=sys.stderr)
+                continue
+            groups = sorted({r["distance"] for r in night["rows"]})
+            print(f"  {label:18} {night['date']} {night['discipline']:3} {(night['course'] or '?'):16} {len(night['rows']):4} rows  {groups}"
+                  + (f"  ignored headings: {night['skipped']}" if night["skipped"] else "")
+                  + (f"  left out as impossible times: {len(night['dropped'])}" if night.get("dropped") else ""))
+            races.append({"raceid": raceid, "title": night["title"], "url": f"https://web.archive.org/web/{ts}/{url}",
+                          "date": night["date"].isoformat(), "year": night["date"].year, "discipline": night["discipline"],
+                          "course": night["course"]})
+            results += [{"raceid": raceid, **r} for r in night["rows"]]
 
     print(f"\n{pages} cached pages, {len(races)} parsed races, {len(results)} results.")
     if args.list or not races:

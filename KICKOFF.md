@@ -13,7 +13,7 @@ below is done.
   results, 7,423 racers, 2001-2026 with gaps (see below), with 6pm weather for every in-person
   race date. Three sources: Webscorer (2021-), Catamount's own 2021 weekly sheets
   (`tools/virtual_2021.py`, 14 self-timed "virtual" weeks) and Catamount's old website via the
-  Wayback Machine (`tools/oldsite.py`: 218 nights, 2001-2019). Every
+  Wayback Machine (`tools/oldsite.py`: 222 nights, 2001-2019). Every
   parsed race matches the page's own "Racers: N" except those short by exactly
   the number of finishers with no registered name or a placeholder name
   ("COFC 3", "Please email for results"), which are skipped on purpose.
@@ -46,24 +46,27 @@ and the GitHub "block pushes that expose my email" setting.
 ## Older results (mostly done)
 
 `tools/oldsite.py` reads every usable page of the old site from the Wayback Machine cache
-(`cache/wayback/`, fetched by `tools/wayback.py`): 218 nights. Two places hold them: `/results/YYYY/`
+(`cache/wayback/`, fetched by `tools/wayback.py`): 222 nights. Two places hold them: `/results/YYYY/`
 (2009-2019) and the site root, `/MMDDYY.HTM` (2001-2009) plus `/cxMMDDYY.htm` (cyclocross 2006-2008); a
 full-domain CDX listing (`matchType=domain`) is what found the root pages, so if more turn up, list the
 domain again. After the 2019 redesign the site answers a missing page with its home page, and the CDX
 index's "one capture per URL" often picked such a capture; `wayback.candidates()` skips home-page-sized
 captures (post-2019 only) and tries the next.
 
-Gaps that remain: nothing archived for 2011 and 2014-2016, only scattered nights for 2003, 2004, 2007-2013
-and 2018, and a few 2017 nights whose every capture is the home page. Deliberately not read: special events
-(Flower Power, Bramble Scramble, Eastern Cup, Stampy Stomp, the duathlons), attendance and team reports,
-`2018/052218.htm` (an Excel export whose times are not minutes and seconds), `080702.HTM` (2002-08-07: times
-like "39.9"), and the plain-text `*.TXT` pages. The 2020 check found only re-captures of old pages.
+Gaps that remain: nothing archived for 2014-2016, and for 2011 only the index tables (below). The WordPress
+series pages (2009-2013) list a results page for every night, e.g. `/results/2011/052411.HTM`,
+`/results/2012/*.HTM`, `/results/2010/CX090810.htm`, `/results/2011/cx090711.htm`,
+`/results/2012/cx091912.htm`, `/results/2013/CX_090413.htm`, but the Archive never captured them (a
+prefix query on `/results/2011/`, `/2014/`, `/2015/`, `/2016/` finds none; the whole-domain listing has
+1,577 URLs and 76 from 2009-2016). Web searches turn up no other host. So 2011, 2014-2016 and most of
+2012-2013 are gaps unless someone at Catamount has the files. Also scattered: 2003, 2004, 2007-2013, 2018.
+Deliberately not read: special events (Flower Power, Bramble Scramble, Eastern Cup, Stampy Stomp, the
+duathlons, the 2006 Catamount Cyclocross Weekend), attendance and team reports, `2018/052218.htm` (an Excel
+export whose times are not minutes and seconds), `080702.HTM` (2002-08-07: times like "39.9"), and the
+plain-text `*.TXT` pages. The 2020 check found only re-captures of old pages.
 
-Not yet looked at: the WordPress series pages for 2009-2013 (`/2009-trail-run-series-results/`,
-`/mountain-bike-results/`, `/2011-cyclocross-series-results/`, `/2012-cyclocross-series-results/`),
-`catamountcrossresults.htm`, `catamountsite/catamountsiteresults/cx03.htm` (2003 cyclocross),
-`newresults.html`, Catamount's dated "Current Race Course" banner for the 4 unlabelled 2022 courses, and
-Velocity Results / BikeReg for special events.
+Not yet looked at: `newresults.html` (2003), Catamount's dated "Current Race Course" banner for the 4
+unlabelled 2022 courses, and Velocity Results / BikeReg for special events.
 
 ## Known data quirks
 

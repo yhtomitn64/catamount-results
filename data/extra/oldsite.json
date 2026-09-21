@@ -71,7 +71,7 @@
    "date": "2009-06-02",
    "year": 2009,
    "discipline": "TR",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -200906031,
@@ -80,7 +80,7 @@
    "date": "2009-06-03",
    "year": 2009,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -200206042,
@@ -1091,6 +1091,42 @@
    "course": null
   },
   {
+   "raceid": -200309103,
+   "title": "Wednesday Night Cyclocross Racing Series for 2003",
+   "url": "https://web.archive.org/web/20040127141712/http://www.catamountoutdoor.com:80/catamountsite/catamountsiteresults/cx03.htm",
+   "date": "2003-09-10",
+   "year": 2003,
+   "discipline": "CX",
+   "course": null
+  },
+  {
+   "raceid": -200309173,
+   "title": "Wednesday Night Cyclocross Racing Series for 2003",
+   "url": "https://web.archive.org/web/20040127141712/http://www.catamountoutdoor.com:80/catamountsite/catamountsiteresults/cx03.htm",
+   "date": "2003-09-17",
+   "year": 2003,
+   "discipline": "CX",
+   "course": null
+  },
+  {
+   "raceid": -200309243,
+   "title": "Wednesday Night Cyclocross Racing Series for 2003",
+   "url": "https://web.archive.org/web/20040127141712/http://www.catamountoutdoor.com:80/catamountsite/catamountsiteresults/cx03.htm",
+   "date": "2003-09-24",
+   "year": 2003,
+   "discipline": "CX",
+   "course": null
+  },
+  {
+   "raceid": -200310013,
+   "title": "Wednesday Night Cyclocross Racing Series for 2003",
+   "url": "https://web.archive.org/web/20040127141712/http://www.catamountoutdoor.com:80/catamountsite/catamountsiteresults/cx03.htm",
+   "date": "2003-10-01",
+   "year": 2003,
+   "discipline": "CX",
+   "course": null
+  },
+  {
    "raceid": -200809103,
    "title": "Catamount Cyclocross Series",
    "url": "https://web.archive.org/web/20080914003727/http://www.catamountoutdoor.com:80/cx091008.htm",
@@ -1169,7 +1205,7 @@
    "date": "2009-06-30",
    "year": 2009,
    "discipline": "TR",
-   "course": null
+   "course": "Red Course"
   },
   {
    "raceid": -200908252,
@@ -1178,7 +1214,7 @@
    "date": "2009-08-25",
    "year": 2009,
    "discipline": "TR",
-   "course": null
+   "course": "Red Course"
   },
   {
    "raceid": -201005261,
@@ -1187,7 +1223,7 @@
    "date": "2010-05-26",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201006021,
@@ -1196,7 +1232,7 @@
    "date": "2010-06-02",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Yellow Course"
   },
   {
    "raceid": -201006082,
@@ -1205,7 +1241,7 @@
    "date": "2010-06-08",
    "year": 2010,
    "discipline": "TR",
-   "course": null
+   "course": "Pink Course"
   },
   {
    "raceid": -201006091,
@@ -1214,7 +1250,7 @@
    "date": "2010-06-09",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Pink Course"
   },
   {
    "raceid": -201006161,
@@ -1223,7 +1259,7 @@
    "date": "2010-06-16",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Yellow Course"
   },
   {
    "raceid": -201007071,
@@ -1232,7 +1268,7 @@
    "date": "2010-07-07",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201007141,
@@ -1241,7 +1277,7 @@
    "date": "2010-07-14",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Yellow Course"
   },
   {
    "raceid": -201007281,
@@ -1250,7 +1286,7 @@
    "date": "2010-07-28",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201008111,
@@ -1259,7 +1295,7 @@
    "date": "2010-08-11",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201008181,
@@ -1268,7 +1304,7 @@
    "date": "2010-08-18",
    "year": 2010,
    "discipline": "MTB",
-   "course": null
+   "course": "Pink Course"
   },
   {
    "raceid": -201008242,
@@ -1277,7 +1313,7 @@
    "date": "2010-08-24",
    "year": 2010,
    "discipline": "TR",
-   "course": null
+   "course": "Pink Course"
   },
   {
    "raceid": -201206052,
@@ -1286,7 +1322,7 @@
    "date": "2012-06-05",
    "year": 2012,
    "discipline": "TR",
-   "course": null
+   "course": "Pink Course"
   },
   {
    "raceid": -201206192,
@@ -1295,7 +1331,7 @@
    "date": "2012-06-19",
    "year": 2012,
    "discipline": "TR",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201209123,
@@ -1313,7 +1349,7 @@
    "date": "2013-05-28",
    "year": 2013,
    "discipline": "TR",
-   "course": null
+   "course": "Black Course"
   },
   {
    "raceid": -201305291,
@@ -1322,7 +1358,7 @@
    "date": "2013-05-29",
    "year": 2013,
    "discipline": "MTB",
-   "course": null
+   "course": "Black Course"
   },
   {
    "raceid": -201306182,
@@ -1340,7 +1376,7 @@
    "date": "2013-06-19",
    "year": 2013,
    "discipline": "MTB",
-   "course": null
+   "course": "Blue Course"
   },
   {
    "raceid": -201307022,
@@ -194334,6 +194370,1246 @@
    "time": "17:01.4",
    "seconds": 1021.4,
    "place": 7
+  },
+  {
+   "raceid": -200309103,
+   "name": "Michael Cody",
+   "racer": "michael-cody",
+   "distance": "",
+   "laps": null,
+   "time": "39:33",
+   "seconds": 2373.0,
+   "place": 1
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jamey Driscoll",
+   "racer": "jamey-driscoll",
+   "distance": "",
+   "laps": null,
+   "time": "39:34",
+   "seconds": 2374.0,
+   "place": 2
+  },
+  {
+   "raceid": -200309103,
+   "name": "Josh Dillon",
+   "racer": "josh-dillon",
+   "distance": "",
+   "laps": null,
+   "time": "40:12",
+   "seconds": 2412.0,
+   "place": 3
+  },
+  {
+   "raceid": -200309103,
+   "name": "Ben Peters",
+   "racer": "ben-peters",
+   "distance": "",
+   "laps": null,
+   "time": "40:39",
+   "seconds": 2439.0,
+   "place": 4
+  },
+  {
+   "raceid": -200309103,
+   "name": "Barton Kirk",
+   "racer": "barton-kirk",
+   "distance": "",
+   "laps": null,
+   "time": "41:33",
+   "seconds": 2493.0,
+   "place": 5
+  },
+  {
+   "raceid": -200309103,
+   "name": "David Sachs",
+   "racer": "david-sachs",
+   "distance": "",
+   "laps": null,
+   "time": "41:37",
+   "seconds": 2497.0,
+   "place": 6
+  },
+  {
+   "raceid": -200309103,
+   "name": "Matt Katz",
+   "racer": "matt-katz",
+   "distance": "",
+   "laps": null,
+   "time": "41:44",
+   "seconds": 2504.0,
+   "place": 7
+  },
+  {
+   "raceid": -200309103,
+   "name": "Shawn Standen",
+   "racer": "shawn-standen",
+   "distance": "",
+   "laps": null,
+   "time": "41:53",
+   "seconds": 2513.0,
+   "place": 8
+  },
+  {
+   "raceid": -200309103,
+   "name": "Chris Cover",
+   "racer": "chris-cover",
+   "distance": "",
+   "laps": null,
+   "time": "42:12",
+   "seconds": 2532.0,
+   "place": 9
+  },
+  {
+   "raceid": -200309103,
+   "name": "David Gray",
+   "racer": "david-gray",
+   "distance": "",
+   "laps": null,
+   "time": "42:48",
+   "seconds": 2568.0,
+   "place": 10
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jason Eley",
+   "racer": "jason-eley",
+   "distance": "",
+   "laps": null,
+   "time": "42:53",
+   "seconds": 2573.0,
+   "place": 11
+  },
+  {
+   "raceid": -200309103,
+   "name": "David Rath",
+   "racer": "david-rath",
+   "distance": "",
+   "laps": null,
+   "time": "43:14",
+   "seconds": 2594.0,
+   "place": 12
+  },
+  {
+   "raceid": -200309103,
+   "name": "Chris Hrenko",
+   "racer": "chris-hrenko",
+   "distance": "",
+   "laps": null,
+   "time": "43:30",
+   "seconds": 2610.0,
+   "place": 13
+  },
+  {
+   "raceid": -200309103,
+   "name": "Fred Wilkinson",
+   "racer": "fred-wilkinson",
+   "distance": "",
+   "laps": null,
+   "time": "44:10",
+   "seconds": 2650.0,
+   "place": 14
+  },
+  {
+   "raceid": -200309103,
+   "name": "Lucas Jenson",
+   "racer": "lucas-jenson",
+   "distance": "",
+   "laps": null,
+   "time": "44:24",
+   "seconds": 2664.0,
+   "place": 15
+  },
+  {
+   "raceid": -200309103,
+   "name": "Joel Page",
+   "racer": "joel-page",
+   "distance": "",
+   "laps": null,
+   "time": "45:00",
+   "seconds": 2700.0,
+   "place": 16
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jamie Sorochak",
+   "racer": "jamie-sorochak",
+   "distance": "",
+   "laps": null,
+   "time": "45:14",
+   "seconds": 2714.0,
+   "place": 17
+  },
+  {
+   "raceid": -200309103,
+   "name": "Nate McHugh",
+   "racer": "nate-mchugh",
+   "distance": "",
+   "laps": null,
+   "time": "46:19",
+   "seconds": 2779.0,
+   "place": 18
+  },
+  {
+   "raceid": -200309103,
+   "name": "Wayne Barlow",
+   "racer": "wayne-barlow",
+   "distance": "",
+   "laps": null,
+   "time": "46:20",
+   "seconds": 2780.0,
+   "place": 19
+  },
+  {
+   "raceid": -200309103,
+   "name": "Zak Lance",
+   "racer": "zak-lance",
+   "distance": "",
+   "laps": null,
+   "time": "46:46",
+   "seconds": 2806.0,
+   "place": 20
+  },
+  {
+   "raceid": -200309103,
+   "name": "Hans Buehler",
+   "racer": "hans-buehler",
+   "distance": "",
+   "laps": null,
+   "time": "47:20",
+   "seconds": 2840.0,
+   "place": 21
+  },
+  {
+   "raceid": -200309103,
+   "name": "Christopher Teifke",
+   "racer": "christopher-teifke",
+   "distance": "",
+   "laps": null,
+   "time": "47:27",
+   "seconds": 2847.0,
+   "place": 22
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jon Bever",
+   "racer": "jon-bever",
+   "distance": "",
+   "laps": null,
+   "time": "47:46",
+   "seconds": 2866.0,
+   "place": 23
+  },
+  {
+   "raceid": -200309103,
+   "name": "Steve White",
+   "racer": "steve-white",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 24
+  },
+  {
+   "raceid": -200309103,
+   "name": "Lance Triebel",
+   "racer": "lance-triebel",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 25
+  },
+  {
+   "raceid": -200309103,
+   "name": "Bruce Bell",
+   "racer": "bruce-bell",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 26
+  },
+  {
+   "raceid": -200309103,
+   "name": "Randy Bisson",
+   "racer": "randy-bisson",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 27
+  },
+  {
+   "raceid": -200309103,
+   "name": "Dave Kogut",
+   "racer": "dave-kogut",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 28
+  },
+  {
+   "raceid": -200309103,
+   "name": "Doug Shaw",
+   "racer": "doug-shaw",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 29
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jeff Compo",
+   "racer": "jeff-compo",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 30
+  },
+  {
+   "raceid": -200309103,
+   "name": "Gerry Nooney",
+   "racer": "gerry-nooney",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 31
+  },
+  {
+   "raceid": -200309103,
+   "name": "Stacey Reading",
+   "racer": "stacey-reading",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 32
+  },
+  {
+   "raceid": -200309103,
+   "name": "Jeff Sanborn",
+   "racer": "jeff-sanborn",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 33
+  },
+  {
+   "raceid": -200309103,
+   "name": "Brian Cole",
+   "racer": "brian-cole",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 34
+  },
+  {
+   "raceid": -200309103,
+   "name": "Bob Parker",
+   "racer": "bob-parker",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 35
+  },
+  {
+   "raceid": -200309103,
+   "name": "Kate Farrell-Gray",
+   "racer": "kate-farrell-gray",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 36
+  },
+  {
+   "raceid": -200309103,
+   "name": "Pamela Gude",
+   "racer": "pamela-gude",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 37
+  },
+  {
+   "raceid": -200309103,
+   "name": "Trisha Watson",
+   "racer": "trisha-watson",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 38
+  },
+  {
+   "raceid": -200309173,
+   "name": "Michael Cody",
+   "racer": "michael-cody",
+   "distance": "",
+   "laps": null,
+   "time": "41:20",
+   "seconds": 2480.0,
+   "place": 1
+  },
+  {
+   "raceid": -200309173,
+   "name": "Jamey Driscoll",
+   "racer": "jamey-driscoll",
+   "distance": "",
+   "laps": null,
+   "time": "41:23",
+   "seconds": 2483.0,
+   "place": 2
+  },
+  {
+   "raceid": -200309173,
+   "name": "David Sachs",
+   "racer": "david-sachs",
+   "distance": "",
+   "laps": null,
+   "time": "44:06",
+   "seconds": 2646.0,
+   "place": 3
+  },
+  {
+   "raceid": -200309173,
+   "name": "Chris Hrenko",
+   "racer": "chris-hrenko",
+   "distance": "",
+   "laps": null,
+   "time": "44:35",
+   "seconds": 2675.0,
+   "place": 4
+  },
+  {
+   "raceid": -200309173,
+   "name": "Dave Ricklefs",
+   "racer": "dave-ricklefs",
+   "distance": "",
+   "laps": null,
+   "time": "45:22",
+   "seconds": 2722.0,
+   "place": 5
+  },
+  {
+   "raceid": -200309173,
+   "name": "David Gray",
+   "racer": "david-gray",
+   "distance": "",
+   "laps": null,
+   "time": "45:29",
+   "seconds": 2729.0,
+   "place": 6
+  },
+  {
+   "raceid": -200309173,
+   "name": "Mike Levine",
+   "racer": "mike-levine",
+   "distance": "",
+   "laps": null,
+   "time": "45:33",
+   "seconds": 2733.0,
+   "place": 7
+  },
+  {
+   "raceid": -200309173,
+   "name": "Dan Boozan",
+   "racer": "dan-boozan",
+   "distance": "",
+   "laps": null,
+   "time": "45:42",
+   "seconds": 2742.0,
+   "place": 8
+  },
+  {
+   "raceid": -200309173,
+   "name": "Fred Wilkinson",
+   "racer": "fred-wilkinson",
+   "distance": "",
+   "laps": null,
+   "time": "46:19",
+   "seconds": 2779.0,
+   "place": 9
+  },
+  {
+   "raceid": -200309173,
+   "name": "Joel Page",
+   "racer": "joel-page",
+   "distance": "",
+   "laps": null,
+   "time": "46:45",
+   "seconds": 2805.0,
+   "place": 10
+  },
+  {
+   "raceid": -200309173,
+   "name": "Jeff Gauthier",
+   "racer": "jeff-gauthier",
+   "distance": "",
+   "laps": null,
+   "time": "47:40",
+   "seconds": 2860.0,
+   "place": 11
+  },
+  {
+   "raceid": -200309173,
+   "name": "John Schwarz",
+   "racer": "john-schwarz",
+   "distance": "",
+   "laps": null,
+   "time": "47:53",
+   "seconds": 2873.0,
+   "place": 12
+  },
+  {
+   "raceid": -200309173,
+   "name": "Kent Johnson",
+   "racer": "kent-johnson",
+   "distance": "",
+   "laps": null,
+   "time": "47:58",
+   "seconds": 2878.0,
+   "place": 13
+  },
+  {
+   "raceid": -200309173,
+   "name": "Kurt Hoefler",
+   "racer": "kurt-hoefler",
+   "distance": "",
+   "laps": null,
+   "time": "49:17",
+   "seconds": 2957.0,
+   "place": 14
+  },
+  {
+   "raceid": -200309173,
+   "name": "Zak Lance",
+   "racer": "zak-lance",
+   "distance": "",
+   "laps": null,
+   "time": "49:18",
+   "seconds": 2958.0,
+   "place": 15
+  },
+  {
+   "raceid": -200309173,
+   "name": "Jon Bever",
+   "racer": "jon-bever",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 16
+  },
+  {
+   "raceid": -200309173,
+   "name": "Steve White",
+   "racer": "steve-white",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 17
+  },
+  {
+   "raceid": -200309173,
+   "name": "Randy Bisson",
+   "racer": "randy-bisson",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 18
+  },
+  {
+   "raceid": -200309173,
+   "name": "James Mix",
+   "racer": "james-mix",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 19
+  },
+  {
+   "raceid": -200309173,
+   "name": "David Burke",
+   "racer": "david-burke",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 20
+  },
+  {
+   "raceid": -200309173,
+   "name": "Jeff Sanborn",
+   "racer": "jeff-sanborn",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 21
+  },
+  {
+   "raceid": -200309173,
+   "name": "Gerry Nooney",
+   "racer": "gerry-nooney",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 22
+  },
+  {
+   "raceid": -200309173,
+   "name": "Doug Shaw",
+   "racer": "doug-shaw",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 23
+  },
+  {
+   "raceid": -200309173,
+   "name": "Bob Parker",
+   "racer": "bob-parker",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 24
+  },
+  {
+   "raceid": -200309173,
+   "name": "Eddie Plantilla",
+   "racer": "eddie-plantilla",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 25
+  },
+  {
+   "raceid": -200309173,
+   "name": "Doug Hartwell",
+   "racer": "doug-hartwell",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 26
+  },
+  {
+   "raceid": -200309173,
+   "name": "Kate Farrell Gray",
+   "racer": "kate-farrell-gray",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 27
+  },
+  {
+   "raceid": -200309243,
+   "name": "Jon Bever",
+   "racer": "jon-bever",
+   "distance": "",
+   "laps": null,
+   "time": "40:06",
+   "seconds": 2406.0,
+   "place": 1
+  },
+  {
+   "raceid": -200309243,
+   "name": "Jamey Driscoll",
+   "racer": "jamey-driscoll",
+   "distance": "",
+   "laps": null,
+   "time": "43:08",
+   "seconds": 2588.0,
+   "place": 2
+  },
+  {
+   "raceid": -200309243,
+   "name": "John McCone",
+   "racer": "john-mccone",
+   "distance": "",
+   "laps": null,
+   "time": "43:16",
+   "seconds": 2596.0,
+   "place": 3
+  },
+  {
+   "raceid": -200309243,
+   "name": "Shawn Standen",
+   "racer": "shawn-standen",
+   "distance": "",
+   "laps": null,
+   "time": "44:56",
+   "seconds": 2696.0,
+   "place": 4
+  },
+  {
+   "raceid": -200309243,
+   "name": "Chris Cover",
+   "racer": "chris-cover",
+   "distance": "",
+   "laps": null,
+   "time": "45:13",
+   "seconds": 2713.0,
+   "place": 5
+  },
+  {
+   "raceid": -200309243,
+   "name": "Chris Hrenko",
+   "racer": "chris-hrenko",
+   "distance": "",
+   "laps": null,
+   "time": "45:28",
+   "seconds": 2728.0,
+   "place": 6
+  },
+  {
+   "raceid": -200309243,
+   "name": "Jason Eley",
+   "racer": "jason-eley",
+   "distance": "",
+   "laps": null,
+   "time": "45:56",
+   "seconds": 2756.0,
+   "place": 7
+  },
+  {
+   "raceid": -200309243,
+   "name": "Ben Coleman",
+   "racer": "ben-coleman",
+   "distance": "",
+   "laps": null,
+   "time": "46:16",
+   "seconds": 2776.0,
+   "place": 8
+  },
+  {
+   "raceid": -200309243,
+   "name": "Lucas Jenson",
+   "racer": "lucas-jenson",
+   "distance": "",
+   "laps": null,
+   "time": "46:38",
+   "seconds": 2798.0,
+   "place": 9
+  },
+  {
+   "raceid": -200309243,
+   "name": "Nathan Simms",
+   "racer": "nathan-simms",
+   "distance": "",
+   "laps": null,
+   "time": "47:00",
+   "seconds": 2820.0,
+   "place": 10
+  },
+  {
+   "raceid": -200309243,
+   "name": "Jeff Gauthier",
+   "racer": "jeff-gauthier",
+   "distance": "",
+   "laps": null,
+   "time": "47:16",
+   "seconds": 2836.0,
+   "place": 11
+  },
+  {
+   "raceid": -200309243,
+   "name": "John Schwarz",
+   "racer": "john-schwarz",
+   "distance": "",
+   "laps": null,
+   "time": "48:22",
+   "seconds": 2902.0,
+   "place": 12
+  },
+  {
+   "raceid": -200309243,
+   "name": "Kent Johnson",
+   "racer": "kent-johnson",
+   "distance": "",
+   "laps": null,
+   "time": "48:36",
+   "seconds": 2916.0,
+   "place": 13
+  },
+  {
+   "raceid": -200309243,
+   "name": "Joel Page",
+   "racer": "joel-page",
+   "distance": "",
+   "laps": null,
+   "time": "49:06",
+   "seconds": 2946.0,
+   "place": 14
+  },
+  {
+   "raceid": -200309243,
+   "name": "Kurt Hoeffler",
+   "racer": "kurt-hoeffler",
+   "distance": "",
+   "laps": null,
+   "time": "49:18",
+   "seconds": 2958.0,
+   "place": 15
+  },
+  {
+   "raceid": -200309243,
+   "name": "Bruce Bell",
+   "racer": "bruce-bell",
+   "distance": "",
+   "laps": null,
+   "time": "50:16",
+   "seconds": 3016.0,
+   "place": 16
+  },
+  {
+   "raceid": -200309243,
+   "name": "Steve White",
+   "racer": "steve-white",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 17
+  },
+  {
+   "raceid": -200309243,
+   "name": "Jeff Sanborn",
+   "racer": "jeff-sanborn",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 18
+  },
+  {
+   "raceid": -200309243,
+   "name": "Doug Shaw",
+   "racer": "doug-shaw",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 19
+  },
+  {
+   "raceid": -200309243,
+   "name": "Randy Bisson",
+   "racer": "randy-bisson",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 20
+  },
+  {
+   "raceid": -200309243,
+   "name": "Brian Cole",
+   "racer": "brian-cole",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 21
+  },
+  {
+   "raceid": -200309243,
+   "name": "Doug Hartwell",
+   "racer": "doug-hartwell",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 22
+  },
+  {
+   "raceid": -200309243,
+   "name": "Nate McHugh",
+   "racer": "nate-mchugh",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 23
+  },
+  {
+   "raceid": -200309243,
+   "name": "Bob Parker",
+   "racer": "bob-parker",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 24
+  },
+  {
+   "raceid": -200309243,
+   "name": "Darrall Huber",
+   "racer": "darrall-huber",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 25
+  },
+  {
+   "raceid": -200309243,
+   "name": "Pamela Gude",
+   "racer": "pamela-gude",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 26
+  },
+  {
+   "raceid": -200310013,
+   "name": "Michael Cody",
+   "racer": "michael-cody",
+   "distance": "",
+   "laps": null,
+   "time": "40:54",
+   "seconds": 2454.0,
+   "place": 1
+  },
+  {
+   "raceid": -200310013,
+   "name": "Kevin Bouchard-Hall",
+   "racer": "kevin-bouchard-hall",
+   "distance": "",
+   "laps": null,
+   "time": "41:30",
+   "seconds": 2490.0,
+   "place": 2
+  },
+  {
+   "raceid": -200310013,
+   "name": "John McKone",
+   "racer": "john-mckone",
+   "distance": "",
+   "laps": null,
+   "time": "42:17",
+   "seconds": 2537.0,
+   "place": 3
+  },
+  {
+   "raceid": -200310013,
+   "name": "Ben Peters",
+   "racer": "ben-peters",
+   "distance": "",
+   "laps": null,
+   "time": "42:46",
+   "seconds": 2566.0,
+   "place": 4
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jamey Driscoll",
+   "racer": "jamey-driscoll",
+   "distance": "",
+   "laps": null,
+   "time": "42:49",
+   "seconds": 2569.0,
+   "place": 5
+  },
+  {
+   "raceid": -200310013,
+   "name": "Eric Bowker",
+   "racer": "eric-bowker",
+   "distance": "",
+   "laps": null,
+   "time": "43:03",
+   "seconds": 2583.0,
+   "place": 6
+  },
+  {
+   "raceid": -200310013,
+   "name": "Kevin Brennan",
+   "racer": "kevin-brennan",
+   "distance": "",
+   "laps": null,
+   "time": "44:34",
+   "seconds": 2674.0,
+   "place": 7
+  },
+  {
+   "raceid": -200310013,
+   "name": "David Rath",
+   "racer": "david-rath",
+   "distance": "",
+   "laps": null,
+   "time": "45:16",
+   "seconds": 2716.0,
+   "place": 8
+  },
+  {
+   "raceid": -200310013,
+   "name": "Chris Cover",
+   "racer": "chris-cover",
+   "distance": "",
+   "laps": null,
+   "time": "45:17",
+   "seconds": 2717.0,
+   "place": 9
+  },
+  {
+   "raceid": -200310013,
+   "name": "Chris Hrenko",
+   "racer": "chris-hrenko",
+   "distance": "",
+   "laps": null,
+   "time": "45:18",
+   "seconds": 2718.0,
+   "place": 10
+  },
+  {
+   "raceid": -200310013,
+   "name": "Bobby Bailey",
+   "racer": "bobby-bailey",
+   "distance": "",
+   "laps": null,
+   "time": "45:18",
+   "seconds": 2718.0,
+   "place": 11
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jeff Gauthier",
+   "racer": "jeff-gauthier",
+   "distance": "",
+   "laps": null,
+   "time": "46:08",
+   "seconds": 2768.0,
+   "place": 12
+  },
+  {
+   "raceid": -200310013,
+   "name": "Joel Page",
+   "racer": "joel-page",
+   "distance": "",
+   "laps": null,
+   "time": "46:26",
+   "seconds": 2786.0,
+   "place": 13
+  },
+  {
+   "raceid": -200310013,
+   "name": "Nate McHugh",
+   "racer": "nate-mchugh",
+   "distance": "",
+   "laps": null,
+   "time": "46:39",
+   "seconds": 2799.0,
+   "place": 14
+  },
+  {
+   "raceid": -200310013,
+   "name": "Lucas Jenson",
+   "racer": "lucas-jenson",
+   "distance": "",
+   "laps": null,
+   "time": "47:01",
+   "seconds": 2821.0,
+   "place": 15
+  },
+  {
+   "raceid": -200310013,
+   "name": "Kurt Hoefler",
+   "racer": "kurt-hoefler",
+   "distance": "",
+   "laps": null,
+   "time": "48:07",
+   "seconds": 2887.0,
+   "place": 16
+  },
+  {
+   "raceid": -200310013,
+   "name": "Kent Johnson",
+   "racer": "kent-johnson",
+   "distance": "",
+   "laps": null,
+   "time": "48:36",
+   "seconds": 2916.0,
+   "place": 17
+  },
+  {
+   "raceid": -200310013,
+   "name": "Kurt Hoeffler",
+   "racer": "kurt-hoeffler",
+   "distance": "",
+   "laps": null,
+   "time": "48:38",
+   "seconds": 2918.0,
+   "place": 18
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jon Bever",
+   "racer": "jon-bever",
+   "distance": "",
+   "laps": null,
+   "time": "49:01",
+   "seconds": 2941.0,
+   "place": 19
+  },
+  {
+   "raceid": -200310013,
+   "name": "Zak Lance",
+   "racer": "zak-lance",
+   "distance": "",
+   "laps": null,
+   "time": "49:39",
+   "seconds": 2979.0,
+   "place": 20
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jeff Warren",
+   "racer": "jeff-warren",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 21
+  },
+  {
+   "raceid": -200310013,
+   "name": "Steve White",
+   "racer": "steve-white",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 22
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jeff Sanborn",
+   "racer": "jeff-sanborn",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 23
+  },
+  {
+   "raceid": -200310013,
+   "name": "Gerry Nooney",
+   "racer": "gerry-nooney",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 24
+  },
+  {
+   "raceid": -200310013,
+   "name": "Jeff Compo",
+   "racer": "jeff-compo",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 25
+  },
+  {
+   "raceid": -200310013,
+   "name": "Bob Parker",
+   "racer": "bob-parker",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 26
+  },
+  {
+   "raceid": -200310013,
+   "name": "James Mix",
+   "racer": "james-mix",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 27
+  },
+  {
+   "raceid": -200310013,
+   "name": "Doug Shaw",
+   "racer": "doug-shaw",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 28
+  },
+  {
+   "raceid": -200310013,
+   "name": "Randy Bisson",
+   "racer": "randy-bisson",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 29
+  },
+  {
+   "raceid": -200310013,
+   "name": "Matt Montross",
+   "racer": "matt-montross",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 30
+  },
+  {
+   "raceid": -200310013,
+   "name": "Matt White",
+   "racer": "matt-white",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 31
+  },
+  {
+   "raceid": -200310013,
+   "name": "Marielle Aunave",
+   "racer": "marielle-aunave",
+   "distance": "",
+   "laps": null,
+   "time": "-1 lap",
+   "seconds": null,
+   "place": 32
+  },
+  {
+   "raceid": -200310013,
+   "name": "Pamela Gude",
+   "racer": "pamela-gude",
+   "distance": "",
+   "laps": null,
+   "time": "-2 laps",
+   "seconds": null,
+   "place": 33
   },
   {
    "raceid": -200809103,
