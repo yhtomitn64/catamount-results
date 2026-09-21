@@ -38,12 +38,14 @@ data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer
 ## The two facts the whole design rests on
 
 1. **A race night is not one race.** Wednesday MTB sends Half, 1, 2, 3 and 4 lap groups
-   off *separately*, minutes apart, each on its own gun; Tuesday trail run does the same
+   off *separately*, minutes apart, each with its own start time; Tuesday trail run does the same
    with Half / 5K / 10K; cyclocross is the one true mass start, where laps completed decide
    the order. They do not share a start, the stagger has been reshuffled over the years, and
    it is not even ordered by distance (a recent Wednesday sent 4 lap at 6:27 and 3 lap at
    6:30). Do not write "off the same start" anywhere: it is wrong, and it is the sort of
-   wrong that invites someone to compare across groups. The unit of
+   wrong that invites someone to compare across groups. Say "the start" or "the start time",
+   never "the gun" -- this is a family outdoor centre with a timer, not a starting pistol.
+   Both are pinned by tests. The unit of
    competition is (race night, distance group). Placings, percentiles, rivals and
    head-to-head are computed inside that unit — never across groups. Each result
    row carries `distance` (the group label: "3 Lap", "5K", "Half", or "" for an

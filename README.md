@@ -7,7 +7,7 @@ through instead of opening forty separate Webscorer tabs.
 Two facts about this series shape everything here.
 
 **A Wednesday is not one race.** The series runs Half, 1, 2, 3 and 4 lap options, and
-each goes off on its own gun, minutes apart, on a stagger that has been reshuffled over
+each starts at its own time, minutes apart, on a stagger that has been reshuffled over
 the years. A 4-lap rider and a 1-lap rider are not competing and did not even start
 together, so placings, percentiles, rivals and head-to-head are all computed *within* a
 lap count. Ranking them against each other would invent results that never happened.
@@ -39,7 +39,7 @@ between years usually means the loop was re-cut rather than the field changing.
 **Seasons** — standings for any year, sortable by starts, wins, podiums or median
 finish.
 
-**Weather** — conditions at the 6pm gun for every race: temperature, what it felt
+**Weather** — conditions at the 6pm start for every race: temperature, what it felt
 like, sky, wind and gusts, humidity, and rain in the three hours beforehand (which
 is what actually decides whether the dirt is slick). Each racer's profile breaks
 their finishes down by temperature band, wet vs dry, and sun vs cloud.

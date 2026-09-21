@@ -241,7 +241,7 @@ RACES.forEach(function (r) { raceById[r.raceid] = r; resultsByRace[r.raceid] = [
 // A race night is not one race. Wednesday MTB sends Half, 1, 2, 3 and 4 lap groups
 // off separately, minutes apart on a stagger that has been reshuffled over the years;
 // Tuesday trail run does the same with Half / 5K / 10K; cyclocross is the one true mass
-// start. So the groups do not even share a gun, let alone a race, and they are not
+// start. So the groups do not even share a start time, let alone a race, and they are not
 // ordered by distance either - a recent Wednesday sent 4 lap off ahead of 3 lap.
 // The unit of competition is (race night, distance group):
 // placings, percentiles, rivals and head to head are all computed inside it and
@@ -449,7 +449,7 @@ function median(a) {
 
 // --- weather -------------------------------------------------------------
 
-// Rain in the hours before the gun is what actually changes the racing, so
+// Rain in the hours before the start is what actually changes the racing, so
 // "wet" means recent precipitation, not just precipitation at 6pm sharp.
 function isWet(w) { return !!w && (w.precip_3h > 0.01 || w.precip > 0.005); }
 
@@ -911,7 +911,7 @@ views.racer = function (key) {
     }).filter(function (b) { return b.n > 0; });
 
     h += '<div class="card"><h2>Conditions</h2>' +
-      '<p class="hint">How ' + esc(nameOf(key)) + " finishes in different weather at the 6pm gun. " +
+      '<p class="hint">How ' + esc(nameOf(key)) + " finishes in different weather at the 6pm start. " +
       "Small samples swing wildly — read the race count before reading anything into a row.</p>" +
       table([
         { label: "Conditions", cell: function (b) { return "<td>" + esc(b.label) + "</td>"; } },
@@ -1319,7 +1319,7 @@ views.race = function (id) {
 
   var w = race.weather;
   if (w) {
-    h += '<div class="card"><h2>Conditions at the gun</h2>' +
+    h += '<div class="card"><h2>Conditions at the start</h2>' +
       '<p class="hint">Measured at the venue at 6pm, when the series rolls off.</p>' +
       '<div class="stats">' +
       stat(fmtTemp(w.temp), "Temperature") +
@@ -1675,8 +1675,9 @@ function methodNote(pr, year, min, drop) {
 
     "<h4>A night is not one race</h4><p>Wednesday sends Half, 1, 2, 3 and 4 lap groups off separately, " +
     "minutes apart, and Tuesday does the same with its distances. They are not one race that some people " +
-    "leave early: they are different races on the same evening, on their own gun, and the stagger has been " +
-    "reshuffled over the years. Cyclocross is the one real mass start, where laps completed decide the order. " +
+    "leave early: they are different races on the same evening, each with its own start time, and the stagger " +
+    "has been reshuffled over the years. Cyclocross is the one real mass start, where laps completed decide " +
+    "the order. " +
     "So a placing only means something inside one group on one night, and that is the unit everything below " +
     "is built from. Nobody is ever compared across groups, and no finishing time is either.</p>" +
 
