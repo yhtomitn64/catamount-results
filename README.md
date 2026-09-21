@@ -7,9 +7,9 @@ through instead of opening forty separate Webscorer tabs.
 Two facts about this series shape everything here.
 
 **A Wednesday is not one race.** The series runs Half, 1, 2, 3 and 4 lap options, and
-each starts at its own time, minutes apart, on a stagger that has been reshuffled over
-the years. A 4-lap rider and a 1-lap rider are not competing and did not even start
-together, so placings, percentiles, rivals and head-to-head are all computed *within* a
+each starts at its own time, minutes apart (in 2023 to 2026: 1 lap 6:00, half lap 6:03,
+2 lap 6:15, 4 lap 6:27, 3 lap 6:30). A 4-lap rider and a 1-lap rider are not competing and
+did not even start together, so placings, percentiles, rivals and head-to-head are all computed *within* a
 lap count. Ranking them against each other would invent results that never happened.
 
 **A course name is not a fixed course.** Red on Black in 2019 and Red on Black in

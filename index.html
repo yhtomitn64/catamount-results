@@ -238,11 +238,13 @@ var raceById = {}, resultsByRace = {}, resultsByRacer = {}, resultsByDiv = {},
 
 RACES.forEach(function (r) { raceById[r.raceid] = r; resultsByRace[r.raceid] = []; });
 
-// A race night is not one race. Wednesday MTB sends Half, 1, 2, 3 and 4 lap groups
-// off separately, minutes apart on a stagger that has been reshuffled over the years;
-// Tuesday trail run does the same with Half / 5K / 10K; cyclocross is the one true mass
-// start. So the groups do not even share a start time, let alone a race, and they are not
-// ordered by distance either - a recent Wednesday sent 4 lap off ahead of 3 lap.
+// A race night is not one race. Wednesday MTB sends its lap groups off separately, minutes
+// apart (2023-2026, from Catamount's own pages: 1 lap 6:00, half 6:03, 2 lap 6:15, 4 lap 6:27,
+// 3 lap 6:30; earlier seasons unchecked). Tuesday trail run starts Half at 6:00 and the 5K at
+// 6:15, and the one shared start is the 10K, which on the first Tuesday of the month goes off
+// with the 5K and is still its own race. Cyclocross is the one true mass start. So the group
+// is a night plus a distance, not a start time. The order is roughly shortest first, with 4 lap
+// ahead of 3 lap.
 // The unit of competition is (race night, distance group):
 // placings, percentiles, rivals and head to head are all computed inside it and
 // never across it. The group is the source's own `distance` label, NOT the lap
@@ -1673,13 +1675,15 @@ function methodNote(pr, year, min, drop) {
   }
   return '<details class="method"><summary>How the rating is worked out</summary><div class="body">' +
 
-    "<h4>A night is not one race</h4><p>Wednesday sends Half, 1, 2, 3 and 4 lap groups off separately, " +
-    "minutes apart, and Tuesday does the same with its distances. They are not one race that some people " +
-    "leave early: they are different races on the same evening, each with its own start time, and the stagger " +
-    "has been reshuffled over the years. Cyclocross is the one real mass start, where laps completed decide " +
-    "the order. " +
-    "So a placing only means something inside one group on one night, and that is the unit everything below " +
-    "is built from. Nobody is ever compared across groups, and no finishing time is either.</p>" +
+    "<h4>A night is not one race</h4><p>Wednesday sends its lap groups off separately, minutes apart. From 2023 " +
+    "to 2026 that was 1 lap at 6:00, half lap at 6:03, 2 lap at 6:15, 4 lap at 6:27 and 3 lap at 6:30. Tuesday " +
+    "starts the half lap at 6:00 and the 5K at 6:15, and on the first Tuesday of each month the 10K starts " +
+    "alongside the 5K. (Earlier seasons are not checked.) They are not one race that some people leave early: " +
+    "they are different races on the same evening, each over its own distance, and the 5K and 10K stay " +
+    "separate even when they leave together. Cyclocross is the one real mass start, where laps completed " +
+    "decide the order. So a placing only means something inside one group on one night, and that is the " +
+    "unit everything below is built from. Nobody is ever compared across groups, and no finishing time is " +
+    "either.</p>" +
 
     "<h4>Every pair of finishers is one result</h4><p>In a group of forty that is 780 results: for each pair " +
     "of riders, who came out ahead. A dead heat counts half to each. Finishing times never enter it — only the order does, which is what makes a re-cut course and a headwind harmless.</p>" +

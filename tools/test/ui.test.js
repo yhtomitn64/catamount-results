@@ -155,15 +155,30 @@ routes.forEach((r) => {
 check("ui: every route renders with no undefined/NaN (" + routes.length + " routes)", renderFailures === 0, renderFailures + " bad, first: " + sample);
 
 // ---- the unit of competition is the start-line group -----------------------------------
-// The lap groups do NOT go off together: each has its own start time, minutes apart, on a stagger that
-// has been reshuffled over the years and is not even ordered by distance. Saying otherwise reads as "one
-// race some people leave early", which is the exact mistake the whole page is built to avoid, so the
-// claim is banned outright. Cyclocross really is a mass start and keeps its wording.
+// The lap groups do NOT go off together: each has its own start time, minutes apart. Saying otherwise
+// reads as "one race some people leave early", which is the exact mistake the whole page is built to
+// avoid, so the claim is banned outright. Cyclocross really is a mass start and keeps its wording. The one
+// real shared start is the Tuesday 10K, which goes off with the 5K on the first Tuesday of the month.
 const sharedStart = html.match(/.{0,70}same (?:start|gun).{0,70}/gi) || [];
 check("copy: nothing claims the distance groups start together", sharedStart.length === 0, sharedStart.join(" | "));
 // A weekly race at a family outdoor centre starts on a timer, not a starting pistol. Tim's call.
 const gunTalk = html.match(/.{0,50}\bguns?\b.{0,50}/gi) || [];
 check("copy: the races start, they are not shot off with a gun", gunTalk.length === 0, gunTalk.join(" | "));
+// The schedule below was read off Catamount's own pages for 2023-2026 (see CLAUDE.md); it is pinned so a
+// tidy-up cannot quietly turn it back into something vaguer or wronger, and so the 10K nuance stays.
+{
+  const startNote = strip(route("#/power"));
+  check("copy: the method note gives the checked 2023-2026 Wednesday and Tuesday schedule",
+    /1 lap at 6:00, half lap at 6:03, 2 lap at 6:15, 4 lap at 6:27 and 3 lap at 6:30/.test(startNote) &&
+    /half lap at 6:00 and the 5K at 6:15/.test(startNote), (startNote.match(/Wednesday sends[^]{0,330}/) || ["not found"])[0]);
+  check("copy: the 10K is said to start alongside the 5K, and to stay a separate race",
+    /10K starts alongside the 5K/.test(startNote) && /5K and 10K stay separate/.test(startNote));
+  const tenKNights = races.filter((r) => r.discipline === "TR" && !r.virtual && r.year >= 2022 &&
+    bundle.results.some((x) => x.raceid === r.raceid && x.distance === "10K"));
+  const firstTuesdays = tenKNights.filter((r) => { const d = new Date(r.date + "T12:00:00Z"); return d.getUTCDay() === 2 && d.getUTCDate() <= 7; });
+  check("data: the 10K runs on first Tuesdays, as the schedule says (a night or two may move for a holiday)",
+    tenKNights.length > 5 && firstTuesdays.length >= tenKNights.length - 1, firstTuesdays.length + " of " + tenKNights.length);
+}
 check("copy: the method note says they go off separately, minutes apart",
   /off separately,\s*\n?\s*"?\s*\+?\s*"?minutes apart/.test(html) || /off separately[^<]{0,40}minutes apart/.test(strip(route("#/power"))),
   strip(route("#/power")).match(/Wednesday sends[^.]*\./) || "not found");

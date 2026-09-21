@@ -37,15 +37,20 @@ data bundle (`data/catamount.js`); `scrape.py` builds that bundle from Webscorer
 
 ## The two facts the whole design rests on
 
-1. **A race night is not one race.** Wednesday MTB sends Half, 1, 2, 3 and 4 lap groups
-   off *separately*, minutes apart, each with its own start time; Tuesday trail run does the same
-   with Half / 5K / 10K; cyclocross is the one true mass start, where laps completed decide
-   the order. They do not share a start, the stagger has been reshuffled over the years, and
-   it is not even ordered by distance (a recent Wednesday sent 4 lap at 6:27 and 3 lap at
-   6:30). Do not write "off the same start" anywhere: it is wrong, and it is the sort of
-   wrong that invites someone to compare across groups. Say "the start" or "the start time",
-   never "the gun" -- this is a family outdoor centre with a timer, not a starting pistol.
-   Both are pinned by tests. The unit of
+1. **A race night is not one race.** Wednesday MTB sends its lap groups off *separately*,
+   minutes apart, each with its own start time. Verified 2023-2026 against Catamount's own
+   pages (the FAQ on catamountoutdoor.org/race-series-weekly-mtbtr/, its 2024 event page, and
+   the 2023 event page on vmba.org): Wednesday is 1 Lap 6:00, Half/Cadet 6:03, Cubbies 6:05
+   (untimed, not in the data), 2 Lap 6:15, 4 Lap 6:27, 3 Lap 6:30; Tuesday is Half/Cadet 6:00,
+   Cubbies 6:05, 5K 6:15, and the 10K, on the first Tuesday of each month, starts at 6:15
+   *with* the 5K. That is the one shared start, and the two are still different races (the
+   data agrees: 15 of 16 10K nights since 2022 are first Tuesdays). Roughly shortest first,
+   with 4 lap ahead of 3 lap. Nothing earlier than 2023 is verified (the cached old pages do
+   not record start times), so never generalise this schedule backwards. Cyclocross is the one
+   true mass start, where laps completed decide the order. Do not write "off the same start"
+   anywhere: it is wrong, and it is the sort of wrong that invites someone to compare across
+   groups. Say "the start" or "the start time", never "the gun" -- this is a family outdoor
+   centre with a timer, not a starting pistol. Both are pinned by tests. The unit of
    competition is (race night, distance group). Placings, percentiles, rivals and
    head-to-head are computed inside that unit — never across groups. Each result
    row carries `distance` (the group label: "3 Lap", "5K", "Half", or "" for an
