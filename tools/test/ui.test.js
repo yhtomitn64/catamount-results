@@ -154,7 +154,7 @@ routes.forEach((r) => {
 });
 check("ui: every route renders with no undefined/NaN (" + routes.length + " routes)", renderFailures === 0, renderFailures + " bad, first: " + sample);
 
-// ---- the unit of competition is the start-line group -----------------------------------
+// ---- the unit of competition is the distance group -----------------------------------
 // The lap groups do NOT go off together: each has its own start time, minutes apart. Saying otherwise
 // reads as "one race some people leave early", which is the exact mistake the whole page is built to
 // avoid, so the claim is banned outright. Cyclocross really is a mass start and keeps its wording. The one
@@ -194,7 +194,7 @@ Object.keys(rowsByRace).forEach((id) => {
     else if (r.grp.split("|")[0] !== (fx.raceById[id].virtual ? "v" : "") + fx.raceById[id].discipline) badDisc++;
   });
 });
-check("groups: each race has exactly one division per start-line group (never per lap count)", badDivs === 0, badDivs + " races");
+check("groups: each race has exactly one division per distance group (never per lap count)", badDivs === 0, badDivs + " races");
 check("groups: every result has a group key of its own sport", missingGrp === 0 && badDisc === 0);
 
 const groupCount = (id) => new Set((rowsByRace[id] || []).map((r) => r.distance)).size;
@@ -205,7 +205,7 @@ races.forEach((r) => {
   if ((h.match(/<table>/g) || []).length !== groupCount(r.raceid)) badTables++;
   if (!new RegExp("\\b" + n + " finishers\\b").test(strip(h))) badFinishers++;
 });
-check("race pages: one results table per start-line group", badTables === 0, badTables + " races");
+check("race pages: one results table per distance group", badTables === 0, badTables + " races");
 check("race pages: the finisher count matches the data", badFinishers === 0, badFinishers + " races");
 
 const med = (a) => { const s = a.slice().sort((x, y) => x - y); return s.length ? (s.length % 2 ? s[s.length >> 1] : (s[(s.length >> 1) - 1] + s[s.length >> 1]) / 2) : -1; };
@@ -475,7 +475,7 @@ function clickYear(y) {
     Math.sqrt(paired.reduce((t, p) => t + (p[0] - mx) ** 2, 0) * paired.reduce((t, p) => t + (p[1] - my) ** 2, 0));
   check("rankings: ratings track average finishing percentile (correlation " + corr.toFixed(2) + ")", corr > 0.6, corr.toFixed(2));
 
-  // The season the page fits, rebuilt here from the bundle: one row per racer per start-line group,
+  // The season the page fits, rebuilt here from the bundle: one row per racer per distance group,
   // finishers only, in-person nights only. Used twice below -- to check which night each racer had
   // set aside, and to hold a night out and predict it.
   const nightsOf = () => {

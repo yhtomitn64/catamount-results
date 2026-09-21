@@ -159,7 +159,7 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
     changes every rating on the page; a test pins the behaviour.
 
 - **The method note** (`methodNote`, a folded `<details class="method">` on Rankings and Best of).
-  Long-form "How the rating is worked out": the start-line group as the unit, pairs as results, the
+  Long-form "How the rating is worked out": the distance group as the unit, pairs as results, the
   Bradley-Terry fit, the drop, early stopping, the temper, what a points gap means, and what the rating
   does *not* say. Its numbers come from the code, not from prose: the odds table is computed from `STEP`,
   the drop threshold from `DROP_FROM`, and on Rankings it quotes `agreement(pr)` for the season on screen

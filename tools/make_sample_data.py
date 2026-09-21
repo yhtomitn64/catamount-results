@@ -121,7 +121,7 @@ def main() -> None:
                         "raceid": raceid, "place": place, "name": r["name"], "racer": r["racer"],
                         "category": r["category"], "team": None,
                         # Same shape the real scraper emits: `distance` is the
-                        # start-line group the UI keys on, `laps` its numeric form.
+                        # distance group the UI keys on, `laps` its numeric form.
                         "distance": f"{laps} Lap", "laps": laps,
                         "time": f"{int(mins)}:{rest:04.1f}", "seconds": round(secs, 1),
                     })

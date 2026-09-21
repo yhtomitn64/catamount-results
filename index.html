@@ -804,7 +804,7 @@ views.racer = function (key) {
   var grpKeys = Object.keys(grpTally).sort(function (a, b) { return grpTally[b] - grpTally[a] || byLongest(a, b); });
   if (grpKeys.length) {
     h += '<div class="card"><h2>Events</h2>' +
-      '<p class="hint">Each night splits into start-line groups by distance, and the sports run ' +
+      '<p class="hint">Each night splits into groups by distance, and the sports run ' +
       'on different nights. Placings, rivals and head to head on this page only ever compare ' +
       'riders in the same group that night.</p><div class="stats">' +
       grpKeys.map(function (n) {
@@ -1209,7 +1209,7 @@ views.course = function (cslug) {
   var all = RESULTS.filter(function (r) { return ids[r.raceid] && r.seconds; });
   var fastest = all.slice().sort(function (a, b) { return a.seconds - b.seconds; });
 
-  // Times here are only comparable within a start-line group.
+  // Times here are only comparable within a distance group.
   var grpSet = {};
   all.forEach(function (r) { grpSet[r.grp] = 1; });
   var grpList = Object.keys(grpSet).sort(byLongest);
@@ -1334,7 +1334,7 @@ views.race = function (id) {
       "</div></div>";
   }
 
-  // One table per start-line group. Separate races on a night, started minutes apart,
+  // One table per distance group. Separate races on a night, started minutes apart,
   // so a single ranked list would be wrong twice over.
   var groups = (race.groups || []).slice();
   if (!groups.length) groups = [""];
@@ -1501,7 +1501,7 @@ views.series = function (year) {
 // ---------------------------------------------------------------------------
 // power rankings
 // ---------------------------------------------------------------------------
-// Who you beat, weighted by how good they are, like a college football computer poll. Every start-line
+// Who you beat, weighted by how good they are, like a college football computer poll. Every distance
 // group on every night is a small tournament: each pair of finishers is one result (ahead / behind,
 // a tie counts half). A Bradley-Terry fit turns those results into a strength for each racer: beating a
 // strong rider counts for more than beating a weak one, and losing to a strong rider costs less than
@@ -1669,7 +1669,7 @@ function methodNote(pr, year, min, drop) {
   if (pr) {
     var ag = agreement(pr), n = Object.keys(pr.rating).length;
     live = "<p>For the season on this page: " + n.toLocaleString() + " racers over " + pr.divs.length +
-      " start-line groups, and the ratings agree with " + (100 * ag.right / ag.pairs).toFixed(1) + "% of the " +
+      " distance groups, and the ratings agree with " + (100 * ag.right / ag.pairs).toFixed(1) + "% of the " +
       ag.pairs.toLocaleString() + " pairs that actually happened. That is the season the fit was made on, " +
       "so it flatters itself — the hidden-night figure above is the honest one.</p>";
   }
@@ -1761,7 +1761,7 @@ views.power = function (year, min, mode) {
   }
   var h = filterBar() + '<div class="card"><h2>Power rankings, ' + year + (filterName() ? " · " + esc(filterName()) : "") + "</h2>" +
     '<p class="hint">Not who finished highest, but who you beat and who beat you — read it as ' +
-    "tonight's odds, not as a season standing. Every start-line group on every night is a small tournament, and a rating is fitted so that beating a " +
+    "tonight's odds, not as a season standing. Every distance group on every night is a small tournament, and a rating is fitted so that beating a " +
     "strong rider counts for more than beating a weak one. A third place behind two fast riders can outrank a second place in a soft " +
     "field. Like a series that drops your worst result, each racer's weakest night is set aside once they have " + DROP_FROM +
     " nights to spare one, so one flat tyre in a field of forty does not outweigh a summer of beating those same forty. " +

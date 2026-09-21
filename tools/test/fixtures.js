@@ -20,7 +20,7 @@ function fixtures(bundle) {
   bundle.races.forEach((r) => { raceById[r.raceid] = r; });
 
   const top = racers[0];
-  // the racer who shared the most start-line groups with the top racer
+  // the racer who shared the most distance groups with the top racer
   const topDivs = new Set(bundle.results.filter((r) => r.racer === top).map((r) => r.raceid + "|" + r.distance));
   const shared = {};
   bundle.results.forEach((r) => {
