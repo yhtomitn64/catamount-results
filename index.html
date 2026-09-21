@@ -130,6 +130,12 @@ svg.chart circle.pt{cursor:pointer}
 .filter button + button{border-left:1px solid var(--line)}
 .filter button:hover{background:var(--panel-2)}
 .filter button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.seasons{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+.seasons button{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);font-size:13px;
+  padding:4px 12px;border-radius:999px;cursor:pointer;min-height:32px}
+.seasons button:hover{background:var(--panel-2)}
+.seasons button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+@media (pointer:coarse){.seasons button{min-height:40px;padding:0 15px}}
 
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
@@ -544,12 +550,50 @@ function chartWidth() {
   return Math.max(300, Math.min(720, w));
 }
 
+// Time charts squeeze a whole season into a sliver of a many-year axis, so a line between two nights
+// of one season looks like a vertical smear. All-years view therefore shows dots only; picking a
+// season (the buttons above each time chart) zooms to it and draws the line, so the progression
+// through the season reads. It is one setting for the page, and a new page starts on All years.
+var chartYear = null;
+var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function yearOf(x) { return new Date(x).getUTCFullYear(); }
+function seasonBar(years) {
+  return '<div class="seasons" role="group" aria-label="Season">' +
+    '<button type="button" data-year="all" class="' + (chartYear == null ? "on" : "") + '" aria-pressed="' + (chartYear == null) + '">All years</button>' +
+    years.map(function (y) {
+      var on = y === chartYear;
+      return '<button type="button" data-year="' + y + '" class="' + (on ? "on" : "") + '" aria-pressed="' + on + '">' + y + "</button>";
+    }).join("") + "</div>";
+}
+function monthTicks(x0, x1) {
+  var out = [], d = new Date(x0);
+  d = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  for (; d <= x1; d = Date.UTC(new Date(d).getUTCFullYear(), new Date(d).getUTCMonth() + 1, 1)) {
+    out.push({ x: d, label: MONTHS[new Date(d).getUTCMonth()] });
+  }
+  return out;
+}
+
 function lineChart(series, opts) {
   opts = opts || {};
   var W = chartWidth(), H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
+  var timeAxis = !!(opts.xTicks && opts.xTicks.length), bar = "", zoomed = timeAxis && chartYear != null;
+  if (timeAxis) {
+    var seen = {};
+    series.forEach(function (s) { s.points.forEach(function (p) { seen[yearOf(p.x)] = 1; }); });
+    var seasons = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
+    if (seasons.length > 1 || zoomed) bar = seasonBar(seasons);
+    if (zoomed) {
+      series = series.map(function (s) {
+        var c = {}; for (var k in s) c[k] = s[k];
+        c.points = s.points.filter(function (p) { return yearOf(p.x) === chartYear; });
+        return c;
+      });
+    }
+  }
   var pts = [];
   series.forEach(function (s) { s.points.forEach(function (p) { pts.push(p); }); });
-  if (!pts.length) return '<div class="empty">Not enough data to plot.</div>';
+  if (!pts.length) return bar + (zoomed ? '<div class="empty">No results in ' + chartYear + ".</div>" : '<div class="empty">Not enough data to plot.</div>');
 
   var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
   var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
@@ -561,7 +605,10 @@ function lineChart(series, opts) {
   // Time charts always span every season on record, so the axis is the same on
   // every page and a racer who sat a year out shows the gap instead of
   // silently shrinking the chart to the years they raced.
-  if (opts.xTicks && opts.xTicks.length && YEAR_LIST.length) {
+  if (zoomed) {
+    x0 -= 10 * 864e5; x1 += 10 * 864e5;                      // one season: a little air either side
+    if (x1 - x0 < 60 * 864e5) { var mid = (x0 + x1) / 2; x0 = mid - 30 * 864e5; x1 = mid + 30 * 864e5; }
+  } else if (timeAxis && YEAR_LIST.length) {
     x0 = Math.min(x0, Date.parse(YEAR_LIST[YEAR_LIST.length - 1] + "-01-01"));
     x1 = Math.max(x1, Date.parse((YEAR_LIST[0] + 1) + "-01-01"));
   }
@@ -582,7 +629,7 @@ function lineChart(series, opts) {
   svg += '<line class="axis" x1="' + P.l + '" y1="' + (H - P.b) + '" x2="' + (W - P.r) + '" y2="' + (H - P.b) + '"/>';
 
   // Label every year when they fit, else every second or third one, counting back from the newest.
-  var ticks = (opts.xTicks || []).filter(function (t) { return t.x >= x0 && t.x <= x1; });
+  var ticks = (zoomed ? monthTicks(x0, x1) : (opts.xTicks || [])).filter(function (t) { return t.x >= x0 && t.x <= x1; });
   var gap = 1e9;
   ticks.forEach(function (t, i) { if (i) gap = Math.min(gap, X(t.x) - X(ticks[i - 1].x)); });
   var every = Math.max(1, Math.ceil(34 / gap));
@@ -593,7 +640,7 @@ function lineChart(series, opts) {
 
   series.forEach(function (s) {
     var p = s.points.slice().sort(function (a, b) { return a.x - b.x; });
-    if (p.length > 1 && !opts.scatter) {
+    if (p.length > 1 && !opts.scatter && (zoomed || !timeAxis)) {
       // Break the line at every season boundary. The off-season is not a data
       // point, so a line from September to the next May would read as a trend
       // that never happened. The gap is only a safety net inside a season.
@@ -615,7 +662,7 @@ function lineChart(series, opts) {
              '" style="fill:' + s.color + '" data-t="' + t + '"><title>' + t + "</title></circle>";
     });
   });
-  return svg + "</svg>" + '<div class="chart-readout" role="status" aria-live="polite">Tap a point to see its race.</div>';
+  return bar + svg + "</svg>" + '<div class="chart-readout" role="status" aria-live="polite">Tap a point to see its race.</div>';
 }
 
 function legend(series) {
@@ -1450,6 +1497,13 @@ document.addEventListener("click", function (e) {
 });
 
 document.addEventListener("click", function (e) {
+  var yb = e.target && e.target.closest ? e.target.closest("button[data-year]") : null;
+  if (!yb) return;
+  chartYear = yb.dataset.year === "all" ? null : +yb.dataset.year;
+  render(true);
+});
+
+document.addEventListener("click", function (e) {
   var more = e.target && e.target.closest ? e.target.closest("button[data-more]") : null;
   if (more) {
     var box = more.closest(".scroll");
@@ -1472,7 +1526,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
-window.addEventListener("hashchange", function () { render(); });
+window.addEventListener("hashchange", function () { chartYear = null; render(); });
 
 var lastChartWidth = chartWidth();
 window.addEventListener("resize", debounce(function () {

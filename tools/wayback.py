@@ -120,7 +120,7 @@ def candidates(url: str) -> dict[str, list[tuple[str, str]]]:
     """{page: [(timestamp, original_url), ...]} of captures that are not the home page, earliest first."""
     out: dict[str, list[tuple[str, str]]] = {}
     for ts, u, _digest, length in sorted(cdx_all(url)):
-        if length in HOME_PAGE_BYTES or length < 1500:
+        if (length in HOME_PAGE_BYTES and ts >= "2019") or length < 1500:   # only the post-redesign site does this
             continue
         out.setdefault(norm_url(u), []).append((ts, u))
     return out

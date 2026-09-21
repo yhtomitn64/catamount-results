@@ -90,6 +90,20 @@ const check = (name, ok, detail) => {
       const scale = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
       return { scale: +scale.toFixed(2), fontPx: +(parseFloat(getComputedStyle(t).fontSize) * scale).toFixed(1), viewBoxW: svg.viewBox.baseVal.width }; })()`);
     check("the chart is drawn at its shown width, so labels are not shrunk", label.scale >= 0.95 && label.scale <= 1.05, JSON.stringify(label));
+
+    // ---- season zoom: a phone-sized tap target, zooms to one season, and All years brings it back ----------------
+    const yr = await b.eval(`(() => { const bs = [...document.querySelectorAll(".seasons button[data-year]:not([data-year='all'])")];
+      const last = bs[bs.length - 1];
+      return { n: bs.length, year: last && last.dataset.year, h: last ? Math.round(last.getBoundingClientRect().height) : 0,
+               overflowX: document.documentElement.scrollWidth - innerWidth }; })()`);
+    check("the season buttons are at least 40px tall and do not push the page sideways", yr.n > 1 && yr.h >= 40 && yr.overflowX <= 0, JSON.stringify(yr));
+    await b.tap(".seasons button[data-year='" + yr.year + "']");
+    const z = await b.eval(`(() => ({ pressed: document.querySelector(".seasons button.on").dataset.year,
+      labels: [...document.querySelector("svg.chart").querySelectorAll("text[text-anchor=middle]")].map((t) => t.textContent) }))()`);
+    check("tapping a season zooms the chart to its months", z.pressed === yr.year && z.labels.length > 1 && z.labels.every((t) => /^[A-Z][a-z]{2}$/.test(t)), JSON.stringify(z));
+    await b.shot("season-zoom");
+    await b.tap(".seasons button[data-year='all']");
+    check("tapping All years restores the whole axis", (await b.eval("document.querySelector('.seasons button.on').dataset.year")) === "all" && /^\d{4}$/.test(await b.eval("document.querySelector('svg.chart text[text-anchor=middle]').textContent")));
     check("chart axis labels are at least 9px on screen", label.fontPx >= 9, label.fontPx + "px");
     const dot = await b.rect("svg.chart circle.pt");
     check("a chart dot is tiny on a phone, which is why a tap takes the nearest dot", dot && dot.w < 12, dot && dot.w.toFixed(1) + "px wide");

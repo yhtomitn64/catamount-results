@@ -309,22 +309,40 @@ check("charts: 'Where they finish' plots every start that has a percentile", (fi
 check("charts: courseless races are plotted as 'Course not listed'", !D.results.some((r) => r.racer === fx.top && r.pct != null && !fx.raceById[r.raceid].course) || topPage.includes("Course not listed"));
 check("charts: every chart is followed by a tap readout", (topPage.match(/class="chart-readout"/g) || []).length === (topPage.match(/<svg class="chart"/g) || []).length);
 check("charts: dots carry their text for a tap and there are no leftover rings", /<circle class="pt"[^>]* data-t="[^"]+"/.test(topPage) && !/class="hit"/.test(topPage));
+// ---- season zoom: all years = dots only; one season = zoomed, with the line -------------------------------------------------
+function clickYear(y) {
+  (listeners["doc:click"] || []).forEach((f) => f({
+    target: { closest: (sel) => (/data-year/.test(sel) ? { dataset: { year: String(y) } } : null) },
+  }));
+}
 {
+  const topRows = D.results.filter((r) => r.racer === fx.top && !fx.raceById[r.raceid].virtual);
+  const seasons = [...new Set(topRows.map((r) => fx.raceById[r.raceid].year))].sort();
+  const charts = (h) => h.split('<svg class="chart"').slice(1).map((c) => c.split("</svg>")[0]);
+  const paths = (h) => charts(h).reduce((n, c) => n + (c.match(/<path /g) || []).length, 0);
+  const home = route("#/racer/" + fx.top);
+  check("seasons: all years shows dots only (a line inside a sliver of a 20-year axis is a smear)", charts(home).length > 0 && paths(home) === 0);
+  check("seasons: the time charts offer All years plus each season", seasons.length > 1 && home.includes('data-year="all"') && seasons.every((y) => home.includes('data-year="' + y + '"')) && /data-year="all" class="on"/.test(home));
+
+  const y = seasons.filter((s) => topRows.filter((r) => fx.raceById[r.raceid].year === s).length >= 3).pop();
+  clickYear(y);
+  const zoomed = route("#/racer/" + fx.top);   // route() changes the hash, which must reset to All years
+  check("seasons: a new page starts on All years again", /data-year="all" class="on"/.test(zoomed));
+  route("#/racer/" + fx.top); clickYear(y);
+  const one = el("view").innerHTML;
+  const inYear = D.results.filter((r) => r.racer === fx.top && r.pct != null && !fx.raceById[r.raceid].virtual && fx.raceById[r.raceid].year === y).length;
+  check("seasons: picking a season keeps only that season's dots and marks it pressed", (charts(one)[0].match(/<circle class="pt"/g) || []).length === inYear && new RegExp('data-year="' + y + '" class="on"').test(one), inYear + " expected");
+  check("seasons: a season view draws the line and labels months", paths(one) > 0 && /text-anchor="middle"[^>]*>(May|Jun|Jul|Aug|Sep)</.test(charts(one)[0]) && !new RegExp(">" + seasons[0] + "</text>").test(charts(one)[0]));
+  let cross = 0, segs = 0;
   const W = 720, PL = 46, PR = 14;
-  const x0 = Date.parse(years[0] + "-01-01"), x1 = Date.parse((years[years.length - 1] + 1) + "-01-01");
-  const yearAt = (x) => new Date(x0 + ((x - PL) / (W - PL - PR)) * (x1 - x0)).getUTCFullYear();
-  let segments = 0, crossing = 0;
-  fx.racers.slice(0, 3).map((k) => "#/racer/" + k).concat(courses.slice(0, 1).map((c) => "#/course/" + slug(c))).forEach((r) => {
-    for (const m of route(r).matchAll(/<path[^>]* d="([^"]+)"/g)) {
-      let prev = null;
-      m[1].trim().split(/\s*(?=[ML])/).map((t) => t.trim()).filter(Boolean).forEach((t) => {
-        const x = parseFloat(t.slice(1));
-        if (t[0] === "L" && prev !== null) { segments++; if (yearAt(prev) !== yearAt(x)) crossing++; }
-        prev = x;
-      });
-    }
-  });
-  check("charts: no line segment joins two different seasons", segments > 0 && crossing === 0, crossing + " of " + segments + " segments cross");
+  for (const m of one.matchAll(/<path[^>]* d="([^"]+)"/g)) {
+    const xs = m[1].trim().split(/\s*(?=[ML])/).filter(Boolean).map((t) => parseFloat(t.trim().slice(1)));
+    segs += xs.length; xs.forEach((x) => { if (x < PL - 1 || x > W - PR + 1) cross++; });
+  }
+  check("seasons: every point of a season line sits inside the chart", segs > 0 && cross === 0);
+  clickYear("all");
+  check("seasons: All years restores the full chart", paths(el("view").innerHTML) === 0 && el("view").innerHTML.includes('data-year="all" class="on"'));
+  route("#/racer/" + fx.top);
 }
 
 // ---- long tables ---------------------------------------------------------------------------------------------------------
