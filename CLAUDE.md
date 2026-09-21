@@ -147,6 +147,14 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
     prior, counting a night as one result rather than forty: 87.7% against 84.9-87.5%). Raising it
     changes every rating on the page; a test pins the behaviour.
 
+- **The method note** (`methodNote`, a folded `<details class="method">` on Rankings and Best of).
+  Long-form "How the rating is worked out": the start-line group as the unit, pairs as results, the
+  Bradley-Terry fit, the drop, early stopping, the temper, what a points gap means, and what the rating
+  does *not* say. Its numbers come from the code, not from prose: the odds table is computed from `STEP`,
+  the drop threshold from `DROP_FROM`, and on Rankings it quotes `agreement(pr)` for the season on screen
+  (every pair that season, set-aside nights included, labelled as the flattering in-sample number next to
+  the honest held-out one). Tests recompute all three and fail if the prose drifts from the fit.
+
 - **Best of** (`views.best`, tab "Best of"). Each season's podium and the strongest seasons on record,
   for the current sport filter. There is no all-time rating and there must not be one: the all-time table
   ranks *seasons*, since 2100 in 2005 and 2100 in 2026 both mean "this far clear of the people who showed

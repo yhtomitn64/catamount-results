@@ -106,6 +106,18 @@ const check = (name, ok, detail) => {
     await b.shot("participation");
     await b.hash("#/power");
     check("the Rankings page has no sideways scroll on a phone", (await b.eval("document.documentElement.scrollWidth - innerWidth")) <= 0);
+    // The method note is a real fold-out, so open it as a finger would and check it fits.
+    const sum = await b.eval(`(() => { const s = document.querySelector("details.method > summary");
+      return { h: Math.round(s.getBoundingClientRect().height), open: !!s.parentNode.open }; })()`);
+    check("the method note offers a finger-sized way in, shut to start with", sum.h >= 44 && !sum.open, JSON.stringify(sum));
+    await b.tap("details.method > summary");
+    const opened = await b.eval(`(() => { const d = document.querySelector("details.method");
+      return { open: !!d.open, headings: d.querySelectorAll("h4").length, odds: d.querySelectorAll(".odds li").length,
+               overflowX: document.documentElement.scrollWidth - innerWidth,
+               wide: Math.max(0, ...[...d.querySelectorAll("*")].map((e) => Math.round(e.getBoundingClientRect().right - innerWidth))) }; })()`);
+    check("tapping it opens the whole explanation without pushing the page sideways",
+      opened.open && opened.headings >= 8 && opened.odds >= 4 && opened.overflowX <= 0 && opened.wide <= 0, JSON.stringify(opened));
+    await b.shot("rankings-method");
     await b.shot("rankings");
 
     // ---- Best of: the seasons are fitted on a timer, so the page has to paint first and fill in ----------------------

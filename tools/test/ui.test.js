@@ -539,6 +539,41 @@ function clickYear(y) {
     /href="#\/power\/\d+\/3\/counted" class="on"/.test(counted) && /href="#\/power\/\d+\/3" class=""/.test(counted) &&
     /href="#\/power\/\d+\/3\/counted" class=""/.test(page));
 
+  // The method note: the page has to say how the rating is worked out, and the numbers in it have to
+  // be the page's own rather than prose that drifts away from the code.
+  const note = (page.match(/<details class="method">[\s\S]*?<\/details>/) || [""])[0];
+  const noteText = strip(note);
+  check("rankings: the page explains the method, folded away", note.length > 2000 && /How the rating is worked out/.test(note) &&
+    ["A night is not one race", "Every pair of finishers is one result", "One number per racer", "Your worst night is set aside",
+     "The fit is stopped short", "The spread is tempered", "What a gap in points means", "How we know it works",
+     "What it does not say"].every((hd) => noteText.includes(hd)), note.length + " chars");
+  // The odds it quotes are the ones the rating scale actually implies.
+  const quoted = [...note.matchAll(/<li>(\d+) points \u2014 (\d+)%<\/li>/g)].map((m) => [+m[1], +m[2]]);
+  check("rankings: the odds it quotes are the ones its own points scale implies",
+    quoted.length >= 4 && quoted.every(([gap, pct]) => Math.abs(pct - 100 / (1 + Math.pow(10, -gap / step))) < 0.5) &&
+    quoted.some(([gap, pct]) => gap === step && pct === 91),
+    quoted.map((q) => q.join(":")).join(" "));
+  check("rankings: the note uses the threshold the code uses, not a number typed into prose",
+    new RegExp("once they have " + dropFrom + " nights").test(noteText), dropFrom);
+  // The agreement figure is computed from this season, so it has to match a recount of the same pairs.
+  const claimed = /ratings agree with ([\d.]+)% of the ([\d,]+) pairs/.exec(noteText);
+  const whole = rank(allNights.flatMap((n) => n.groups.map((g) => g.map((r) => ({ k: r.k, p: r.p })))));
+  let seenPairs = 0, agreed = 0;
+  allNights.forEach((n) => n.groups.forEach((g) => {
+    for (let a = 0; a < g.length; a++) for (let c = a + 1; c < g.length; c++) {
+      const ra = whole.rating[g[a].k], rc = whole.rating[g[c].k];
+      if (ra === rc) continue;
+      const hi = ra > rc ? g[a] : g[c], lo = hi === g[a] ? g[c] : g[a];
+      seenPairs++;
+      agreed += hi.p < lo.p ? 1 : hi.p === lo.p ? 0.5 : 0;
+    }
+  }));
+  check("rankings: the agreement it claims for this season is the one its own ratings give",
+    !!claimed && +claimed[2].replace(/,/g, "") === seenPairs && Math.abs(+claimed[1] - 100 * agreed / seenPairs) < 0.05,
+    claimed ? claimed[1] + "% of " + claimed[2] + " vs " + (100 * agreed / seenPairs).toFixed(1) + "% of " + seenPairs : "not quoted");
+  check("rankings: counting every night drops the paragraph about the column that is no longer there",
+    /The last column names the night/.test(page) && !/The last column names the night/.test(counted));
+
   check("rankings: the sport filter changes the field", (() => { clickFilter("CX"); const cx = route("#/power"); clickFilter("all"); return /Cyclocross/.test(cx); })());
 }
 

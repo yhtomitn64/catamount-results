@@ -62,6 +62,23 @@ nav a:hover{background:var(--panel-2);text-decoration:none}
 .card h2{margin:0 0 4px;font-size:16px;letter-spacing:-.01em}
 .card h2 + .hint{margin:0 0 14px}
 .hint{color:var(--ink-3);font-size:13px;margin:0 0 12px}
+.card h3{margin:22px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+
+/* "How the rating is worked out": long-form, folded away until asked for. */
+.method{border:1px solid var(--line);border-radius:10px;background:var(--panel-2);margin:14px 0 4px}
+.method > summary{padding:12px 14px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-2);
+  list-style:none;display:flex;gap:8px;align-items:center;min-height:44px;box-sizing:border-box}
+.method > summary::-webkit-details-marker{display:none}
+.method > summary::before{content:"+";font-weight:700;color:var(--ink-3);width:11px;text-align:center}
+.method[open] > summary::before{content:"\2212"}
+.method > summary:hover{color:var(--ink)}
+.method .body{padding:0 14px 14px;font-size:13px;color:var(--ink-2);line-height:1.55;max-width:70ch}
+.method .body p{margin:0 0 10px}
+.method .body h4{margin:16px 0 4px;font-size:13px;color:var(--ink);font-weight:650}
+.method .body h4:first-child{margin-top:0}
+.method .odds{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px;padding:0;list-style:none}
+.method .odds li{background:var(--panel);border:1px solid var(--line);border-radius:999px;
+  padding:4px 10px;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin:14px 0 0}
 .stat{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
@@ -1611,7 +1628,98 @@ function seasonRatings(year, drop) {
   });
   var pr = powerRatings(divs, { drop: drop });
   pr.race = divRace;                                // divs index -> raceid, to name the night set aside
+  pr.divs = divs;                                   // kept for agreement(), below
   return (POWER[key] = pr);
+}
+
+// How often the ratings agree with what actually happened: every pair on every night of the season,
+// the nights that were set aside included. Worked out on demand and kept, because only the method
+// note asks for it. This is the season the fit was made on, so it flatters itself; the honest number
+// is the hidden-night one, and the note says so.
+function agreement(pr) {
+  if (pr.agree) return pr.agree;
+  var pairs = 0, right = 0;
+  pr.divs.forEach(function (rows) {
+    for (var i = 0; i < rows.length; i++) {
+      for (var j = i + 1; j < rows.length; j++) {
+        var a = rows[i], b = rows[j], ra = pr.rating[a.k], rb = pr.rating[b.k];
+        if (ra === rb) continue;                    // no call either way
+        var hi = ra > rb ? a : b, lo = hi === a ? b : a;
+        pairs++;
+        right += hi.p < lo.p ? 1 : hi.p === lo.p ? 0.5 : 0;
+      }
+    }
+  });
+  return (pr.agree = { pairs: pairs, right: right });
+}
+
+// The long-form note. Folded away, because most readers want the table and some want the method.
+// `pr` and `year` are optional: without them the season-specific paragraph is left out.
+function methodNote(pr, year, min, drop) {
+  var odds = [25, 50, 100, 200, 400].map(function (g) {
+    var pct = 100 / (1 + Math.pow(10, -g / STEP));
+    return "<li>" + g + " points — " + pct.toFixed(0) + "%</li>";
+  }).join("");
+  var live = "";
+  if (pr) {
+    var ag = agreement(pr), n = Object.keys(pr.rating).length;
+    live = "<p>For the season on this page: " + n.toLocaleString() + " racers over " + pr.divs.length +
+      " start-line groups, and the ratings agree with " + (100 * ag.right / ag.pairs).toFixed(1) + "% of the " +
+      ag.pairs.toLocaleString() + " pairs that actually happened. That is the season the fit was made on, " +
+      "so it flatters itself — the hidden-night figure above is the honest one.</p>";
+  }
+  return '<details class="method"><summary>How the rating is worked out</summary><div class="body">' +
+
+    "<h4>A night is not one race</h4><p>Wednesday sends Half, 1, 2, 3 and 4 lap groups off the same start. " +
+    "Tuesday runs Half and 5K. Cross is one mass start where laps completed decide the order. A placing only " +
+    "means something inside one group on one night, so that is the unit everything below is built from " +
+    "(and why nobody is ever compared across groups).</p>" +
+
+    "<h4>Every pair of finishers is one result</h4><p>In a group of forty that is 780 results: for each pair " +
+    "of riders, who came out ahead. A dead heat counts half to each. Finishing times never enter it — only the order does, which is what makes a re-cut course and a headwind harmless.</p>" +
+
+    "<h4>One number per racer</h4><p>A Bradley-Terry fit picks the set of strengths that makes the season's " +
+    "results as likely as possible. Beating a strong rider moves your number more than beating a weak one, " +
+    "and losing to a strong rider costs less than losing to a weak one. That is the whole point of it: a third " +
+    "place behind two fast riders can outrank a second place in a soft field. Everyone also gets one win and " +
+    "one loss against an imaginary average rider, which is what lets two groups that never met be put on one scale.</p>" +
+
+    "<h4>Your worst night is set aside</h4><p>A flat, a wrong turn, a lap ridden in with a friend is one event, " +
+    "but in a field of forty it arrives as thirty-nine losses and buries a rider who beats those same forty people " +
+    "every other week. So, like a series that drops your worst result, each racer's weakest night is left out once " +
+    "they have " + DROP_FROM + " nights and can spare one. It goes for both riders in every pair it touched, and " +
+    "it is chosen on finish percentile rather than on what it costs, so nobody can pick their own drop." +
+    (!year ? "" : drop ? " The last column names the night each racer lost, and the " +
+      '<a href="#/power/' + year + "/" + min + '/counted">counted</a> button above refits the season with every ' +
+      "night kept, so you can see what the rule is doing."
+      : " It is switched off on this page: every night is counted, drop included. The " +
+      '<a href="#/power/' + year + "/" + min + '">set aside</a> button above puts it back.') + "</p>" +
+
+    "<h4>The fit is stopped short, on purpose</h4><p>Left to run, this kind of fit never settles. A racer who won " +
+    "the only night they rode has no finite best strength: their number climbs for as long as you let it, until " +
+    "they sit on top of the season. Stopping after a fixed number of passes is what holds a thin record near the " +
+    "middle — win your only night and you will rate well, but not above someone who won all summer. It is " +
+    "the one number here that is a piece of engineering rather than a judgement about racing, and it beat every " +
+    "tidier alternative when they were all tried on hidden nights.</p>" +
+
+    "<h4>The spread is tempered</h4><p>The fit treats those thirty-nine losses as thirty-nine independent facts, " +
+    "and they plainly are not — one bad night is one bad night. Left alone it comes out surer of itself " +
+    "than the results justify, so the spread is narrowed by half again before it becomes a rating. That is what " +
+    "makes the next part true.</p>" +
+
+    "<h4>What a gap in points means</h4><p>1500 is an average racer that season, and a gap is a prediction for " +
+    "one night — the chance the higher-rated rider finishes ahead:</p><ul class=\"odds\">" + odds + "</ul>" +
+
+    "<h4>How we know it works</h4><p>By hiding things from it. Refit a season with one night left out, then use " +
+    "the ratings to predict that night. Across 2021-2026 that is 324,011 pairs the fit had never seen, and it calls " +
+    "87.7% of them right — 87.4% without the worst night set aside. The odds hold up too: on the busiest " +
+    "season the ratings promised 87.5% and the hidden nights delivered 88.9%.</p>" + live +
+
+    "<h4>What it does not say</h4><p>Nothing across seasons. Courses are re-cut and the roster turns over, so a " +
+    "chain of opponents from 2005 to 2026 is not a comparison, and every season is fitted on its own. It is not a " +
+    "season standing either: turning up every week earns nothing here beyond a record solid enough to rate " +
+    "someone on. And the self-timed 2021 weeks are left out, because nobody shared a start line.</p>" +
+    "</div></details>";
 }
 function powerYears() {
   return YEAR_LIST.slice().sort(function (a, b) { return b - a; }).filter(function (y) {
@@ -1655,7 +1763,8 @@ views.power = function (year, min, mode) {
     '<div class="seasons" role="group" aria-label="Minimum nights"><span class="muted" style="align-self:center">At least</span>' +
     [3, 5, 10].map(function (m) { return link(year, m, drop, m + " nights", m === min); }).join("") + "</div>" +
     '<div class="seasons" role="group" aria-label="Worst night"><span class="muted" style="align-self:center">Worst night</span>' +
-    link(year, min, true, "set aside", drop) + link(year, min, false, "counted", !drop) + "</div>";
+    link(year, min, true, "set aside", drop) + link(year, min, false, "counted", !drop) + "</div>" +
+    methodNote(pr, year, min, drop);
   if (!rows.length) return h + '<p class="empty">Nobody raced ' + min + " nights that season.</p></div>";
   h += table([
     { label: "#", cls: "num", get: function (r) { return r.rank; }, cell: function (r) { return '<td class="num">' + r.rank + "</td>"; } },
@@ -1747,7 +1856,7 @@ views.best = function (min) {
     [3, 5, 10].map(function (m) {
       var on = m === min;
       return '<a href="#/best/' + m + '" class="' + (on ? "on" : "") + '"' + (on ? ' aria-current="true"' : "") + ">" + m + " nights</a>";
-    }).join("") + "</div>";
+    }).join("") + "</div>" + methodNote();
   if (todo.length) h += '<p class="fine">Fitting ' + done.length + " of " + ys.length + " seasons—the table fills in as it goes.</p>";
 
   h += "<h3>Season by season</h3>" + table([
