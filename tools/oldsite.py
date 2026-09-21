@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
 """Read Catamount's pre-Webscorer results pages (Wayback Machine copies) into data/extra/oldsite.json.
 
-Before Webscorer, Catamount posted each night as a plain HTML page at
-catamountoutdoor.com/results/YYYY/MMDDYY.htm. Four generations are read:
+Before Webscorer, Catamount posted each night as a plain HTML page, at first in the site root
+(catamountoutdoor.com/MMDDYY.HTM, 2001-2009), later under /results/YYYY/. Formats read:
 
-  2009-2013, 2017-2019  the age-group reports of the timing software: a title, a section per
+  2001-2003  a "Click on the class you want" index, then one small table per class
+      (Rank, Bib, Name, Result). Trail run classes carry no distance ("Full course" plus a "Cadet"
+      partial lap); bike classes say "1 lap", "2 laps", "1KF" (kids), "Cadet Partial Lap". The page
+      names the course ("The Hill Course", "The Blue Course").
+  2004-2013, 2017-2019  the age-group reports of the timing software: a title, a section per
       distance ("5k", "2.5k", "10k" for the Tuesday run; "1 LAP", "2 LAPS", "Cadets" ... for the
-      Wednesday bike race) holding one preformatted table per gender and age group. 2019 also
-      names the course on a line under the date. 2009-2013 head each distance with a centred <h1>.
+      Wednesday bike race) holding one preformatted table per gender and age group. 2004-2005
+      put the distance inside each age heading and add a Pace column; 2006-2013 head each distance
+      with a centred <h1>; 2019 names the course under the date.
+  2007-2008  courses (Pink / Blue / Purple) come from the series index pages results07.html and
+      results08.html, whose drop-downs read "May 29 Pink Course".
   2017-2019 cyclocross  CrossMgr saves (one JSON payload with every rider's lap times).
   2006-2008, 2012 cyclocross  nights typed up in Word ("1. First Last 34:20", a lap down as "-1 lap"), at
       catamountoutdoor.com/cxMMDDYY.htm (the night is taken from the file name; the heading is sometimes stale).
+
+The night's date is the first of {title date, file-name date, heading date} that falls on the sport's
+weekday (Tuesday run, Wednesday bike and cross); pages copied forward often keep last week's heading.
 
 Not read: special events (Flower Power, Bramble Scramble, the Eastern Cup, Stampy Stomp), the
 attendance/team reports, and 2018/052218.htm, an Excel export whose times are not reliably
@@ -92,6 +102,14 @@ SECONDS_PER_LAP = 450
 def impossible(distance: str, laps: int | None, seconds: float) -> bool:
     floor = FASTEST.get(distance) or (SECONDS_PER_LAP * laps if laps else 0)
     return seconds < floor
+
+
+def category_distance(heading: str) -> tuple[str, int | None] | None:
+    """The distance inside an age/gender heading ("Teen (13-17) 5k Female"), on pages with no distance heading."""
+    t = clean_html(heading).lower()
+    if m := re.search(r"(?<![\d.])(\d+(?:\.\d+)?) ?k(?:m|ilometers?)?\b", t):
+        return f"{m[1]}K", None
+    return None
 
 
 def to_seconds(text: str) -> float | None:
@@ -194,8 +212,72 @@ def parse_text_cx(html: str, url: str) -> dict | None:
     return {"date": date, "discipline": "CX", "course": None, "rows": out, "skipped": [], "title": "Catamount Cyclocross Series"}
 
 
+def class_label(cls: str, disc: str) -> tuple[str, int | None] | None:
+    """A class title from the 2001-2003 tables -> (group label, laps). Tandem teams are skipped."""
+    t = re.sub(r"\s+", " ", cls).strip().lower()
+    if "tandem" in t:
+        return None
+    if "cadet" in t:
+        return "Cadet", None
+    if disc == "TR":
+        return "Full course", None                       # the run's length is not stated on these pages
+    if m := re.fullmatch(r"(\d)([a-z])([fm])", t):        # "1KF": laps, class (K = kids), gender
+        n = int(m[1])
+        return (f"{n} Lap Kids" if m[2] == "k" and n == 1 else f"{n} Lap"), n
+    m = re.search(r"\b(\d) ?laps?\b", t)
+    if "full lap" in t or (m and re.search(r"\bkids?\b", t)):
+        return "1 Lap Kids", 1
+    if m:
+        return f"{m[1]} Lap", int(m[1])
+    return None
+
+
+def parse_class_tables(html: str, url: str) -> dict | None:
+    """2001-2003 pages: a "Click on the class you want" index, then one small table per class."""
+    title_m = re.search(r"<title>(.*?)</title>", html, re.S | re.I)
+    title = clean_html(title_m.group(1)) if title_m else ""
+    disc = discipline_of(title)
+    root_m = re.search(r"/(\d\d)(\d\d)(\d\d)\.html?$", url, re.I)
+    if not (disc and root_m):
+        return None                                       # a duathlon or other one-off is not part of the series
+    try:
+        date = datetime.date(2000 + int(root_m[3]), int(root_m[1]), int(root_m[2]))
+    except ValueError:
+        return None
+    if date.weekday() != {"TR": 1, "MTB": 2}.get(disc, -1):
+        return None
+    cm = re.search(r'The\s+["\u201c]?([A-Z][a-z]+)\s+Course', html[:4000])
+    rows: list[dict] = []
+    dropped: list[str] = []
+    for tm in re.finditer(r"<TABLE BORDER>(.*?)</TABLE>", html, re.S | re.I):
+        block = tm.group(1)
+        th = re.search(r"<TH[^>]*COLSPAN[^>]*>(.*?)</TH>", block, re.S | re.I)
+        label = class_label(clean_html(th.group(1)), disc) if th else None
+        if label is None:
+            continue
+        for tr in re.findall(r"<TR[^>]*>(.*?)</TR>", block, re.S | re.I):
+            tds = [clean_html(x) for x in re.findall(r"<TD[^>]*>(.*?)</TD>", tr, re.S | re.I)]
+            if len(tds) < 4 or not tds[0].isdigit():
+                continue
+            secs = to_seconds(tds[3])
+            name = scrape.clean_name(tds[2])
+            if secs is None or not name or re.search(r"\d", name):
+                continue
+            if impossible(label[0], label[1], secs):
+                dropped.append(f"{name} {tds[3]} ({label[0]})")
+                continue
+            rows.append({"name": name, "racer": scrape.racer_key(name), "distance": label[0], "laps": label[1],
+                         "time": tds[3], "seconds": secs})
+    if not rows:
+        return None
+    return {"date": date, "discipline": disc, "course": f"{cm[1]} Course" if cm else None, "title": title,
+            "rows": rank(rows), "skipped": [], "dropped": dropped}
+
+
 def parse_page(html: str, url: str) -> dict | None:
     """One results page -> {date, discipline, course, rows}, or None if it is not a results page."""
+    if "Click on the class you want" in html:
+        return parse_class_tables(html, url)
     if "Microsoft Word" in html[:3000]:
         return parse_text_cx(html, url)
     if "generator" in html[:3000] and "CrossMgr" in html[:3000]:
@@ -226,7 +308,7 @@ def parse_page(html: str, url: str) -> dict | None:
                 pass
             if h1_sections:
                 continue                                 # an age/gender table inside the current distance
-            section = section_label(text)
+            section = section_label(text) or category_distance(text)
             if section is None:
                 skipped.append(text)
             continue
@@ -237,15 +319,16 @@ def parse_page(html: str, url: str) -> dict | None:
             chunks = [c for c in re.split(r"\s{2,}", line.strip()) if c]
             if len(chunks) < 3 or not chunks[0].isdigit():
                 continue                                   # column headings, blank lines, "Top" anchors
-            secs = to_seconds(chunks[-1])
+            time_text = next((c for c in reversed(chunks[2:]) if to_seconds(c) is not None), chunks[-1])
+            secs = to_seconds(time_text)
             name = scrape.clean_name(chunks[1])
             if secs is None or not name or re.search(r"\d", name) or name.lower().startswith("participant"):
                 continue                                   # DNF rows, "Participant 559", other placeholders
             if impossible(section[0], section[1], secs):
-                dropped.append(f"{name} {chunks[-1]} ({section[0]})")
+                dropped.append(f"{name} {time_text} ({section[0]})")
                 continue
             rows.append({"name": name, "racer": scrape.racer_key(name), "distance": section[0], "laps": section[1],
-                         "time": chunks[-1], "seconds": secs})
+                         "time": time_text, "seconds": secs})
 
     course_m = re.search(r"<b><i>(.*?)</i></b>", html, re.S | re.I)
     if course_m:
@@ -254,23 +337,53 @@ def parse_page(html: str, url: str) -> dict | None:
         course = scrape.normalize_course(re.sub(r"\s*course\s*$", "", cm.group(1), flags=re.I)) if cm else None
         if course and not re.fullmatch(r"(Red|Black|Yellow|White|Green|Orange|Blue|Purple) (on|in) (Red|Black|Yellow|White|Green|Orange|Blue|Purple)", course):
             course = None                                  # not a course name after all
-    # The heading's date is sometimes left over from the night before; the title (typed by hand
-    # for that night) is the better witness. Either way the weekday must fit the sport.
+    # The heading's date is sometimes left over from the night before and the title has typos too, so the
+    # candidates are the title's date, the date in the file name and the heading's, and the first one that
+    # falls on the sport's weekday wins (Tuesday run, Wednesday bike and cross).
     year_m = re.search(r"/results/(\d{4})/", url)
-    root_m = re.search(r"/(\d\d)(\d\d)(\d\d)\.html?$", url, re.I)         # root-level pages are named MMDDYY
+    root_m = re.search(r"/(\d\d)(\d\d)(\d\d)\.html?$", url, re.I)         # pages are named MMDDYY
     year = int(year_m[1]) if year_m else (2000 + int(root_m[3]) if root_m else None)
     tm = re.search(r"(\d{1,2})/(\d{1,2})", title)
-    if tm and year:
+    candidates = []
+    for month, day in ([(int(tm[1]), int(tm[2]))] if tm else []) + ([(int(root_m[1]), int(root_m[2]))] if root_m else []):
         try:
-            date = datetime.date(year, int(tm[1]), int(tm[2]))
-        except ValueError:
+            candidates.append(datetime.date(year, month, day))
+        except (ValueError, TypeError):
             pass
+    if date:
+        candidates.append(date)
     weekday = {"TR": 1, "MTB": 2, "CX": 2}.get(disc)
-    if date and disc and date.weekday() != weekday:
-        return None
+    date = next((d for d in candidates if d.weekday() == weekday), None)
     if not (date and disc and rows):
         return None
     return {"date": date, "discipline": disc, "course": course, "title": title, "rows": rank(rows), "skipped": skipped, "dropped": dropped}
+
+
+MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
+
+
+def index_courses() -> dict[datetime.date, str]:
+    """Course per night from the 2007 and 2008 series index pages.
+
+    Those pages are a drop-down per series whose entries read "May 29 Pink Course" and point at the
+    night's results page, so the course is Catamount's own label for that night. An "Invite" night
+    (no course named), a cancelled night and a nickname without the word Course are left alone.
+    """
+    out: dict[datetime.date, str] = {}
+    for ts, url in wayback.cdx("catamountoutdoor.com/results/", match="prefix", limit=5000):
+        m = re.search(r"/results(\d\d)\.html$", wayback.norm_url(url))
+        html = wayback.cached(ts, url) if m else None
+        if not html:
+            continue
+        year = 2000 + int(m[1])
+        for label in re.findall(r'<option value="[^"]*">([^<]+)</option>', html):
+            lm = re.match(r"([A-Za-z]+)\s*(\d{1,2})\s+(?:New\s+)?(Pink|Blue|Purple|Green|Red|Yellow|Hill|Black|White|Orange)\s+Course", label.strip())
+            if lm and lm[1][:3].lower() in MONTHS:
+                try:
+                    out[datetime.date(year, MONTHS[lm[1][:3].lower()], int(lm[2]))] = f"{lm[3]} Course"
+                except ValueError:
+                    pass
+    return out
 
 
 def main() -> None:
@@ -278,6 +391,7 @@ def main() -> None:
     ap.add_argument("--list", action="store_true", help="show how each cached page parses; write nothing")
     args = ap.parse_args()
 
+    from_index = index_courses()
     races, results, pages = [], [], 0
     found = {**wayback.candidates("catamountoutdoor.com/results/"), **wayback.candidates("catamountoutdoor.com/cx"),
              **wayback.candidates("catamountoutdoor.com/0")}
@@ -295,6 +409,8 @@ def main() -> None:
         if page is None:
             print(f"  {label:18} not a results page")
             continue
+        if not page["course"] and page["date"] in from_index:
+            page["course"] = from_index[page["date"]]
         raceid = -(int(page["date"].strftime("%Y%m%d")) * 10 + CODE[page["discipline"]])
         if any(r["raceid"] == raceid for r in races):
             print(f"  {label:18} DUPLICATE night {page['date']}, skipped", file=sys.stderr)

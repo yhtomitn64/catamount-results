@@ -113,7 +113,7 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 
 ## Working notes
 
-- **Old website (2006-2019, with gaps).** `tools/oldsite.py` reads the results pages Catamount
+- **Old website (2001-2019, with gaps).** `tools/oldsite.py` reads the results pages Catamount
   posted before Webscorer (Wayback copies; see its docstring for the four page formats). Same
   rules as everywhere: name, placing, time, distance group, laps; team, city, bib, age and gender
   are dropped. Race links say "Old results page" and point at the Wayback copy. A course is shown
