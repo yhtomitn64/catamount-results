@@ -345,6 +345,28 @@ function clickYear(y) {
   route("#/racer/" + fx.top);
 }
 
+// ---- participation over time --------------------------------------------------------------------------------------------------
+{
+  clickFilter("all");
+  const page = route("#/series");
+  const both = page.split('<svg class="chart"').slice(1).map((c) => c.split("</svg>")[0]);
+  const live = races.filter((r) => !r.virtual);
+  const perYear = new Set(live.map((r) => r.discipline + "|" + r.year));
+  check("participation: a trend chart and a night-by-night chart on the Seasons page", both.length === 2 && page.includes("How many people race"));
+  check("participation: the trend has one point per sport and season on record, virtual weeks left out", (both[0].match(/<circle class="pt"/g) || []).length === perYear.size, perYear.size + " expected");
+  check("participation: the trend keeps its line across seasons and has no season zoom above it", /<path /.test(both[0]) && page.indexOf('class="seasons"') > page.indexOf(both[0].slice(0, 40)) + both[0].length);
+  check("participation: the night-by-night chart has a dot per in-person night and a season zoom", (both[1].match(/<circle class="pt"/g) || []).length === live.length && (page.match(/class="seasons"/g) || []).length === 1);
+  const oneYear = live.find((r) => live.filter((x) => x.discipline === r.discipline && x.year === r.year).length >= 3);
+  const nightsThatYear = live.filter((r) => r.discipline === oneYear.discipline && r.year === oneYear.year);
+  const avg = Math.round(nightsThatYear.reduce((n, r) => n + D.results.filter((x) => x.raceid === r.raceid).length, 0) / nightsThatYear.length);
+  check("participation: a point's tooltip gives the average and the number of nights it rests on", page.includes(oneYear.year + " · " + ({ MTB: "MTB", TR: "Trail run", CX: "Cyclocross" })[oneYear.discipline] + " · " + avg + " racers a night on average · " + nightsThatYear.length + " nights"));
+  check("participation: the seasons table has a per-night column", />Per night</.test(page));
+  clickYear(oneYear.year);
+  const zoom = el("view").innerHTML.split('<svg class="chart"').slice(1).map((c) => c.split("</svg>")[0]);
+  check("participation: zooming a season leaves the trend alone and joins that season's night dots", (zoom[0].match(/<circle class="pt"/g) || []).length === (both[0].match(/<circle class="pt"/g) || []).length && /<path /.test(zoom[1]));
+  clickYear("all");
+}
+
 // ---- long tables ---------------------------------------------------------------------------------------------------------
 const bigYear = years.find((y) => new Set(D.results.filter((r) => fx.raceById[r.raceid].year === y).map((r) => r.racer)).size > 200);
 if (bigYear) {

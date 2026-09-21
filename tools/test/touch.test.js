@@ -91,6 +91,13 @@ const check = (name, ok, detail) => {
       return { scale: +scale.toFixed(2), fontPx: +(parseFloat(getComputedStyle(t).fontSize) * scale).toFixed(1), viewBoxW: svg.viewBox.baseVal.width }; })()`);
     check("the chart is drawn at its shown width, so labels are not shrunk", label.scale >= 0.95 && label.scale <= 1.05, JSON.stringify(label));
 
+    // ---- Seasons page: the participation charts fit a phone ------------------------------------------------------
+    await b.hash("#/series");
+    check("the Seasons page has no sideways scroll on a phone", (await b.eval("document.documentElement.scrollWidth - innerWidth")) <= 0);
+    await b.eval("document.querySelector('svg.chart').scrollIntoView()");
+    await b.shot("participation");
+    await b.hash("#/racer/" + fx.top);
+
     // ---- season zoom: a phone-sized tap target, zooms to one season, and All years brings it back ----------------
     const yr = await b.eval(`(() => { const bs = [...document.querySelectorAll(".seasons button[data-year]:not([data-year='all'])")];
       const last = bs[bs.length - 1];

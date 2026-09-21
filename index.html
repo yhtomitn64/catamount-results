@@ -136,6 +136,11 @@ svg.chart circle.pt{cursor:pointer}
 .seasons button:hover{background:var(--panel-2)}
 .seasons button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
 @media (pointer:coarse){.seasons button{min-height:40px;padding:0 15px}}
+@media (max-width:700px){   /* twenty seasons would stack five rows deep: one scrolling row instead */
+  .seasons{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .seasons::-webkit-scrollbar{display:none}
+  .seasons button{flex:0 0 auto}
+}
 
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;
   background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
@@ -577,8 +582,10 @@ function monthTicks(x0, x1) {
 function lineChart(series, opts) {
   opts = opts || {};
   var W = chartWidth(), H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
-  var timeAxis = !!(opts.xTicks && opts.xTicks.length), bar = "", zoomed = timeAxis && chartYear != null;
-  if (timeAxis) {
+  // opts.trend: one point per season, joined across seasons (a gap of more than a year and a bit breaks the
+  // line), so there is nothing to zoom into.
+  var timeAxis = !!(opts.xTicks && opts.xTicks.length), bar = "", zoomed = timeAxis && !opts.trend && chartYear != null;
+  if (timeAxis && !opts.trend) {
     var seen = {};
     series.forEach(function (s) { s.points.forEach(function (p) { seen[yearOf(p.x)] = 1; }); });
     var seasons = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
@@ -640,14 +647,14 @@ function lineChart(series, opts) {
 
   series.forEach(function (s) {
     var p = s.points.slice().sort(function (a, b) { return a.x - b.x; });
-    if (p.length > 1 && !opts.scatter && (zoomed || !timeAxis)) {
+    if (p.length > 1 && !opts.scatter && (zoomed || !timeAxis || opts.trend)) {
       // Break the line at every season boundary. The off-season is not a data
       // point, so a line from September to the next May would read as a trend
       // that never happened. The gap is only a safety net inside a season.
       var gap = opts.gapMs || 120 * 864e5;
       var d = "", prev = null;
       p.forEach(function (q) {
-        var newSeason = prev !== null && new Date(q.x).getUTCFullYear() !== new Date(prev).getUTCFullYear();
+        var newSeason = !opts.trend && prev !== null && new Date(q.x).getUTCFullYear() !== new Date(prev).getUTCFullYear();
         d += (prev === null || newSeason || q.x - prev > gap ? "M" : "L") + X(q.x).toFixed(1) + " " + Y(q.y).toFixed(1) + " ";
         prev = q.x;
       });
@@ -1332,12 +1339,63 @@ views.race = function (id) {
   return h;
 };
 
+// Sport colours for the participation charts (course colours are for courses).
+var EV_COLORS = { MTB: "#4f8fd9", TR: "#b07ad8", CX: "#4fb3a4", vMTB: "#8fb6e8", vTR: "#cdaee8" };
+
+// How many people turn up. Older seasons are only the nights that survive on the old website, so the
+// headline is the AVERAGE per night (a thin year is a smaller sample, not a smaller crowd) and every
+// point says how many nights it rests on. Virtual weeks (self-timed) are counted apart from
+// in-person nights, and only on their own filter.
+function participationCard() {
+  var races = RACES.filter(passRace).filter(function (r) { return discFilter === "V" ? r.virtual : !r.virtual; });
+  var evs = {};
+  races.forEach(function (r) {
+    var ev = evOf(r);
+    (evs[ev] = evs[ev] || []).push(r);
+  });
+  var order = Object.keys(evs).sort(function (a, b) { return evs[b].length - evs[a].length; });
+  if (!order.length) return "";
+  var trend = [], nights = [];
+  order.forEach(function (ev) {
+    var label = DISC_NAMES[ev] || ev, byYear = {};
+    evs[ev].forEach(function (r) { (byYear[r.year] = byYear[r.year] || []).push(r); });
+    var tp = Object.keys(byYear).map(function (y) {
+      var rs = byYear[y], total = rs.reduce(function (n, r) { return n + (resultsByRace[r.raceid] || []).length; }, 0);
+      var avg = total / rs.length;
+      return { x: Date.parse(y + "-07-01"), y: avg,
+               title: y + " · " + label + " · " + Math.round(avg) + " racers a night on average · " + rs.length + (rs.length === 1 ? " night" : " nights") + " on record" };
+    });
+    trend.push({ label: label, color: EV_COLORS[ev] || "#6f7a72", points: tp });
+    nights.push({ label: label, color: EV_COLORS[ev] || "#6f7a72", points: evs[ev].map(function (r) {
+      var n = (resultsByRace[r.raceid] || []).length;
+      return { x: Date.parse(r.date), y: n, title: fmtDate(r.date) + " · " + label + " · " + n + " racers" + (r.course ? " · " + r.course : "") };
+    }) });
+  });
+  function top(series) {
+    var m = Math.max.apply(null, series.reduce(function (a, s) { return a.concat(s.points.map(function (p) { return p.y; })); }, [1]));
+    return Math.ceil(m * 1.05 / 40) * 40;                    // a round top, so the gridlines read as 0 / 100 / 200...
+  }
+  var fmt = function (v) { return String(Math.round(v)); };
+  return '<div class="card"><h2>How many people race</h2>' +
+    '<p class="hint">Average racers per night, one point per season. Seasons before 2021 are only the nights that survive on ' +
+    "Catamount's old website, so each point says how many nights it rests on: read a thin year as a small sample, not a small crowd. " +
+    "Years with no results on record are left as gaps.</p>" +
+    lineChart(trend, { xTicks: yearTicks(), trend: true, y0: 0, y1: top(trend), fmtY: fmt, gapMs: 400 * 864e5, label: "Average racers per night, by season" }) +
+    legend(trend) +
+    '<h2 style="margin-top:22px">Night by night</h2>' +
+    '<p class="hint">Every race night, for the busy nights and the quiet ones. Pick a season to zoom in and join the dots.</p>' +
+    lineChart(nights, { xTicks: yearTicks(), y0: 0, y1: top(nights), fmtY: fmt, label: "Racers on each race night" }) +
+    "</div>";
+}
+
 function seasonsCard() {
   var rows = YEAR_LIST.map(function (y) {
     var rs = (years[y] || []).filter(passRace);
     var ids = {}; rs.forEach(function (r) { ids[r.raceid] = 1; });
     var res = RESULTS.filter(function (r) { return ids[r.raceid]; });
-    return { year: y, races: rs.length, starts: res.length,
+    var live = rs.filter(function (r) { return !r.virtual; });
+    var liveStarts = live.reduce(function (n, r) { return n + (resultsByRace[r.raceid] || []).length; }, 0);
+    return { year: y, races: rs.length, starts: res.length, perNight: live.length ? liveStarts / live.length : null,
              racers: new Set(res.map(function (r) { return r.racer; })).size,
              courses: new Set(rs.map(function (r) { return r.course; }).filter(Boolean)).size };
   }).filter(function (r) { return r.races; });
@@ -1348,12 +1406,14 @@ function seasonsCard() {
       { label: "Races", cls: "num", get: function (r) { return r.races; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.races + "</td>"; } },
       { label: "Courses", cls: "num", get: function (r) { return r.courses; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.courses + "</td>"; } },
       { label: "Racers", cls: "num", get: function (r) { return r.racers; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.racers + "</td>"; } },
-      { label: "Starts", cls: "num", get: function (r) { return r.starts; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.starts + "</td>"; } }
+      { label: "Starts", cls: "num", get: function (r) { return r.starts; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.starts + "</td>"; } },
+      { label: "Per night", cls: "num", get: function (r) { return r.perNight; }, defaultDir: -1,
+        cell: function (r) { return '<td class="num" title="Average racers on an in-person night">' + (r.perNight == null ? "—" : Math.round(r.perNight)) + "</td>"; } }
     ], rows, { sort: 0, dir: -1 }) + "</div>";
 }
 
 views.series = function (year) {
-  if (!year) return filterBar() + seasonsCard();
+  if (!year) return filterBar() + participationCard() + seasonsCard();
 
   year = +year;
   var rs = (years[year] || []).filter(passRace);

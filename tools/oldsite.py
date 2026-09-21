@@ -74,9 +74,9 @@ def section_label(h2: str) -> tuple[str, int | None] | None:
         return f"{m[1]} Lap Kids", int(m[1])
     if m := re.fullmatch(r"(\d) laps?", t):
         return f"{m[1]} Lap", int(m[1])
-    if m := re.fullmatch(r"(\d) laps? \d+ under", t):      # "2 lap 12 under": the children's group of that distance
+    if m := re.fullmatch(r"(\d) laps? \d+ (?:&|and)? ?under(?: [\d:]+ start)?", t):      # "2 lap 12 under": the children's group of that distance
         return f"{m[1]} Lap Kids", int(m[1])
-    if t in ("cadet", "cadets", "1/2 lap", "1/2 lap cadets"):
+    if t in ("cadet", "cadets", "1/2 lap", "1/2 lap cadets", "cadets 1/2 lap"):
         return "Cadet", None
     if m := re.fullmatch(r"(?:cadets? ~)?(\d+(?:\.\d+)?) ?k(?:ilometers?|m)?", t):     # "5k", "5 Kilometer", "Cadets ~2.5 Kilometer"
         return f"{m[1]}K", None
@@ -257,10 +257,12 @@ def parse_page(html: str, url: str) -> dict | None:
     # The heading's date is sometimes left over from the night before; the title (typed by hand
     # for that night) is the better witness. Either way the weekday must fit the sport.
     year_m = re.search(r"/results/(\d{4})/", url)
+    root_m = re.search(r"/(\d\d)(\d\d)(\d\d)\.html?$", url, re.I)         # root-level pages are named MMDDYY
+    year = int(year_m[1]) if year_m else (2000 + int(root_m[3]) if root_m else None)
     tm = re.search(r"(\d{1,2})/(\d{1,2})", title)
-    if tm and year_m:
+    if tm and year:
         try:
-            date = datetime.date(int(year_m[1]), int(tm[1]), int(tm[2]))
+            date = datetime.date(year, int(tm[1]), int(tm[2]))
         except ValueError:
             pass
     weekday = {"TR": 1, "MTB": 2, "CX": 2}.get(disc)
@@ -277,9 +279,10 @@ def main() -> None:
     args = ap.parse_args()
 
     races, results, pages = [], [], 0
-    found = {**wayback.candidates("catamountoutdoor.com/results/"), **wayback.candidates("catamountoutdoor.com/cx")}
+    found = {**wayback.candidates("catamountoutdoor.com/results/"), **wayback.candidates("catamountoutdoor.com/cx"),
+             **wayback.candidates("catamountoutdoor.com/0")}
     for norm, captures in sorted(found.items()):
-        if not re.search(r"/(?:results/\d{4}/(?:cx)?|cx)\d{6}\.html?$", norm, re.I):
+        if not re.search(r"/(?:results/\d{4}/(?:cx)?|cx)?\d{6}\.html?$", norm, re.I):
             continue
         # The earliest capture that is on disk and parses; captures that were never fetched are skipped.
         page = ts = url = None
