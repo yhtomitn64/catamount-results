@@ -125,10 +125,37 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 - **Power rankings** (`views.power`, tab "Rankings"). A Bradley-Terry fit per season over every pair of
   finishers inside each (night, distance) group, in-person nights only: beating a strong rider counts
   for more than beating a weak one, so a 3rd behind two fast riders can outrank a 2nd in a soft field.
-  A prior (one win and one loss against an average rider) keeps thin records near 1500 and lets groups
-  that never met be rated. Rating = 1500 + 200*log10(strength). Seasons only: a chain of opponents from
-  2008 to 2024 is not a comparison. The algorithm is exposed as `window.CatamountRank.ratings` so the
-  tests can feed it made-up nights. A racer listed twice in one group counts once.
+  A prior (one win and one loss against an average rider) lets groups that never met be rated. Seasons
+  only: a chain of opponents from 2008 to 2024 is not a comparison. A racer listed twice in one group
+  counts once. `window.CatamountRank` exposes `ratings`, `step`, `dropFrom` and `budget` for the tests.
+  Three things there are easy to "fix" and must not be, because each was chosen against held-out nights
+  (refit a season with one night hidden, then predict it; 324,011 pairs over 2021-2026):
+  - **Your worst night is set aside** (`DROP_FROM` = 4 nights before you can spare one, chosen on finish
+    percentile so nobody picks their own). One bad night in a field of forty arrives as 39 losses and
+    buries someone who beats those same forty every other week. 87.4% -> 87.7% of held-out pairs called
+    right. The pair goes for *both* riders, so a night can lose pairs wholesale when it is many people's
+    worst (a rare sport like the 10K, where the median group still keeps 84% of its pairs, the worst 23%).
+    `#/power/<year>/<min>/counted` switches the rule off so a reader can see what it does.
+  - **The spread is tempered** (`TEMPER` = 1.5). The fit treats 39 losses as 39 independent facts; they
+    are not. Held-out nights put the raw spread about half again too wide. Rating =
+    1500 + (`STEP`/`TEMPER`)*log10(strength), and with the temper a `STEP` (200) point gap really is
+    ten-to-one odds (promised 87.5%, happened 88.9% on the busiest season).
+  - **`BUDGET` = 400 passes is early stopping, not a tolerance.** Left to run the fit does not settle:
+    a racer who won the only night they rode has no finite best strength and climbs for tens of thousands
+    of passes until they top the season. Stopping short is what holds thin records near the middle, and
+    it beat every principled alternative tried (a prior scaled to each racer's evidence, a bigger flat
+    prior, counting a night as one result rather than forty: 87.7% against 84.9-87.5%). Raising it
+    changes every rating on the page; a test pins the behaviour.
+
+- **Best of** (`views.best`, tab "Best of"). Each season's podium and the strongest seasons on record,
+  for the current sport filter. There is no all-time rating and there must not be one: the all-time table
+  ranks *seasons*, since 2100 in 2005 and 2100 in 2026 both mean "this far clear of the people who showed
+  up". Fitting all 21 seasons costs about 5s, far too long for one repaint, so it is done a season per
+  timer tick (`bestPump`) and each finished season re-renders: the table paints at once and fills in.
+  `seasonRatings` caches by season + sport + drop, so the bill is paid once and Rankings is instant after.
+  `window.CatamountBest.fill()` drives it straight through for the tests. Deeper fields leave more room
+  at the top, so the all-time table leans slightly towards the 200-rider Wednesdays; ranking by each
+  season's spread instead barely reorders it (9 of the top 10 are the same), so the raw rating stands.
 - **Season zoom.** Time charts show dots only across all years (a line inside a sliver of a 20-year
   axis is a smear); a button per season zooms in and draws the line. `opts.trend` (the participation
   chart) opts out: one point per season, joined, gaps of more than a year break the line.

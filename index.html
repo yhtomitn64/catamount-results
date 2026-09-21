@@ -1489,16 +1489,69 @@ views.series = function (year) {
 // no start line). Everyone is also given one win and one loss against an average rider, so a racer
 // with few starts stays near the middle instead of shooting to the top or bottom, and separate
 // groups of riders that never met still get a rating.
-// divs: [[{k: racer, p: place in the group}, ...], ...]  ->  { rating, nights, beat, lost, best }
-function powerRatings(divs) {
-  var idx = {}, keys = [], nights = {};
+//
+// Two corrections on top of the plain fit, because the question a reader is really asking is who wins
+// tonight. Both were measured by refitting a season with one night held out and predicting that night.
+//
+//   Your worst night is set aside. A flat, a wrong turn, a lap ridden in with a friend is one event,
+//   but in a field of forty it arrives as thirty-nine losses and buries a rider who beats those same
+//   forty people every other week. So, exactly like a series that drops your worst result, each
+//   racer's weakest night of the season is left out of the fit: every pair from it goes, for both
+//   riders, once a racer has DROP_FROM nights and can spare one. It is chosen on finish percentile,
+//   not on what it costs, so nobody can pick their drop. Held-out nights: 87.4% -> 87.7% of pairs
+//   called right (324,011 pairs, 2021-2026).
+//
+//   The spread is tempered. The fit treats those thirty-nine losses as thirty-nine independent
+//   facts, and they are not, so it ends up surer of itself than the results justify. Held-out nights
+//   put the raw spread about half again too wide, so it is narrowed by TEMPER before it becomes a
+//   rating and a points gap means what the fine print says it means.
+//
+// About BUDGET, which is the one number here that is not a modelling choice. Left to run, this fit
+// does not settle: a racer who won the only night they rode has no finite best strength, and the one
+// pseudo win and loss below is far too little to hold them down against a field of forty, so their
+// rating climbs for tens of thousands of passes and the answer you get is whatever pass you stopped
+// on. Stopping at a fixed budget is therefore a deliberate part of the method, not a tolerance:
+// it is early stopping, and it is what keeps a one-night wonder near the middle. It was also the
+// best of the alternatives tried on held-out nights -- a prior scaled to each racer's evidence,
+// a larger flat prior, and counting a night as one result rather than forty, all called fewer
+// nights right (87.7% against 84.9-87.5%). Change it and every rating on the page changes, so it
+// is pinned by a test.
+// divs: [[{k: racer, p: place in the group}, ...], ...], opts: {drop: false} to count every night
+//   -> { rating, nights, beat, lost, best, dropped }
+var DROP_FROM = 4;     // nights before your weakest one is set aside
+var STEP = 200;        // rating points for ten-to-one odds of finishing ahead
+var TEMPER = 1.5;      // how much wider the raw fit runs than held-out nights bear out
+var BUDGET = 400;      // passes of the fit: early stopping, and the reason thin records stay put
+function powerRatings(divs, opts) {
+  var idx = {}, keys = [], nights = {}, runs = {};
   function id(k) { if (idx[k] === undefined) { idx[k] = keys.length; keys.push(k); } return idx[k]; }
+  divs.forEach(function (rows, d) {
+    // 1 = won the group, 0 = last. Ranked among the rows in hand rather than off the placing,
+    // because a group that lost a DNF or a second bib for the same rider has gaps in its placings
+    // and the two would not divide by the same field.
+    var n = rows.length, order = rows.slice().sort(function (a, b) { return a.p - b.p; }), rank = {};
+    for (var i = 0; i < order.length; i++) rank[order[i].k] = i && order[i].p === order[i - 1].p ? rank[order[i - 1].k] : i;
+    rows.forEach(function (r) {
+      id(r.k);
+      nights[r.k] = (nights[r.k] || 0) + 1;
+      (runs[r.k] = runs[r.k] || []).push({ d: d, pct: n > 1 ? (n - 1 - rank[r.k]) / (n - 1) : 1 });
+    });
+  });
+  var dropped = {};                                // racer -> index in divs of the night left out
+  Object.keys(runs).forEach(function (k) {
+    var rs = runs[k];
+    if ((opts && opts.drop === false) || rs.length < DROP_FROM) return;   // off, or too few to spare one
+    var worst = rs[0];
+    rs.forEach(function (r) { if (r.pct < worst.pct) worst = r; });
+    dropped[k] = worst.d;
+  });
   var edge = {};                                   // a*65536+b (a<b) -> [meetings, a's wins, b's wins]
-  divs.forEach(function (rows) {
-    var ids = rows.map(function (r) { nights[r.k] = (nights[r.k] || 0) + 1; return id(r.k); });
-    for (var i = 0; i < rows.length; i++) {
-      for (var j = i + 1; j < rows.length; j++) {
-        var a = ids[i], b = ids[j], pa = rows[i].p, pb = rows[j].p, flip = a > b;
+  divs.forEach(function (rows, d) {
+    var live = rows.filter(function (r) { return dropped[r.k] !== d; });
+    var ids = live.map(function (r) { return idx[r.k]; });
+    for (var i = 0; i < live.length; i++) {
+      for (var j = i + 1; j < live.length; j++) {
+        var a = ids[i], b = ids[j], pa = live[i].p, pb = live[j].p, flip = a > b;
         var wa = pa < pb ? 1 : pa === pb ? 0.5 : 0;
         var key = flip ? b * 65536 + a : a * 65536 + b, e = edge[key] || (edge[key] = [0, 0, 0]);
         e[0]++;
@@ -1514,7 +1567,7 @@ function powerRatings(divs) {
     W[a] += v[1]; W[b] += v[2];
   });
   var PRIOR = 1;
-  for (var it = 0; it < 400; it++) {
+  for (var it = 0; it < BUDGET; it++) {
     for (i = 0; i < N; i++) den[i] = 2 * PRIOR / (p[i] + 1);
     for (e = 0; e < ea.length; e++) { var d = en[e] / (p[ea[e]] + p[eb[e]]); den[ea[e]] += d; den[eb[e]] += d; }
     var moved = 0;
@@ -1525,8 +1578,8 @@ function powerRatings(divs) {
     }
     if (moved < 1e-7) break;
   }
-  var out = { rating: {}, nights: nights, beat: {}, lost: {}, best: {} };
-  for (i = 0; i < N; i++) { out.rating[keys[i]] = 1500 + 200 * Math.log(p[i]) / Math.LN10; out.beat[keys[i]] = 0; out.lost[keys[i]] = 0; }
+  var out = { rating: {}, nights: nights, beat: {}, lost: {}, best: {}, dropped: dropped };
+  for (i = 0; i < N; i++) { out.rating[keys[i]] = 1500 + (STEP / TEMPER) * Math.log(p[i]) / Math.LN10; out.beat[keys[i]] = 0; out.lost[keys[i]] = 0; }
   for (e = 0; e < ea.length; e++) {
     var A = keys[ea[e]], B = keys[eb[e]];
     out.beat[A] += ewa[e]; out.lost[A] += ewb[e]; out.beat[B] += ewb[e]; out.lost[B] += ewa[e];
@@ -1535,13 +1588,16 @@ function powerRatings(divs) {
   }
   return out;
 }
-window.CatamountRank = { ratings: powerRatings };   // the tests feed it made-up nights
+// The tests feed this made-up nights, and check the fine print's promise against the real data:
+// a gap of step points is ten-to-one odds, and a worst night is set aside from dropFrom nights up.
+window.CatamountRank = { ratings: powerRatings, step: STEP, dropFrom: DROP_FROM, budget: BUDGET };
 
-var POWER = {};                                     // season + sport filter -> ratings, worked out once
-function seasonRatings(year) {
-  var key = year + "|" + discFilter;
+var POWER = {};                                     // season + sport filter + drop -> ratings, worked out once
+function seasonRatings(year, drop) {
+  drop = drop !== false;
+  var key = year + "|" + discFilter + "|" + drop;
   if (POWER[key]) return POWER[key];
-  var divs = [];
+  var divs = [], divRace = [];
   (years[year] || []).filter(passRace).filter(function (r) { return !r.virtual; }).forEach(function (race) {
     (race.groups || [""]).forEach(function (g) {
       // One row per person: a racer who appears twice in a group (two bibs on one night) is not their own rival.
@@ -1550,10 +1606,12 @@ function seasonRatings(year) {
         if (r.dplace && (best[r.racer] === undefined || r.dplace < best[r.racer])) best[r.racer] = r.dplace;
       });
       var rows = Object.keys(best).map(function (k) { return { k: k, p: best[k] }; });
-      if (rows.length > 1) divs.push(rows);
+      if (rows.length > 1) { divs.push(rows); divRace.push(race.raceid); }
     });
   });
-  return (POWER[key] = powerRatings(divs));
+  var pr = powerRatings(divs, { drop: drop });
+  pr.race = divRace;                                // divs index -> raceid, to name the night set aside
+  return (POWER[key] = pr);
 }
 function powerYears() {
   return YEAR_LIST.slice().sort(function (a, b) { return b - a; }).filter(function (y) {
@@ -1561,29 +1619,43 @@ function powerYears() {
   });
 }
 
-views.power = function (year, min) {
+views.power = function (year, min, mode) {
   var ys = powerYears();
   if (!ys.length) return filterBar() + '<div class="card"><h2>Power rankings</h2><p class="hint">No in-person races for this filter.</p></div>';
   // Newest season with a real run of nights (a season just begun has too few to rank anyone).
   var dflt = ys.filter(function (y) { return (years[y] || []).filter(function (r) { return passRace(r) && !r.virtual; }).length >= 5; })[0] || ys[0];
   year = +year || dflt;
   if (ys.indexOf(year) < 0) year = dflt;
-  min = [3, 5, 10].indexOf(+min) >= 0 ? +min : 5;   // three nights is enough to rank, but a lucky three tops the list
-  var pr = seasonRatings(year);
+  // Three nights is the default: setting a worst night aside needs four, so a three-night record is
+  // rated on every night it has and does not get the break a full season gets. Someone who showed up
+  // three times and won belongs on the page; the Nights column says how thin the record is.
+  min = [3, 5, 10].indexOf(+min) >= 0 ? +min : 3;
+  // The drop is on by default. It can be switched off, because a rule that changes who is top is
+  // one a reader should be able to see the effect of rather than take on trust.
+  var drop = mode !== "counted";
+  var pr = seasonRatings(year, drop);
   var rows = Object.keys(pr.rating).filter(function (k) { return (pr.nights[k] || 0) >= min; })
     .sort(function (a, b) { return pr.rating[b] - pr.rating[a]; })
     .map(function (k, i) { return { racer: k, rank: i + 1 }; });
-  function link(y, m, label, on) {
-    return '<a href="#/power/' + y + "/" + m + '" class="' + (on ? "on" : "") + '"' + (on ? ' aria-current="true"' : "") + ">" + label + "</a>";
+  function link(y, m, d, label, on) {
+    return '<a href="#/power/' + y + "/" + m + (d ? "" : "/counted") + '" class="' + (on ? "on" : "") + '"' +
+           (on ? ' aria-current="true"' : "") + ">" + label + "</a>";
   }
   var h = filterBar() + '<div class="card"><h2>Power rankings, ' + year + (filterName() ? " · " + esc(filterName()) : "") + "</h2>" +
-    '<p class="hint">Not who finished highest, but who you beat and who beat you. Every start-line group on every night ' +
-    "is a small tournament, and a rating is fitted so that beating a strong rider counts for more than beating a weak one. " +
-    "A third place behind two fast riders can outrank a second place in a soft field. Only in-person nights in one season are compared, " +
-    "so a rating says how someone stacked up against that year's field, not against another year's.</p>" +
-    '<div class="seasons" role="group" aria-label="Season">' + ys.map(function (y) { return link(y, min, y, y === year); }).join("") + "</div>" +
+    '<p class="hint">Not who finished highest, but who you beat and who beat you — read it as ' +
+    "tonight's odds, not as a season standing. Every start-line group on every night is a small tournament, and a rating is fitted so that beating a " +
+    "strong rider counts for more than beating a weak one. A third place behind two fast riders can outrank a second place in a soft " +
+    "field. Like a series that drops your worst result, each racer's weakest night is set aside once they have " + DROP_FROM +
+    " nights to spare one, so one flat tyre in a field of forty does not outweigh a summer of beating those same forty. " +
+    "Only in-person nights in one season are " +
+    "compared, so a rating says how someone stacked up against that year's field, not against another year's. " +
+    (drop ? "Switch the worst night back on below to see what the drop is doing."
+          : "Every night is counted below, drop included: this is the same fit with that rule switched off.") + "</p>" +
+    '<div class="seasons" role="group" aria-label="Season">' + ys.map(function (y) { return link(y, min, drop, y, y === year); }).join("") + "</div>" +
     '<div class="seasons" role="group" aria-label="Minimum nights"><span class="muted" style="align-self:center">At least</span>' +
-    [3, 5, 10].map(function (m) { return link(year, m, m + " nights", m === min); }).join("") + "</div>";
+    [3, 5, 10].map(function (m) { return link(year, m, drop, m + " nights", m === min); }).join("") + "</div>" +
+    '<div class="seasons" role="group" aria-label="Worst night"><span class="muted" style="align-self:center">Worst night</span>' +
+    link(year, min, true, "set aside", drop) + link(year, min, false, "counted", !drop) + "</div>";
   if (!rows.length) return h + '<p class="empty">Nobody raced ' + min + " nights that season.</p></div>";
   h += table([
     { label: "#", cls: "num", get: function (r) { return r.rank; }, cell: function (r) { return '<td class="num">' + r.rank + "</td>"; } },
@@ -1601,9 +1673,119 @@ views.power = function (year, min) {
         var b = pr.best[r.racer];
         return "<td>" + (b ? racerLink(b.k) + ' <span class="muted">' + Math.round(pr.rating[b.k]) + "</span>" : '<span class="muted">—</span>') + "</td>";
       } }
-  ], rows, { sort: 0, dir: 1, limit: 100 });
-  return h + '<p class="fine">Beat and Lost to count rivals across every night (a night in a group of 40 is 39 results). ' +
-    "Rating 1500 is an average racer that season; every 200 points is ten times the odds of finishing ahead of someone.</p></div>";
+  ].concat(drop ? [
+    { label: "Worst night set aside", get: function (r) { var d = pr.dropped[r.racer]; return d === undefined ? null : raceById[pr.race[d]].date; },
+      cell: function (r) {
+        var d = pr.dropped[r.racer];
+        if (d === undefined) return '<td><span class="muted">—</span></td>';
+        var race = raceById[pr.race[d]];
+        return '<td><a href="#/race/' + race.raceid + '">' + fmtDate(race.date) + "</a></td>";
+      } }
+  ] : []), rows, { sort: 0, dir: 1, limit: 100 });
+  return h + '<p class="fine">Beat and Lost to count the rivals the rating was fitted on (a night in a group of 40 is 39 results), ' +
+    "so the night set aside is not among them. Rating 1500 is an average racer that season; every 200 points is ten times the odds of " +
+    "finishing ahead of someone on the night — checked by refitting each season with one night hidden and predicting it.</p></div>";
+};
+
+// ---------------------------------------------------------------------------
+// best of: each season's podium, and the strongest seasons on record
+// ---------------------------------------------------------------------------
+// A season at a time is the only honest unit here. A rating says how far clear of that year's
+// field someone rode, and nothing more: the courses are re-cut, the roster turns over, and a
+// chain of opponents from 2005 to 2026 is not a comparison. So there is no all-time rating, and
+// the all-time table below ranks SEASONS -- 2,100 in 2005 and 2,100 in 2026 both mean "this far
+// above the people who showed up", which is a fair thing to line up side by side, and is not a
+// claim about who would win if they met.
+//
+// Fitting every season costs a few seconds all told, far too long to do between a tap and a
+// repaint. So it is done one season per timer tick, newest first, and each finished season
+// re-renders the page: the table paints immediately and fills in. seasonRatings caches by season
+// and sport, so the bill is paid once and the Rankings page is instant afterwards.
+var BEST_TIMER = null;
+function bestPending(min) {
+  return powerYears().filter(function (y) { return !POWER[y + "|" + discFilter + "|true"]; });
+}
+function bestPump() {
+  BEST_TIMER = null;
+  var todo = bestPending();
+  if (!todo.length) return;
+  seasonRatings(todo[0], true);
+  render(true);                                     // one more row filled in
+}
+// The tests drive it straight through rather than waiting on timers.
+window.CatamountBest = { fill: function () { powerYears().forEach(function (y) { seasonRatings(y, true); }); } };
+
+// Everyone a season rated, best first. The podium is the first three of it; the all-time table
+// reads the whole thing, because nothing says the four strongest seasons on record were not all
+// ridden in the same summer.
+function seasonRanked(year, min) {
+  var pr = seasonRatings(year, true);
+  return Object.keys(pr.rating).filter(function (k) { return (pr.nights[k] || 0) >= min; })
+    .sort(function (a, b) { return pr.rating[b] - pr.rating[a]; })
+    .map(function (k) { return { racer: k, rating: pr.rating[k], nights: pr.nights[k] }; });
+}
+function ratedCell(x) {
+  return "<td>" + (x ? racerLink(x.racer) + ' <span class="muted">' + Math.round(x.rating) + "</span>"
+                     : '<span class="muted">—</span>') + "</td>";
+}
+
+views.best = function (min) {
+  var ys = powerYears();
+  if (!ys.length) return filterBar() + '<div class="card"><h2>Best of</h2><p class="hint">No in-person races for this filter.</p></div>';
+  min = [3, 5, 10].indexOf(+min) >= 0 ? +min : 5;
+  var todo = bestPending();
+  if (todo.length && !BEST_TIMER) BEST_TIMER = setTimeout(bestPump, 0);
+  var done = ys.filter(function (y) { return todo.indexOf(y) < 0; });
+
+  var h = filterBar() + '<div class="card"><h2>Best of' + (filterName() ? " · " + esc(filterName()) : "") + "</h2>" +
+    '<p class="hint">Every season\u2019s podium by power rating, and the strongest seasons on record. ' +
+    "A rating only ever says how far clear of that year\u2019s field someone rode, so these are seasons lined up against " +
+    "each other, not racers: it is a fair way to ask who had the most dominant summer, and not a claim about who would " +
+    "win if they met. Ratings are fitted per season with each racer\u2019s worst night set aside, the same as the " +
+    '<a href="#/power">Rankings</a> page.</p>' +
+    '<div class="seasons" role="group" aria-label="Minimum nights"><span class="muted" style="align-self:center">At least</span>' +
+    [3, 5, 10].map(function (m) {
+      var on = m === min;
+      return '<a href="#/best/' + m + '" class="' + (on ? "on" : "") + '"' + (on ? ' aria-current="true"' : "") + ">" + m + " nights</a>";
+    }).join("") + "</div>";
+  if (todo.length) h += '<p class="fine">Fitting ' + done.length + " of " + ys.length + " seasons—the table fills in as it goes.</p>";
+
+  h += "<h3>Season by season</h3>" + table([
+    { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num"><a href="#/power/' + r.year + "/" + min + '">' + r.year + "</a></td>"; } },
+    { label: "Nights", cls: "num", get: function (r) { return r.nights; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num">' + r.nights + "</td>"; } },
+    { label: "First", get: function (r) { return r.top[0] ? r.top[0].rating : null; }, defaultDir: -1,
+      cell: function (r) { return r.ready ? ratedCell(r.top[0]) : '<td><span class="muted">\u2026</span></td>'; } },
+    { label: "Second", get: function (r) { return r.top[1] ? r.top[1].rating : null; }, defaultDir: -1,
+      cell: function (r) { return r.ready ? ratedCell(r.top[1]) : "<td></td>"; } },
+    { label: "Third", get: function (r) { return r.top[2] ? r.top[2].rating : null; }, defaultDir: -1,
+      cell: function (r) { return r.ready ? ratedCell(r.top[2]) : "<td></td>"; } }
+  ], ys.map(function (y) {
+    var ready = todo.indexOf(y) < 0;
+    return { year: y, ready: ready, top: ready ? seasonRanked(y, min).slice(0, 3) : [],
+             nights: (years[y] || []).filter(function (r) { return passRace(r) && !r.virtual; }).length };
+  }), { sort: 0, dir: -1 });
+
+  var all = [];
+  done.forEach(function (y) { seasonRanked(y, min).forEach(function (x) { all.push({ year: y, racer: x.racer, rating: x.rating, nights: x.nights }); }); });
+  all.sort(function (a, b) { return b.rating - a.rating; });
+  h += "<h3>Strongest seasons on record</h3>" + table([
+    { label: "#", cls: "num", get: function (r) { return r.rank; }, cell: function (r) { return '<td class="num">' + r.rank + "</td>"; } },
+    { label: "Racer", get: function (r) { return nameOf(r.racer); }, cell: function (r) { return "<td>" + racerLink(r.racer) + "</td>"; } },
+    { label: "Season", cls: "num", get: function (r) { return r.year; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num"><a href="#/power/' + r.year + "/" + min + '">' + r.year + "</a></td>"; } },
+    { label: "Rating", cls: "num", get: function (r) { return r.rating; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num">' + Math.round(r.rating) + "</td>"; } },
+    { label: "Nights", cls: "num", get: function (r) { return r.nights; }, defaultDir: -1,
+      cell: function (r) { return '<td class="num">' + r.nights + "</td>"; } }
+  ], all.slice(0, 10).map(function (r, i) { return { rank: i + 1, year: r.year, racer: r.racer, rating: r.rating, nights: r.nights }; }),
+     { sort: 0, dir: 1 });
+
+  return h + '<p class="fine">A racer only appears for a season once they have ridden ' + min + " of its nights. " +
+    "Rating 1500 is an average racer that season; every " + STEP + " points is ten times the odds of finishing ahead " +
+    "of someone on the night. A year with deeper fields leaves a little more room at the top, so the all-time table " +
+    "leans gently towards the summers when two hundred people turned up on a Wednesday.</p></div>";
 };
 
 views.races = function () {
@@ -1640,6 +1822,7 @@ var TABS = [
   { id: "course", label: "Courses" },
   { id: "series", label: "Seasons" },
   { id: "power", label: "Rankings" },
+  { id: "best", label: "Best of" },
   { id: "races", label: "All races" }
 ];
 
@@ -1652,11 +1835,14 @@ function render(keepScroll) {
     return '<a href="#/' + t.id + '" class="' + (t.id === tab ? "on" : "") + '">' + esc(t.label) + "</a>";
   }).join("");
 
-  // Six tabs are wider than a phone: the row scrolls, so bring the current tab into view.
+  // The tab row is wider than a phone: it scrolls, so bring the current tab into view.
   var navEl = document.getElementById("nav"), onTab = navEl.querySelector && navEl.querySelector("a.on");
   if (onTab && navEl.scrollTo) navEl.scrollTo({ left: Math.max(0, onTab.offsetLeft - 12), behavior: "auto" });
 
   TABLES = {};
+  // Any season-fitting left over from the Best page belongs to the view being replaced; the new
+  // one schedules its own if it still wants it.
+  if (BEST_TIMER) { clearTimeout(BEST_TIMER); BEST_TIMER = null; }
   document.getElementById("view").innerHTML = views[tab].apply(null, parts.slice(1));
   if (keepScroll !== true) window.scrollTo(0, 0);
 

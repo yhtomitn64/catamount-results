@@ -141,6 +141,7 @@ const routes = ["#/racer", "#/racer/" + fx.top, "#/h2h", "#/h2h/" + fx.top + "/"
   .concat(courses.map((c) => "#/course/" + slug(c)))
   .concat(years.map((y) => "#/series/" + y))
   .concat(["#/power"], years.map((y) => "#/power/" + y))
+  .concat(["#/power/" + years[years.length - 1] + "/5/counted", "#/best", "#/best/3", "#/best/5", "#/best/10"])
   .concat(races.map((r) => "#/race/" + r.raceid));
 const rendered = {};
 let renderFailures = 0, sample = "";
@@ -384,12 +385,41 @@ function clickYear(y) {
   const order = Object.keys(r.rating).sort((a, b) => r.rating[b] - r.rating[a]);
   check("rankings: the riders who beat everyone rank above the ones who beat no one", order.indexOf("x") < order.indexOf("pat") && order.indexOf("pat") < order.indexOf("s1"), order.join(">"));
   check("rankings: a racer who never beat anyone still gets a finite rating", Object.values(r.rating).every(Number.isFinite));
-  check("rankings: nights, beat and lost are counted from the results", r.nights.cy === 5 && r.beat.cy === 5 * 3 && r.lost.cy === 5 * 2, JSON.stringify([r.nights.cy, r.beat.cy, r.lost.cy]));
+  // Cy raced five nights, so one is set aside: nights still counts every start, beat and lost only the four the fit kept.
+  check("rankings: nights count every start, beat and lost only the nights the fit kept",
+    r.nights.cy === 5 && r.dropped.cy !== undefined && r.beat.cy === 4 * 3 && r.lost.cy === 4 * 2,
+    JSON.stringify([r.nights.cy, r.dropped.cy, r.beat.cy, r.lost.cy]));
   check("rankings: the best win is the strongest rider beaten", r.best.cy.k === "pat" || r.best.cy.k === "g1" || r.best.cy.k === "g2");
   const tie = rank([[{ k: "a", p: 1 }, { k: "b", p: 1 }]]);
   check("rankings: a tie is worth half a win to each", Math.abs(tie.rating.a - tie.rating.b) < 1e-6 && tie.beat.a === 0.5 && tie.lost.a === 0.5);
   const apart = rank([night("a", "b"), night("c", "d")]);
   check("rankings: groups of riders who never met are still rated", ["a", "b", "c", "d"].every((k) => Number.isFinite(apart.rating[k])) && apart.rating.a > apart.rating.b);
+
+  // Setting the worst night aside. Ace beats Riv every week bar one, when Ace rides in at the back of
+  // the field. Below the threshold there is nothing to spare and the one bad night sinks Ace; at the
+  // threshold it is set aside and the weekly result stands. Same nights both times, so the rule is
+  // the only thing that changed.
+  const DROP_FROM = ctx.window.CatamountRank.dropFrom;
+  const pack = ["f1", "f2", "f3", "f4", "f5", "f6"];
+  const ditch = (n) => {
+    const ns = [];
+    for (let i = 0; i < n - 1; i++) ns.push(night("ace", "riv", ...pack));
+    ns.push(night("riv", ...pack, "ace"));          // the night Ace rode in with a friend
+    return ns;
+  };
+  const thin = rank(ditch(DROP_FROM - 1)), full = rank(ditch(DROP_FROM));
+  check("rankings: too few nights to spare one, so the night in the ditch still counts",
+    thin.dropped.ace === undefined && thin.rating.ace < thin.rating.riv, Math.round(thin.rating.ace) + " vs " + Math.round(thin.rating.riv));
+  check("rankings: one night in the ditch does not outweigh a season of beating the same people",
+    full.dropped.ace === DROP_FROM - 1 && full.rating.ace > full.rating.riv, Math.round(full.rating.ace) + " vs " + Math.round(full.rating.riv));
+  check("rankings: the night set aside is gone for both riders, so nobody banks a win over it",
+    full.lost.ace === 0 && full.beat.riv === (DROP_FROM - 2) * pack.length + pack.length,
+    JSON.stringify([full.lost.ace, full.beat.riv]));
+  // Chosen on finish percentile, never on what it costs, so nobody can pick their drop. Ace's weakest
+  // night here is the one that earned the most: second of eight beats six people, but it is a worse
+  // finish than winning a two-up group, so that is the night that goes.
+  const cheap = rank([night("ace", "riv"), night("ace", "riv"), night("ace", "riv"), night("riv", "ace", ...pack)]);
+  check("rankings: the night set aside is the weakest finish, not the one that costs least", cheap.dropped.ace === 3, cheap.dropped.ace);
 
   // On the real data
   clickFilter("all");
@@ -416,7 +446,155 @@ function clickYear(y) {
   const corr = paired.reduce((t, p) => t + (p[0] - mx) * (p[1] - my), 0) /
     Math.sqrt(paired.reduce((t, p) => t + (p[0] - mx) ** 2, 0) * paired.reduce((t, p) => t + (p[1] - my) ** 2, 0));
   check("rankings: ratings track average finishing percentile (correlation " + corr.toFixed(2) + ")", corr > 0.6, corr.toFixed(2));
+
+  // The season the page fits, rebuilt here from the bundle: one row per racer per start-line group,
+  // finishers only, in-person nights only. Used twice below -- to check which night each racer had
+  // set aside, and to hold a night out and predict it.
+  const nightsOf = () => {
+    const by = {};
+    D.results.forEach((r) => {
+      const ra = fx.raceById[r.raceid];
+      if (!r.dplace || ra.year !== busiest || ra.virtual) return;
+      const g = ((by[r.raceid] = by[r.raceid] || {})[r.div] = by[r.raceid][r.div] || {});
+      if (g[r.racer] === undefined || r.dplace < g[r.racer]) g[r.racer] = r.dplace;
+    });
+    return Object.keys(by).map((id) => ({
+      raceid: +id,
+      groups: Object.values(by[id]).map((g) => Object.keys(g).map((k) => ({ k: k, p: g[k] }))).filter((g) => g.length > 1),
+    })).filter((n) => n.groups.length);
+  };
+  const allNights = nightsOf();
+  // Each racer's finish percentile per night, 1 = won the group and 0 = last, among the finishers
+  // the rating is fitted on (a group's placings have gaps where a DNF or a second bib was dropped).
+  const runsOf = {};
+  allNights.forEach((n) => n.groups.forEach((g) => {
+    const order = g.slice().sort((a, b) => a.p - b.p);
+    order.forEach((r, i) => {
+      const ahead = i && order[i - 1].p === r.p ? order.findIndex((x) => x.p === r.p) : i;
+      (runsOf[r.k] = runsOf[r.k] || []).push({ raceid: n.raceid, pct: g.length > 1 ? (g.length - 1 - ahead) / (g.length - 1) : 1 });
+    });
+  }));
+
+  // The night set aside, on the real data: the page names it, it is that racer's weakest finish of
+  // the season, and a racer with too few nights to spare one is marked as having none.
+  const cells = [...page.matchAll(/<tr><td class="num">\d+<\/td><td><a href="#\/racer\/([^"]+)"[^>]*>[^<]*<\/a>[\s\S]*?<td>(?:<a href="#\/race\/(-?\d+)">[^<]*<\/a>|<span class="muted">[^<]*<\/span>)<\/td><\/tr>/g)]
+    .map((m) => ({ k: m[1], raceid: m[2] === undefined ? null : +m[2] }));
+  const dropFrom = ctx.window.CatamountRank.dropFrom;
+  let namedWrong = 0, markedWrong = 0;
+  cells.forEach((c) => {
+    const runs = runsOf[c.k] || [];
+    if (runs.length < dropFrom) { if (c.raceid !== null) markedWrong++; return; }
+    if (c.raceid === null) { markedWrong++; return; }
+    const worst = Math.min(...runs.map((x) => x.pct));
+    if (!runs.some((x) => x.raceid === c.raceid && x.pct === worst)) namedWrong++;
+  });
+  check("rankings: every racer with enough nights has one set aside, and it is their weakest finish",
+    cells.length === rows.length && namedWrong === 0 && markedWrong === 0,
+    cells.length + "/" + rows.length + " cells, " + namedWrong + " misnamed, " + markedWrong + " mismarked");
+
+  // What the fine print promises -- a 200-point gap is ten-to-one odds of finishing ahead on the
+  // night -- checked the only honest way: refit the season with a night hidden, then predict it.
+  const step = ctx.window.CatamountRank.step;
+  let seen = 0, right = 0, expected = 0;
+  allNights.forEach((held, i) => {
+    if (i % 4) return;                               // every fourth night: enough pairs, quick enough for CI
+    const train = [];
+    allNights.forEach((n, j) => { if (j !== i) n.groups.forEach((g) => train.push(g.map((r) => ({ k: r.k, p: r.p })))); });
+    const fit = rank(train);
+    held.groups.forEach((g) => {
+      for (let a = 0; a < g.length; a++) for (let c = a + 1; c < g.length; c++) {
+        const ra = fit.rating[g[a].k], rc = fit.rating[g[c].k];
+        if (ra === undefined || rc === undefined) continue;   // never seen on another night
+        const hi = ra >= rc ? g[a] : g[c], lo = hi === g[a] ? g[c] : g[a];
+        seen++;
+        expected += 1 / (1 + Math.pow(10, -Math.abs(ra - rc) / step));
+        right += hi.p < lo.p ? 1 : hi.p === lo.p ? 0.5 : 0;
+      }
+    });
+  });
+  check("rankings: a season fitted without a night calls that night's finishing order",
+    seen > 5000 && right / seen > 0.8, seen + " pairs, " + (100 * right / seen).toFixed(1) + "% called right");
+  check("rankings: and the odds the ratings imply are close to how often it happened",
+    Math.abs(right / seen - expected / seen) < 0.06,
+    "promised " + (100 * expected / seen).toFixed(1) + "%, happened " + (100 * right / seen).toFixed(1) + "%");
+  // Early stopping is what keeps a thin record in its place. Left to converge, a racer who won the
+  // only night they rode has no finite best strength and ends up on top of the season; stopped at
+  // the budget, they rate high and still sit behind a regular who won all summer. Raising the
+  // budget breaks this, which is the point of checking it.
+  const regulars = []; for (let i = 0; i < 30; i++) regulars.push("r" + i);
+  const season = []; for (let i = 0; i < 10; i++) season.push(night(...regulars));
+  season.push(night("meteor", ...regulars));
+  const solo = rank(season, { drop: false });      // the drop alone would erase that night, so isolate the budget
+  check("rankings: winning your only night is worth a lot and still not the top of the season",
+    solo.beat.meteor === regulars.length && solo.rating.meteor > solo.rating.r1 && solo.rating.meteor < solo.rating.r0,
+    "budget " + ctx.window.CatamountRank.budget + ": one-nighter " + Math.round(solo.rating.meteor) + " vs regular " + Math.round(solo.rating.r0));
+
+  // The drop can be switched off, and doing so is what a reader would use to see the rule working.
+  const counted = route("#/power/" + busiest + "/3/counted");
+  const countedRows = parse(counted);
+  check("rankings: counting every night is a different fit, and drops the column that names the drop",
+    countedRows.length === rows.length && !/Worst night set aside/.test(counted) && /Worst night set aside/.test(page) &&
+    countedRows.some((r, i) => r.k !== rows[i].k), "same order: " + (countedRows.map((r) => r.k).join() === rows.map((r) => r.k).join()));
+  check("rankings: both toggle states are offered as links, the current one marked",
+    /href="#\/power\/\d+\/3\/counted" class="on"/.test(counted) && /href="#\/power\/\d+\/3" class=""/.test(counted) &&
+    /href="#\/power\/\d+\/3\/counted" class=""/.test(page));
+
   check("rankings: the sport filter changes the field", (() => { clickFilter("CX"); const cx = route("#/power"); clickFilter("all"); return /Cyclocross/.test(cx); })());
+}
+
+// ---- best of ---------------------------------------------------------------------------------------------------------------
+{
+  const parseRank = (h) => [...h.matchAll(/<tr><td class="num">(\d+)<\/td><td><a href="#\/racer\/([^"]+)"/g)].map((m) => ({ rank: +m[1], k: m[2] }));
+  // Leave the Rankings page first: switching sport there would fit a season and spoil the cold read.
+  route("#/races");
+  // Cold: the page paints before anything has been fitted, says so, and still lists every season.
+  clickFilter("TR");                               // a sport nothing above has fitted yet
+  const cold = route("#/best");
+  const trYears = [...new Set(races.filter((r) => !r.virtual && r.discipline === "TR").map((r) => r.year))];
+  check("best of: the page paints before the seasons are fitted and says how far along it is",
+    /Fitting 0 of \d+ seasons/.test(cold) && trYears.every((y) => cold.includes('href="#/power/' + y + '/5"')) && /\u2026/.test(cold),
+    (cold.match(/Fitting[^<]*/) || ["no progress line"])[0]);
+
+  // Filled: cyclocross is the quickest sport to fit, so drive it all the way through.
+  clickFilter("CX");
+  ctx.window.CatamountBest.fill();
+  const hot = route("#/best");
+  check("best of: once every season is fitted the progress line goes", !/Fitting/.test(hot) && !/\u2026/.test(hot));
+
+  const tables = hot.split("<table>").slice(1).map((t) => t.split("</table>")[0]);
+  const cxYears = [...new Set(races.filter((r) => !r.virtual && r.discipline === "CX").map((r) => r.year))];
+  const seasonRows = [...tables[0].matchAll(/<tr><td class="num"><a href="#\/power\/(\d+)\/5">/g)].map((m) => +m[1]);
+  check("best of: a row per season, every one with a podium",
+    seasonRows.length === cxYears.length && cxYears.every((y) => seasonRows.includes(y)) &&
+    (tables[0].match(/<tr>/g) || []).length - 1 === cxYears.length,
+    seasonRows.length + " rows for " + cxYears.length + " cyclocross seasons");
+
+  // The all-time table ranks seasons: best first, nobody under the minimum nights, no made-up rows.
+  const allTime = [...tables[1].matchAll(/<tr><td class="num">(\d+)<\/td><td><a href="#\/racer\/([^"]+)"[^>]*>[^<]*<\/a><\/td><td class="num"><a href="#\/power\/(\d+)\/5">\d+<\/a><\/td><td class="num">(\d+)<\/td><td class="num">(\d+)<\/td>/g)]
+    .map((m) => ({ rank: +m[1], k: m[2], year: +m[3], rating: +m[4], nights: +m[5] }));
+  check("best of: the strongest seasons are listed best first, none under the minimum nights",
+    allTime.length > 0 && allTime.every((r, i) => r.rank === i + 1 && r.nights >= 5 && (!i || allTime[i - 1].rating >= r.rating)),
+    allTime.length + " rows");
+  const cxRaces = new Set(races.filter((r) => !r.virtual && r.discipline === "CX").map((r) => r.raceid));
+  check("best of: every listed season is one that racer actually rode, in that sport",
+    allTime.every((r) => new Set(D.results.filter((x) => x.racer === r.k && cxRaces.has(x.raceid) &&
+      fx.raceById[x.raceid].year === r.year && x.dplace).map((x) => x.div)).size === r.nights),
+    allTime.slice(0, 1).map((r) => r.k + " " + r.year + " n" + r.nights).join());
+
+  // The podium is the same fit the Rankings page shows, not a second opinion.
+  const y0 = allTime[0].year;
+  const top3 = [...tables[0].matchAll(/<tr><td class="num"><a href="#\/power\/(\d+)\/5">\d+<\/a><\/td><td class="num">\d+<\/td>((?:<td>.*?<\/td>){3})<\/tr>/g)]
+    .filter((m) => +m[1] === y0).map((m) => [...m[2].matchAll(/#\/racer\/([^"]+)/g)].map((x) => x[1]))[0];
+  const fromRankings = parseRank(route("#/power/" + y0 + "/5")).slice(0, 3).map((r) => r.k);
+  check("best of: a season's podium is the Rankings page's top three, same fit",
+    top3 && top3.join() === fromRankings.join(), (top3 || []).join() + " vs " + fromRankings.join());
+
+  // The minimum-nights buttons are shared with the Rankings page and mean the same thing.
+  const loose = route("#/best/3");
+  check("best of: the minimum-nights buttons change the bar and are marked",
+    /href="#\/best\/3" class="on"/.test(loose) && /A racer only appears for a season once they have ridden 3 of its nights/.test(loose) &&
+    /A racer only appears for a season once they have ridden 5 of its nights/.test(hot));
+  clickFilter("all");
 }
 
 // ---- long tables ---------------------------------------------------------------------------------------------------------
