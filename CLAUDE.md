@@ -210,10 +210,10 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   nights until Catamount's sheets corrected it), so lap-shape matching is only used for 2022.
   2017-18: the lie of the land, as the owner describes it: Black on White runs south of Governor
   Chittenden Road, Red on Black and Yellow on Green north of it, Red on Black to the west and
-  Yellow on Green to the east (road line from OpenStreetMap). On 34 of the owner's rides on
+  Yellow on Green to the east (road line from OpenStreetMap). On all 31 of the owner's rides on
   nights whose course is known (2017-22), the north/south call was right every time but 2019-06-19,
-  where the old page's course line looks copied from the week before. North of the road, Red on Black never enters the north-east (Indian Lookout) area,
-  while Yellow on Green spends 35-56% of the ride there from 2018 on; in 2017 that area was not
+  where the old page's course line looks copied from the week before. North of the road, Red on
+  Black never enters the north-east (Indian Lookout) area, while Yellow on Green spends 35-56% of the ride there from 2018 on; in 2017 that area was not
   used, and Yellow on Green shows only as an eastern loop the Red on Black night lacks, which is
   also what the three 2017 `title` Yellow on Green nights show. The south side has held two
   courses (2021's Black on Orange was south too), so "south" alone never names a course: a south
