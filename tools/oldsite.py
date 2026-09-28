@@ -275,7 +275,8 @@ def parse_class_tables(html: str, url: str) -> dict | None:
                          "time": tds[3], "seconds": secs})
     if not rows:
         return None
-    return {"date": date, "discipline": disc, "course": f"{cm[1]} Course" if cm else None, "title": title,
+    # One 2002 page (08/06) spells it "The Hil Course"; there is only ever the one Hill Course.
+    return {"date": date, "discipline": disc, "course": f"{ {'Hil': 'Hill'}.get(cm[1], cm[1])} Course" if cm else None, "title": title,
             "rows": rank(rows), "skipped": [], "dropped": dropped}
 
 
