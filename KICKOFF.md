@@ -39,19 +39,15 @@ below is done.
 2. **Scheduled refresh.** `refresh.yml` is manual-only. Before enabling the
    schedule, add `actions/cache` for `cache/` or every run re-downloads all ~196
    pages.
-3. **Courses for 2017-2018 MTB nights (backlog, not started).** The owner has a full Strava
-   account export (kept locally, never committed: activities 2010 to Jan 2023, with GPS files).
-   Checked by GPS (a track passing through the venue), it has the owner's ride on eight old-site
-   MTB nights that show no course: 2017-07-19, 2017-07-26, 2017-08-02, 2017-08-09, 2017-08-16,
-   2017-08-23, 2018-07-11 and 2018-07-25. On three of them the owner's own ride title names the
-   course (Yellow on Green, "UVM course", Black on White), a new kind of source to weigh before
-   using. Older Garmin/Runkeeper files (2010-2015) were compared with Strava on 2026-09-28 and
-   add nothing Strava lacks. The GPS matcher is only trusted for 2022's known three
-   courses, so matching these years needs that season's course shapes first; the export also
-   has the owner's ride on seven 2019 nights whose course the old site does name, a ready
-   held-out check. Check first whether the Strava API data already pulled covers these dates.
-   The owner's Catamount rides in 2013-2015 fall in archive gaps (no results to label).
-   Same rule as always: one course label per race, nothing per person, no raw track committed.
+3. **Courses for 2017-2018 MTB nights (partly done).** From the owner's local Strava export (never
+   committed), six old-site MTB nights now carry a `title` course label: the owner's own ride title
+   that night names the course (2017-07-19, 08-02, 08-09, 08-16, 08-23 and 2018-07-25; "UVM course"
+   is the owner's name for Yellow on Green). Two nights the owner rode still show no course
+   (2017-07-26, 2018-07-11). A crude track overlap puts 2017-07-26 on the same loop as the titled
+   Black on White night (0.95), but the GPS matcher is only trusted for 2022, so it stays blank
+   until that season's course shapes are known. Older Garmin/Runkeeper files (2010-2015) and the
+   2023-2025 files add nothing. Same rule as always: one course label per race, nothing per
+   person, no raw track committed.
 
 Done and live: the site, the domain, the landing-page card, the event filter,
 and the GitHub "block pushes that expose my email" setting.

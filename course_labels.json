@@ -1,5 +1,5 @@
 {
-  "note": "Courses the race titles never named, worked out another way. source: center = Catamount's own weekly results sheet or dated course announcement; gps = a rider's GPS track matched to the three 2022 courses; sibling = the Tuesday run uses the same week's Wednesday course. Nothing per person is kept here.",
+  "note": "Courses the race titles never named, worked out another way. source: center = Catamount's own weekly results sheet or dated course announcement; gps = a rider's GPS track matched to the three 2022 courses; sibling = the Tuesday run uses the same week's Wednesday course; title = a rider's own title for their ride that night names the course (2017-18). Nothing per person is kept here.",
   "labels": {
     "247565": {
       "course": "Black on White",
@@ -164,6 +164,30 @@
     "286656": {
       "course": "Red on Black",
       "source": "gps"
+    },
+    "-201707191": {
+      "course": "Yellow on Green",
+      "source": "title"
+    },
+    "-201708021": {
+      "course": "Yellow on Green",
+      "source": "title"
+    },
+    "-201708091": {
+      "course": "Red on Black",
+      "source": "title"
+    },
+    "-201708161": {
+      "course": "Yellow on Green",
+      "source": "title"
+    },
+    "-201708231": {
+      "course": "Black on White",
+      "source": "title"
+    },
+    "-201807251": {
+      "course": "Yellow on Green",
+      "source": "title"
     }
   }
 }

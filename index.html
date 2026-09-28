@@ -490,7 +490,8 @@ function courseColor(name) {
 var COURSE_SOURCE = {
   gps: "Inferred from a rider's GPS track that night",
   center: "From Catamount's own weekly results sheet or course announcement",
-  sibling: "Inferred: the Tuesday run uses the same week's Wednesday course"
+  sibling: "Inferred: the Tuesday run uses the same week's Wednesday course",
+  title: "From a rider's own title for their ride that night"
 };
 function coursePill(name, race) {
   if (!name) return '<span class="muted">—</span>';
@@ -2061,7 +2062,7 @@ document.getElementById("footer").innerHTML =
   (D.generated ? " · built " + esc(D.generated.replace("T", " ").replace("Z", " UTC")) : "") +
   (RACES.some(function (r) { return r.courseSource; })
     ? '<p class="fine">* The race title does not name a course, so it comes from Catamount\'s own weekly results sheets or ' +
-      "announcements, a rider's GPS track, or the same week's other race.</p>" : "");
+      "announcements, a rider's GPS track or own ride title, or the same week's other race.</p>" : "");
 
 render();
 })();

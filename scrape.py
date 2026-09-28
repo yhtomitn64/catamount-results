@@ -759,7 +759,7 @@ def load_extra() -> tuple[list[dict], list[dict]]:
 
 
 def load_course_labels() -> dict:
-    """Courses the race titles never named (2021-22), found another way; see CLAUDE.md."""
+    """Courses the race titles never named (2017-18, 2021-22), found another way; see CLAUDE.md."""
     path = ROOT / "course_labels.json"
     if not path.exists():
         return {}
