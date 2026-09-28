@@ -91,6 +91,7 @@ const knownCourses = new Set(races.filter((r) => !r.courseSource && r.course).ma
 check("virtual: every week names a course from the sheet and is marked as inferred", races.filter((r) => r.virtual).every((r) => r.courseSource === "center" && knownCourses.has(r.course)));
 check("labels: every labelled race is in the bundle with that course and source", Object.entries(labelFile).every(([id, l]) => { const r = fx.raceById[id]; return r && r.course === l.course && r.courseSource === l.source; }));
 check("labels: only races whose title names no course carry a label", inferred.every((r) => !namedInTitle(r.title)) && inferred.length === Object.keys(labelFile).length, inferred.length + " inferred");
+check("labels: a correction replaces a different course, and there are few of them", Object.values(labelFile).filter((l) => l.replaces).every((l) => l.replaces !== l.course) && Object.values(labelFile).filter((l) => l.replaces).length <= 2);
 check("labels: sources are gps, center, sibling or title, and courses are ones the titles use", inferred.every((r) => ["gps", "center", "sibling", "title"].includes(r.courseSource) && knownCourses.has(r.course)));
 
 // ---------------------------------------------------------------------------

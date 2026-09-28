@@ -220,7 +220,12 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   label also needs the same loop as a named or titled Black on White night that season. Two
   nights are labelled this way: 2017-07-26 (Black on White: 99% of the ride south, 95% the same
   loop as the titled 2017-08-23) and 2018-07-11 (Red on Black: north, nothing east, the same
-  western edge as every Red on Black night 2017-22). A night can be as little as 75% south
+  western edge as every Red on Black night 2017-22). One label corrects a page: the old site's
+  2019-06-19 page says "Red on Black - 120 Racers", word for word the 2019-06-12 header, but it
+  lists 98 ranked finishers (06-12 lists 115), so the header was copied and not updated. The
+  owner's ride that night was 99% south and the same loop as both 2019 Black on White nights, so
+  it carries `"replaces": "Red on Black"` and is Black on White; the build fails if the page ever
+  says something else. A night can be as little as 75% south
   (2019-07-03), so use the share, not a threshold, and compare with that season's nights.
   The page stars every filled-in course.
 - Sample data is built to exercise the UI; a green run on it proves the UI logic,

@@ -1,5 +1,5 @@
 {
-  "note": "Courses the race titles never named, worked out another way. source: center = Catamount's own weekly results sheet or dated course announcement; gps = a rider's GPS track that night (2022: matched to the three 2022 courses; 2017-18: which side of Governor Chittenden Road the laps were on, and same-season loop overlap); sibling = the Tuesday run uses the same week's Wednesday course; title = a rider's own title for their ride that night names the course (2017-18). Nothing per person is kept here.",
+  "note": "Courses the race titles never named, worked out another way. source: center = Catamount's own weekly results sheet or dated course announcement; gps = a rider's GPS track that night (2022: matched to the three 2022 courses; 2017-18: which side of Governor Chittenden Road the laps were on, and same-season loop overlap); sibling = the Tuesday run uses the same week's Wednesday course; title = a rider's own title for their ride that night names the course (2017-18). replaces = the course the page names, where the page is wrong (2019-06-19: a header copied from the week before). Nothing per person is kept here.",
   "labels": {
     "247565": {
       "course": "Black on White",
@@ -196,6 +196,11 @@
     "-201807111": {
       "course": "Red on Black",
       "source": "gps"
+    },
+    "-201906191": {
+      "course": "Black on White",
+      "source": "gps",
+      "replaces": "Red on Black"
     }
   }
 }

@@ -759,7 +759,8 @@ def load_extra() -> tuple[list[dict], list[dict]]:
 
 
 def load_course_labels() -> dict:
-    """Courses the race titles never named (2017-18, 2021-22), found another way; see CLAUDE.md."""
+    """Courses the race titles never named (2017-18, 2021-22), found another way, and one
+    corrected (2019-06-19); see CLAUDE.md."""
     path = ROOT / "course_labels.json"
     if not path.exists():
         return {}
@@ -785,8 +786,9 @@ def build(races: list[dict], results: list[dict], weather: dict | None = None) -
         r["finishers"] = by_race[r["raceid"]]
         label = course_labels.get(str(r["raceid"]))
         if label:
-            # Never override a course the title itself names.
-            assert not r.get("course"), f"race {r['raceid']} names a course and has a label"
+            # Never override a course the title or page names, unless the label says which
+            # course it corrects (and the page still says exactly that).
+            assert r.get("course") == label.get("replaces"),                 f"race {r['raceid']} names {r.get('course')!r} and its label replaces {label.get('replaces')!r}"
             r["course"], r["courseSource"] = label["course"], label["source"]
         if weather and r.get("date") in weather and not r.get("virtual"):  # self-timed, not at the venue
             r["weather"] = weather[r["date"]]
