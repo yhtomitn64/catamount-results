@@ -199,18 +199,29 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
   races and marks them `courseSource`: `center` (2021: every in-person night, from the "Course:"
   line on Catamount's own weekly results PDFs in its public Google Drive folders, lined up to
   calendar weeks, plus the dated "Current Race Course" banner from the Wayback Machine),
-  `gps` (2022: the owner's ride matched against the three 2022 courses' lap shapes: 11/11 on
-  held-out known nights, 3 of 3 independent checks agreed) or `sibling` (the Tuesday run uses
-  the same week's Wednesday course: true in 48 of 49 known weeks). 2021 ran a fourth course,
-  "Black on Orange", which a three-course GPS match cannot tell from its neighbours (it
-  mislabelled two such nights until Catamount's sheets corrected it), so GPS is only used for
-  2022, when Catamount listed three courses. `title` (2017-18: six old-site MTB nights where the
-  owner's own ride title that night names the course; the owner's "UVM course" is their name for
-  Yellow on Green, and that night's track is the same loop as the two 2017 titled Yellow on Green
-  nights). The tracks did not contradict the titles, but they only confirm them loosely: the
-  crude overlap check used cannot tell 2019's Red on Black from Black on White. The two other
-  2017-18 nights the owner rode have no course in the title and stay blank; the 2017 Tuesday runs
-  are not given `sibling` labels, since that rule is only checked on 2021-26 weeks.
+  `gps` (the owner's own ride that night), `sibling` (the Tuesday run uses the same week's
+  Wednesday course: true in 48 of 49 known weeks) or `title` (2017-18: six old-site MTB nights
+  where the owner's own ride title that night names the course; the owner's "UVM course" is their
+  name for Yellow on Green). The 2017 Tuesday runs get no `sibling` labels: that rule is only
+  checked on 2021-26 weeks.
+  `gps` works two ways. 2022: the ride matched against the three 2022 courses' lap shapes (11/11
+  on held-out known nights, 3 of 3 independent checks agreed). 2021 ran a fourth course, "Black on
+  Orange", which that three-course match cannot tell from its neighbours (it mislabelled two such
+  nights until Catamount's sheets corrected it), so lap-shape matching is only used for 2022.
+  2017-18: the lie of the land, as the owner describes it: Black on White runs south of Governor
+  Chittenden Road, Red on Black and Yellow on Green north of it, Red on Black to the west and
+  Yellow on Green to the east (road line from OpenStreetMap). On 34 of the owner's rides on
+  nights whose course is known (2017-22), the north/south call was right every time but 2019-06-19,
+  where the old page's course line looks copied from the week before. North of the road, Red on Black never enters the north-east (Indian Lookout) area,
+  while Yellow on Green spends 35-56% of the ride there from 2018 on; in 2017 that area was not
+  used, and Yellow on Green shows only as an eastern loop the Red on Black night lacks, which is
+  also what the three 2017 `title` Yellow on Green nights show. The south side has held two
+  courses (2021's Black on Orange was south too), so "south" alone never names a course: a south
+  label also needs the same loop as a named or titled Black on White night that season. Two
+  nights are labelled this way: 2017-07-26 (Black on White: 99% of the ride south, 95% the same
+  loop as the titled 2017-08-23) and 2018-07-11 (Red on Black: north, nothing east, the same
+  western edge as every Red on Black night 2017-22). A night can be as little as 75% south
+  (2019-07-03), so use the share, not a threshold, and compare with that season's nights.
   The page stars every filled-in course.
 - Sample data is built to exercise the UI; a green run on it proves the UI logic,
   not the scraper. The results-table parser had never seen a real page as of the
