@@ -481,9 +481,15 @@ function wxCell(race) {
 // Course names carry their own colours ("Red on Black"), so use them.
 var HUES = { red:"#c8483a", black:"#4a4f52", white:"#9aa0a6", yellow:"#c9a227", green:"#3f8f5c",
              blue:"#3a6ea8", orange:"#cf7a2e", purple:"#7a5aa6", pink:"#c46a93", brown:"#8a6a4f" };
+// The first word picks the colour, except where two courses of one season would share it: 2021 ran
+// Black on Orange beside Black on White, and the 2001-03 Hill Course names no colour at all. Races
+// whose title names no course are a lighter grey than any course.
+var NO_COURSE = "Course not listed";
+var COURSE_HUE = { "black on orange": HUES.orange, "hill course": HUES.brown };
 function courseColor(name) {
-  var first = String(name || "").toLowerCase().split(/\s+/)[0];
-  return HUES[first] || "#6f7a72";
+  if (!name || name === NO_COURSE) return "#aab2ad";
+  var key = String(name).toLowerCase();
+  return COURSE_HUE[key] || HUES[key.split(/\s+/)[0]] || "#6f7a72";
 }
 // Where a course was not named in the race title, it was worked out another way;
 // the pill carries an asterisk and the footer explains it.
@@ -872,7 +878,6 @@ views.racer = function (key) {
   }
 
   // How they finish, over time.
-  var NO_COURSE = "Course not listed";
   function courseOf(r) { return raceById[r.raceid].course || NO_COURSE; }
   // Colour is the course, shape is the distance group: the most-raced group gets the plain dot.
   var shapeOf = {};
@@ -1304,8 +1309,9 @@ views.course = function (cslug) {
 
   // Winning time by edition - is the course getting faster, or was it re-cut?
   var byRace = rs.slice().sort(function (a, b) { return (a.date || "").localeCompare(b.date || ""); });
-  var DASH_CYCLE = ["", "6 3", "2 3", "10 4", "1 3"];
-  var series = grpList.map(function (n, gi) {
+  // One distance group at a time, like the racer page: all-years view draws dots only, so a dash never
+  // shows, and a 1-lap and a 4-lap winning time on one axis squash each other.
+  var series = grpList.map(function (n) {
     var pts = [];
     byRace.forEach(function (race) {
       // Only a race of the same sport can hold this group ("Half" exists in both
@@ -1318,17 +1324,23 @@ views.course = function (cslug) {
                  title: fmtDate(race.date) + " · " + grpLabel(n) + " · winner " + fmtTime(w) +
                         " · " + g.length + " riders" });
     });
-    return { label: "Winning time, " + grpLabel(n), color: courseColor(name),
-             dash: DASH_CYCLE[gi % DASH_CYCLE.length], points: pts };
+    return { grp: n, label: "Winning time, " + grpLabel(n), color: courseColor(name), points: pts };
   }).filter(function (x) { return x.points.length; });
+  var editions = {};
+  series.forEach(function (x) { editions[x.grp] = x.points.length; });
+  var chartKeys = series.map(function (x) { return x.grp; })
+    .sort(function (a, b) { return editions[b] - editions[a] || byLongest(a, b); });
+  var cg = editions[chartGrp] ? chartGrp : chartKeys[0];
+  var shown = series.filter(function (x) { return x.grp === cg; });
 
   h += '<div class="card"><h2>How the course has run</h2>' +
     '<p class="hint">Winning time per distance, for every running of this course. Read it ' +
     "within a season with confidence; across seasons only loosely — the course keeps its " +
     "name and rough terrain, but the loop gets re-cut, so a step between years is usually " +
     "the course changing rather than the field.</p>" +
-    lineChart(series, { xTicks: yearTicks(), fmtY: fmtTime, label: "Winning and median time per edition" }) +
-    legend(series) + "</div>";
+    (chartKeys.length > 1 ? grpBar(chartKeys, cg, editions) : "") +
+    lineChart(shown, { xTicks: yearTicks(), fmtY: fmtTime, oneSeason: true, label: "Winning time per edition" }) +
+    legend(shown) + "</div>";
 
   h += '<div class="card"><h2>Fastest times ever run here</h2>' +
     '<p class="hint">Sort by event first — a 4-lap time and a 1-lap time are not ' +

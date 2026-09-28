@@ -446,6 +446,48 @@ function clickGrp(g) {
   }
 }
 
+// ---- course colours: two courses in one season never share a colour, and "not listed" has its own -------------------------
+{
+  clickFilter("all");
+  const idx = route("#/course");
+  const colourOf = {};
+  for (const m of idx.matchAll(/href="#\/course\/([^"]+)"><span class="dot" style="background:([^"]+)"/g)) colourOf[m[1]] = m[2];
+  const clashes = [];
+  for (const y of years) {
+    const on = [...new Set(races.filter((r) => r.year === y && r.course).map((r) => slug(r.course)))];
+    on.forEach((a, i) => on.slice(i + 1).forEach((b) => { if (colourOf[a] === colourOf[b]) clashes.push(y + " " + a + "=" + b); }));
+  }
+  check("colours: every course has a colour, and no two raced in the same season share one", courses.every((c) => colourOf[slug(c)]) && clashes.length === 0, clashes.join(", "));
+  const courseless = fx.racers.find((k) => D.results.some((r) => r.racer === k && r.pct != null && !fx.raceById[r.raceid].course));
+  const m = /background:([^;"]+)"><\/span>Course not listed/.exec(route("#/racer/" + courseless));
+  check("colours: 'Course not listed' has a colour no course uses", !!m && !Object.values(colourOf).includes(m[1]), m && m[1]);
+}
+
+// ---- the course page's time chart: one distance group at a time, like the racer page -----------------------------------------
+{
+  clickFilter("all");
+  const editions = (c) => {                         // group -> number of races on this course where the group has a time
+    const n = {};
+    races.filter((r) => r.course === c).forEach((r) => {
+      new Set(D.results.filter((x) => x.raceid === r.raceid && x.seconds).map((x) => x.grp)).forEach((g) => { n[g] = (n[g] || 0) + 1; });
+    });
+    return n;
+  };
+  const c = courses.slice().sort((a, b) => Object.keys(editions(b)).length - Object.keys(editions(a)).length)[0];
+  const n = editions(c), groups = Object.keys(n).sort((a, b) => n[b] - n[a]);
+  const chart = (h) => (h.split('aria-label="Winning time per edition"')[1] || "").split("</svg>")[0];
+  const dots = (h) => (chart(h).match(/ class="pt"/g) || []).length;
+  const page = route("#/course/" + slug(c));
+  check("course page: a button per distance group, the one with the most editions pressed", groups.length > 1 &&
+    groups.every((g) => page.includes('data-grp="' + g + '"')) && new RegExp('data-grp="' + groups[0] + '" class="on"').test(page), c + ": " + groups.join(","));
+  check("course page: the chart plots one winning time per edition of that group", dots(page) === n[groups[0]], dots(page) + " of " + n[groups[0]]);
+  const last = groups[groups.length - 1];
+  clickGrp(last);
+  const after = el("view").innerHTML;
+  check("course page: picking another group redraws the chart for it", dots(after) === n[last] && new RegExp('data-grp="' + last + '" class="on"').test(after), dots(after) + " of " + n[last]);
+  route("#/course/" + slug(c));
+}
+
 // ---- participation over time --------------------------------------------------------------------------------------------------
 {
   clickFilter("all");
