@@ -110,7 +110,7 @@ button.ghost:hover{border-color:var(--accent)}
    targets, and tables that scroll with the page instead of trapping the finger. */
 a,button,input,th,.picker-list li{touch-action:manipulation}
 .chart-readout{min-height:20px;margin-top:8px;font-size:13px;color:var(--ink-2)}
-svg.chart circle.pt{cursor:pointer}
+svg.chart .pt{cursor:pointer}
 .more-row{padding:12px 0 4px;text-align:center}
 @media (pointer:coarse){
   input[type=search],input[type=text],select{font-size:16px;padding:12px 13px}
@@ -587,6 +587,16 @@ function chartWidth() {
 // season (the buttons above each time chart) zooms to it and draws the line, so the progression
 // through the season reads. It is one setting for the page, and a new page starts on All years.
 var chartYear = null;
+// The racer page's time chart shows one distance group at a time; null means the one with the most
+// times. Like the season, it resets on a new page.
+var chartGrp = null;
+function grpBar(keys, on, counts) {
+  return '<div class="seasons" role="group" aria-label="Distance">' + keys.map(function (g) {
+    var pressed = g === on;
+    return '<button type="button" data-grp="' + esc(g) + '" class="' + (pressed ? "on" : "") + '" aria-pressed="' + pressed + '">' +
+           esc(grpLabel(g)) + " · " + counts[g] + "</button>";
+  }).join("") + "</div>";
+}
 var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function yearOf(x) { return new Date(x).getUTCFullYear(); }
 function seasonBar(years) {
@@ -611,23 +621,28 @@ function lineChart(series, opts) {
   var W = chartWidth(), H = opts.height || 230, P = { t: 12, r: 14, b: 26, l: 46 };
   // opts.trend: one point per season, joined across seasons (a gap of more than a year and a bit breaks the
   // line), so there is nothing to zoom into.
-  var timeAxis = !!(opts.xTicks && opts.xTicks.length), bar = "", zoomed = timeAxis && !opts.trend && chartYear != null;
+  var timeAxis = !!(opts.xTicks && opts.xTicks.length), bar = "", zoomYear = null, auto = false;
   if (timeAxis && !opts.trend) {
     var seen = {};
     series.forEach(function (s) { s.points.forEach(function (p) { seen[yearOf(p.x)] = 1; }); });
     var seasons = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
-    if (seasons.length > 1 || zoomed) bar = seasonBar(seasons);
-    if (zoomed) {
+    zoomYear = chartYear;
+    // opts.oneSeason: a chart whose dots all fall in one season zooms to it on its own (a distance
+    // someone rode for one summer), because a sliver of a 25-year axis shows nothing.
+    if (zoomYear == null && opts.oneSeason && seasons.length === 1) { zoomYear = seasons[0]; auto = true; }
+    if (seasons.length > 1 || chartYear != null) bar = seasonBar(seasons);
+    if (zoomYear != null) {
       series = series.map(function (s) {
         var c = {}; for (var k in s) c[k] = s[k];
-        c.points = s.points.filter(function (p) { return yearOf(p.x) === chartYear; });
+        c.points = s.points.filter(function (p) { return yearOf(p.x) === zoomYear; });
         return c;
       });
     }
   }
+  var zoomed = zoomYear != null;
   var pts = [];
   series.forEach(function (s) { s.points.forEach(function (p) { pts.push(p); }); });
-  if (!pts.length) return bar + (zoomed ? '<div class="empty">No results in ' + chartYear + ".</div>" : '<div class="empty">Not enough data to plot.</div>');
+  if (!pts.length) return bar + (zoomed ? '<div class="empty">No results in ' + zoomYear + ".</div>" : '<div class="empty">Not enough data to plot.</div>');
 
   var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
   var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
@@ -664,6 +679,7 @@ function lineChart(series, opts) {
 
   // Label every year when they fit, else every second or third one, counting back from the newest.
   var ticks = (zoomed ? monthTicks(x0, x1) : (opts.xTicks || [])).filter(function (t) { return t.x >= x0 && t.x <= x1; });
+  if (auto && ticks.length) ticks[0] = { x: ticks[0].x, label: ticks[0].label + " " + zoomYear };   // no season bar says which year
   var gap = 1e9;
   ticks.forEach(function (t, i) { if (i) gap = Math.min(gap, X(t.x) - X(ticks[i - 1].x)); });
   var every = Math.max(1, Math.ceil(34 / gap));
@@ -689,14 +705,54 @@ function lineChart(series, opts) {
              (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' d="' + d.trim() + '"/>';
     }
     p.forEach(function (q) {
-      var cx = X(q.x).toFixed(1), cy = Y(q.y).toFixed(1), t = esc(q.title || "");
       // The tooltip only exists for a mouse; a tap shows the same text in the
       // readout (see the click handler, which picks the nearest dot).
-      svg += '<circle class="pt" cx="' + cx + '" cy="' + cy + '" r="' + (opts.scatter ? 3 : 3.4) +
-             '" style="fill:' + s.color + '" data-t="' + t + '"><title>' + t + "</title></circle>";
+      svg += marker(s.shape, X(q.x), Y(q.y), opts.scatter ? 3 : 3.4, s.color, esc(q.title || ""));
     });
   });
   return bar + svg + "</svg>" + '<div class="chart-readout" role="status" aria-live="polite">Tap a point to see its race.</div>';
+}
+
+// A series can carry a shape as well as a colour, so a second thing (the distance group) still reads
+// in the dots-only all-years view, where a dashed line never gets drawn.
+// Seven shapes still tell apart at 6px; a racer with more groups than that (a handful have up to 14)
+// gets a hollow ring for the rest, and the tooltip names the group.
+var SHAPES = ["circle", "square", "triangle", "diamond", "down", "plus", "star"];
+function shapeFor(i) { return i < SHAPES.length ? SHAPES[i] : "ring"; }
+function shapePath(shape, cx, cy, r) {
+  var f = function (v) { return v.toFixed(1); }, k;
+  if (shape === "square") { k = r * 0.9; return [[cx - k, cy - k], [cx + k, cy - k], [cx + k, cy + k], [cx - k, cy + k]]; }
+  if (shape === "triangle") { k = r * 1.25; return [[cx, cy - k], [cx + k, cy + k * 0.8], [cx - k, cy + k * 0.8]]; }
+  if (shape === "down") { k = r * 1.25; return [[cx, cy + k], [cx + k, cy - k * 0.8], [cx - k, cy - k * 0.8]]; }
+  if (shape === "diamond") { k = r * 1.3; return [[cx, cy - k], [cx + k, cy], [cx, cy + k], [cx - k, cy]]; }
+  if (shape === "plus") {
+    var w = r * 0.45; k = r * 1.3;
+    return [[-w, -k], [w, -k], [w, -w], [k, -w], [k, w], [w, w], [w, k], [-w, k], [-w, w], [-k, w], [-k, -w], [-w, -w]]
+      .map(function (q) { return [cx + q[0], cy + q[1]]; });
+  }
+  if (shape === "star") {
+    var out = [];
+    for (var i = 0; i < 10; i++) {
+      var a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.65 : r * 1.5;
+      out.push([cx + rr * Math.cos(a), cy + rr * Math.sin(a)]);
+    }
+    return out;
+  }
+  return null;
+}
+function marker(shape, cx, cy, r, color, t) {
+  var pts = shapePath(shape, cx, cy, r), tail = '" style="fill:' + color + '" data-t="' + t + '"><title>' + t + "</title>";
+  if (shape === "ring") tail = '" style="fill:var(--panel);stroke:' + color + ';stroke-width:1.5" data-t="' + t + '"><title>' + t + "</title>";
+  if (!pts) return '<circle class="pt" data-shape="' + (shape === "ring" ? "ring" : "circle") + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) +
+                   '" r="' + (shape === "ring" ? r - 0.5 : r) + tail + "</circle>";
+  return '<polygon class="pt" data-shape="' + shape + '" points="' +
+         pts.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + tail + "</polygon>";
+}
+function shapeLegend(items) {
+  return '<div class="legend">' + items.map(function (it) {
+    return '<span class="pill"><svg width="10" height="10" viewBox="0 0 10 10" style="overflow:visible" aria-hidden="true">' +
+           marker(it.shape, 5, 5, 3.4, "var(--ink-2)", "").replace(' class="pt"', "") + "</svg>" + esc(it.label) + "</span>";
+  }).join("") + "</div>";
 }
 
 function legend(series) {
@@ -817,45 +873,54 @@ views.racer = function (key) {
 
   // How they finish, over time.
   var NO_COURSE = "Course not listed";
-  var byCourse = {};
+  function courseOf(r) { return raceById[r.raceid].course || NO_COURSE; }
+  // Colour is the course, shape is the distance group: the most-raced group gets the plain dot.
+  var shapeOf = {};
+  grpKeys.forEach(function (g, i) { shapeOf[g] = shapeFor(i); });
+  var byCourse = {}, pctSeries = {};
   rows.forEach(function (r) {
     // Race titles only name a course from 2023, and cross never does. Percentile
     // does not depend on the course, so those races still count.
-    var c = raceById[r.raceid].course || NO_COURSE; if (r.pct == null) return;
-    (byCourse[c] = byCourse[c] || []).push({
+    var c = courseOf(r); if (r.pct == null) return;
+    byCourse[c] = true;
+    var k = c + "|" + r.grp;
+    (pctSeries[k] = pctSeries[k] || { label: c, color: courseColor(c), shape: shapeOf[r.grp], points: [] }).points.push({
       x: Date.parse(raceById[r.raceid].date), y: r.pct * 100,
       title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + grpLabel(r.grp) + " · " + r.dplace + "/" + r.field
     });
   });
-  var series = Object.keys(byCourse).sort().map(function (c) {
-    return { label: c, color: courseColor(c), points: byCourse[c] };
-  });
+  var series = Object.keys(pctSeries).sort().map(function (k) { return pctSeries[k]; });
+  var courseKeys = Object.keys(byCourse).sort();
+  var pctGroups = grpKeys.filter(function (g) { return rows.some(function (r) { return r.grp === g && r.pct != null; }); });
   h += '<div class="card"><h2>Where they finish</h2>' +
-       '<p class="hint">Percentile in the field — 100% is the win, 0% is last. Coloured by course; grey where the race title names none.</p>' +
+       '<p class="hint">Percentile in the field — 100% is the win, 0% is last. Coloured by course; grey where the race title names none.' +
+       (pctGroups.length > 1 ? " The shape is the distance group, and each point is measured only against that group's field that night." : "") + "</p>" +
        lineChart(series, { scatter: true, y0: 0, y1: 100, xTicks: yearTicks(),
                            fmtY: function (v) { return Math.round(v) + "%"; }, label: "Finish percentile over time" }) +
-       legend(series) + "</div>";
+       legend(courseKeys.map(function (c) { return { label: c, color: courseColor(c) }; })) +
+       (pctGroups.length > 1 ? shapeLegend(pctGroups.filter(function (g) { return shapeOf[g] !== "ring"; })
+         .map(function (g) { return { label: grpLabel(g), shape: shapeOf[g] }; })
+         .concat(pctGroups.some(function (g) { return shapeOf[g] === "ring"; }) ? [{ label: "Other groups", shape: "ring" }] : [])) : "") +
+       "</div>";
 
   // Same course, different years: the question that needs a chart.
-  // Split by distance as well as course: a 3-lap night and a 4-lap night on
-  // the same course are different races, and plotting them as one line would
-  // show a "trend" that is really just a lap count changing.
-  var DASH_CYCLE = ["", "6 3", "2 3", "10 4", "1 3"];
-  var timeSeries = [];
-  Object.keys(byCourse).sort().forEach(function (c) {
-    grpKeys.forEach(function (n, gi) {
-      var pts = rows.filter(function (r) {
-        return raceById[r.raceid].course === c && r.grp === n && r.seconds;
-      }).map(function (r) {
-        return { x: Date.parse(raceById[r.raceid].date), y: r.seconds,
-                 title: fmtDate(raceById[r.raceid].date) + " \u00b7 " + c + " \u00b7 " + grpLabel(n) + " \u00b7 " +
-                        fmtTime(r.seconds) + " \u00b7 " + r.dplace + "/" + r.field };
-      });
-      if (pts.length > 1) {
-        timeSeries.push({ label: c + " \u00b7 " + grpLabel(n), color: courseColor(c),
-                          dash: DASH_CYCLE[gi % DASH_CYCLE.length], points: pts });
-      }
-    });
+  // One distance group at a time: a 2-lap time and a 4-lap time on one axis squash each other,
+  // and a line from one to the other would show a "trend" that is really a lap count changing.
+  var timedTally = {};
+  rows.forEach(function (r) { if (r.seconds) timedTally[r.grp] = (timedTally[r.grp] || 0) + 1; });
+  var timedKeys = Object.keys(timedTally).sort(function (a, b) { return timedTally[b] - timedTally[a] || byLongest(a, b); });
+  var tg = timedTally[chartGrp] ? chartGrp : timedKeys[0];
+  var timeByCourse = {};
+  rows.forEach(function (r) {
+    if (r.grp !== tg || !r.seconds) return;
+    var c = courseOf(r);
+    (timeByCourse[c] = timeByCourse[c] || []).push({
+      x: Date.parse(raceById[r.raceid].date), y: r.seconds,
+      title: fmtDate(raceById[r.raceid].date) + " · " + c + " · " + grpLabel(tg) + " · " +
+             fmtTime(r.seconds) + " · " + r.dplace + "/" + r.field });
+  });
+  var timeSeries = Object.keys(timeByCourse).sort().map(function (c) {
+    return { label: c, color: courseColor(c), points: timeByCourse[c] };
   });
 
   if (timeSeries.length) {
@@ -864,8 +929,10 @@ views.racer = function (key) {
          'year to year and runs roughly the same terrain, but the loop gets re-cut, so the ' +
          'oldest "Red on Black" is not the same lap as the newest one. Within a season, where the ' +
          'same course repeats, the times really are comparable. Finish percentile is the ' +
-         'honest way to read across years.</p>' +
-         lineChart(timeSeries, { xTicks: yearTicks(), fmtY: fmtTime, label: "Finish time by course over time" }) +
+         'honest way to read across years.' +
+         (timedKeys.length > 1 ? " One distance at a time, because times only compare inside a group." : "") + "</p>" +
+         (timedKeys.length > 1 ? grpBar(timedKeys, tg, timedTally) : "") +
+         lineChart(timeSeries, { xTicks: yearTicks(), fmtY: fmtTime, oneSeason: true, label: "Finish time by course over time" }) +
          legend(timeSeries) + "</div>";
   }
 
@@ -929,9 +996,9 @@ views.racer = function (key) {
 
   // Per-course summary.
   var courseRows = [];
-  Object.keys(byCourse).sort().forEach(function (c) {
+  courseKeys.forEach(function (c) {
     grpKeys.forEach(function (g) {
-      var rs = rows.filter(function (r) { return raceById[r.raceid].course === c && r.grp === g; });
+      var rs = rows.filter(function (r) { return courseOf(r) === c && r.grp === g; });
       if (!rs.length) return;
       var secs = rs.map(function (r) { return r.seconds; }).filter(Boolean);
       var ratios = rs.map(function (r) { return r.ratio; }).filter(Boolean);
@@ -948,7 +1015,8 @@ views.racer = function (key) {
        '<p class="hint">One row per course and event. "vs winner" is the median of this racer\'s time divided by the winning time of that distance — ' +
        "1.00 means they won, 1.20 means they took 20% longer.</p>" +
        table([
-         { label: "Course", get: function (r) { return r.course; }, cell: function (r) { return "<td>" + coursePill(r.course, r) + "</td>"; } },
+         { label: "Course", get: function (r) { return r.course; }, cell: function (r) {
+             return "<td>" + (r.course === NO_COURSE ? '<span class="muted">' + NO_COURSE + "</span>" : coursePill(r.course, r)) + "</td>"; } },
          { label: "Event", get: function (r) { return grpRank(r.grp); }, defaultDir: -1, cell: function (r) { return grpCell(r.grp); } },
          { label: "Races", cls: "num", get: function (r) { return r.n; }, defaultDir: -1, cell: function (r) { return '<td class="num">' + r.n + "</td>"; } },
          { label: "Best time", cls: "num", get: function (r) { return r.best; }, cell: function (r) { return '<td class="num">' + fmtTime(r.best) + "</td>"; } },
@@ -2009,6 +2077,13 @@ document.addEventListener("click", function (e) {
 });
 
 document.addEventListener("click", function (e) {
+  var gb = e.target && e.target.closest ? e.target.closest("button[data-grp]") : null;
+  if (!gb) return;
+  chartGrp = gb.dataset.grp;
+  render(true);
+});
+
+document.addEventListener("click", function (e) {
   var more = e.target && e.target.closest ? e.target.closest("button[data-more]") : null;
   if (more) {
     var box = more.closest(".scroll");
@@ -2021,7 +2096,7 @@ document.addEventListener("click", function (e) {
     // The chart is scaled to the screen, so a dot can be only a few pixels wide
     // on a phone. Take the dot nearest the tap, if one is within a fingertip.
     var best = null, bestD = 24;
-    Array.prototype.forEach.call(svgEl.querySelectorAll("circle.pt"), function (c) {
+    Array.prototype.forEach.call(svgEl.querySelectorAll(".pt"), function (c) {
       var r = c.getBoundingClientRect();
       var d = Math.sqrt(Math.pow(e.clientX - (r.left + r.width / 2), 2) + Math.pow(e.clientY - (r.top + r.height / 2), 2));
       if (d < bestD) { bestD = d; best = c; }
@@ -2031,7 +2106,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
-window.addEventListener("hashchange", function () { chartYear = null; render(); });
+window.addEventListener("hashchange", function () { chartYear = null; chartGrp = null; render(); });
 
 var lastChartWidth = chartWidth();
 window.addEventListener("resize", debounce(function () {

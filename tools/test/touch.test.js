@@ -153,13 +153,13 @@ const check = (name, ok, detail) => {
     await b.tap(".seasons button[data-year='all']");
     check("tapping All years restores the whole axis", (await b.eval("document.querySelector('.seasons button.on').dataset.year")) === "all" && /^\d{4}$/.test(await b.eval("document.querySelector('svg.chart text[text-anchor=middle]').textContent")));
     check("chart axis labels are at least 9px on screen", label.fontPx >= 9, label.fontPx + "px");
-    const dot = await b.rect("svg.chart circle.pt");
+    const dot = await b.rect("svg.chart .pt");
     check("a chart dot is tiny on a phone, which is why a tap takes the nearest dot", dot && dot.w < 12, dot && dot.w.toFixed(1) + "px wide");
     await b.tapAt(dot.x + 9, dot.y + 7);   // a fingertip away from the dot's centre, not on it
     const readout = await b.eval("document.querySelector('.chart-readout').textContent");
     check("tapping near a dot shows its race in the readout", !!readout && !/^Tap a point/.test(readout), readout);
     const empty = await b.eval(`(() => { const svg = document.querySelector("svg.chart"), r = svg.getBoundingClientRect();
-      const dots = [...svg.querySelectorAll("circle.pt")].map((c) => { const q = c.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2]; });
+      const dots = [...svg.querySelectorAll(".pt")].map((c) => { const q = c.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2]; });
       for (let y = r.top + 8; y < r.bottom - 8; y += 6) for (let x = r.left + 60; x < r.right - 8; x += 6) {
         if (y < 0 || y > innerHeight) continue;
         if (dots.every((d) => Math.hypot(d[0] - x, d[1] - y) > 40)) return { x, y }; }

@@ -178,6 +178,12 @@ tools/protect-email.sh     optional: install the guard for every repo (read its 
 - **Season zoom.** Time charts show dots only across all years (a line inside a sliver of a 20-year
   axis is a smear); a button per season zooms in and draws the line. `opts.trend` (the participation
   chart) opts out: one point per season, joined, gaps of more than a year break the line.
+- **Distance groups on the racer charts.** "Where they finish" is one chart for every group (percentile is
+  measured inside each group, so they sit fairly together): colour is the course, shape is the group, the
+  most-raced group a plain dot, seven shapes and a hollow ring for any groups past that. "Times by course and
+  distance" shows one group at a time, picked by buttons (`chartGrp`, reset on a new page like the season):
+  times only compare inside a group, and one axis for a 2-lap and a 4-lap night squashes both. A group raced in
+  a single season zooms to it by itself (`opts.oneSeason`). Races with no named course are grey dots on both.
 - **Virtual 2021.** The 2021 series opened with self-timed weeks (June 1 - July 21, minus the
   nights Webscorer already has). `data/extra/virtual_2021.json` holds them (`virtual: true`,
   14 weeks, 673 rows). The page treats them as their own event type: `evOf(race)` makes the

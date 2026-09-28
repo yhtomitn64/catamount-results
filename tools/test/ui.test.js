@@ -336,10 +336,10 @@ check("charts: on a narrow screen the year labels never crowd and keep the newes
   labelXs.length > 1 && labelXs.every((l, i) => !i || l[0] - labelXs[i - 1][0] >= 30) && labelXs[labelXs.length - 1][1] === Math.max(...years), labelXs.map((l) => l[1]).join(","));
 const firstChart = (topPage.split('class="chart"')[1] || "").split("</svg>")[0];
 const withPct = D.results.filter((r) => r.racer === fx.top && r.pct != null).length;
-check("charts: 'Where they finish' plots every start that has a percentile", (firstChart.match(/<circle class="pt"/g) || []).length === withPct, withPct + " expected");
+check("charts: 'Where they finish' plots every start that has a percentile", (firstChart.match(/ class="pt"/g) || []).length === withPct, withPct + " expected");
 check("charts: courseless races are plotted as 'Course not listed'", !D.results.some((r) => r.racer === fx.top && r.pct != null && !fx.raceById[r.raceid].course) || topPage.includes("Course not listed"));
 check("charts: every chart is followed by a tap readout", (topPage.match(/class="chart-readout"/g) || []).length === (topPage.match(/<svg class="chart"/g) || []).length);
-check("charts: dots carry their text for a tap and there are no leftover rings", /<circle class="pt"[^>]* data-t="[^"]+"/.test(topPage) && !/class="hit"/.test(topPage));
+check("charts: dots carry their text for a tap and there are no leftover rings", / class="pt"[^>]* data-t="[^"]+"/.test(topPage) && !/class="hit"/.test(topPage));
 // ---- season zoom: all years = dots only; one season = zoomed, with the line -------------------------------------------------
 function clickYear(y) {
   (listeners["doc:click"] || []).forEach((f) => f({
@@ -362,7 +362,7 @@ function clickYear(y) {
   route("#/racer/" + fx.top); clickYear(y);
   const one = el("view").innerHTML;
   const inYear = D.results.filter((r) => r.racer === fx.top && r.pct != null && !fx.raceById[r.raceid].virtual && fx.raceById[r.raceid].year === y).length;
-  check("seasons: picking a season keeps only that season's dots and marks it pressed", (charts(one)[0].match(/<circle class="pt"/g) || []).length === inYear && new RegExp('data-year="' + y + '" class="on"').test(one), inYear + " expected");
+  check("seasons: picking a season keeps only that season's dots and marks it pressed", (charts(one)[0].match(/ class="pt"/g) || []).length === inYear && new RegExp('data-year="' + y + '" class="on"').test(one), inYear + " expected");
   check("seasons: a season view draws the line and labels months", paths(one) > 0 && /text-anchor="middle"[^>]*>(May|Jun|Jul|Aug|Sep)</.test(charts(one)[0]) && !new RegExp(">" + seasons[0] + "</text>").test(charts(one)[0]));
   let cross = 0, segs = 0;
   const W = 720, PL = 46, PR = 14;
@@ -376,6 +376,76 @@ function clickYear(y) {
   route("#/racer/" + fx.top);
 }
 
+// ---- distance groups on the racer charts: a shape per group, one time chart per group -----------------------------------
+function clickGrp(g) {
+  (listeners["doc:click"] || []).forEach((f) => f({
+    target: { closest: (sel) => (/data-grp/.test(sel) ? { dataset: { grp: g } } : null) },
+  }));
+}
+{
+  clickFilter("all");
+  const inPersonRows = (k) => D.results.filter((r) => r.racer === k && !fx.raceById[r.raceid].virtual);
+  const timedGroups = (k) => { const n = {}; inPersonRows(k).forEach((r) => { if (r.seconds) n[r.grp] = (n[r.grp] || 0) + 1; }); return n; };
+  // the busiest racer who has times in two or more groups, one of them on a night with no named course
+  const subj = fx.racers.find((k) => Object.keys(timedGroups(k)).length >= 2 &&
+    inPersonRows(k).some((r) => r.seconds && !fx.raceById[r.raceid].course));
+  check("groups: a racer with times in several groups, some courseless, exists to test", !!subj);
+  if (subj) {
+    const counts = timedGroups(subj);
+    const groups = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    const DN = { MTB: "MTB", TR: "Trail run", CX: "Cyclocross", vMTB: "Virtual MTB", vTR: "Virtual run" };
+    const label = (g) => { const [d, x] = [g.slice(0, g.indexOf("|")), g.slice(g.indexOf("|") + 1)]; return x ? DN[d] + " · " + x : DN[d]; };
+    const timeChart = (h) => (h.split('aria-label="Finish time by course over time"')[1] || "").split("</svg>")[0];
+    const pctChart = (h) => (h.split('aria-label="Finish percentile over time"')[1] || "").split("</svg>")[0];
+    const dots = (c) => (c.match(/ class="pt"/g) || []).length;
+    const home = route("#/racer/" + subj);
+    check("groups: the time chart offers a button per timed group", groups.every((g) => home.includes('data-grp="' + g + '"')), groups.join(","));
+    check("groups: the time chart opens on the most-raced group", new RegExp('data-grp="' + groups[0] + '" class="on"').test(home));
+    const onlyGroup = (c, g) => [...c.matchAll(/data-t="([^"]*)"/g)].every((m) => m[1].includes(" · " + label(g) + " · "));
+    check("groups: the time chart plots every timed start in that group, courseless ones included, and nothing else",
+      dots(timeChart(home)) === counts[groups[0]] && onlyGroup(timeChart(home), groups[0]), dots(timeChart(home)) + " of " + counts[groups[0]]);
+    const other = groups[groups.length - 1];
+    clickGrp(other);
+    const switched = el("view").innerHTML;
+    check("groups: picking another group redraws the time chart for it alone", dots(timeChart(switched)) === counts[other] && onlyGroup(timeChart(switched), other) &&
+      new RegExp('data-grp="' + other + '" class="on"').test(switched), dots(timeChart(switched)) + " of " + counts[other]);
+    check("groups: the percentile chart is untouched by the group picked", dots(pctChart(switched)) === dots(pctChart(home)));
+    const byCourseCard = home.split("<h2>By course</h2>")[1].split('<div class="card">')[0];
+    check("groups: the By course table keeps courseless races, without a link to a course that does not exist",
+      byCourseCard.includes("Course not listed") && !/href="#\/course\/course-not-listed"/.test(home));
+    check("groups: a new page starts on the most-raced group again", new RegExp('data-grp="' + groups[0] + '" class="on"').test(route("#/racer/" + subj)));
+    const pts = [...pctChart(home).matchAll(/<(\w+) class="pt"[^>]*data-shape="(\w+)"/g)].map((m) => m[2]);
+    const pctGroups = new Set(inPersonRows(subj).concat(D.results.filter((r) => r.racer === subj && fx.raceById[r.raceid].virtual)).filter((r) => r.pct != null).map((r) => r.grp));
+    // seven distinct shapes; any groups past the seventh share a hollow ring
+    const want = pctGroups.size <= 7 ? pctGroups.size : 8;
+    check("groups: the percentile chart draws one marker shape per group", new Set(pts).size === want && pts.length === dots(pctChart(home)), [...new Set(pts)].join(",") + " for " + pctGroups.size);
+    check("groups: the percentile legend has a shape for each group, one for the rest", (home.match(/<span class="pill"><svg width="10"/g) || []).length === want);
+    const many = fx.racers.find((k) => new Set(D.results.filter((r) => r.racer === k && r.pct != null).map((r) => r.grp)).size > 7);
+    if (many) {
+      const mc = pctChart(route("#/racer/" + many));
+      check("groups: past seven groups the rest share a ring, named in the legend", /data-shape="ring"/.test(mc) && route("#/racer/" + many).includes("Other groups"));
+    }
+  }
+  // A group raced in one season only zooms to that season by itself, the year on its first month.
+  const yrsOf = (k, g) => new Set(D.results.filter((r) => r.racer === k && r.grp === g && r.seconds).map((r) => fx.raceById[r.raceid].year));
+  const loneRacer = fx.racers.find((k) => { const g = Object.keys(timedGroups(k)); return g.length >= 2 && g.some((x) => yrsOf(k, x).size === 1); });
+  check("groups: a racer with a group raced in one season only exists to test", !!loneRacer);
+  if (loneRacer) {
+    const lone = Object.keys(timedGroups(loneRacer)).find((g) => yrsOf(loneRacer, g).size === 1), yr = [...yrsOf(loneRacer, lone)][0];
+    route("#/racer/" + loneRacer); clickGrp(lone);
+    const card = el("view").innerHTML.split("Times by course and distance")[1].split('<div class="card">')[0];
+    check("groups: a one-season group zooms to its months, names the year and offers no season buttons",
+      new RegExp(">(May|Jun|Jul|Aug|Sep|Oct|Nov) " + yr + "</text>").test(card) && !/data-year=/.test(card), lone + " " + yr);
+    route("#/racer/" + loneRacer);
+  }
+  // A racer in one group gets neither the group buttons nor a shape legend.
+  const single = fx.racers.find((k) => new Set(D.results.filter((r) => r.racer === k).map((r) => r.grp)).size === 1);
+  if (single) {
+    const h = route("#/racer/" + single);
+    check("groups: a one-group racer gets no group buttons and plain dots", !/data-grp=/.test(h) && !/data-shape="(?!circle)/.test(h));
+  }
+}
+
 // ---- participation over time --------------------------------------------------------------------------------------------------
 {
   clickFilter("all");
@@ -384,9 +454,9 @@ function clickYear(y) {
   const live = races.filter((r) => !r.virtual);
   const perYear = new Set(live.map((r) => r.discipline + "|" + r.year));
   check("participation: a trend chart and a night-by-night chart on the Seasons page", both.length === 2 && page.includes("How many people race"));
-  check("participation: the trend has one point per sport and season on record, virtual weeks left out", (both[0].match(/<circle class="pt"/g) || []).length === perYear.size, perYear.size + " expected");
+  check("participation: the trend has one point per sport and season on record, virtual weeks left out", (both[0].match(/ class="pt"/g) || []).length === perYear.size, perYear.size + " expected");
   check("participation: the trend keeps its line across seasons and has no season zoom above it", /<path /.test(both[0]) && page.indexOf('class="seasons"') > page.indexOf(both[0].slice(0, 40)) + both[0].length);
-  check("participation: the night-by-night chart has a dot per in-person night and a season zoom", (both[1].match(/<circle class="pt"/g) || []).length === live.length && (page.match(/class="seasons"/g) || []).length === 1);
+  check("participation: the night-by-night chart has a dot per in-person night and a season zoom", (both[1].match(/ class="pt"/g) || []).length === live.length && (page.match(/class="seasons"/g) || []).length === 1);
   const oneYear = live.find((r) => live.filter((x) => x.discipline === r.discipline && x.year === r.year).length >= 3);
   const nightsThatYear = live.filter((r) => r.discipline === oneYear.discipline && r.year === oneYear.year);
   const avg = Math.round(nightsThatYear.reduce((n, r) => n + D.results.filter((x) => x.raceid === r.raceid).length, 0) / nightsThatYear.length);
@@ -394,7 +464,7 @@ function clickYear(y) {
   check("participation: the seasons table has a per-night column", />Per night</.test(page));
   clickYear(oneYear.year);
   const zoom = el("view").innerHTML.split('<svg class="chart"').slice(1).map((c) => c.split("</svg>")[0]);
-  check("participation: zooming a season leaves the trend alone and joins that season's night dots", (zoom[0].match(/<circle class="pt"/g) || []).length === (both[0].match(/<circle class="pt"/g) || []).length && /<path /.test(zoom[1]));
+  check("participation: zooming a season leaves the trend alone and joins that season's night dots", (zoom[0].match(/ class="pt"/g) || []).length === (both[0].match(/ class="pt"/g) || []).length && /<path /.test(zoom[1]));
   clickYear("all");
 }
 
